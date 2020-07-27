@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.qxnw'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':common')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+}

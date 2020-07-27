@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-25 2:58:14 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.cron.mapper.CookieMapper">
+    <update id="increaseCurrentUseCountById">
+        update cookie
+        set current_use_count =current_use_count+1
+        where id = #{id}
+    </update>
+    <update id="decreaseCurrentUseCountById">
+        update cookie
+        set current_use_count =current_use_count-1
+        where id = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from cookie
+        where id = #{id}
+    </delete>
+    <delete id="deleteCookieBatch"></delete>
+    <select id="getById" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+        select * from cookie
+        where id = #{id}
+    </select>
+    <select id="getBySiteId" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+        select
+         *
+        from cookie c
+        join site_account sa on c.site_account_id = sa.id
+        join site s on sa.site_id =s.id
+        where
+        sa.site_id = 1
+        and c.enable_status = 1
+        and s.enable_status = 1
+        and sa.enable_status = 1
+        and sa.is_available = 1
+    </select>
+    <select id="getExpiredCookies" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+        select
+        c.id
+        from cookie c
+        join site_account sa on c.site_account_id = sa.id
+        join site s on sa.site_id = s.id
+        where
+          c.enable_status=1
+        and (
+            c.current_block_count > s.cookie_max_block_count
+           or date_add(c.create_time,INTERVAL s.cookie_expire_timeout hour)> current_timestamp
+        )
+    </select>
+</mapper>

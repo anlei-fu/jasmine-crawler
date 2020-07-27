@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'com.jasmine.crawler'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.redisson', name: 'redisson', version: '3.11.4'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.1.8.RELEASE'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE'
+    compile 'io.springfox:springfox-swagger2:2.5.0'
+    compile 'io.springfox:springfox-swagger-ui:2.5.0'
+}
