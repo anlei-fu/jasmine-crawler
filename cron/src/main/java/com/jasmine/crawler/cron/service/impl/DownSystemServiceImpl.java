@@ -19,17 +19,17 @@ public class DownSystemServiceImpl implements DownSystemService {
     private DownSystemMapper downSystemMapper;
 
     @Override
-    public DownSystem getById(Integer downSystemId) {
+    public DownSystem get(Integer downSystemId) {
         return downSystemMapper.getById(downSystemId);
     }
 
     @Override
-    public void increaseTaskRunningCountById(Integer id) {
+    public void increaseTaskRunningCount(Integer id) {
         downSystemMapper.increaseTaskRunningCountById(id);
     }
 
     @Override
-    public void decreaseCurrentRunningTaskCountById(Integer id) {
+    public void decreaseCurrentRunningTaskCount(Integer id) {
         downSystemMapper.decreaseCurrentRunningTaskCountById(id);
     }
 }

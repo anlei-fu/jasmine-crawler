@@ -11,17 +11,78 @@ import com.jasmine.crawl.common.pojo.entity.CrawlTask;
 
 import java.util.List;
 
+/**
+ * Crawl task manager
+ */
 public interface CrawlTaskService {
 
-    List<CrawlTask> getTaskToBind( Integer level);
+    /**
+     * Get crawl tasks to bind
+     * 
+     * @param level
+     * @return
+     */
+    List<CrawlTask> getTasksToBind(Integer level);
 
-    boolean deleteById(Integer id);
+    /**
+     * Delete crawl task by id
+     * 
+     * @param id
+     * @return
+     */
+    boolean delete(Integer id);
 
-    boolean updateById(Integer id, CrawlTask updateCrawlTaskReq);
+    /**
+     * Update crawl task to bind
+     * 
+     * @param id
+     * @param updateCrawlTaskReq
+     * @return
+     */
+    boolean update(Integer id, CrawlTask updateCrawlTaskReq);
 
+    /**
+     * Add crawl task
+     * 
+     * @param taskToCreate
+     * @return
+     */
     boolean add(CrawlTask taskToCreate);
 
-    List<CrawlTaskConfig> getTaskConfigToRun();
+    /**
+     * Get crawl tasks config to dispatch 
+     * 
+     * @return
+     */
+    List<CrawlTaskConfig> getTasksConfigsToDispatch();
 
-    List<CrawlTask> getTasksToTerminate();
+    /**
+     * Get timeout crawl tasks to terminate
+     * 
+     * @return
+     */
+    List<CrawlTask> getTimeoutTasksToTerminate();
+
+    /**
+     * Handle bind failed 
+     * 
+     * @param taskToUpdate
+     */
+    void bindFailed( CrawlTask taskToUpdate);
+
+    /**
+     * Handle bind success
+     * 
+     * @param crawlTaskToUpdate
+     * @return
+     */
+    boolean bindSuccess(CrawlTask crawlTaskToUpdate);
+
+    /**
+     * Terminate timeout crawl task
+     * 
+     * @param id
+     * @param timeout
+     */
+    void terminateTimeoutTask(Integer id, Integer timeout);
 }

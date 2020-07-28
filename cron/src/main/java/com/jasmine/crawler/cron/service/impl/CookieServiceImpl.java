@@ -21,17 +21,17 @@ public class CookieServiceImpl implements CookieService {
     private CookieMapper cookieMapper;
 
     @Override
-    public Cookie getById(Integer id) {
+    public Cookie get(Integer id) {
         return cookieMapper.getById(id);
     }
 
     @Override
-    public Cookie getBySiteId(Integer id) {
+    public Cookie getCookieForSite(Integer siteId) {
         return cookieMapper.getBySiteId();
     }
 
     @Override
-    public void increaseCurrentUseCountById(Integer id) {
+    public void increaseCurrentUseCount(Integer id) {
             cookieMapper.increaseCurrentUseCountById(id);
     }
 
@@ -41,12 +41,12 @@ public class CookieServiceImpl implements CookieService {
     }
 
     @Override
-    public void deleteCookieBatch(List<Integer> cookieIds) {
+    public void deleteBatch(List<Integer> cookieIds) {
               cookieMapper.deleteCookieBatch(cookieIds);
     }
 
     @Override
-    public void decreaseCurrentUseCountById(Integer id) {
+    public void decreaseCurrentUseCount(Integer id) {
         cookieMapper.decreaseCurrentUseCountById(id);
     }
 

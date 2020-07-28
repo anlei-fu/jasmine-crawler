@@ -10,5 +10,9 @@ import lombok.Data;
  */
 @Data
 public class DownSystem {
+
+    /**
+     * Unique id
+     */
     private  Integer id;
 }

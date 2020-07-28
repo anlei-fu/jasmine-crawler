@@ -26,5 +26,11 @@ public interface CrawlTaskMapper {
 
     List<CrawlTaskConfig> getTaskConfigToRun();
 
-    List<CrawlTask> getTaskToBind(@Param("level") Integer level);
+    List<CrawlTask> getTaskToBind(@Param("minBindCount") Integer minBindCount,@Param("maxBindCount") Integer maxBindCount);
+
+    void bindFailed(CrawlTask taskToUpdate);
+
+    List<CrawlTask> getTaskToBindLowestLevel();
+
+    boolean bindSuccess(CrawlTask crawlTaskToUpdate);
 }

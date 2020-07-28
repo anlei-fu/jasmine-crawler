@@ -21,28 +21,28 @@ public class CrawlerServiceImpl implements CrawlerService {
     private CrawlerMapper crawlerMapper;
 
     @Override
-    public Crawler getCrawlerBySite(Integer siteId) {
+    public Crawler getCrawlerForSite(Integer siteId) {
         return crawlerMapper.getCrawlerBySite(siteId);
     }
 
     @Override
-    public void updateConcurrencyById(Integer id, Integer currentConcurrency) {
-         crawlerMapper.updateConcurrencyById(id,currentConcurrency);
+    public void increaseCurrentConcurrency(Integer id, Integer concurrencyToIncrease) {
+         crawlerMapper.updateConcurrencyById(id, concurrencyToIncrease);
     }
 
     @Override
-    public Crawler getById(int id) {
-        return crawlerMapper.getById(id);
+    public Crawler get(int crawlerId) {
+        return crawlerMapper.getById(crawlerId);
     }
 
     @Override
-    public List<Crawler> getCrawlerNeedHeartbeat() {
+    public List<Crawler> getCrawlersNeedHeartbeat() {
         return crawlerMapper.getCrawlerNeedHeartbeat();
     }
 
     @Override
-    public void updateHeartbeatStatusById(Integer id, Crawler crawler) {
-        crawlerMapper.updateHeartbeatStatusById(id,crawler);
+    public void updateHeartbeatStatus(Integer crawlerId, Crawler crawler) {
+        crawlerMapper.updateHeartbeatStatusById(crawlerId,crawler);
     }
 }
 

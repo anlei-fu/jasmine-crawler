@@ -12,20 +12,62 @@ import java.util.List;
 
 public interface ProxyService {
 
+    /**
+     * Get available proxy by site
+     *
+     * @param siteId
+     * @return
+     */
+    Proxy getProxyBySite(Integer siteId);
 
-    Proxy getProxyBySiteId(Integer id);
+    /**
+     * Increase proxy current using count
+     *
+     * @param proxyId
+     * @return
+     */
+    int increaseCurrentUseCount(Integer proxyId);
 
-    int increaseCurrentUseCountById(Integer id);
+    /**
+     * Get proxy info
+     *
+     * @param proxyId
+     * @return
+     */
+    Proxy get(Integer proxyId);
 
-    Proxy getById(Integer proxyId);
+    /**
+     * Decrease proxy current using count
+     *
+     * @param proxyId
+     */
+    void decreaseCurrentUseCount(Integer proxyId);
 
-    void decreaseCurrentUseCountById(Integer id);
-
+    /**
+     * Get expired proxies
+     *
+     * @return
+     */
     List<Proxy> getExpiredProxies();
 
-    void disableProxyBatch(List<Integer> proxyIds);
+    /**
+     * Delete proxies batch
+     *
+     * @param proxyIds
+     */
+    void disableProxiesBatch(List<Integer> proxyIds);
 
+    /**
+     * Get proxies which is enable status is false and disable timeout
+     *
+     * @return
+     */
     List<Proxy> getDisableTimeoutProxies();
 
-    void enableProxyBatch(List<Integer> proxyIds);
+    /**
+     * Enable proxies batch
+     *
+     * @param proxyIds
+     */
+    void enableProxiesBatch(List<Integer> proxyIds);
 }

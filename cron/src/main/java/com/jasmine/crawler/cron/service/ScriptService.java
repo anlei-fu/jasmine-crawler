@@ -10,6 +10,12 @@ import com.jasmine.crawl.common.pojo.entity.Script;
 
 public interface ScriptService {
 
-    Script getById(Integer id);
+    /**
+     * Get script info by id
+     *
+     * @param scriptId
+     * @return
+     */
+    Script get(Integer scriptId);
 
 }

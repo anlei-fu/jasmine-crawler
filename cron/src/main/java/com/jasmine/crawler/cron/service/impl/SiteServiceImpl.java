@@ -19,12 +19,12 @@ public class SiteServiceImpl implements SiteService {
     private SiteMapper siteMapper;
 
     @Override
-    public Site getById(Integer id) {
+    public Site get(Integer id) {
         return siteMapper.getById(id);
     }
 
     @Override
-    public void increaseTaskRunningCountById(Integer id) {
+    public void increaseTaskRunningCount(Integer id) {
           siteMapper.increaseTaskRunningCountById(id);
     }
 

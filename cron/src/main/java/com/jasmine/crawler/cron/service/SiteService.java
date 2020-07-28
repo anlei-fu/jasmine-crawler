@@ -10,9 +10,25 @@ import com.jasmine.crawl.common.pojo.entity.Site;
 
 public interface SiteService {
 
-    Site getById(Integer siteId);
+    /**
+     * Get site info
+     *
+     * @param siteId
+     * @return
+     */
+    Site get(Integer siteId);
 
-    void increaseTaskRunningCountById(Integer id);
+    /**
+     * Increase current site task running count
+     *
+     * @param siteId
+     */
+    void increaseTaskRunningCount(Integer siteId);
 
-    void decreaseCurrentRunningTaskCountById(Integer id);
+    /**
+     * Decrease current site task running count
+     *
+     * @param siteId
+     */
+    void decreaseCurrentRunningTaskCountById(Integer siteId);
 }

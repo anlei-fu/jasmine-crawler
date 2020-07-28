@@ -21,8 +21,8 @@ public class CrawlTaskController extends ControllerBase {
     private CrawlTaskService crawlTaskService;
 
     @PostMapping(path = "/api/task/save")
-    public R saveTaskResult(TaskResultReq req){
-        boolean result =crawlTaskService.saveTaskResult(req);
-        return  responseBoolean(result);
+    public R saveTaskResult(TaskResultReq req) {
+        boolean result = crawlTaskService.saveTaskResult(req);
+        return responseBoolean(result);
     }
 }

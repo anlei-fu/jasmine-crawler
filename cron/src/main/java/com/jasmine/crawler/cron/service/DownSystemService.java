@@ -9,9 +9,25 @@ import com.jasmine.crawl.common.pojo.entity.DownSystem;
  * @Description:
  */
 public interface DownSystemService {
-    DownSystem getById(Integer downSystemId);
+    /**
+     * Get down system info
+     *
+     * @param downSystemId
+     * @return
+     */
+    DownSystem get(Integer downSystemId);
 
-    void increaseTaskRunningCountById(Integer downSystemId);
+    /**
+     * Increase current running task count
+     *
+     * @param downSystemId
+     */
+    void increaseTaskRunningCount(Integer downSystemId);
 
-    void decreaseCurrentRunningTaskCountById(Integer id);
+    /**
+     * Decrease current running task count
+     *
+     * @param downSystemId
+     */
+    void decreaseCurrentRunningTaskCount(Integer downSystemId);
 }

@@ -10,20 +10,52 @@ import com.jasmine.crawl.common.pojo.entity.Cookie;
 
 import java.util.List;
 
+/**
+ * Manage cookie
+ */
 public interface CookieService {
 
+    /**
+     * Get cookie info
+     *
+     * @param cookieId
+     * @return
+     */
+    Cookie get(Integer cookieId);
 
-    Cookie getById(Integer id);
+    /**
+     * Get an available cookie for site
+     *
+     * @param siteId
+     * @return
+     */
+    Cookie getCookieForSite(Integer siteId);
 
+    /**
+     * Increase current cookie using count
+     *
+     * @param cookieId
+     */
+    void increaseCurrentUseCount(Integer cookieId);
 
-
-    Cookie getBySiteId(Integer id);
-
-    void increaseCurrentUseCountById(Integer id);
-
+    /**
+     * Get expired cookies which timeouted or blocked by site
+     *
+     * @return
+     */
     List<Cookie> getExpiredCookies();
 
-    void deleteCookieBatch(List<Integer> cookieIds);
+    /**
+     * Delete cookie batch
+     *
+     * @param cookieIds
+     */
+    void deleteBatch(List<Integer> cookieIds);
 
-    void decreaseCurrentUseCountById(Integer id);
+    /**
+     * Increase  cookie current using count
+     *
+     * @param cookieId
+     */
+    void decreaseCurrentUseCount(Integer cookieId);
 }

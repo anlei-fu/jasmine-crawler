@@ -1,6 +1,6 @@
 package com.jasmine.crawl.web.api.pojo.req;
 
-import com.jasmine.crawl.web.api.pojo.entity.Url;
+import com.jasmine.crawl.common.pojo.entity.Url;
 import lombok.Data;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class TaskResultReq {
 
     private List<String> failedUrls;
 
-    private  List<String> unStartUrls;
+    private List<String> unStartUrls;
 
     private Integer taskStatus;
 

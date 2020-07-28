@@ -22,17 +22,23 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     private CrawlTaskMapper crawlTaskMapper;
 
     @Override
-    public List<CrawlTask> getTaskToBind(Integer level) {
-        return crawlTaskMapper.getTaskToBind(level);
+    public List<CrawlTask> getTasksToBind(Integer level) {
+        if(level>5){
+            return  crawlTaskMapper.getTaskToBindLowestLevel();
+        }
+
+        Integer bindCountMin =(level-1)*5;
+        Integer bindCountMax =level*5;
+        return crawlTaskMapper.getTaskToBind(bindCountMin,bindCountMax);
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean delete(Integer id) {
         return crawlTaskMapper.deleteById(id)>0;
     }
 
     @Override
-    public boolean updateById(Integer id, CrawlTask crawlTaskToUpdate) {
+    public boolean update(Integer id, CrawlTask crawlTaskToUpdate) {
         return crawlTaskMapper.updateById(id,crawlTaskToUpdate)>0;
     }
 
@@ -42,8 +48,23 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     }
 
     @Override
-    public List<CrawlTaskConfig> getTaskConfigToRun() {
+    public List<CrawlTaskConfig> getTasksConfigsToDispatch() {
         return crawlTaskMapper.getTaskConfigToRun();
+    }
+
+    @Override
+    public List<CrawlTask> getTimeoutTasksToTerminate() {
+        return null;
+    }
+
+    @Override
+    public void bindFailed(CrawlTask taskToUpdate) {
+        crawlTaskMapper.bindFailed(taskToUpdate);
+    }
+
+    @Override
+    public boolean bindSuccess(CrawlTask crawlTaskToUpdate) {
+        return crawlTaskMapper.bindSuccess(crawlTaskToUpdate);
     }
 }
 

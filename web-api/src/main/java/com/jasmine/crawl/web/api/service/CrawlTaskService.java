@@ -10,4 +10,5 @@ import com.jasmine.crawl.web.api.pojo.req.TaskResultReq;
  */
 public interface CrawlTaskService {
     boolean saveTaskResult(TaskResultReq req);
+
 }

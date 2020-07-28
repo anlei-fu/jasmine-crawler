@@ -8,28 +8,45 @@ package com.jasmine.crawl.common.pojo.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @ApiModel("")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BindRecord  {
 
+    /**
+     * Bind task result
+     */
     @ApiModelProperty("")
-    private Integer bindFailedReasonType;
+    private Integer bindStatus;
 
+    /**
+     * Task to bind
+     */
     @ApiModelProperty("")
     private Integer crawlTaskId;
 
+    /**
+     * Create time
+     */
     @ApiModelProperty("")
     private Date createTime;
 
+    /**
+     * Unique id
+     */
     @ApiModelProperty("")
     private Integer id;
 
+    /**
+     * Bind msg use to record bind failed reason or success info
+     */
     @ApiModelProperty("")
     private String msg;
 

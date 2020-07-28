@@ -47,7 +47,7 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
         info("----------------------------begin terminate task-------------------------------");
         List<CrawlTask>  tasks=null;
         try{
-            tasks =crawlTaskService.getTasksToTerminate();
+            tasks =crawlTaskService.getTimeoutTasksToTerminate();
         }catch (Exception ex){
             error("terminate task failed",ex);
         }
@@ -72,29 +72,29 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
     }
 
     private  void  terminateTaskCore(CrawlTask task){
-        Site site =siteService.getById(task.getSiteId());
+        Site site =siteService.get(task.getSiteId());
         if(!Objects.isNull(site))
             siteService.decreaseCurrentRunningTaskCountById(site.getId());
 
-        DownSystemSite downSystemSite =downSystemSiteService.getById(task.getDownSiteId());
+        DownSystemSite downSystemSite =downSystemSiteService.get(task.getDownSiteId());
         if(!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCountById(downSystemSite.getId());
-            downSystemService.decreaseCurrentRunningTaskCountById(downSystemSite.getDownSystemId());
+            downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
         }
 
         if(task.getProxyId()!=-1)
-            proxyService.decreaseCurrentUseCountById(task.getProxyId());
+            proxyService.decreaseCurrentUseCount(task.getProxyId());
 
         if(task.getCookieId()!=-1)
-            cookieService.decreaseCurrentUseCountById(task.getCookieId());
+            cookieService.decreaseCurrentUseCount(task.getCookieId());
 
-        crawlerService.terminateTaskById(task.getId(),TaskStatus.TIMEOUT);
+        crawlTaskService.terminateTimeoutTask(task.getId(),TaskStatus.TIMEOUT);
 
-        Crawler crawler =crawlerService.getById(task.getCrawlerId());
+        Crawler crawler =crawlerService.get(task.getCrawlerId());
         if(!Objects.isNull(crawler)) {
-            crawlerService.updateConcurrencyById(
+            crawlerService.increaseCurrentConcurrency(
                     crawler.getId(),
-                    crawler.getCurrentConcurrency() - site.getMaxConcurrency()
+                    - site.getMaxConcurrency()
             );
         }
 

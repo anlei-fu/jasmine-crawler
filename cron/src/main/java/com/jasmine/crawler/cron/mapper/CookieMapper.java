@@ -17,9 +17,9 @@ public interface CookieMapper {
 
     int deleteById(@Param("id") Integer id);
 
-    Cookie getById(@Param("id") Integer id);
+    Cookie getById();
 
-    Cookie getBySiteId();
+    Cookie getBySiteId(@Param("siteId") Integer id);
 
     void increaseCurrentUseCountById(@Param("id") Integer id);
 

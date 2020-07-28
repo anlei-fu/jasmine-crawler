@@ -6,24 +6,52 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.CrawlTask;
 import com.jasmine.crawl.common.pojo.entity.Crawler;
 
 import java.util.List;
 
+/**
+ * Manage crawler
+ */
 public interface CrawlerService {
 
-    Crawler getCrawlerBySite(Integer id);
+    /**
+     * Get an available crawler for site
+     *
+     * @param siteId
+     * @return
+     */
+    Crawler getCrawlerForSite(Integer siteId);
 
-    void updateConcurrencyById(Integer id, Integer currentConcurrency);
+    /**
+     * Increase crawler current concurrency
+     *
+     * @param crawlerId
+     * @param concurrencyToIncrease
+     */
+    void increaseCurrentConcurrency(Integer crawlerId, Integer concurrencyToIncrease);
 
-    Crawler getById(int id);
+    /**
+     * Get crawler info by crawlerId
+     *
+     * @param crawlerId
+     * @return
+     */
+    Crawler get(int crawlerId);
 
-    List<Crawler> getCrawlerNeedHeartbeat();
+    /**
+     * Get crawlers which need to do heartbeat check,the {@Field Crawler.heartbeatLostCount} smaller
+     * the heartbeat check more often
+     *
+     * @return
+     */
+    List<Crawler> getCrawlersNeedHeartbeat();
 
-    void updateHeartbeatStatusById(Integer id, Crawler crawler);
-
-    List<CrawlTask> getTasksToTerminate();
-
-    void terminateTaskById(Integer id,Integer taskStatus);
+    /**
+     * Update crawler heartbeat status
+     *
+     * @param crawlerId
+     * @param heartbeatStatus
+     */
+    void updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus);
 }

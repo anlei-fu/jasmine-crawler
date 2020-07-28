@@ -18,24 +18,39 @@ import java.util.Date;
 @Setter
 public class Script extends  EnableStatusFeature {
 
+    /**
+     * Create time
+     */
     @ApiModelProperty("create time")
     private Date createTime;
 
+    /**
+     * Usage of the script
+     */
     @ApiModelProperty("script usage")
     private String description;
 
-    @ApiModelProperty("enable status")
-    private Integer enableStatus;
-
+    /**
+     * unique id
+     */
     @ApiModelProperty("i: identifier key")
     private Integer id;
 
+    /**
+     * The path of script on file server
+     */
     @ApiModelProperty("script path")
     private String path;
 
+    /**
+     * The type of script see {@enum ScriptType}
+     */
     @ApiModelProperty("type of script")
     private Integer scriptType;
 
+    /**
+     * The down site the proxy belong to
+     */
     @ApiModelProperty("site the script belong to")
     private Integer siteId;
 

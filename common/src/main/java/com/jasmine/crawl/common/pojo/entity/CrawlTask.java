@@ -20,82 +20,143 @@ import java.util.Date;
 @NoArgsConstructor
 public class CrawlTask  {
 
+    /**
+     * Use for statistics
+     */
     @ApiModelProperty("the average speed of all url")
     private Integer averageSpeedOfAll;
 
+    /**
+     * Use for statistics
+     */
     @ApiModelProperty("the average speed ofsuccess url")
     private Integer averageSpeedOfSuccess;
 
+    /**
+     * The bad urls(404 and other) that crawler detected
+     */
     @ApiModelProperty("the bad url count")
     private Integer badUrlCount;
 
+    /**
+     * Last bind msg
+     */
     @ApiModelProperty("")
-    private String bindErrorMsg;
+    private String lastBindMsg;
 
+    /**
+     * The count that task has bind , the lower value, the task get bind more often
+     */
     @ApiModelProperty("")
     private Integer bindCount;
 
-    @ApiModelProperty("")
-    private Integer bindFailedCount;
-
+    /**
+     * Last bind status  see {@enum BindStatus }
+     */
     @ApiModelProperty("")
     private Integer bindStatus;
 
+    /**
+     * The crawler to run the task
+     */
     @ApiModelProperty("the crawler which run the task")
     private Integer crawlerId;
 
+    /**
+     * Create time
+     */
     @ApiModelProperty("the time that task created")
     private Date createTime;
 
+    /**
+     * The down site task belong to
+     */
     @ApiModelProperty("the site task belong to")
     private Integer downSiteId;
 
-    @ApiModelProperty("enable status")
-    private Integer enableStatus;
-
+    /**
+     * Task result field
+     */
     @ApiModelProperty("the url count that crawl failed")
     private Integer failedUrlCount;
 
+    /**
+     * Unique id
+     */
     @ApiModelProperty("")
     private Integer id;
 
+    /**
+     * Last bind time
+     */
     @ApiModelProperty("")
     private Date lastBindTime;
 
+    /**
+     * The max speed of succeed url ,task result field ,statistics field
+     */
     @ApiModelProperty("the max speed of all success url")
     private Integer maxSpeedOfSuccess;
 
+    /**
+     * Statistics field
+     */
     @ApiModelProperty("the mean speed of all url")
     private Integer meanSpeedOfSuccess;
 
+    /**
+     * Task result field
+     */
     @ApiModelProperty("the url count that newly detected")
     private Integer newUrlCount;
 
+    /**
+     * The proxy task use, -1 means not use proxy
+     */
     @ApiModelProperty("the proxy the task used")
     private Integer proxyId;
 
+    /**
+     * The cookie task use ,-1 means not use cookie
+     */
     @ApiModelProperty("the account that task used")
     private Integer cookieId;
 
+    /**
+     * Task result field
+     */
     @ApiModelProperty("the url count that crawl successfully")
     private Integer successUrlCount;
 
+    /**
+     * Task finish time
+     */
     @ApiModelProperty("the time that task finished")
-    private Date taskEndTime;
+    private Date taskFinishTime;
+
 
     @ApiModelProperty("task execute result")
     private Integer taskExecuteResultType;
 
+    /**
+     * Task status , see {@enum TaskStatus}
+     */
     @ApiModelProperty("task status")
     private Integer taskStatus;
 
+    /**
+     * The time task start to run
+     */
     @ApiModelProperty("the time task start to excute")
     private Date taskStartTime;
 
-
+    /**
+     * Dispatch status see {@enum DispatchStatus}
+     */
     private  Integer dispatchStatus;
 
-    private  Date lastDispatchTime;
-
+    /**
+     * The site task belong to
+     */
     private  Integer siteId;
 }

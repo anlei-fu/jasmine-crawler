@@ -28,7 +28,7 @@ public class ProxyExpireJob extends LoggerSupport {
                info("no proxy need to be disabled");
            }else {
                info(String.format("get %d proxy to disable", proxies.size()));
-               proxyService.disableProxyBatch(getProxyIds(proxies));
+               proxyService.disableProxiesBatch(getProxyIds(proxies));
            }
         } catch (Exception ex) {
            error("disable proxies failed",ex);
@@ -42,7 +42,7 @@ public class ProxyExpireJob extends LoggerSupport {
              }
 
             info(String.format("get %d proxy to enable",proxies.size()));
-             proxyService.enableProxyBatch(getProxyIds(proxies));
+             proxyService.enableProxiesBatch(getProxyIds(proxies));
 
         } catch (Exception ex) {
             error("enable proxies failed",ex);

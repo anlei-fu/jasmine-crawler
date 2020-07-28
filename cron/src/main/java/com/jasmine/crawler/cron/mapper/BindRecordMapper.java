@@ -6,11 +6,12 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
+import com.jasmine.crawl.common.pojo.entity.BindRecord;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface BindRecordMapper {
 
-    void add(@Param("taskId") Integer taskId, @Param("bindStatus") Integer bindStatus, @Param("msg") String msg);
+    void add(BindRecord record);
 }

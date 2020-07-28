@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UrlServiceImpl  implements UrlService {
+public class UrlServiceImpl implements UrlService {
     @Override
     public boolean saveUrlResult() {
         return false;

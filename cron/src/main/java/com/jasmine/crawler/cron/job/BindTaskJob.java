@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,7 +55,7 @@ public class BindTaskJob extends LoggerSupport {
         info(String.format("-----------begin bind '%d' level task--------------", level));
         List<CrawlTask> tasks = null;
         try {
-            tasks = crawlTaskService.getTaskToBind(level);
+            tasks = crawlTaskService.getTasksToBind(level);
         } catch (Exception ex) {
             error("call getTaskToBind failed", ex);
             return;
@@ -107,11 +106,9 @@ public class BindTaskJob extends LoggerSupport {
     private boolean bindTaskCore(CrawlTask taskToBind) {
         boolean isInvalid = false;
         CrawlTask crawlTaskToUpdate = new CrawlTask();
-        crawlTaskToUpdate.setBindCount(taskToBind.getBindCount() + 1);
-        crawlTaskToUpdate.setLastBindTime(new Date());
 
         // check site
-        Site site = siteService.getById(taskToBind.getSiteId());
+        Site site = siteService.get(taskToBind.getSiteId());
         isInvalid = checkIsComponentInvalid(
                 site,
                 taskToBind.getId(),
@@ -122,12 +119,12 @@ public class BindTaskJob extends LoggerSupport {
 
         // site has been removed
         if (isInvalid) {
-            crawlTaskService.deleteById(taskToBind.getId());
+            crawlTaskService.delete(taskToBind.getId());
             return false;
         }
 
         // check down system site
-        DownSystemSite downSystemSite = downSystemSiteService.getById(taskToBind.getDownSiteId());
+        DownSystemSite downSystemSite = downSystemSiteService.get(taskToBind.getDownSiteId());
         isInvalid = checkIsComponentInvalid(
                 downSystemSite,
                 taskToBind.getId(),
@@ -140,13 +137,13 @@ public class BindTaskJob extends LoggerSupport {
 
             // down system site has been removed
             if (Objects.isNull(downSystemSite))
-                crawlTaskService.deleteById(taskToBind.getId());
+                crawlTaskService.delete(taskToBind.getId());
 
             return false;
         }
 
         // check down system
-        DownSystem downSystem = downSystemService.getById(downSystemSite.getDownSystemId());
+        DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
         isInvalid = checkIsComponentInvalid(
                 downSystem,
                 taskToBind.getId(),
@@ -159,14 +156,14 @@ public class BindTaskJob extends LoggerSupport {
 
             // down system has been removed
             if (Objects.isNull(downSystem))
-                crawlTaskService.deleteById(taskToBind.getId());
+                crawlTaskService.delete(taskToBind.getId());
 
             return false;
         }
 
         // find and check cookie
         if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
-            Cookie cookie = cookieService.getBySiteId(site.getId());
+            Cookie cookie = cookieService.getCookieForSite(site.getId());
             isInvalid = checkIsComponentInvalid(
                     cookie,
                     taskToBind.getId(),
@@ -183,7 +180,7 @@ public class BindTaskJob extends LoggerSupport {
 
         // find and check proxy
         if (site.getNeedUseProxy() == BooleanFlag.TRUE) {
-            Proxy proxy = proxyService.getProxyBySiteId(site.getId());
+            Proxy proxy = proxyService.getProxyBySite(site.getId());
             isInvalid = checkIsComponentInvalid(
                     proxy,
                     taskToBind.getId(),
@@ -199,7 +196,7 @@ public class BindTaskJob extends LoggerSupport {
         }
 
         // find crawler and check crawler
-        Crawler crawler = crawlerService.getCrawlerBySite(site.getId());
+        Crawler crawler = crawlerService.getCrawlerForSite(site.getId());
         isInvalid = checkIsComponentInvalid(
                 crawler,
                 taskToBind.getId(),
@@ -229,8 +226,16 @@ public class BindTaskJob extends LoggerSupport {
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
             taskToUpdate.setBindStatus(bindStatus);
-            crawlTaskService.updateById(taskToUpdate.getId(), taskToUpdate);
-            bindRecordService.add(taskToUpdate.getId(), taskToUpdate.getBindStatus(),msg);
+            crawlTaskService.bindFailed(taskToUpdate);
+
+            // add bind record
+            BindRecord record =BindRecord.builder()
+                    .crawlTaskId(taskToBindId)
+                    .bindStatus(bindStatus)
+                    .msg(msg)
+                    .build();
+            bindRecordService.add(record);
+
             info(String.format(
                     "bind task(%d) failed,cause %s",
                     taskToBindId,
@@ -245,25 +250,32 @@ public class BindTaskJob extends LoggerSupport {
 
     private void bindSuccess(Integer taskToBindId,CrawlTask crawlTaskToUpdate,Site site,DownSystemSite downSystemSite,Crawler crawler){
 
-        siteService.increaseTaskRunningCountById(site.getId());
-        downSystemSiteService.increaseTaskRunningCountById(downSystemSite.getDownSystemId());
-        downSystemService.increaseTaskRunningCountById(downSystemSite.getId());
+        siteService.increaseTaskRunningCount(site.getId());
+        downSystemSiteService.increaseTaskRunningCount(downSystemSite.getDownSystemId());
+        downSystemService.increaseTaskRunningCount(downSystemSite.getId());
 
         if (site.getNeedUseCookie() == BooleanFlag.TRUE)
-            cookieService.increaseCurrentUseCountById(crawlTaskToUpdate.getId());
+            cookieService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
 
         if (site.getNeedUseProxy() == BooleanFlag.TRUE)
-            proxyService.increaseCurrentUseCountById(crawlTaskToUpdate.getId());
+            proxyService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
 
         // update crawler current concurrency
-        crawlerService.updateConcurrencyById(
+        crawlerService.increaseCurrentConcurrency(
                 crawler.getId(),
-                crawler.getCurrentConcurrency() + site.getCurrentConcurrency()
+                 site.getCurrentConcurrency()
         );
+
+        // add bind record
+        BindRecord record =BindRecord.builder().crawlTaskId(taskToBindId)
+                .bindStatus(BindStatus.SUCCESS)
+                .msg("success")
+                .build();
+        bindRecordService.add(record);
 
         // update task bind status
         crawlTaskToUpdate.setBindStatus(BindStatus.SUCCESS);
         crawlTaskToUpdate.setDispatchStatus(DispatchStatus.WAIT);
-        boolean result = crawlTaskService.updateById(taskToBindId, crawlTaskToUpdate);
+        boolean result = crawlTaskService.bindSuccess(crawlTaskToUpdate);
     }
 }

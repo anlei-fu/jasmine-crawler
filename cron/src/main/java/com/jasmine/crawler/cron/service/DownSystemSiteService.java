@@ -11,11 +11,32 @@ import java.util.List;
  * @Description:
  */
 public interface DownSystemSiteService {
+    /**
+     * Get sites which need to create new task
+     *
+     * @return
+     */
     List<DownSystemSite> getNeedCreateNewTaskSite();
 
-    DownSystemSite getById(Integer downSiteId);
+    /**
+     * Get by id
+     *
+     * @param downSystemSiteId
+     * @return
+     */
+    DownSystemSite get(Integer downSystemSiteId);
 
-    void increaseTaskRunningCountById(Integer downSystemId);
+    /**
+     * Increase current running task count
+     *
+     * @param downSystemSiteId
+     */
+    void increaseTaskRunningCount(Integer downSystemSiteId);
 
-    void decreaseCurrentRunningTaskCountById(Integer id);
+    /**
+     * Decrease current running task count
+     *
+     * @param downSystemSiteId
+     */
+    void decreaseCurrentRunningTaskCountById(Integer downSystemSiteId);
 }

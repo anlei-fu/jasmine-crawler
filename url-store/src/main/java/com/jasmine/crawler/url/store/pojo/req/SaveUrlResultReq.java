@@ -17,7 +17,11 @@ public class SaveUrlResultReq {
 
     private List<Url> newUrls;
 
-    private List<Url> succeedUrls;
+    private List<String> succeedUrls;
 
-    private List<Url> badUrls;
+    private List<String> badUrls;
+
+    private  List<String> failedUrls;
+
+    private  List<String> urlNotToRun;
 }

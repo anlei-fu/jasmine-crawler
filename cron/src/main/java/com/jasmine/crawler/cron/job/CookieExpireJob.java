@@ -22,7 +22,7 @@ public class CookieExpireJob extends LoggerSupport {
         try {
             List<Cookie> cookies = cookieService.getExpiredCookies();
             List<Integer> cookieIds = getCookieIds(cookies);
-            cookieService.deleteCookieBatch(cookieIds);
+            cookieService.deleteBatch(cookieIds);
             info(String.format("delete cookies %s", null));
         } catch (Exception ex) {
             error(String.format("delete invalid cookie failed"), ex);

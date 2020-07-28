@@ -116,7 +116,7 @@ public class DispatchTaskJob extends LoggerSupport {
     private List<CrawlTaskConfig> getTaskConfigToRun() {
         List<CrawlTaskConfig> crawlTaskConfigs = null;
         try {
-            crawlTaskConfigs = crawlTaskService.getTaskConfigToRun();
+            crawlTaskConfigs = crawlTaskService.getTasksConfigsToDispatch();
         } catch (Exception ex) {
             error("call getTaskToRun failed", ex);
             return null;
@@ -134,7 +134,7 @@ public class DispatchTaskJob extends LoggerSupport {
         boolean isInvalid = false;
 
         // check site available
-        Site site = siteService.getById(crawlTaskConfig.getSiteId());
+        Site site = siteService.get(crawlTaskConfig.getSiteId());
         isInvalid = checkDispatch(
                 site,
                 crawlTaskConfig,
@@ -142,12 +142,12 @@ public class DispatchTaskJob extends LoggerSupport {
                 "site not available"
         );
         if (isInvalid) {
-            crawlTaskService.deleteById(crawlTaskConfig.getTaskId());
+            crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
         }
 
         // check down system site available
-        DownSystemSite downSystemSite = downSystemSiteService.getById(crawlTaskConfig.getDownSystemSiteId());
+        DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         isInvalid = checkDispatch(
                 site,
                 crawlTaskConfig,
@@ -155,12 +155,12 @@ public class DispatchTaskJob extends LoggerSupport {
                 "down site not available"
         );
         if (isInvalid) {
-            crawlTaskService.deleteById(crawlTaskConfig.getTaskId());
+            crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
         }
 
         // check down system available
-        DownSystem downSystem = downSystemService.getById(downSystemSite.getId());
+        DownSystem downSystem = downSystemService.get(downSystemSite.getId());
         isInvalid = checkDispatch(
                 site,
                 crawlTaskConfig,
@@ -168,13 +168,13 @@ public class DispatchTaskJob extends LoggerSupport {
                 "down system not available"
         );
         if (isInvalid) {
-            crawlTaskService.deleteById(crawlTaskConfig.getTaskId());
+            crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
         }
 
         // check and config proxy
         if (crawlTaskConfig.getProxyId() != -1) {
-            Proxy proxy = proxyService.getById(crawlTaskConfig.getProxyId());
+            Proxy proxy = proxyService.get(crawlTaskConfig.getProxyId());
             isInvalid = checkDispatch(
                     site,
                     crawlTaskConfig,
@@ -190,7 +190,7 @@ public class DispatchTaskJob extends LoggerSupport {
 
         // check and config cookie
         if (crawlTaskConfig.getCookieId() != -1) {
-            Cookie cookie = cookieService.getById(crawlTaskConfig.getCookieId());
+            Cookie cookie = cookieService.get(crawlTaskConfig.getCookieId());
             isInvalid = checkDispatch(
                     cookie,
                     crawlTaskConfig,
@@ -203,7 +203,7 @@ public class DispatchTaskJob extends LoggerSupport {
         }
 
         // check and config crawler
-        Crawler crawler = crawlerService.getById(1);
+        Crawler crawler = crawlerService.get(1);
         isInvalid = checkDispatch(
                 crawler,
                 crawlTaskConfig,
@@ -262,7 +262,7 @@ public class DispatchTaskJob extends LoggerSupport {
                 .taskStartTime(new Date())
                 .taskStatus(TaskStatus.EXECUTING)
                 .build();
-        crawlTaskService.updateById(crawlTaskConfig.getTaskId(),crawlTaskToUpdate);
+        crawlTaskService.update(crawlTaskConfig.getTaskId(),crawlTaskToUpdate);
 
         return true;
     }
@@ -294,39 +294,39 @@ public class DispatchTaskJob extends LoggerSupport {
                     .bindStatus(BindStatus.WAIT)
                     .dispatchStatus(dispatchStatus)
                     .build();
-            crawlTaskService.updateById(crawlTaskConfig.getTaskId(), crawlTaskToUpdate);
+            crawlTaskService.update(crawlTaskConfig.getTaskId(), crawlTaskToUpdate);
         }
 
         return true;
     }
 
     private void dispatchFailed(CrawlTaskConfig crawlTaskConfig) {
-        Site site = siteService.getById(crawlTaskConfig.getSiteId());
+        Site site = siteService.get(crawlTaskConfig.getSiteId());
         if (!Objects.isNull(site)) {
             siteService.decreaseCurrentRunningTaskCountById(site.getId());
 
-            Crawler crawler = crawlerService.getById(crawlTaskConfig.getCrawlerId());
+            Crawler crawler = crawlerService.get(crawlTaskConfig.getCrawlerId());
             if (!Objects.isNull(crawler)) {
-                crawlerService.updateConcurrencyById(
+                crawlerService.increaseCurrentConcurrency(
                         crawler.getId(),
-                        crawler.getCurrentConcurrency() - site.getMaxConcurrency()
+                        - site.getMaxConcurrency()
                 );
             }
         }
 
-        DownSystemSite downSystemSite = downSystemSiteService.getById(crawlTaskConfig.getDownSystemSiteId());
+        DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCountById(downSystemSite.getId());
-            DownSystem downSystem = downSystemService.getById(downSystemSite.getDownSystemId());
+            DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
             if (!Objects.isNull(downSystem))
-                downSystemService.decreaseCurrentRunningTaskCountById(downSystem.getId());
+                downSystemService.decreaseCurrentRunningTaskCount(downSystem.getId());
         }
 
         if (crawlTaskConfig.getCookieId() != -1)
-            cookieService.decreaseCurrentUseCountById(crawlTaskConfig.getCookieId());
+            cookieService.decreaseCurrentUseCount(crawlTaskConfig.getCookieId());
 
         if (crawlTaskConfig.getProxyId() != -1)
-            proxyService.decreaseCurrentUseCountById(crawlTaskConfig.getProxyId());
+            proxyService.decreaseCurrentUseCount(crawlTaskConfig.getProxyId());
 
     }
 }

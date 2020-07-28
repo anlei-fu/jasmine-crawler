@@ -42,7 +42,7 @@ public class HeartbeatJob extends LoggerSupport {
         info("-------------begin sending heartbeat---------------");
         List<Crawler> crawlers = null;
         try {
-            crawlers = crawlerService.getCrawlerNeedHeartbeat();
+            crawlers = crawlerService.getCrawlersNeedHeartbeat();
         } catch (Exception ex) {
             error("call getCrawlerNeedHeartbeat failed", ex);
             return;
@@ -92,12 +92,12 @@ public class HeartbeatJob extends LoggerSupport {
         // update crawler heartbeat
         Crawler crawlerToUpdate = new Crawler();
 
-        crawlerToUpdate.setLastHeartbeatStatus(
+        crawlerToUpdate.setHeartbeatStatus(
                 resp.isSuccess() ? BooleanFlag.TRUE : BooleanFlag.FALSE
         );
         crawlerToUpdate.setHeartbeatLost(crawler.getHeartbeatLost()+1);
 
-        crawlerService.updateHeartbeatStatusById(crawler.getId(), crawlerToUpdate);
+        crawlerService.updateHeartbeatStatus(crawler.getId(), crawlerToUpdate);
 
         info(String.format(
                 "heartbeat crawler(%d) ,and response is %d",

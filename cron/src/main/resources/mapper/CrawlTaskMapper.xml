@@ -18,6 +18,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="updateById">
 
     </update>
+    <update id="bindFailed"></update>
+    <update id="bindSuccess"></update>
     <delete id="deleteById">
          delete from crawl_task where id = #{id}
     </delete>
@@ -51,4 +53,5 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.CrawlTask">
         select * from crawl_task where id =  #{id}
     </select>
+    <select id="getTaskToBindLowestLevel" resultType="com.jasmine.crawl.common.pojo.entity.CrawlTask"></select>
 </mapper>

@@ -6,6 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
+import com.jasmine.crawl.common.pojo.entity.BindRecord;
 import com.jasmine.crawler.cron.mapper.BindRecordMapper;
 import com.jasmine.crawler.cron.service.BindRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class BindRecordServiceImpl implements BindRecordService {
     private BindRecordMapper bindRecordMapper;
 
     @Override
-    public void add(Integer taskId, Integer bindStatus,String msg) {
-          bindRecordMapper.add(taskId,bindStatus,msg);
+    public void add(BindRecord record) {
+          bindRecordMapper.add(record);
     }
 }
 

@@ -1,4 +1,6 @@
-package com.jasmine.crawl.bloom.service;
+package com.jasmine.crawl.web.api.mapper;
+
+import org.mapstruct.Mapper;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司
@@ -6,5 +8,6 @@ package com.jasmine.crawl.bloom.service;
  * @Date:
  * @Description:
  */
-public class BloomService {
+@Mapper
+public interface CrawlerMapper {
 }

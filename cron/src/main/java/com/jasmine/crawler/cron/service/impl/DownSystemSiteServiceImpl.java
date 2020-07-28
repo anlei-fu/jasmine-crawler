@@ -26,13 +26,13 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     }
 
     @Override
-    public DownSystemSite getById(Integer id) {
-        return downSystemSiteMapper.getById(id);
+    public DownSystemSite get(Integer downSystemSiteId) {
+        return downSystemSiteMapper.getById(downSystemSiteId);
     }
 
     @Override
-    public void increaseTaskRunningCountById(Integer id) {
-          downSystemSiteMapper.increaseTaskRunningCountById(id);
+    public void increaseTaskRunningCount(Integer downSystemSiteId) {
+          downSystemSiteMapper.increaseTaskRunningCountById(downSystemSiteId);
     }
 
     @Override

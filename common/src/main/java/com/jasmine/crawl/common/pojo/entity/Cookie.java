@@ -18,18 +18,33 @@ import java.util.Date;
 @Setter
 public class Cookie extends EnableStatusFeature  {
 
+    /**
+     * The account cookie belong to
+     */
     @ApiModelProperty("")
     private Integer accountId;
 
+    /**
+     * Cookie in json string
+     */
     @ApiModelProperty("")
     private String cookie;
 
+    /**
+     * Create time
+     */
     @ApiModelProperty("")
     private Date createTime;
 
+    /**
+     * Unique key
+     */
     @ApiModelProperty("")
     private Integer id;
 
+    /**
+     * Use to record how many task is using the cookie
+     */
     @ApiModelProperty("")
     private Integer currentUseCount;
 

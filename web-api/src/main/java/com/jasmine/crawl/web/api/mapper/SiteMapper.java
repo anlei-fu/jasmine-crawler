@@ -1,6 +1,6 @@
-package com.jasmine.crawl.web.api.pojo.entity;
+package com.jasmine.crawl.web.api.mapper;
 
-import lombok.Data;
+import org.mapstruct.Mapper;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司
@@ -8,6 +8,6 @@ import lombok.Data;
  * @Date:
  * @Description:
  */
-@Data
-public class Url {
+@Mapper
+public interface SiteMapper {
 }

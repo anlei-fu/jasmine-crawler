@@ -7,5 +7,5 @@ package com.jasmine.crawler.cron.service;
  * @Description:
  */
 public interface DispatchRecordService {
-    void addRecord(Integer taskId, Integer dispatchStatus, String format);
+    void addRecord(Integer taskId, Integer dispatchStatus, String msg);
 }

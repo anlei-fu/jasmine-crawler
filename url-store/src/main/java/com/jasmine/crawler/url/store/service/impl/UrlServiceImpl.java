@@ -1,12 +1,16 @@
 package com.jasmine.crawler.url.store.service.impl;
 
+import com.jasmine.crawl.common.component.JasmineBloomFilter;
+import com.jasmine.crawl.common.component.QueueManager;
 import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.url.store.constant.UrlStatus;
 import com.jasmine.crawler.url.store.mapper.SiteMapper;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
 import com.jasmine.crawler.url.store.pojo.entity.Site;
 import com.jasmine.crawler.url.store.pojo.entity.Url;
 import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
+import com.jasmine.crawler.url.store.service.BloomFilterManager;
 import com.jasmine.crawler.url.store.service.UrlService;
 import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司
@@ -35,6 +40,12 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService  {
     @Autowired
     private SiteMapper siteMapper;
 
+    @Autowired
+    private BloomFilterManager bloomFilterManager;
+
+    @Autowired
+    private QueueManager queueManager;
+
     @Override
     public String store() {
         return null;
@@ -44,6 +55,8 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService  {
     public boolean clearSite() {
         return false;
     }
+
+
 
     @Override
     public List<Url> getUrlForTask(GetUrlForTaskReq req) {
@@ -81,12 +94,20 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService  {
 
     @Override
     public boolean saveUrlResult(SaveUrlResultReq req) {
+
+        ConcurrentLinkedQueue queue =queueManager.getById(req.getDownSystemSiteId().toString());
+        queue.add(req);
         List<Url> urls =new LinkedList<>();
+        JasmineBloomFilter bloomFilter =bloomFilterManager.getBloomById(req.getDownSystemSiteId());
         for (int i=0; i<req.getNewUrls().size();i++){
 
             if(i%100==0){
-
+                 saveNewUrl(urls);
+                 urls =new LinkedList<>();
             }
+
+            if(!bloomFilter.add(req.getNewUrls().get(i).getUrl()))
+                continue;
 
             Url url =Url
                     .builder()
@@ -95,15 +116,23 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService  {
                     .isDynamic(1)
                     .downSystemSiteId(req.getDownSystemSiteId())
                     .build();
+            urls.add(url);
         }
+
+        saveNewUrl(urls);
+
+        updateUrlStatus(req.getSucceedUrls(),req.getDownSystemSiteId(), UrlStatus.SUCCESS);
+        updateUrlStatus(req.getFailedUrls(),req.getDownSystemSiteId(),UrlStatus.FAILED);
+        updateUrlStatus(req.getUrlNotToRun(),req.getDownSystemSiteId(),UrlStatus.FAILED_TO_RUN);
+        updateUrlStatus(req.getFailedUrls(),req.getDownSystemSiteId(),UrlStatus.FAILED);
         return true;
     }
 
-    private  void  saveNewUrl(){
+    private  void  saveNewUrl(List<Url> newUrls){
 
     }
 
-    private  void  updateUrlStatus(){
+    private  void  updateUrlStatus(List<String> url,Integer downSiteId,Integer urlStatus){
 
     }
 }

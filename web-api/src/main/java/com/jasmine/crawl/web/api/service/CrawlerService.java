@@ -7,4 +7,5 @@ package com.jasmine.crawl.web.api.service;
  * @Description:
  */
 public interface CrawlerService {
+    void decreaseCurrentConcurrencyById(Integer crawlerId);
 }

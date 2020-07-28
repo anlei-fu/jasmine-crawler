@@ -20,8 +20,8 @@ public class ScriptServiceImpl implements ScriptService {
 
 
     @Override
-    public Script getById(Integer id) {
-        return scriptMapper.getById(id);
+    public Script get(Integer scriptId) {
+        return scriptMapper.getById(scriptId);
     }
 
 

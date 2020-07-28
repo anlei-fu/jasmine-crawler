@@ -6,7 +6,12 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
+import com.jasmine.crawl.common.pojo.entity.BindRecord;
+
+/**
+ * Record bind result
+ */
 public interface BindRecordService {
 
-    void add(Integer taskId, Integer bindStatus,String msg);
+    void add(BindRecord record);
 }

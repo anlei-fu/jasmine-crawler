@@ -19,22 +19,22 @@ public class ProxyServiceImpl implements ProxyService {
     private ProxyMapper proxyMapper;
 
     @Override
-    public Proxy getProxyBySiteId(Integer siteId) {
+    public Proxy getProxyBySite(Integer siteId) {
         return proxyMapper.getProxyBySiteId(siteId);
     }
 
     @Override
-    public int increaseCurrentUseCountById(Integer id) {
-        return proxyMapper.increaseCurrentUseCountById(id);
+    public int increaseCurrentUseCount(Integer proxyId) {
+        return proxyMapper.increaseCurrentUseCountById(proxyId);
     }
 
     @Override
-    public Proxy getById(Integer id) {
+    public Proxy get(Integer id) {
         return proxyMapper.getById(id);
     }
 
     @Override
-    public void decreaseCurrentUseCountById(Integer id) {
+    public void decreaseCurrentUseCount(Integer id) {
             proxyMapper.decreaseCurrentUseCountById(id);
     }
 

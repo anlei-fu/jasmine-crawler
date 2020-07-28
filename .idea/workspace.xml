@@ -2,75 +2,70 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3441e72-cc4b-4dd0-9b74-e3ce72bf024b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/service/CrawlerServiceBase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/service/impl/CrawlerServiceBaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/component/RedisClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/mapper/SiteMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/mapper/UrlMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/entity/Site.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/CacheService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/SiteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/impl/SiteServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/pojo/entity/Url.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/pojo/req/TaskResultReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/CrawlerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/CrawlTaskServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/DataServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/UrlServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/component/JasmineBloomFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/component/impl/JasmineImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/component/impl/QueueManagerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/SiteCookieDelayMapMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/SiteIpDelayMapMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteAccountDelayMapService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteCookieDelayMapService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteIpDelayService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/constant/UrlStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/mapper/BloomMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/BloomFilterManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/BloomService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/impl/BloomManagerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/impl/BloomServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/CookieMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/CrawlTaskMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/CrawlerMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/DownSystemMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/DownSystemSiteMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/ProxyMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/SiteAccountDelayMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/SiteCookieDelayMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/SiteIpDelayMapMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/mapper/SiteMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/CookieService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/DownSystemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/DownSystemSiteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/ProxyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteAccountDelayService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteAccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteCookieDelayMapService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteIpDelayMapService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/api/ControllerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/api/ControllerBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/api/model/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/api/resp/R.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/BooleanFlag.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/BooleanFlag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/CrawlType.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/CrawlType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/PageResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/bloom-api/src/main/java/com/jasmine/crawl/bloom/service/BloomService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/TaskStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/constant/TaskStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bloom-api/src/main/java/com/jasmine/crawl/bloom/service/BloomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/job/UlrConsumeJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/BindRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/BindRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Cookie.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Cookie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/CrawlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/CrawlTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Crawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Crawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/DownSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/DownSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Proxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Proxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Script.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Script.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Site.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/BindTaskJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/BindTaskJob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/CookieExpireJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/CookieExpireJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/CreateNewTaskJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/CreateNewTaskJob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/DispatchTaskJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/DispatchTaskJob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/HeartbeatJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/HeartbeatJob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/ProxyExpireJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/ProxyExpireJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/SiteAccountBlockJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/SiteAccountBlockJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/SiteUrlBloomJob.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/TerminateTimeoutTaskJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/job/TerminateTimeoutTaskJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/BindRecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/BindRecordMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/CookieMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/CookieMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/CrawlTaskMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/CrawlTaskMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/CrawlerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/CrawlerMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/DownSystemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/DownSystemMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/DownSystemSiteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/DownSystemSiteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/ProxyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/ProxyMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/ScriptMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/ScriptMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/SiteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/SiteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/config/CrawlTaskConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/config/CrawlTaskConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/BindRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/BindRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/Cookie.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Cookie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/CrawlTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/CrawlTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/Crawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Crawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/CurrentTaskCountFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/CurrentTaskCountFeature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/DispatchRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/DispatchRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/DownSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/DownSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/DownSystemSite.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/DownSystemSite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/EnableStatusFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/EnableStatusFeature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/Proxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Proxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/Script.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Script.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Site.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/SiteAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/SiteAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/SiteUrlCheckRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/SiteUrlCheckRule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/pojo/entity/Url.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/pojo/entity/Url.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/SiteBlockRuleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/mapper/SiteAccountDelayMapMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/BindRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/BindRecordService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/CookieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/CookieService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/CrawlTaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/CrawlTaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/CrawlerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/CrawlerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/DispatchRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/DispatchRecordService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/DownSystemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/DownSystemService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/DownSystemSiteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/DownSystemSiteService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/ProxyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/ProxyService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/ScriptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/ScriptService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteBlockRuleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteBlockRuleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteBlockRuleService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/SiteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/UrlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/UrlService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/BindRecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/BindRecordServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/CookieServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/CookieServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/CrawlTaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/CrawlTaskServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/CrawlerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/CrawlerServiceImpl.java" afterDir="false" />
@@ -78,32 +73,19 @@
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/DownSystemSiteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/DownSystemSiteServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/ProxyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/ProxyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/ScriptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/ScriptServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/SiteAccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/SiteAccountServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/SiteBlockRuleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/SiteBlockRuleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/SiteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/SiteServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/UrlServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/java/com/jasmine/crawler/cron/service/impl/UrlServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/CookieMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/CookieMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/CrawlTaskMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/CrawlTaskMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/CrawlerMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/CrawlerMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/DonwSystemSiteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/DonwSystemSiteMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/DownSystemMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/DownSystemMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/DownSystemSiteMapper" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/DownSystemSiteMapper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/ProxyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/ProxyMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/ScriptMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/ScriptMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/src/main/resources/mapper/SiteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cron/src/main/resources/mapper/SiteMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/controller/UrlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/controller/UrlController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/entity/Url.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/entity/Url.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/req/GetUrlForTaskReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/req/GetUrlForTaskReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/req/UrlResultReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/req/SaveUrlResultReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/UrlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/UrlService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/req/SaveUrlResultReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/pojo/req/SaveUrlResultReq.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/impl/UrlServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/url-store/src/main/java/com/jasmine/crawler/url/store/service/impl/UrlServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-api/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/controller/CrawlTaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/controller/CrawlTaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/pojo/req/SaveTaskResultReq.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/pojo/entity/Url.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/jasmine/crawl/common/component/QueueManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/pojo/req/TaskResultReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/pojo/req/TaskResultReq.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/CrawlTaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/CrawlTaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/DataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/DataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/UrlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/UrlService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/CrawlerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/CrawlerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/SiteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/CrawlTaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/CrawlTaskServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/UrlServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-api/src/main/java/com/jasmine/crawl/web/api/service/impl/UrlServiceImpl.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,8 +123,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="mybatis-config" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -271,8 +253,17 @@
       <workItem from="1595831112021" duration="4024000" />
       <workItem from="1595835410898" duration="1304000" />
       <workItem from="1595836742067" duration="7227000" />
-      <workItem from="1595851485700" duration="11144000" />
+      <workItem from="1595851485700" duration="13900000" />
+      <workItem from="1595937020492" duration="14107000" />
     </task>
+    <task id="LOCAL-00001" summary="revise">
+      <created>1595930336705</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1595930336705</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,10 +274,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="revise" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise" />
   </component>
 </project>
