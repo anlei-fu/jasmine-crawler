@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawl.common.api;
 
-import com.jasmine.crawl.common.api.model.R;
+import com.jasmine.crawl.common.api.resp.R;
 
 public class ControllerBase {
 

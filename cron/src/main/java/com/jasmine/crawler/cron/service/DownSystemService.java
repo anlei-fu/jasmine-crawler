@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawler.cron.pojo.entity.DownSystem;
+import com.jasmine.crawl.common.pojo.entity.DownSystem;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司

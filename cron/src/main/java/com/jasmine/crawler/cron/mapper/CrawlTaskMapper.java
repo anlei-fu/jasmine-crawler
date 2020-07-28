@@ -7,7 +7,7 @@
 package com.jasmine.crawler.cron.mapper;
 
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
-import com.jasmine.crawler.cron.pojo.entity.CrawlTask;
+import com.jasmine.crawl.common.pojo.entity.CrawlTask;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 

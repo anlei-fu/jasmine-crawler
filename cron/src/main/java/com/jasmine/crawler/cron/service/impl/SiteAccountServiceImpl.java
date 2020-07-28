@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.cron.pojo.entity.SiteAccount;
+import com.jasmine.crawl.common.pojo.entity.SiteAccount;
 import com.jasmine.crawler.cron.service.SiteAccountService;
 
 import java.util.List;

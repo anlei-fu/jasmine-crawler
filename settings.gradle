@@ -1,7 +1,7 @@
 include 'admin-web'
 include 'cron'
 include 'common'
-include 'web'
+include 'web-api'
 include 'url-store'
-
+include 'bloom-api'
 

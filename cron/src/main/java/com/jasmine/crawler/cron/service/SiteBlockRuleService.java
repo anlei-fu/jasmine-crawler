@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawler.cron.pojo.entity.SiteUrlCheckRule;
+import com.jasmine.crawl.common.pojo.entity.SiteUrlCheckRule;
 
 import java.util.List;
 

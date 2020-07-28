@@ -1,7 +1,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawler.cron.mapper.DownSystemSiteMapper;
-import com.jasmine.crawler.cron.pojo.entity.DownSystemSite;
+import com.jasmine.crawl.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

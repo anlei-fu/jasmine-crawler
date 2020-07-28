@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawler.cron.pojo.entity.Script;
+import com.jasmine.crawl.common.pojo.entity.Script;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 

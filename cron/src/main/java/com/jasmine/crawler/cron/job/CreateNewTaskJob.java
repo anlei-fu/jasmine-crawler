@@ -1,8 +1,8 @@
 package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawl.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.pojo.entity.CrawlTask;
-import com.jasmine.crawler.cron.pojo.entity.DownSystemSite;
+import com.jasmine.crawl.common.pojo.entity.CrawlTask;
+import com.jasmine.crawl.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;

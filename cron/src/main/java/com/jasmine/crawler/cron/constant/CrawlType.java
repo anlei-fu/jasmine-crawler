@@ -6,5 +6,7 @@ package com.jasmine.crawler.cron.constant;
  * @Date:
  * @Description:
  */
-public class CrawlType {
+public final class CrawlType {
+    private  static  final  Integer STATIC_PAGE=1;
+    private  static  final  Integer DYNAMIC_PAGE=2;
 }

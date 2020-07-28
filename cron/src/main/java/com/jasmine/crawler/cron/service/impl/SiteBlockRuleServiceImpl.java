@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.cron.pojo.entity.SiteUrlCheckRule;
+import com.jasmine.crawl.common.pojo.entity.SiteUrlCheckRule;
 import com.jasmine.crawler.cron.service.SiteBlockRuleService;
 import org.springframework.stereotype.Service;
 

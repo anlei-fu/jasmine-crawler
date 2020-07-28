@@ -7,7 +7,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawler.cron.mapper.CookieMapper;
-import com.jasmine.crawler.cron.pojo.entity.Cookie;
+import com.jasmine.crawl.common.pojo.entity.Cookie;
 import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

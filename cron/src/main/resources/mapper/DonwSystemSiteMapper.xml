@@ -20,11 +20,11 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where id = #{id}
     </delete>
     <delete id="deleteCookieBatch"></delete>
-    <select id="getById" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+    <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.Cookie">
         select * from cookie
         where id = #{id}
     </select>
-    <select id="getBySiteId" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+    <select id="getBySiteId" resultType="com.jasmine.crawl.common.pojo.entity.Cookie">
         select
          *
         from cookie c
@@ -37,7 +37,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         and sa.enable_status = 1
         and sa.is_available = 1
     </select>
-    <select id="getExpiredCookies" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+    <select id="getExpiredCookies" resultType="com.jasmine.crawl.common.pojo.entity.Cookie">
         select
         c.id
         from cookie c

@@ -6,7 +6,8 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawler.cron.pojo.entity.Crawler;
+import com.jasmine.crawl.common.pojo.entity.CrawlTask;
+import com.jasmine.crawl.common.pojo.entity.Crawler;
 
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface CrawlerService {
     List<Crawler> getCrawlerNeedHeartbeat();
 
     void updateHeartbeatStatusById(Integer id, Crawler crawler);
+
+    List<CrawlTask> getTasksToTerminate();
+
+    void terminateTaskById(Integer id,Integer taskStatus);
 }

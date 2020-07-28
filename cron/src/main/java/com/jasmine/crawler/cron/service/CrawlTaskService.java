@@ -7,7 +7,7 @@
 package com.jasmine.crawler.cron.service;
 
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
-import com.jasmine.crawler.cron.pojo.entity.CrawlTask;
+import com.jasmine.crawl.common.pojo.entity.CrawlTask;
 
 import java.util.List;
 
@@ -22,4 +22,6 @@ public interface CrawlTaskService {
     boolean add(CrawlTask taskToCreate);
 
     List<CrawlTaskConfig> getTaskConfigToRun();
+
+    List<CrawlTask> getTasksToTerminate();
 }

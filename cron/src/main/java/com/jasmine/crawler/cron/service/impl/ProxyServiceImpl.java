@@ -7,7 +7,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawler.cron.mapper.ProxyMapper;
-import com.jasmine.crawler.cron.pojo.entity.Proxy;
+import com.jasmine.crawl.common.pojo.entity.Proxy;
 import com.jasmine.crawler.cron.service.ProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

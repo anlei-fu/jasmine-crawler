@@ -1,7 +1,8 @@
 package com.jasmine.crawler.cron.job;
 
+import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.constant.BooleanFlag;
-import com.jasmine.crawler.cron.pojo.entity.SiteAccount;
+import com.jasmine.crawl.common.pojo.entity.SiteAccount;
 import com.jasmine.crawler.cron.service.SiteAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,7 +17,7 @@ import java.util.List;
  * @Description:
  */
 @Component
-public class SiteAccountBlockJob {
+public class SiteAccountBlockJob extends LoggerSupport {
 
     @Autowired
     private SiteAccountService siteAccountService;
@@ -30,28 +31,31 @@ public class SiteAccountBlockJob {
      */
     @Scheduled(cron = "*/6 * * * * ?")
     public void disableBlockedAccount() {
+
+        info("-------------begin to disable blocked site account---------------------- ");
         List<SiteAccount> accounts = null;
         try {
             accounts = siteAccountService.getBlockedAccount();
             if (accounts.size() == 0) {
-
+                 info("no account need to disabled");
+            }else {
+                siteAccountService.changeEnableStatusBatch(getSiteAccountIds(accounts), BooleanFlag.FALSE);
+                info(String.format("get %d account to disable",accounts.size()));
             }
-            List<Integer> ids = getSiteAccountIds(accounts);
-            siteAccountService.changeEnableStatusBatch(ids, BooleanFlag.FALSE);
         } catch (Exception ex) {
-
+            error("disable account failed",ex);
         }
 
-        accounts = null;
         try {
             accounts = siteAccountService.getAccountsToEnable();
             if (accounts.size() == 0) {
-
+                 info("no account need to be enabled");
+                 return;
             }
-            List<Integer> ids = getSiteAccountIds(accounts);
-            siteAccountService.changeEnableStatusBatch(ids, BooleanFlag.TRUE);
+            siteAccountService.changeEnableStatusBatch(getSiteAccountIds(accounts), BooleanFlag.TRUE);
+            info(String.format("get %d account to enable",accounts.size()));
         } catch (Exception ex) {
-
+            error("enable account failed",ex);
         }
     }
 

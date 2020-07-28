@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawler.cron.pojo.entity.Cookie;
+import com.jasmine.crawl.common.pojo.entity.Cookie;
 
 import java.util.List;
 

@@ -9,6 +9,7 @@ package com.jasmine.crawler.cron.constant;
 public final class TaskStatus {
     public  static  final  Integer WAIT=0;
     public  static  final  Integer EXECUTING =0;
+    public  static  final  Integer TIMEOUT=0;
     public  static  final  Integer BLOCKED=0;
-    public  static  final  Integer SUCCESS=0;
+
 }

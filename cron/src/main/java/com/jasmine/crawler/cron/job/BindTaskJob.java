@@ -4,7 +4,7 @@ import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.constant.BindStatus;
 import com.jasmine.crawler.cron.constant.BooleanFlag;
 import com.jasmine.crawler.cron.constant.DispatchStatus;
-import com.jasmine.crawler.cron.pojo.entity.*;
+import com.jasmine.crawl.common.pojo.entity.*;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,7 +1,7 @@
 package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawl.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.pojo.entity.Cookie;
+import com.jasmine.crawl.common.pojo.entity.Cookie;
 import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 

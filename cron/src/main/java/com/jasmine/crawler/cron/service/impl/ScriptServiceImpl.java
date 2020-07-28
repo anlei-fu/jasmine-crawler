@@ -7,7 +7,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawler.cron.mapper.ScriptMapper;
-import com.jasmine.crawler.cron.pojo.entity.Script;
+import com.jasmine.crawl.common.pojo.entity.Script;
 import com.jasmine.crawler.cron.service.ScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

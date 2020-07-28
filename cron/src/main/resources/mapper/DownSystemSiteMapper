@@ -10,7 +10,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_running_task_count = current_running_task_count +1
         where id =#{id}
     </update>
-    <select id="getNeedCreateNewTaskSite" resultType="com.jasmine.crawler.cron.pojo.entity.DownSystemSite">
+    <select id="getNeedCreateNewTaskSite" resultType="com.jasmine.crawl.common.pojo.entity.DownSystemSite">
         select
         dss.id,
         dss.site_id
@@ -32,7 +32,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         order by dss.priority*ds.priority
 
     </select>
-    <select id="getById" resultType="com.jasmine.crawler.cron.pojo.entity.DownSystemSite">
+    <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.DownSystemSite">
         select
         *
         from down_system_site

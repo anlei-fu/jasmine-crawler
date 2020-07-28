@@ -1,10 +1,10 @@
 package com.jasmine.crawler.url.store.controller;
 
 import com.jasmine.crawl.common.api.ControllerBase;
-import com.jasmine.crawl.common.api.model.R;
+import com.jasmine.crawl.common.api.resp.R;
 import com.jasmine.crawler.url.store.pojo.entity.Url;
 import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
-import com.jasmine.crawler.url.store.pojo.req.UrlResultReq;
+import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,7 @@ public class UrlController extends ControllerBase {
     }
 
     @PostMapping(path = "/url/save/result")
-    public  R saveUrlResult(UrlResultReq req){
+    public  R saveUrlResult(SaveUrlResultReq req){
         boolean result =urlService.saveUrlResult(req);
         return  responseBoolean(result);
     }

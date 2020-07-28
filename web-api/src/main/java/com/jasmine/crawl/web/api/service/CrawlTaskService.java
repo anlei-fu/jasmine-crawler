@@ -1,6 +1,6 @@
 package com.jasmine.crawl.web.api.service;
 
-import com.jasmine.crawl.web.api.pojo.req.SaveTaskResultReq;
+import com.jasmine.crawl.web.api.pojo.req.TaskResultReq;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司
@@ -9,5 +9,5 @@ import com.jasmine.crawl.web.api.pojo.req.SaveTaskResultReq;
  * @Description:
  */
 public interface CrawlTaskService {
-    boolean saveTaskResult(SaveTaskResultReq req);
+    boolean saveTaskResult(TaskResultReq req);
 }

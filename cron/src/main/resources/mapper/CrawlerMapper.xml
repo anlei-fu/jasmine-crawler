@@ -17,7 +17,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             last_heartbeat_time = current_timestamp
         where id = #{id}
     </update>
-    <select id="getCrawlerBySite" resultType="com.jasmine.crawler.cron.pojo.entity.Crawler">
+    <select id="getCrawlerBySite" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
         select
         *
         from crawler c
@@ -27,14 +27,14 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         and c.ip not in (select ip from site_ip_block_map where site_id =1 and enable_status =1)
         order by c.current_concurrency/c.max_concurrency asc
     </select>
-    <select id="getCrawlerNeedHeartbeat" resultType="com.jasmine.crawler.cron.pojo.entity.Crawler">
+    <select id="getCrawlerNeedHeartbeat" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
         select * from crawler c
         where
         c.enable_status = 1
         and
         date_add(c.last_heartbeat_time,interval least(c.heartbeat_lost,5) minute)&lt;current_timestamp
     </select>
-    <select id="getById" resultType="com.jasmine.crawler.cron.pojo.entity.Crawler">
+    <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
         select * from crawler where id = #{id}
     </select>
 </mapper>

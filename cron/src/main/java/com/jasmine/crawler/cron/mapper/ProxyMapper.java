@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawler.cron.pojo.entity.Proxy;
+import com.jasmine.crawl.common.pojo.entity.Proxy;
 import org.mapstruct.Mapper;
 
 @Mapper

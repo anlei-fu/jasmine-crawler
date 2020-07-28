@@ -1,7 +1,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawler.cron.mapper.SiteMapper;
-import com.jasmine.crawler.cron.pojo.entity.Site;
+import com.jasmine.crawl.common.pojo.entity.Site;
 import com.jasmine.crawler.cron.service.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

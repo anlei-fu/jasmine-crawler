@@ -1,7 +1,7 @@
 package com.jasmine.crawler.cron.pojo.config;
 
-import com.jasmine.crawler.cron.pojo.entity.Proxy;
-import com.jasmine.crawler.cron.pojo.entity.SiteUrlCheckRule;
+import com.jasmine.crawl.common.pojo.entity.Proxy;
+import com.jasmine.crawl.common.pojo.entity.SiteUrlCheckRule;
 import lombok.Data;
 
 import java.util.List;

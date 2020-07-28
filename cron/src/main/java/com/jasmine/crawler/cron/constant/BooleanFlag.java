@@ -9,4 +9,5 @@ package com.jasmine.crawler.cron.constant;
 public class BooleanFlag {
     public  static  final  Integer TRUE=1;
     public  static  final  Integer FALSE=0;
+    public  static  final  Integer NO_NEED=-1;
 }

@@ -5,5 +5,5 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.ScriptMapper">
-    <select id="getById" resultType="com.jasmine.crawler.cron.pojo.entity.Script"></select>
+    <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.Script"></select>
 </mapper>
