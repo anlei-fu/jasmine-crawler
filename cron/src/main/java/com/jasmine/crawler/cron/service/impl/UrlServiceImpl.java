@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class UrlServiceImpl implements UrlService {
     @Override
-    public List<Url> getUrlToExecuteBySite(Integer siteId, Integer taskBatchCount) {
+    public List<Url> getUrlToExecuteForSite(Integer siteId, Integer taskBatchCount) {
         return null;
     }
 }

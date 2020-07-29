@@ -7,8 +7,9 @@
 package com.jasmine.crawl.common.validate.annotation;
 
 import com.jasmine.crawler.job.validate.validator.IdCardNoValidator;
-import java.lang.annotation.*;
+
 import javax.validation.Constraint;
+import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Constraint(validatedBy = IdCardNoValidator.class)

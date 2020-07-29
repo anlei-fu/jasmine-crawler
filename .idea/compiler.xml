@@ -4,5 +4,9 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jasmine-crawler.bloom-api.main" target="1.8" />
+      <module name="jasmine-crawler.bloom-api.test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,11 +1,11 @@
 package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawl.common.api.resp.R;
-import com.jasmine.crawl.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.constant.BooleanFlag;
-import com.jasmine.crawler.cron.pojo.config.SystemConfig;
+import com.jasmine.crawl.common.constant.BooleanFlag;
 import com.jasmine.crawl.common.pojo.entity.Crawler;
-import com.jasmine.crawler.cron.pojo.req.Heartbeat;
+import com.jasmine.crawl.common.pojo.entity.Heartbeat;
+import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,12 +14,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class HeartbeatJob extends LoggerSupport {
 
@@ -77,30 +71,30 @@ public class HeartbeatJob extends LoggerSupport {
     }
 
     private void sendHeartbeatCore(Crawler crawler, Heartbeat heartbeat) {
+
         // do post
-        R resp = restTemplate.postForObject(
-                String.format(
-                        "%s:%d%s",
-                        crawler.getIp(),
-                        crawler.getPort(),
-                        systemConfig.getCrawlerHeartbeatPath()
-                ),
-                heartbeat,
-                R.class
-        );
+        R resp = null;
+        try {
+            resp = restTemplate.postForObject(
+                    String.format(
+                            "%s:%d%s",
+                            crawler.getIp(),
+                            crawler.getPort(),
+                            systemConfig.getCrawlerHeartbeatPath()
+                    ),
+                    heartbeat,
+                    R.class
+            );
+        } catch (Exception ex) {
+            error("post crawler failed", ex);
+            resp = R.failed(500);
+        }
 
-        // update crawler heartbeat
-        Crawler crawlerToUpdate = new Crawler();
-
-        crawlerToUpdate.setHeartbeatStatus(
-                resp.isSuccess() ? BooleanFlag.TRUE : BooleanFlag.FALSE
-        );
-        crawlerToUpdate.setHeartbeatLost(crawler.getHeartbeatLost()+1);
-
-        crawlerService.updateHeartbeatStatus(crawler.getId(), crawlerToUpdate);
+        crawlerService.updateHeartbeatStatus(
+                crawler.getId(), resp.isSuccess() ? BooleanFlag.TRUE : BooleanFlag.FALSE);
 
         info(String.format(
-                "heartbeat crawler(%d) ,and response is %d",
+                "send heartbeat to crawler(%d) ,and response code is %d",
                 crawler.getId(),
                 resp.getCode()
         ));

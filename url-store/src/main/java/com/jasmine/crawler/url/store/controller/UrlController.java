@@ -2,7 +2,7 @@ package com.jasmine.crawler.url.store.controller;
 
 import com.jasmine.crawl.common.api.ControllerBase;
 import com.jasmine.crawl.common.api.resp.R;
-import com.jasmine.crawler.url.store.pojo.entity.Url;
+import com.jasmine.crawl.common.pojo.entity.Url;
 import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.service.UrlService;
@@ -25,15 +25,15 @@ public class UrlController extends ControllerBase {
     private UrlService urlService;
 
     @GetMapping(path = "/url/get/for/task")
-    public R<List<Url>> getUrlForTask(GetUrlForTaskReq req){
-        List<Url> result =urlService.getUrlForTask(req);
-        return  responseData(result);
+    public R<List<Url>> getUrlForTask(GetUrlForTaskReq req) {
+        List<Url> result = urlService.getUrlForTask(req);
+        return responseData(result);
     }
 
     @PostMapping(path = "/url/save/result")
-    public  R saveUrlResult(SaveUrlResultReq req){
-        boolean result =urlService.saveUrlResult(req);
-        return  responseBoolean(result);
+    public R saveUrlResult(SaveUrlResultReq req) {
+        boolean result = urlService.saveUrlResult(req);
+        return responseBoolean(result);
     }
 
 }

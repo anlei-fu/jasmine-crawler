@@ -1,5 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
+import com.jasmine.crawl.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.cron.mapper.DispatchRecordMapper;
 import com.jasmine.crawler.cron.service.DispatchRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class DispatchRecordServiceImpl implements DispatchRecordService {
     private DispatchRecordMapper dispatchRecordMapper;
 
     @Override
-    public void addRecord(Integer taskId, Integer dispatchStatus, String msg) {
-          dispatchRecordMapper.add(taskId,dispatchStatus,msg);
+    public void add(DispatchRecord record) {
+        dispatchRecordMapper.add(record);
     }
 }

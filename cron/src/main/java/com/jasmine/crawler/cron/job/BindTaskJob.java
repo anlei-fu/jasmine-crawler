@@ -1,10 +1,10 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.constant.BindStatus;
-import com.jasmine.crawler.cron.constant.BooleanFlag;
-import com.jasmine.crawler.cron.constant.DispatchStatus;
+import com.jasmine.crawl.common.constant.BindStatus;
+import com.jasmine.crawl.common.constant.BooleanFlag;
+import com.jasmine.crawl.common.constant.DispatchStatus;
 import com.jasmine.crawl.common.pojo.entity.*;
+import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,12 +13,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class BindTaskJob extends LoggerSupport {
 
@@ -114,7 +108,7 @@ public class BindTaskJob extends LoggerSupport {
                 taskToBind.getId(),
                 BindStatus.SITE_NOT_AVAILABLE,
                 crawlTaskToUpdate,
-                "cookie"
+                "site not available"
         );
 
         // site has been removed
@@ -124,13 +118,13 @@ public class BindTaskJob extends LoggerSupport {
         }
 
         // check down system site
-        DownSystemSite downSystemSite = downSystemSiteService.get(taskToBind.getDownSiteId());
+        DownSystemSite downSystemSite = downSystemSiteService.get(taskToBind.getDownSystemSiteId());
         isInvalid = checkIsComponentInvalid(
                 downSystemSite,
                 taskToBind.getId(),
-                BindStatus.DOWN_SITE_NOT_AVAILABLE,
+                BindStatus.DOWN_SYSTEM_SITE_NOT_AVAILABLE,
                 crawlTaskToUpdate,
-                "downSystemSite"
+                "downSystemSite not available"
         );
 
         if (isInvalid) {
@@ -149,7 +143,7 @@ public class BindTaskJob extends LoggerSupport {
                 taskToBind.getId(),
                 BindStatus.DOWN_SYSTEM_NOT_AVAILABLE,
                 crawlTaskToUpdate,
-                "downSystem"
+                "downSystem not available"
         );
 
         if (isInvalid) {
@@ -169,7 +163,7 @@ public class BindTaskJob extends LoggerSupport {
                     taskToBind.getId(),
                     BindStatus.NO_COOKIE_AVAILABLE,
                     crawlTaskToUpdate,
-                    "cookie"
+                    "no cookie available"
             );
 
             if (isInvalid)
@@ -180,13 +174,13 @@ public class BindTaskJob extends LoggerSupport {
 
         // find and check proxy
         if (site.getNeedUseProxy() == BooleanFlag.TRUE) {
-            Proxy proxy = proxyService.getProxyBySite(site.getId());
+            Proxy proxy = proxyService.getProxyForSite(site.getId());
             isInvalid = checkIsComponentInvalid(
                     proxy,
                     taskToBind.getId(),
                     BindStatus.NO_PROXY_AVAILABLE,
                     crawlTaskToUpdate,
-                    "proxy"
+                    "no proxy available"
             );
 
             if (isInvalid)
@@ -202,7 +196,7 @@ public class BindTaskJob extends LoggerSupport {
                 taskToBind.getId(),
                 BindStatus.NO_PROXY_AVAILABLE,
                 crawlTaskToUpdate,
-                "crawler"
+                "no crawler available"
         );
 
         if (isInvalid)
@@ -210,8 +204,8 @@ public class BindTaskJob extends LoggerSupport {
 
         crawlTaskToUpdate.setCrawlerId(crawler.getId());
 
-        bindSuccess(taskToBind.getId(),crawlTaskToUpdate,site,downSystemSite,crawler);
-        info(String.format("bind task(%d) succeed",taskToBind.getId()));
+        bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler);
+        info(String.format("bind task(%d) succeed", taskToBind.getId()));
         return true;
     }
 
@@ -229,7 +223,7 @@ public class BindTaskJob extends LoggerSupport {
             crawlTaskService.bindFailed(taskToUpdate);
 
             // add bind record
-            BindRecord record =BindRecord.builder()
+            BindRecord record = BindRecord.builder()
                     .crawlTaskId(taskToBindId)
                     .bindStatus(bindStatus)
                     .msg(msg)
@@ -247,15 +241,15 @@ public class BindTaskJob extends LoggerSupport {
         return false;
     }
 
+    private void bindSuccess(Integer taskToBindId, CrawlTask crawlTaskToUpdate, Site site, DownSystemSite downSystemSite, Crawler crawler) {
 
-    private void bindSuccess(Integer taskToBindId,CrawlTask crawlTaskToUpdate,Site site,DownSystemSite downSystemSite,Crawler crawler){
+        siteService.increaseRunningTaskCount(site.getId());
+        downSystemSiteService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
+        downSystemService.increaseRunningTaskCount(downSystemSite.getId());
 
-        siteService.increaseTaskRunningCount(site.getId());
-        downSystemSiteService.increaseTaskRunningCount(downSystemSite.getDownSystemId());
-        downSystemService.increaseTaskRunningCount(downSystemSite.getId());
-
-        if (site.getNeedUseCookie() == BooleanFlag.TRUE)
+        if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
             cookieService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
+        }
 
         if (site.getNeedUseProxy() == BooleanFlag.TRUE)
             proxyService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
@@ -263,11 +257,11 @@ public class BindTaskJob extends LoggerSupport {
         // update crawler current concurrency
         crawlerService.increaseCurrentConcurrency(
                 crawler.getId(),
-                 site.getCurrentConcurrency()
+                site.getCurrentConcurrency()
         );
 
         // add bind record
-        BindRecord record =BindRecord.builder().crawlTaskId(taskToBindId)
+        BindRecord record = BindRecord.builder().crawlTaskId(taskToBindId)
                 .bindStatus(BindStatus.SUCCESS)
                 .msg("success")
                 .build();

@@ -1,4 +1,4 @@
-package com.jasmine.crawler.cron.constant;
+package com.jasmine.crawl.common.constant;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司

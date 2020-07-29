@@ -7,16 +7,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.CrawlerMapper">
     <update id="updateConcurrencyById">
         update crawler
-        set current_concurrency =#{current_concurrency}
+        set current_concurrency = current_concurrency + #{current_concurrency}
         where id = #{id}
     </update>
-    <update id="updateHeartbeatStatusById">
-        update crawler
-        set heartbeat_status = #{heartbeatStatus},
-            heartbeat_lost = #{heartbeatLost},
-            last_heartbeat_time = current_timestamp
-        where id = #{id}
-    </update>
+    <update id="updateHeartbeatStatus"></update>
     <select id="getCrawlerBySite" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
         select
         *
@@ -24,10 +18,11 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where
         c.enable_status = 1
         and (c.max_concurrency-c.current_concurrency) &lt; (select max_concurrency from site where id =1)
-        and c.ip not in (select ip from site_ip_block_map where site_id =1 and enable_status =1)
+        and c.ip not in (select ip from site_ip_block_map where site_id = 1 and enable_status = 1)
         order by c.current_concurrency/c.max_concurrency asc
+        limit 1,1
     </select>
-    <select id="getCrawlerNeedHeartbeat" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
+    <select id="getCrawlersNeedHeartbeat" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
         select * from crawler c
         where
         c.enable_status = 1

@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.pojo.req;
 
-import com.jasmine.crawler.url.store.pojo.entity.Url;
+import com.jasmine.crawl.common.pojo.entity.Url;
 import lombok.Data;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SaveUrlResultReq {
 
     private List<String> badUrls;
 
-    private  List<String> failedUrls;
+    private List<String> failedUrls;
 
-    private  List<String> urlNotToRun;
+    private List<String> urlNotToRun;
 }

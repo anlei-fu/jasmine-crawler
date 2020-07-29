@@ -1,13 +1,13 @@
 /*----------------------------------------------------------------------------
  * Jasmine code generator, a tool to build web crud application,with spring-
  * boot, mybatis, mysql,swagger,spring-security.
- * Generated at 2020-7-25 2:58:14 PM 
+ * Generated at 2020-7-25 2:58:14 PM
  * All rights reserved by fuanlei(email:767550758@qq.com) since 2019
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.cron.mapper.CrawlerMapper;
 import com.jasmine.crawl.common.pojo.entity.Crawler;
+import com.jasmine.crawler.cron.mapper.CrawlerMapper;
 import com.jasmine.crawler.cron.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public void increaseCurrentConcurrency(Integer id, Integer concurrencyToIncrease) {
-         crawlerMapper.updateConcurrencyById(id, concurrencyToIncrease);
+        crawlerMapper.updateConcurrencyById(id, concurrencyToIncrease);
     }
 
     @Override
@@ -37,12 +37,12 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public List<Crawler> getCrawlersNeedHeartbeat() {
-        return crawlerMapper.getCrawlerNeedHeartbeat();
+        return crawlerMapper.getCrawlersNeedHeartbeat();
     }
 
     @Override
-    public void updateHeartbeatStatus(Integer crawlerId, Crawler crawler) {
-        crawlerMapper.updateHeartbeatStatusById(crawlerId,crawler);
+    public void updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus) {
+        crawlerMapper.updateHeartbeatStatus(crawlerId, heartbeatStatus);
     }
 }
 

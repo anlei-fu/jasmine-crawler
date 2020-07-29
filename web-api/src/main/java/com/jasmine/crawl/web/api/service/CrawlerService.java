@@ -1,11 +1,9 @@
 package com.jasmine.crawl.web.api.service;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
+import com.jasmine.crawl.common.pojo.entity.Crawler;
+
 public interface CrawlerService {
     void decreaseCurrentConcurrencyById(Integer crawlerId);
+
+    Crawler get(Integer crawlerId);
 }

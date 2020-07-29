@@ -1,7 +1,6 @@
 package com.jasmine.crawl.common.pojo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司
@@ -9,7 +8,7 @@ import lombok.Setter;
  * @Date:
  * @Description:
  */
-@Getter
-@Setter
-public class SiteAccount extends  EnableStatusFeature {
+@Data
+public class SiteAccount {
+    private Integer id;
 }

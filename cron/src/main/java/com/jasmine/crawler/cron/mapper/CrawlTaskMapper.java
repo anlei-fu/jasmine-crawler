@@ -1,13 +1,13 @@
 /*----------------------------------------------------------------------------
  * Jasmine code generator, a tool to build web crud application,with spring-
  * boot, mybatis, mysql,swagger,spring-security.
- * Generated at 2020-7-25 2:58:14 PM 
+ * Generated at 2020-7-25 2:58:14 PM
  * All rights reserved by fuanlei(email:767550758@qq.com) since 2019
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import com.jasmine.crawl.common.pojo.entity.CrawlTask;
+import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
@@ -20,13 +20,13 @@ public interface CrawlTaskMapper {
 
     int deleteById(@Param("id") Integer id);
 
-    int updateById(@Param("id") Integer id,@Param("task") CrawlTask crawlTask);
+    int dispatchSuccess(@Param("id") Integer id);
 
     CrawlTask getById(@Param("id") Integer id);
 
     List<CrawlTaskConfig> getTaskConfigToRun();
 
-    List<CrawlTask> getTaskToBind(@Param("minBindCount") Integer minBindCount,@Param("maxBindCount") Integer maxBindCount);
+    List<CrawlTask> getTaskToBind(@Param("minBindCount") Integer minBindCount, @Param("maxBindCount") Integer maxBindCount);
 
     void bindFailed(CrawlTask taskToUpdate);
 

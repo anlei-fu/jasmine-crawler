@@ -1,18 +1,13 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawl.common.pojo.entity.Cookie;
+import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public class CookieExpireJob extends LoggerSupport {
 
     @Autowired
@@ -30,6 +25,10 @@ public class CookieExpireJob extends LoggerSupport {
     }
 
     private List<Integer> getCookieIds(List<Cookie> cookies) {
-        return null;
+        List<Integer> ls = new LinkedList<>();
+        cookies.stream().forEach(cookie -> {
+            ls.add(cookie.getId());
+        });
+        return ls;
     }
 }

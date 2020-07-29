@@ -2,12 +2,6 @@ package com.jasmine.crawler.cron.service;
 
 import com.jasmine.crawl.common.pojo.entity.DownSystem;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public interface DownSystemService {
     /**
      * Get down system info
@@ -22,7 +16,7 @@ public interface DownSystemService {
      *
      * @param downSystemId
      */
-    void increaseTaskRunningCount(Integer downSystemId);
+    void increaseRunningTaskCount(Integer downSystemId);
 
     /**
      * Decrease current running task count

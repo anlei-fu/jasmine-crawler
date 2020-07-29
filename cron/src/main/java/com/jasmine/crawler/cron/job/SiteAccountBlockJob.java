@@ -1,8 +1,8 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.constant.BooleanFlag;
+import com.jasmine.crawl.common.constant.BooleanFlag;
 import com.jasmine.crawl.common.pojo.entity.SiteAccount;
+import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.SiteAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,12 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class SiteAccountBlockJob extends LoggerSupport {
 
@@ -37,25 +31,26 @@ public class SiteAccountBlockJob extends LoggerSupport {
         try {
             accounts = siteAccountService.getBlockedAccount();
             if (accounts.size() == 0) {
-                 info("no account need to disabled");
-            }else {
+                info("no account need to disabled");
+            } else {
                 siteAccountService.changeEnableStatusBatch(getSiteAccountIds(accounts), BooleanFlag.FALSE);
-                info(String.format("get %d account to disable",accounts.size()));
+                info(String.format("get %d account to disable", accounts.size()));
             }
         } catch (Exception ex) {
-            error("disable account failed",ex);
+            error("disable account failed", ex);
         }
 
+        info("-------------begin to enable blocked site account---------------------- ");
         try {
             accounts = siteAccountService.getAccountsToEnable();
             if (accounts.size() == 0) {
-                 info("no account need to be enabled");
-                 return;
+                info("no account need to be enabled");
+                return;
             }
             siteAccountService.changeEnableStatusBatch(getSiteAccountIds(accounts), BooleanFlag.TRUE);
-            info(String.format("get %d account to enable",accounts.size()));
+            info(String.format("get %d account to enable", accounts.size()));
         } catch (Exception ex) {
-            error("enable account failed",ex);
+            error("enable account failed", ex);
         }
     }
 

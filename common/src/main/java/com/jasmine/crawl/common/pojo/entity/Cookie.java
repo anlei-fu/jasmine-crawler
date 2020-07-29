@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------
  * Jasmine code generator, a tool to build web crud application,with spring-
  * boot, mybatis, mysql,swagger,spring-security.
- * Generated at 2020-7-25 2:58:14 PM 
+ * Generated at 2020-7-25 2:58:14 PM
  * All rights reserved by fuanlei(email:767550758@qq.com) since 2019
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawl.common.pojo.entity;
@@ -16,7 +16,7 @@ import java.util.Date;
 @ApiModel("")
 @Getter
 @Setter
-public class Cookie extends EnableStatusFeature  {
+public class Cookie extends EnableStatusFeature {
 
     /**
      * The account cookie belong to

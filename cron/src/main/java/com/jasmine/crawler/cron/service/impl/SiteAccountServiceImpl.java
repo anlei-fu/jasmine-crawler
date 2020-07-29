@@ -2,6 +2,7 @@ package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawl.common.pojo.entity.SiteAccount;
 import com.jasmine.crawler.cron.service.SiteAccountService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @Date:
  * @Description:
  */
+@Service
 public class SiteAccountServiceImpl implements SiteAccountService {
     @Override
     public List<SiteAccount> getBlockedAccount() {

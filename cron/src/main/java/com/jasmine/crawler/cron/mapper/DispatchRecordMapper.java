@@ -1,14 +1,9 @@
 package com.jasmine.crawler.cron.mapper;
 
+import com.jasmine.crawl.common.pojo.entity.DispatchRecord;
 import org.apache.ibatis.annotations.Mapper;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Mapper
 public interface DispatchRecordMapper {
-    void add(Integer taskId, Integer dispatchStatus, String msg);
+    void add(DispatchRecord record);
 }

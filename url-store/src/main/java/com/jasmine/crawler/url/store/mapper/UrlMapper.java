@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.mapper;
 
-import com.jasmine.crawler.url.store.pojo.entity.Url;
+import com.jasmine.crawl.common.pojo.entity.Url;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -14,4 +14,10 @@ import java.util.List;
 @Mapper
 public interface UrlMapper {
     List<Url> getUrlToCacheByDownSiteId(Integer downSystemSiteId, Integer urlMaxCacheCount);
+
+    void addBatch(List<Url> newUrls);
+
+    void updateStatus(Url urlToUpdate);
+
+    void failed(Url urlToUpdate);
 }

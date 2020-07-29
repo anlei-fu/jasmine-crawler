@@ -33,19 +33,19 @@ public class R<T> {
         this.data = data;
     }
 
-    public  static  R failed(){
+    public static R failed() {
         return create(RConstant.SUCCEED_CODE, "failed");
     }
 
-    public  static  R failed(int code){
+    public static R failed(int code) {
         return create(RConstant.SUCCEED_CODE, "failed");
     }
 
-    public  static  R failed(String msg){
+    public static R failed(String msg) {
         return create(RConstant.SUCCEED_CODE, "failed");
     }
 
-    public  static  R failed(int code,String msg){
+    public static R failed(int code, String msg) {
         return create(RConstant.SUCCEED_CODE, "failed");
     }
 
@@ -64,6 +64,7 @@ public class R<T> {
     public static R doResponse(boolean result) {
         return doResponse(result, "Operate failed");
     }
+
     public static <T> R<T> doResponse(T result) {
         return doResponse(result, "No data found");
     }
@@ -76,14 +77,14 @@ public class R<T> {
         return result != null ? new R(RConstant.SUCCEED_CODE, "Success", result) : create(RConstant.FAILED_CODE, failedMsg);
     }
 
-    public  static  R doResponse(int excepted,int actual){
-        return  excepted==actual
-                ?success()
-                :failed("excepted operate "+excepted+" data,"+"actually succeed "+actual+" data");
+    public static R doResponse(int excepted, int actual) {
+        return excepted == actual
+                ? success()
+                : failed("excepted operate " + excepted + " data," + "actually succeed " + actual + " data");
     }
 
-    public  boolean isSuccess(){
-        return  code== RConstant.SUCCEED_CODE;
+    public boolean isSuccess() {
+        return code == RConstant.SUCCEED_CODE;
     }
 
     public static class RConstant {

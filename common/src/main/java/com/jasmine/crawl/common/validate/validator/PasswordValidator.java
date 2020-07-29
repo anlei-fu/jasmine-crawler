@@ -12,6 +12,7 @@ import jdk.internal.joptsimple.internal.Strings;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
+
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
     private static final Pattern VALIDATOR = Pattern.compile("");

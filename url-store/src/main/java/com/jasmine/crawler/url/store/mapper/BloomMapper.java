@@ -1,5 +1,6 @@
 package com.jasmine.crawler.url.store.mapper;
 
+import com.jasmine.crawl.common.pojo.entity.SiteUrlBloom;
 import org.mapstruct.Mapper;
 
 /**
@@ -15,4 +16,10 @@ public interface BloomMapper {
     int createById(Integer id);
 
     int disableById(Integer id);
+
+    SiteUrlBloom getForUpdate(Integer id);
+
+    void add(SiteUrlBloom siteUrlBloom);
+
+    void update(SiteUrlBloom siteUrlBloom);
 }

@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------
  * Jasmine code generator, a tool to build web crud application,with spring-
  * boot, mybatis, mysql,swagger,spring-security.
- * Generated at 2020-7-25 2:58:14 PM 
+ * Generated at 2020-7-25 2:58:14 PM
  * All rights reserved by fuanlei(email:767550758@qq.com) since 2019
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawl.common.pojo.entity;
@@ -18,7 +18,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CrawlTask  {
+public class CrawlTask {
 
     /**
      * Use for statistics
@@ -72,7 +72,7 @@ public class CrawlTask  {
      * The down site task belong to
      */
     @ApiModelProperty("the site task belong to")
-    private Integer downSiteId;
+    private Integer downSystemSiteId;
 
     /**
      * Task result field
@@ -134,7 +134,6 @@ public class CrawlTask  {
     @ApiModelProperty("the time that task finished")
     private Date taskFinishTime;
 
-
     @ApiModelProperty("task execute result")
     private Integer taskExecuteResultType;
 
@@ -153,10 +152,10 @@ public class CrawlTask  {
     /**
      * Dispatch status see {@enum DispatchStatus}
      */
-    private  Integer dispatchStatus;
+    private Integer dispatchStatus;
 
     /**
      * The site task belong to
      */
-    private  Integer siteId;
+    private Integer siteId;
 }

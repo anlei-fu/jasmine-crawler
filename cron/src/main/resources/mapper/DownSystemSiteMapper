@@ -5,11 +5,12 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.DownSystemSiteMapper">
-    <update id="increaseTaskRunningCountById">
+    <update id="increaseRunningTaskCountById">
         update down_system_site
-        set current_running_task_count = current_running_task_count +1
-        where id =#{id}
+        set current_running_task_count = current_running_task_count + 1
+        where id = #{id}
     </update>
+    <update id="decreaseCurrentRunningTaskCountById"></update>
     <select id="getNeedCreateNewTaskSite" resultType="com.jasmine.crawl.common.pojo.entity.DownSystemSite">
         select
         dss.id,
@@ -26,10 +27,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         select count(1)
         from crawl_task ct
         where
-        ct.down_site_id = dss.id
+        ct.down_system_site_id = dss.id
         and ct .bind_status=0
-        ) &lt; dss.max_wait_to_run_task_count
-        order by dss.priority*ds.priority
+        )&lt; dss.max_wait_to_run_bind_count
+           order by dss.priority*ds.priority
 
     </select>
     <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.DownSystemSite">

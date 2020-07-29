@@ -12,5 +12,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnableStatusFeature {
-    private  Integer enableStatus;
+    private Integer enableStatus;
 }

@@ -1,4 +1,4 @@
-package com.jasmine.crawler.cron.pojo.req;
+package com.jasmine.crawl.common.pojo.entity;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +14,20 @@ import java.util.List;
 @Data
 @Builder
 public class Heartbeat {
-    private  String fileHost;
 
+    /**
+     * File system host "ip:port"
+     */
+    private String fileHost;
+
+    /**
+     * Available masters ip
+     */
     private List<String> masters;
 
-    private  String master;
+    /**
+     * The master which send the heartbeat
+     */
+    private String master;
 
 }

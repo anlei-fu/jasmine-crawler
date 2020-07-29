@@ -13,9 +13,13 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class DownSystemSite extends  EnableStatusFeature{
-    private  Integer id;
-    private  Integer siteId;
+public class DownSystemSite extends EnableStatusFeature {
+    private Integer id;
+    private Integer siteId;
 
-    private  Integer downSystemId;
+    private Integer downSystemId;
+
+    private Integer expectedUrlSize;
+
+    private Double fpp;
 }

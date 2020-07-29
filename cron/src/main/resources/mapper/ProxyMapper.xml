@@ -15,6 +15,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_use_count =current_use_count-1
         where id = #{id}
     </update>
+    <update id="disableProxiesBatch"></update>
+    <update id="enableProxiesBatch"></update>
 
     <select id="getProxyBySiteId" resultType="com.jasmine.crawl.common.pojo.entity.Proxy">
         select
@@ -31,4 +33,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.Proxy">
         select * from  proxy where id = #{id}
     </select>
+    <select id="getExpiredProxies" resultType="com.jasmine.crawl.common.pojo.entity.Proxy"></select>
+    <select id="getDisableTimeoutProxies" resultType="com.jasmine.crawl.common.pojo.entity.Proxy"></select>
 </mapper>

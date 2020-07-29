@@ -19,9 +19,9 @@ public interface CrawlerMapper {
 
     void updateConcurrencyById(@Param("id") Integer id, Integer currentConcurrency);
 
-    List<Crawler> getCrawlerNeedHeartbeat();
-
-    void updateHeartbeatStatusById(@Param("id") Integer id, @Param("data") Crawler crawler);
+    List<Crawler> getCrawlersNeedHeartbeat();
 
     Crawler getById(@Param("id") int id);
+
+    void updateHeartbeatStatus(@Param("id") Integer id, @Param("heartbeatStatus") Integer heartbeatStatus);
 }

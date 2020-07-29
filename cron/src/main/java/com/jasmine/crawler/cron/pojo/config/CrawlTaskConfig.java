@@ -1,54 +1,85 @@
 package com.jasmine.crawler.cron.pojo.config;
 
 import com.jasmine.crawl.common.pojo.entity.Proxy;
-import com.jasmine.crawl.common.pojo.entity.SiteUrlCheckRule;
 import lombok.Data;
 
-import java.util.List;
-
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Data
 public class CrawlTaskConfig {
 
-    private  Integer crawlType;
+    /***
+     * The crawl task type see {@enum CrawlType}
+     */
+    private Integer crawlType;
 
-    private  Integer autoDownloadPage;
+    /**
+     * Determine if auto download page and check page result
+     * if pass through html directly ,or download and check result by self
+     */
+    private Integer autoDownloadPage;
 
-    private  String encoding;
+    /**
+     * The encoding of target site
+     */
+    private String encoding;
 
-    private  Integer timeout;
+    /**
+     * Download page timeout
+     */
+    private Integer timeout;
 
+    /**
+     * Task id
+     */
     private Integer taskId;
 
+    /**
+     * Down system site id
+     */
     private Integer downSystemSiteId;
 
-    private  Integer siteId;
+    /**
+     * Target site id
+     */
+    private Integer siteId;
 
-    private  Integer ProxyId;
+    /**
+     * The proxy config ,'-1' not use proxy
+     */
+    private Integer proxyId;
 
+    /**
+     * Proxy info see {@Type Poxy}
+     */
     private Proxy proxy;
 
+    /**
+     * The cookie
+     */
     private Integer cookieId;
 
+    /**
+     * cookie in json string
+     */
     private String cookie;
 
-    private List<SiteUrlCheckRule> rules;
+    private String blockRules;
 
-    private  Integer maxConcurrency;
+    /**
+     * Task max concurrency
+     */
+    private Integer maxConcurrency;
 
-    private  Integer taskTimeout;
+    /**
+     * Task timeout
+     */
+    private Integer taskTimeout;
 
     // json string array
-    private  String urlMatchPatterns;
+    private String urlMatchPatterns;
 
     // json string array
-    private  String urlEncodes;
+    private String urlEncodes;
 
-    private  Integer crawlerId;
+    private Integer crawlerId;
 
 }

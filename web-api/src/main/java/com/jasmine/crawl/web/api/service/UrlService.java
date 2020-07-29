@@ -1,11 +1,7 @@
 package com.jasmine.crawl.web.api.service;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
+import com.jasmine.crawl.web.api.pojo.req.SaveUrlResultReq;
+
 public interface UrlService {
-    boolean saveUrlResult();
+    void saveUrlResult(SaveUrlResultReq saveUrlResultReq);
 }

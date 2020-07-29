@@ -1,13 +1,13 @@
 /*----------------------------------------------------------------------------
  * Jasmine code generator, a tool to build web crud application,with spring-
  * boot, mybatis, mysql,swagger,spring-security.
- * Generated at 2020-7-25 2:58:14 PM 
+ * Generated at 2020-7-25 2:58:14 PM
  * All rights reserved by fuanlei(email:767550758@qq.com) since 2019
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.cron.mapper.CookieMapper;
 import com.jasmine.crawl.common.pojo.entity.Cookie;
+import com.jasmine.crawler.cron.mapper.CookieMapper;
 import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,12 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public Cookie getCookieForSite(Integer siteId) {
-        return cookieMapper.getBySiteId();
+        return cookieMapper.getBySiteId(siteId);
     }
 
     @Override
     public void increaseCurrentUseCount(Integer id) {
-            cookieMapper.increaseCurrentUseCountById(id);
+        cookieMapper.increaseCurrentUseCountById(id);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public void deleteBatch(List<Integer> cookieIds) {
-              cookieMapper.deleteCookieBatch(cookieIds);
+        cookieMapper.deleteCookieBatch(cookieIds);
     }
 
     @Override

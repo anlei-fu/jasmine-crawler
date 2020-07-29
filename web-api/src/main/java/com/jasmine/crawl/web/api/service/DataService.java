@@ -1,6 +1,6 @@
 package com.jasmine.crawl.web.api.service;
 
-import java.util.List;
+import com.jasmine.crawl.web.api.pojo.req.SaveDataResultReq;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司
@@ -9,5 +9,5 @@ import java.util.List;
  * @Description:
  */
 public interface DataService {
-    boolean saveData(String key, List<String> data);
+    void saveData(SaveDataResultReq saveDataResultReq);
 }

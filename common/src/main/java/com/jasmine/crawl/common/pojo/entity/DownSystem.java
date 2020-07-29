@@ -14,5 +14,5 @@ public class DownSystem {
     /**
      * Unique id
      */
-    private  Integer id;
+    private Integer id;
 }

@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 public class GetUrlForTaskReq {
-    private  Integer downSystemSiteId;
+    private Integer downSystemSiteId;
 
-    private  Integer siteId;
+    private Integer siteId;
 }

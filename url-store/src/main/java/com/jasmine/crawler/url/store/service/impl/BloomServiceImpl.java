@@ -23,16 +23,16 @@ public class BloomServiceImpl implements BloomService {
 
     @Override
     public boolean createNewBloom(Integer id) {
-        if(bloomMapper.countById(id)>0) {
+        if (bloomMapper.countById(id) > 0) {
             return false;
         }
 
-        return  bloomMapper.createById(id)>0;
+        return bloomMapper.createById(id) > 0;
     }
 
     @Override
     public boolean disableById(Integer id) {
-        return bloomMapper.disableById(id) >0;
+        return bloomMapper.disableById(id) > 0;
     }
 
     @Override

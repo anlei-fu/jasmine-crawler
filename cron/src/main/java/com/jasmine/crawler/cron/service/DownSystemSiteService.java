@@ -4,19 +4,13 @@ import com.jasmine.crawl.common.pojo.entity.DownSystemSite;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public interface DownSystemSiteService {
     /**
-     * Get sites which need to create new task
+     * Get the sites which need to create new task determine by site.{@field maxWaitToBindTaskCount}
      *
      * @return
      */
-    List<DownSystemSite> getNeedCreateNewTaskSite();
+    List<DownSystemSite> getNeedCreateNewTaskSites();
 
     /**
      * Get by id
@@ -31,12 +25,12 @@ public interface DownSystemSiteService {
      *
      * @param downSystemSiteId
      */
-    void increaseTaskRunningCount(Integer downSystemSiteId);
+    void increaseRunningTaskCount(Integer downSystemSiteId);
 
     /**
      * Decrease current running task count
      *
      * @param downSystemSiteId
      */
-    void decreaseCurrentRunningTaskCountById(Integer downSystemSiteId);
+    void decreaseCurrentRunningTaskCount(Integer downSystemSiteId);
 }

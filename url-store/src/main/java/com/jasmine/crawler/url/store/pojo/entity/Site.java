@@ -11,6 +11,6 @@ import lombok.Data;
 @Data
 public class Site {
 
-    private  Integer taskCount;
-  private   Integer urlMaxCacheCount;
+    private Integer taskCount;
+    private Integer urlMaxCacheCount;
 }

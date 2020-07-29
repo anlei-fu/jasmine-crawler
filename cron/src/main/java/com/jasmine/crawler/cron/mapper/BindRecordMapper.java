@@ -7,7 +7,6 @@
 package com.jasmine.crawler.cron.mapper;
 
 import com.jasmine.crawl.common.pojo.entity.BindRecord;
-import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 @Mapper

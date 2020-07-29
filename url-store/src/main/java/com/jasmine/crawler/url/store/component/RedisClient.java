@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class RedisClient {
 
     @Bean
-    public   RedissonClient createRedissonClient(){
-         return  null;
+    public RedissonClient createRedissonClient() {
+        return null;
     }
 }

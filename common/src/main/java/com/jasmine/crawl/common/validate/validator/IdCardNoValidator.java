@@ -13,7 +13,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
-/** @Copyright (C) 四川千行你我科技有限公司 @Author: fuanlei @Date: @Description: */
+/**
+ * @Copyright (C) 四川千行你我科技有限公司 @Author: fuanlei @Date: @Description:
+ */
 public class IdCardNoValidator implements ConstraintValidator<IdCardNo, String> {
     private static final Pattern VALIDATOR =
             Pattern.compile("^\\d{8,18}|[0-9x]{8,18}|[0-9X]{8,18}?$");

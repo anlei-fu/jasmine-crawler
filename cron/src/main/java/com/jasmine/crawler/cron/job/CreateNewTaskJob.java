@@ -1,8 +1,8 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawl.common.pojo.entity.CrawlTask;
 import com.jasmine.crawl.common.pojo.entity.DownSystemSite;
+import com.jasmine.crawl.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class CreateNewTaskJob extends LoggerSupport {
 
@@ -34,9 +28,9 @@ public class CreateNewTaskJob extends LoggerSupport {
         info("-----------begin creating task--------------");
         List<DownSystemSite> downSystemSites = null;
         try {
-            downSystemSites = downSystemSiteService.getNeedCreateNewTaskSite();
-        } catch (RuntimeException e) {
-            error(String.format("run getNeedCreateNewTaskSite sql failed"), e);
+            downSystemSites = downSystemSiteService.getNeedCreateNewTaskSites();
+        } catch (RuntimeException ex) {
+            error(String.format("run getNeedCreateNewTaskSite sql failed"), ex);
             return;
         }
 
@@ -54,7 +48,7 @@ public class CreateNewTaskJob extends LoggerSupport {
             try {
                 CrawlTask taskToCreate = CrawlTask.builder()
                         .siteId(downSystemSite.getSiteId())
-                        .downSiteId(downSystemSite.getId())
+                        .downSystemSiteId(downSystemSite.getId())
                         .build();
                 boolean result = crawlTaskService.add(taskToCreate);
                 if (result) {
