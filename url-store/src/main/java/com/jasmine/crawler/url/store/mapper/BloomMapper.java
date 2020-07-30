@@ -21,5 +21,5 @@ public interface BloomMapper {
 
     void add(SiteUrlBloom siteUrlBloom);
 
-    void update(SiteUrlBloom siteUrlBloom);
+    void dump(SiteUrlBloom siteUrlBloom);
 }

@@ -8,5 +8,5 @@ public interface CrawlerService {
 
     Crawler get(Integer crawlerId);
 
-    void update(CrawlTask crawlTaskToUpdate);
+    void finishTask(CrawlTask crawlTaskToUpdate);
 }

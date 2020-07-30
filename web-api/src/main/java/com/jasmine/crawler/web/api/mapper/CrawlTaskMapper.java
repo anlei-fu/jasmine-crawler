@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface CrawlTaskMapper {
-    CrawlTask getCrawlTaskForUpdateById(@Param("id") Integer id);
+    CrawlTask getCrawlTaskForUpdate(@Param("id") Integer id);
 }

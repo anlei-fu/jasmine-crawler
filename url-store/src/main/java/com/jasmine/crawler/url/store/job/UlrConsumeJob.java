@@ -75,11 +75,12 @@ public class UlrConsumeJob extends LoggerSupport {
             if (t++ % 100 == 0) {
                 saveNewUrl(urls);
                 urls = new LinkedList<>();
-                k++;
             }
+
             try {
                 if (!Objects.isNull(url.getUrl()) && filter.add(url.getUrl())) {
                     urls.add(url);
+                    k++;
                 }
             } catch (Exception ex) {
                 error(String.format("filter url(%s) failed", url.getUrl()), ex);

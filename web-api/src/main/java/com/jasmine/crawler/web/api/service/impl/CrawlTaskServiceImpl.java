@@ -58,12 +58,12 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         saveData(req);
 
         try {
-            terminateCrawTask(req);
+            finishCrawTask(req);
         } catch (Exception ex) {
             error(String.format("terminate task(%d) failed",req.getTaskId()),ex);
         }
 
-        return false;
+        return true;
     }
 
     private void saveUrls(TaskResultReq req) {
@@ -96,16 +96,16 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         }
     }
 
-    private void terminateCrawTask(TaskResultReq req) {
+    private void finishCrawTask(TaskResultReq req) {
 
         // task removed
-        CrawlTask task = crawlTaskMapper.getCrawlTaskForUpdateById(req.getTaskId());
+        CrawlTask task = crawlTaskMapper.getCrawlTaskForUpdate(req.getTaskId());
         if (Objects.isNull(task)) {
             info("task removed");
             return;
         }
 
-        // incorrect task status may have been processed by terminate task
+        // incorrect task status may have been processed by timeout termination job
         if (task.getTaskStatus() != TaskStatus.EXECUTING) {
             info(String.format("task status incorrect %d", req.getTaskStatus()));
             return;
@@ -180,18 +180,17 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
             if (!Objects.isNull(siteAccount))
                 siteAccountService.resetBlockCount(siteAccount.getId());
-
         }
 
-        saveTaskResultCore(req);
-
+        finishCrawlTask(req);
     }
 
-    private void saveTaskResultCore(TaskResultReq req) {
+    private void finishCrawlTask(TaskResultReq req) {
         // update task
 
         CrawlTask crawlTaskToUpdate = CrawlTask.builder()
                 .id(req.getTaskId())
+                .taskStatus(req.getTaskStatus())
                 .averageSpeedOfAll(req.getAverageSpeedOfAll())
                 .averageSpeedOfSuccess(req.getAverageSpeedOfSuccess())
                 .meanSpeedOfSuccess(req.getMeanSpeedOfSuccess())
@@ -201,6 +200,6 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                 .newUrlCount(req.getNewUrls().size())
                 .build();
 
-        crawlerService.update(crawlTaskToUpdate);
+        crawlerService.finishTask(crawlTaskToUpdate);
     }
 }

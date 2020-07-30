@@ -12,4 +12,6 @@ import lombok.Data;
 public class SiteAccount {
     private Integer id;
 
+    public void resetBlockCount(Integer id) {
+    }
 }

@@ -33,7 +33,7 @@ public class BloomDumpJob extends LoggerSupport {
      *
      */
     public void run() {
-        info("------------------------begin dump and unloading url bloom-------------------------");
+        info("------------------------begin dump and unload url bloom-------------------------");
         for (final JasmineBloomWrapper wrapper : bloomFilterManager.getAll()) {
             if ((new Date().getTime() - wrapper.getLastDumpTime().getTime()) > DUMP_INTERVAL) {
                 dump(wrapper);
@@ -54,7 +54,7 @@ public class BloomDumpJob extends LoggerSupport {
                     .bloom(wrapper.dump())
                     .id(wrapper.getId())
                     .build();
-            bloomMapper.update(siteUrlBloom);
+            bloomMapper.dump(siteUrlBloom);
             info(String.format("dump bloom(%d)",wrapper.getId()));
         } catch (Exception ex) {
             error(String.format("dump bloom(%d) failed",wrapper.getId()),ex);

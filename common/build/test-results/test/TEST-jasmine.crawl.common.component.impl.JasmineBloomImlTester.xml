@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="jasmine.crawl.common.component.impl.JasmineBloomImlTester" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-29T11:32:58" hostname="pc-fal" time="0.073">
+  <properties/>
+  <testcase name="test" classname="jasmine.crawl.common.component.impl.JasmineBloomImlTester" time="0.073"/>
+  <system-out><![CDATA[true
+false
+false
+false
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
