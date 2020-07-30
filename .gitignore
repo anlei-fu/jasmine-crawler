@@ -7,5 +7,9 @@ out/
 .settings/
 bin/
 .myeclipse
-build/
+*/build/
 gradle/
+/gradle
+/url-store/build
+/.idea
+/.gradle
