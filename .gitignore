@@ -13,3 +13,6 @@ gradle/
 /url-store/build
 /.idea
 /.gradle
+/common/build
+/web-api/build
+/cron/build
