@@ -6,12 +6,12 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.Script;
+import com.jasmine.crawler.common.pojo.entity.Script;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface ScriptMapper {
 
-    Script getById(@Param("id") Integer id);
+    Script get(@Param("id") Integer id);
 }

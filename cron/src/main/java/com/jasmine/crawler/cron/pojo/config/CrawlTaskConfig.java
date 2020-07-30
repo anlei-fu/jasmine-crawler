@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.pojo.config;
 
-import com.jasmine.crawl.common.pojo.entity.Proxy;
+import com.jasmine.crawler.common.pojo.entity.Proxy;
 import lombok.Data;
 
 @Data

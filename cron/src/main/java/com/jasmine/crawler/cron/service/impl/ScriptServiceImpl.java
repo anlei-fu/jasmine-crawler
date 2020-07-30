@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.Script;
+import com.jasmine.crawler.common.pojo.entity.Script;
 import com.jasmine.crawler.cron.mapper.ScriptMapper;
 import com.jasmine.crawler.cron.service.ScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class ScriptServiceImpl implements ScriptService {
 
     @Override
     public Script get(Integer scriptId) {
-        return scriptMapper.getById(scriptId);
+        return scriptMapper.get(scriptId);
     }
 
 }

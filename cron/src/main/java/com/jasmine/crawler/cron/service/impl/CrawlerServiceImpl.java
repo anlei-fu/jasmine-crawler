@@ -6,7 +6,8 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.Crawler;
+import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.pojo.entity.Crawler;
 import com.jasmine.crawler.cron.mapper.CrawlerMapper;
 import com.jasmine.crawler.cron.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public Crawler getCrawlerForSite(Integer siteId) {
-        return crawlerMapper.getCrawlerBySite(siteId);
+        return crawlerMapper.getCrawlerForSite(siteId);
     }
 
     @Override
@@ -42,7 +43,11 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public void updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus) {
-        crawlerMapper.updateHeartbeatStatus(crawlerId, heartbeatStatus);
+        if(heartbeatStatus== BooleanFlag.TRUE){
+            crawlerMapper.heartbeatSuccess(crawlerId);
+        }else{
+            crawlerMapper.heartbeatFailed(crawlerId);
+        }
     }
 }
 

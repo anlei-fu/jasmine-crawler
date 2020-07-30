@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@MapperScan("com.jasmine.crawler.job.mapper")
+@MapperScan("com.jasmine.crawler.cron.mapper")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

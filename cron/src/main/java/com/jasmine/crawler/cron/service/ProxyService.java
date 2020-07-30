@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.Proxy;
+import com.jasmine.crawler.common.pojo.entity.Proxy;
 
 import java.util.List;
 
@@ -44,30 +44,8 @@ public interface ProxyService {
     void decreaseCurrentUseCount(Integer proxyId);
 
     /**
-     * Get expired proxies
+     * Disable proxies batch
      *
-     * @return
      */
-    List<Proxy> getExpiredProxies();
-
-    /**
-     * Delete proxies batch
-     *
-     * @param proxyIds
-     */
-    void disableProxiesBatch(List<Integer> proxyIds);
-
-    /**
-     * Get proxies which is enable status is false and disable timeout
-     *
-     * @return
-     */
-    List<Proxy> getDisableTimeoutProxies();
-
-    /**
-     * Enable proxies batch
-     *
-     * @param proxyIds
-     */
-    void enableProxiesBatch(List<Integer> proxyIds);
+    void disableBlockedProxies();
 }

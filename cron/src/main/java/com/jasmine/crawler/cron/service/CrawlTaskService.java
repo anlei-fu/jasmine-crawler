@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.CrawlTask;
+import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 
 import java.util.List;
@@ -72,16 +72,30 @@ public interface CrawlTaskService {
     /**
      * Handle bind success
      *
-     * @param crawlTaskToUpdate
+     * @param crawlTaskId
      * @return
      */
-    boolean bindSuccess(CrawlTask crawlTaskToUpdate);
+    boolean bindSuccess(Integer crawlTaskId);
 
     /**
      * Terminate timeout crawl task
      *
      * @param id
-     * @param timeout
      */
-    void terminateTimeoutTask(Integer id, Integer timeout);
+    void terminateTimeoutTask(Integer id);
+
+    /**
+     * Update task when dispatch failed
+     *
+     * @param dispatchFailedTask
+     */
+    void dispatchFailed(CrawlTask dispatchFailedTask);
+
+    /**
+     * Get task and lock it
+     *
+     * @param id
+     * @return
+     */
+    CrawlTask getForUpdate(Integer id);
 }

@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.Crawler;
+import com.jasmine.crawler.common.pojo.entity.Crawler;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,13 +15,15 @@ import java.util.List;
 @Mapper
 public interface CrawlerMapper {
 
-    Crawler getCrawlerBySite(@Param("siteId") Integer siteId);
+    Crawler getCrawlerForSite(@Param("siteId") Integer siteId);
 
-    void updateConcurrencyById(@Param("id") Integer id, Integer currentConcurrency);
+    void updateConcurrencyById(@Param("id") Integer id, @Param("concurrencyToIncrease") Integer concurrencyToIncrease);
 
     List<Crawler> getCrawlersNeedHeartbeat();
 
     Crawler getById(@Param("id") int id);
 
-    void updateHeartbeatStatus(@Param("id") Integer id, @Param("heartbeatStatus") Integer heartbeatStatus);
+    void heartbeatSuccess(@Param("id") Integer id);
+
+    void heartbeatFailed(Integer crawlerId);
 }

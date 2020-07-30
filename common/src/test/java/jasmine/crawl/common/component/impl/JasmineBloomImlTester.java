@@ -1,6 +1,6 @@
 package jasmine.crawl.common.component.impl;
 
-import com.jasmine.crawl.common.component.impl.JasmineBloomFilterImpl;
+import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
 import org.junit.Test;
 
 /**

@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.Script;
+import com.jasmine.crawler.common.pojo.entity.Script;
 
 public interface ScriptService {
 

@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.BindRecord;
+import com.jasmine.crawler.common.pojo.entity.BindRecord;
 
 /**
  * Record bind result

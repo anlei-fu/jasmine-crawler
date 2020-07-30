@@ -1,10 +1,10 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.api.resp.R;
-import com.jasmine.crawl.common.constant.BooleanFlag;
-import com.jasmine.crawl.common.pojo.entity.Crawler;
-import com.jasmine.crawl.common.pojo.entity.Heartbeat;
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.api.resp.R;
+import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.pojo.entity.Crawler;
+import com.jasmine.crawler.common.pojo.entity.Heartbeat;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +91,9 @@ public class HeartbeatJob extends LoggerSupport {
         }
 
         crawlerService.updateHeartbeatStatus(
-                crawler.getId(), resp.isSuccess() ? BooleanFlag.TRUE : BooleanFlag.FALSE);
+                crawler.getId(),
+                resp.isSuccess() ? BooleanFlag.TRUE : BooleanFlag.FALSE
+        );
 
         info(String.format(
                 "send heartbeat to crawler(%d) ,and response code is %d",

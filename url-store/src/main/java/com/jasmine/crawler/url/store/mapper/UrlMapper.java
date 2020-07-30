@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.Url;
+import com.jasmine.crawler.common.pojo.entity.Url;
 import org.mapstruct.Mapper;
 
 import java.util.List;

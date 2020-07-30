@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import org.springframework.stereotype.Component;
 
 @Component

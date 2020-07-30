@@ -1,8 +1,8 @@
 package com.jasmine.crawler.url.store.service.impl;
 
-import com.jasmine.crawl.common.component.JasmineBloomFilter;
-import com.jasmine.crawl.common.pojo.entity.DownSystemSite;
-import com.jasmine.crawl.common.pojo.entity.SiteUrlBloom;
+import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
+import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
 import com.jasmine.crawler.url.store.mapper.BloomMapper;
 import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;

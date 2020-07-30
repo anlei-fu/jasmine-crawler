@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.DispatchRecord;
+import com.jasmine.crawler.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.cron.mapper.DispatchRecordMapper;
 import com.jasmine.crawler.cron.service.DispatchRecordService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,31 +5,55 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.CrawlerMapper">
-    <update id="updateConcurrencyById">
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Crawler">
+        select * from crawler where id = #{id}
+    </select>
+    <select id="getCrawlersNeedHeartbeat" resultType="com.jasmine.crawler.common.pojo.entity.Crawler">
+        select * from crawler c
+        where
+        c.enable_status = 1
+        and
+        date_add(c.last_heartbeat_time,interval least(c.heartbeat_lost,5) minute) &lt; current_timestamp
+    </select>
+    <update id="heartbeatSuccess">
         update crawler
-        set current_concurrency = current_concurrency + #{current_concurrency}
+        set heartbeat_status = 1,
+        heartbeat_lost = 0,
+        last_heartbeat_time = current_timestamp
         where id = #{id}
     </update>
-    <update id="updateHeartbeatStatus"></update>
-    <select id="getCrawlerBySite" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
+    <update id="heartbeatFailed">
+        update crawler
+        set heartbeat_status = 0,
+        current_concurrency = 0,
+        heartbeat_lost = heartbeat_lost + 1,
+        last_heartbeat_time = current_timestamp
+        where id = #{id}
+    </update>
+    <update id="updateConcurrencyById">
+        update crawler
+        set current_concurrency = current_concurrency + #{concurrencyToIncrease}
+        where id = #{id}
+    </update>
+    <select id="getCrawlerForSite" resultType="com.jasmine.crawler.common.pojo.entity.Crawler">
         select
         *
         from crawler c
         where
         c.enable_status = 1
-        and (c.max_concurrency-c.current_concurrency) &lt; (select max_concurrency from site where id =1)
-        and c.ip not in (select ip from site_ip_block_map where site_id = 1 and enable_status = 1)
+        and c.heartbeat_status =1
+        and
+        (c.max_concurrency-c.current_concurrency) &lt;
+         (select minute_speed_limit from site s where s.id = #{siteId})
+        and c.ip not in (
+        select ip from site_ip_block_map sibm
+        where site_id = 1  and  sibm.block_timeout > current_timestamp
+        )
+        and c.ip not in (
+        select ip from site_ip_delay_map sidm
+        where  site_id = #{siteId} and sidm.delay_timeout > current_timestamp
+        )
         order by c.current_concurrency/c.max_concurrency asc
         limit 1,1
-    </select>
-    <select id="getCrawlersNeedHeartbeat" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
-        select * from crawler c
-        where
-        c.enable_status = 1
-        and
-        date_add(c.last_heartbeat_time,interval least(c.heartbeat_lost,5) minute)&lt;current_timestamp
-    </select>
-    <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.Crawler">
-        select * from crawler where id = #{id}
     </select>
 </mapper>

@@ -1,7 +1,7 @@
 package com.jasmine.crawler.url.store.pojo.entity;
 
-import com.jasmine.crawl.common.component.JasmineBloomFilter;
-import com.jasmine.crawl.common.component.impl.JasmineBloomFilterImpl;
+import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
 import lombok.Getter;
 import lombok.Setter;
 

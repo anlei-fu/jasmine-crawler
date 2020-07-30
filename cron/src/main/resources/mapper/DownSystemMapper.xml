@@ -5,9 +5,17 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.DownSystemMapper">
-    <update id="increaseTaskRunningCountById"></update>
-    <update id="decreaseCurrentRunningTaskCountById"></update>
-    <select id="getById" resultType="com.jasmine.crawl.common.pojo.entity.DownSystem">
+    <update id="increaseTaskRunningCountById">
+        update down_system
+        set task_current_running_count = task_current_running_count + 1
+        where id = #{id}
+    </update>
+    <update id="decreaseCurrentRunningTaskCountById">
+         update down_system
+        set task_current_running_count = task_current_running_count - 1
+        where id = #{id}
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystem">
         select * from cookie
         where id = #{id}
     </select>

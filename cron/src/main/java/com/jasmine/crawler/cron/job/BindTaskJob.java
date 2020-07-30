@@ -1,10 +1,9 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.constant.BindStatus;
-import com.jasmine.crawl.common.constant.BooleanFlag;
-import com.jasmine.crawl.common.constant.DispatchStatus;
-import com.jasmine.crawl.common.pojo.entity.*;
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.constant.BindStatus;
+import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -40,9 +39,12 @@ public class BindTaskJob extends LoggerSupport {
     @Autowired
     private DownSystemSiteService downSystemSiteService;
 
+    @Autowired
+    private  SiteAccountService siteAccountService;
+
     @Scheduled(cron = "*/6 * * * * ?")
     public void run() {
-
+        bindTask(1);
     }
 
     private void bindTask(Integer level) {
@@ -98,6 +100,7 @@ public class BindTaskJob extends LoggerSupport {
      * 6. find proxy for site if need,and update proxy use count
      */
     private boolean bindTaskCore(CrawlTask taskToBind) {
+
         boolean isInvalid = false;
         CrawlTask crawlTaskToUpdate = new CrawlTask();
 
@@ -156,8 +159,9 @@ public class BindTaskJob extends LoggerSupport {
         }
 
         // find and check cookie
+        Cookie cookie =null;
         if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
-            Cookie cookie = cookieService.getCookieForSite(site.getId());
+            cookie = cookieService.getCookieForSite(site.getId());
             isInvalid = checkIsComponentInvalid(
                     cookie,
                     taskToBind.getId(),
@@ -204,7 +208,7 @@ public class BindTaskJob extends LoggerSupport {
 
         crawlTaskToUpdate.setCrawlerId(crawler.getId());
 
-        bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler);
+        bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler,cookie);
         info(String.format("bind task(%d) succeed", taskToBind.getId()));
         return true;
     }
@@ -219,14 +223,15 @@ public class BindTaskJob extends LoggerSupport {
                 || ((target instanceof EnableStatusFeature)
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
-            taskToUpdate.setBindStatus(bindStatus);
+            taskToUpdate.setLastBindStatus(bindStatus);
+            taskToUpdate.setLastBindMsg(msg);
             crawlTaskService.bindFailed(taskToUpdate);
 
             // add bind record
             BindRecord record = BindRecord.builder()
                     .crawlTaskId(taskToBindId)
                     .bindStatus(bindStatus)
-                    .msg(msg)
+                    .bindMsg(msg)
                     .build();
             bindRecordService.add(record);
 
@@ -241,7 +246,14 @@ public class BindTaskJob extends LoggerSupport {
         return false;
     }
 
-    private void bindSuccess(Integer taskToBindId, CrawlTask crawlTaskToUpdate, Site site, DownSystemSite downSystemSite, Crawler crawler) {
+    private void bindSuccess(
+            Integer taskToBindId,
+            CrawlTask crawlTaskToUpdate,
+            Site site,
+            DownSystemSite downSystemSite,
+            Crawler crawler,
+            Cookie cookie
+    ) {
 
         siteService.increaseRunningTaskCount(site.getId());
         downSystemSiteService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
@@ -249,6 +261,7 @@ public class BindTaskJob extends LoggerSupport {
 
         if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
             cookieService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
+            siteAccountService.increaseCurrentUseCount(cookie.getAccountId());
         }
 
         if (site.getNeedUseProxy() == BooleanFlag.TRUE)
@@ -257,19 +270,18 @@ public class BindTaskJob extends LoggerSupport {
         // update crawler current concurrency
         crawlerService.increaseCurrentConcurrency(
                 crawler.getId(),
-                site.getCurrentConcurrency()
+                site.getMinuteSpeedLimit()
         );
 
         // add bind record
         BindRecord record = BindRecord.builder().crawlTaskId(taskToBindId)
                 .bindStatus(BindStatus.SUCCESS)
-                .msg("success")
+                .bindMsg("success")
                 .build();
         bindRecordService.add(record);
 
         // update task bind status
-        crawlTaskToUpdate.setBindStatus(BindStatus.SUCCESS);
-        crawlTaskToUpdate.setDispatchStatus(DispatchStatus.WAIT);
-        boolean result = crawlTaskService.bindSuccess(crawlTaskToUpdate);
+
+        boolean result = crawlTaskService.bindSuccess(taskToBindId);
     }
 }

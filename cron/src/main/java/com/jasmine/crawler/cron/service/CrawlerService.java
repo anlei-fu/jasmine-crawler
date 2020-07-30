@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.Crawler;
+import com.jasmine.crawler.common.pojo.entity.Crawler;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public interface CrawlerService {
 
     /**
      * Get crawlers which need to do heartbeat check,the {@Field Crawler.heartbeatLostCount} smaller
-     * the heartbeat check more often
+     * the heartbeat check more often ,max interval is 5 minute
      *
      * @return
      */

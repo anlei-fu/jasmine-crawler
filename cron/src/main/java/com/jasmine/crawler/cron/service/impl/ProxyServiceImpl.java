@@ -6,13 +6,11 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.Proxy;
+import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.cron.mapper.ProxyMapper;
 import com.jasmine.crawler.cron.service.ProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProxyServiceImpl implements ProxyService {
@@ -22,7 +20,7 @@ public class ProxyServiceImpl implements ProxyService {
 
     @Override
     public Proxy getProxyForSite(Integer siteId) {
-        return proxyMapper.getProxyBySiteId(siteId);
+        return proxyMapper.getProxyForSite(siteId);
     }
 
     @Override
@@ -41,24 +39,8 @@ public class ProxyServiceImpl implements ProxyService {
     }
 
     @Override
-    public List<Proxy> getExpiredProxies() {
-        return proxyMapper.getExpiredProxies();
+    public void disableBlockedProxies() {
+        proxyMapper.disableBlockedProxies();
     }
-
-    @Override
-    public void disableProxiesBatch(List<Integer> proxyIds) {
-        proxyMapper.disableProxiesBatch(proxyIds);
-    }
-
-    @Override
-    public List<Proxy> getDisableTimeoutProxies() {
-        return proxyMapper.getDisableTimeoutProxies();
-    }
-
-    @Override
-    public void enableProxiesBatch(List<Integer> proxyIds) {
-        proxyMapper.enableProxiesBatch(proxyIds);
-    }
-
 }
 

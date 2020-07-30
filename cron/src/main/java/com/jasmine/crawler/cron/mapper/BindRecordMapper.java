@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.BindRecord;
+import com.jasmine.crawler.common.pojo.entity.BindRecord;
 import org.mapstruct.Mapper;
 
 @Mapper

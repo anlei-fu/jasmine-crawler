@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.pojo.req;
 
-import com.jasmine.crawl.common.pojo.entity.Url;
+import com.jasmine.crawler.common.pojo.entity.Url;
 import lombok.Data;
 
 import java.util.List;

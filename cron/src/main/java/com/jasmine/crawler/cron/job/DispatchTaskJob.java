@@ -1,10 +1,10 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.api.resp.R;
-import com.jasmine.crawl.common.constant.BooleanFlag;
-import com.jasmine.crawl.common.constant.DispatchStatus;
-import com.jasmine.crawl.common.pojo.entity.*;
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.api.resp.R;
+import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.constant.DispatchStatus;
+import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.*;
@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,6 +52,12 @@ public class DispatchTaskJob extends LoggerSupport {
 
     @Autowired
     private DispatchRecordService dispatchRecordService;
+
+    @Autowired
+    private  SiteAccountService siteAccountService;
+
+    @Autowired
+    private  SiteIpDelayService siteIpDelayService;
 
     /**
      * Dispatch crawl task to crawler to run
@@ -129,6 +136,7 @@ public class DispatchTaskJob extends LoggerSupport {
                 DispatchStatus.SITE_NOT_AVAILABLE,
                 "site not available"
         );
+
         if (isInvalid) {
             crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
@@ -161,8 +169,9 @@ public class DispatchTaskJob extends LoggerSupport {
         }
 
         // check and config proxy
+        Proxy proxy=null;
         if (crawlTaskConfig.getProxyId() != BooleanFlag.NO_NEED) {
-            Proxy proxy = proxyService.get(crawlTaskConfig.getProxyId());
+            proxy = proxyService.get(crawlTaskConfig.getProxyId());
             isInvalid = checkDispatch(
                     site,
                     crawlTaskConfig,
@@ -201,7 +210,7 @@ public class DispatchTaskJob extends LoggerSupport {
         if (isInvalid)
             return false;
 
-        // config task urls
+        // fetch task urls
         List<Url> urls = urlService.getUrlToExecuteForSite(
                 crawlTaskConfig.getSiteId(),
                 site.getTaskBatchCount()
@@ -218,16 +227,22 @@ public class DispatchTaskJob extends LoggerSupport {
         }
 
         // post crawler to run new task
-        R resp = restTemplate.postForObject(
-                String.format(
-                        "%s:%d%s",
-                        crawler.getIp(),
-                        crawler.getPort(),
-                        systemConfig.getCrawlerStartNewTaskPath()
-                ),
-                crawlTaskConfig,
-                R.class
-        );
+        R resp =null;
+        try {
+            // post crawler to run new task
+            resp = restTemplate.postForObject(
+                    String.format(
+                            "%s:%d%s",
+                            crawler.getIp(),
+                            crawler.getPort(),
+                            systemConfig.getCrawlerStartNewTaskPath()
+                    ),
+                    crawlTaskConfig,
+                    R.class
+            );
+        }catch (Exception ex){
+            error(String.format("post crawler(%d) failed",crawler.getId()),ex);
+        }
 
         if (!resp.isSuccess()) {
             checkDispatch(
@@ -239,7 +254,17 @@ public class DispatchTaskJob extends LoggerSupport {
             return false;
         }
 
+        // update dispatch status success
         crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId());
+
+        // add delay map
+        SiteIpDelayMap siteIpDelayMap =SiteIpDelayMap.builder()
+                .ip(Objects.isNull(proxy)?proxy.getIp():crawler.getIp())
+                .delayTimeout(new Date(System.currentTimeMillis()+site.getIpDelayTimeout()))
+                .siteId(site.getId())
+                .build();
+        siteIpDelayService.add(siteIpDelayMap);
+
         return true;
     }
 
@@ -257,20 +282,33 @@ public class DispatchTaskJob extends LoggerSupport {
                 || ((target instanceof EnableStatusFeature)
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
-            DispatchRecord dispatchRecord = DispatchRecord.builder()
-                    .taskId(crawlTaskConfig.getTaskId())
-                    .dispatchStatus(dispatchStatus)
-                    .msg(msg)
-                    .build();
-            dispatchRecordService.add(dispatchRecord);
-
-            dispatchFailed(crawlTaskConfig);
+            dispatchFailed(crawlTaskConfig,dispatchStatus,msg);
+            return  false;
         }
 
         return true;
     }
 
-    private void dispatchFailed(CrawlTaskConfig crawlTaskConfig) {
+    private void dispatchFailed(CrawlTaskConfig crawlTaskConfig,Integer dispatchStatus,String msg) {
+
+        // add dispatch record
+        DispatchRecord dispatchRecord = DispatchRecord.builder()
+                .taskId(crawlTaskConfig.getTaskId())
+                .dispatchStatus(dispatchStatus)
+                .msg(msg)
+                .build();
+        dispatchRecordService.add(dispatchRecord);
+
+        // update task dispatch status
+        CrawlTask dispatchFailedTask =CrawlTask
+                .builder()
+                .id(crawlTaskConfig.getTaskId())
+                .dispatchStatus(dispatchStatus)
+                .dispatchMsg(msg)
+                .build();
+        crawlTaskService.dispatchFailed(dispatchFailedTask);
+
+        // decrease site concurrency
         Site site = siteService.get(crawlTaskConfig.getSiteId());
         if (!Objects.isNull(site)) {
             siteService.decreaseCurrentRunningTaskCountById(site.getId());
@@ -279,11 +317,12 @@ public class DispatchTaskJob extends LoggerSupport {
             if (!Objects.isNull(crawler)) {
                 crawlerService.increaseCurrentConcurrency(
                         crawler.getId(),
-                        -site.getMaxConcurrency()
+                        -site.getMinuteSpeedLimit()
                 );
             }
         }
 
+        // decrease  down system site concurrency
         DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
@@ -292,9 +331,14 @@ public class DispatchTaskJob extends LoggerSupport {
                 downSystemService.decreaseCurrentRunningTaskCount(downSystem.getId());
         }
 
-        if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED)
+        // decrease cookie and account use count
+        if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED) {
             cookieService.decreaseCurrentUseCount(crawlTaskConfig.getCookieId());
+            Cookie cookie =cookieService.get(crawlTaskConfig.getCookieId());
+            siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
+        }
 
+        // decrease proxy use count
         if (crawlTaskConfig.getProxyId() != BooleanFlag.NO_NEED)
             proxyService.decreaseCurrentUseCount(crawlTaskConfig.getProxyId());
 

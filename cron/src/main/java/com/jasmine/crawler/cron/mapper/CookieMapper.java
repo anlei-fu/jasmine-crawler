@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.Cookie;
+import com.jasmine.crawler.common.pojo.entity.Cookie;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,13 +17,13 @@ public interface CookieMapper {
 
     int deleteById(@Param("id") Integer id);
 
-    Cookie getById(@Param("id") Integer id);
+    Cookie get(@Param("id") Integer id);
 
     Cookie getBySiteId(@Param("siteId") Integer id);
 
     void increaseCurrentUseCountById(@Param("id") Integer id);
 
-    List<Cookie> getExpiredCookies();
+    void removeExpiredCookies();
 
     void deleteCookieBatch(@Param("list") List<Integer> cookieIds);
 

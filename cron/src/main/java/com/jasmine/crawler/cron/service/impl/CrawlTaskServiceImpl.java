@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.CrawlTask;
+import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.cron.mapper.CrawlTaskMapper;
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
@@ -49,12 +49,12 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
 
     @Override
     public List<CrawlTaskConfig> getTasksConfigsToDispatch() {
-        return crawlTaskMapper.getTaskConfigToRun();
+        return crawlTaskMapper.getTaskConfigsToDispatch();
     }
 
     @Override
     public List<CrawlTask> getTimeoutTasksToTerminate() {
-        return null;
+        return crawlTaskMapper.getTimeoutTasksToTerminate();
     }
 
     @Override
@@ -63,13 +63,23 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     }
 
     @Override
-    public boolean bindSuccess(CrawlTask crawlTaskToUpdate) {
-        return crawlTaskMapper.bindSuccess(crawlTaskToUpdate);
+    public boolean bindSuccess(Integer crawlTaskId) {
+        return crawlTaskMapper.bindSuccess(crawlTaskId);
     }
 
     @Override
-    public void terminateTimeoutTask(Integer id, Integer timeout) {
+    public void terminateTimeoutTask(Integer id) {
+         crawlTaskMapper.terminateTimeoutTask(id);
+    }
 
+    @Override
+    public void dispatchFailed(CrawlTask dispatchFailedTask) {
+        crawlTaskMapper.dispatchFailed(dispatchFailedTask);
+    }
+
+    @Override
+    public CrawlTask getForUpdate(Integer id) {
+        return crawlTaskMapper.getForUpdate(id);
     }
 }
 

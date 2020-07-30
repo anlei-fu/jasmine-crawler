@@ -7,12 +7,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.CookieMapper">
     <update id="increaseCurrentUseCountById">
         update cookie
-        set current_use_count =current_use_count+1
+        set current_use_count = current_use_count+1
         where id = #{id}
     </update>
     <update id="decreaseCurrentUseCountById">
         update cookie
-        set current_use_count =current_use_count-1
+        set current_use_count = current_use_count-1
         where id = #{id}
     </update>
 
@@ -20,35 +20,35 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         delete from cookie
         where id = #{id}
     </delete>
-    <delete id="deleteCookieBatch"></delete>
-    <select id="getById" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+
+    <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
         select * from cookie
         where id = #{id}
     </select>
-    <select id="getBySiteId" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+
+    <select id="getBySiteId" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
         select
          *
         from cookie c
         join site_account sa on c.site_account_id = sa.id
         join site s on sa.site_id =s.id
         where
-        sa.site_id = 1
+        sa.site_id = #{siteId}
         and c.enable_status = 1
         and s.enable_status = 1
         and sa.enable_status = 1
-        and sa.is_available = 1
+        and sa.available_status = 1
     </select>
-    <select id="getExpiredCookies" resultType="com.jasmine.crawler.cron.pojo.entity.Cookie">
+    <select id="removeExpiredCookies" >
+        delete from cookie c
+        where c.site_id in (
         select
-        c.id
-        from cookie c
-        join site_account sa on c.site_account_id = sa.id
-        join site s on sa.site_id = s.id
+        s.id from site s
         where
-          c.enable_status=1
-        and (
-            c.current_block_count > s.cookie_max_block_count
-           or date_add(c.create_time,INTERVAL s.cookie_expire_timeout hour)> current_timestamp
+        c.site_id =s.id
+
+        and c.current_block_count > s.cookie_max_block_count
+        or c.expire_timeout &lt; current_timestamp
         )
     </select>
 </mapper>

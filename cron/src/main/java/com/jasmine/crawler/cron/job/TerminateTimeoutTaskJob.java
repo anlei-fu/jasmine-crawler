@@ -1,11 +1,8 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.constant.TaskStatus;
-import com.jasmine.crawl.common.pojo.entity.CrawlTask;
-import com.jasmine.crawl.common.pojo.entity.Crawler;
-import com.jasmine.crawl.common.pojo.entity.DownSystemSite;
-import com.jasmine.crawl.common.pojo.entity.Site;
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.constant.TaskStatus;
+import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +33,9 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
 
     @Autowired
     private ProxyService proxyService;
+
+    @Autowired
+    private  SiteAccountService siteAccountService;
 
     public void run() {
         info("----------------------------begin terminate task-------------------------------");
@@ -73,6 +73,17 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
     }
 
     private void terminateTaskCore(CrawlTask task) {
+        task =crawlTaskService.getForUpdate(task.getId());
+        if(Objects.isNull(task)){
+            info("task not exists");
+            return;
+        }
+
+        if(task.getTaskStatus()!=TaskStatus.EXECUTING){
+             info(String.format("incorrect task status %d",task.getTaskStatus()));
+             return;
+        }
+
         Site site = siteService.get(task.getSiteId());
         if (!Objects.isNull(site))
             siteService.decreaseCurrentRunningTaskCountById(site.getId());
@@ -86,18 +97,21 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
         if (task.getProxyId() != -1)
             proxyService.decreaseCurrentUseCount(task.getProxyId());
 
-        if (task.getCookieId() != -1)
+        if (task.getCookieId() != -1) {
             cookieService.decreaseCurrentUseCount(task.getCookieId());
-
-        crawlTaskService.terminateTimeoutTask(task.getId(), TaskStatus.TIMEOUT);
+            Cookie cookie = cookieService.get(task.getCookieId());
+            siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
+        }
 
         Crawler crawler = crawlerService.get(task.getCrawlerId());
         if (!Objects.isNull(crawler)) {
             crawlerService.increaseCurrentConcurrency(
                     crawler.getId(),
-                    -site.getMaxConcurrency()
+                    -site.getMinuteSpeedLimit()
             );
         }
+
+        crawlTaskService.terminateTimeoutTask(task.getId());
 
     }
 }

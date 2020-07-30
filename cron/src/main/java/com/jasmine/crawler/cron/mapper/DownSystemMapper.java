@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.DownSystem;
+import com.jasmine.crawler.common.pojo.entity.DownSystem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

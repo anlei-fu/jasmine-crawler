@@ -1,7 +1,7 @@
 package com.jasmine.crawler.url.store.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.Url;
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.pojo.entity.Url;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.url.store.mapper.SiteMapper;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
 import com.jasmine.crawler.url.store.pojo.entity.Site;

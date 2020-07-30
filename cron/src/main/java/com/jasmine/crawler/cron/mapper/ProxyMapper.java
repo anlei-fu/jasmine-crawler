@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.Proxy;
+import com.jasmine.crawler.common.pojo.entity.Proxy;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface ProxyMapper {
 
-    Proxy getProxyBySiteId(@Param("siteId") Integer siteId);
+    Proxy getProxyForSite(@Param("siteId") Integer siteId);
 
     int increaseCurrentUseCountById(@Param("id") Integer id);
 
@@ -23,11 +23,6 @@ public interface ProxyMapper {
 
     Proxy getById(@Param("id") Integer id);
 
-    List<Proxy> getExpiredProxies();
+    void disableBlockedProxies();
 
-    void disableProxiesBatch(@Param("list") List<Integer> proxyIds);
-
-    List<Proxy> getDisableTimeoutProxies();
-
-    void enableProxiesBatch(@Param("list") List<Integer> proxyIds);
 }

@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.service;
 
-import com.jasmine.crawl.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.component.JasmineBloomFilter;
 import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
 
 import java.io.IOException;

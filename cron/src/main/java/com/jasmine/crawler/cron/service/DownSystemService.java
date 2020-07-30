@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service;
 
-import com.jasmine.crawl.common.pojo.entity.DownSystem;
+import com.jasmine.crawler.common.pojo.entity.DownSystem;
 
 public interface DownSystemService {
     /**

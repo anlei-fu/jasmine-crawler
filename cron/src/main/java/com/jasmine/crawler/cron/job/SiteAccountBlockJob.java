@@ -1,8 +1,8 @@
 package com.jasmine.crawler.cron.job;
 
-import com.jasmine.crawl.common.constant.BooleanFlag;
-import com.jasmine.crawl.common.pojo.entity.SiteAccount;
-import com.jasmine.crawl.common.support.LoggerSupport;
+import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.pojo.entity.SiteAccount;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.SiteAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.service;
 
-import com.jasmine.crawl.common.pojo.entity.Url;
+import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 

@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.SiteUrlBloom;
+import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
 import org.mapstruct.Mapper;
 
 /**

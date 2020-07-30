@@ -1,13 +1,16 @@
 package com.jasmine.crawler.url.store.job;
 
-import com.jasmine.crawl.common.component.JasmineBloomFilter;
-import com.jasmine.crawl.common.pojo.entity.Url;
-import com.jasmine.crawl.common.support.LoggerSupport;
-import com.jasmine.crawl.common.constant.UrlStatus;
+import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.pojo.entity.Url;
+import com.jasmine.crawler.common.support.LoggerSupport;
+import com.jasmine.crawler.common.constant.UrlStatus;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
 import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;
+import com.jasmine.crawler.url.store.service.DownSystemService;
+import com.jasmine.crawler.url.store.service.DownSystemSiteService;
+import com.jasmine.crawler.url.store.service.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +30,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class UlrConsumeJob extends LoggerSupport {
 
     @Autowired
-    private ConcurrentLinkedQueue<SaveUrlResultReq> urlQueue;
+    private ConcurrentLinkedQueue<SaveUrlResultReq> urlResultQueue;
 
     @Autowired
     private BloomFilterManager bloomFilterManager;
@@ -35,9 +38,28 @@ public class UlrConsumeJob extends LoggerSupport {
     @Autowired
     private UrlMapper urlMapper;
 
+    @Autowired
+    private DownSystemSiteService downSystemSiteService;
+
+    @Autowired
+    private DownSystemService downSystemService;
+
+    @Autowired
+    private SiteService siteService;
+
+    /**
+     * Save url result job
+     * 1. update url status
+     * 2. save new url
+     * 3. increase down system site url total and finished
+     * 4. increase down system site url total and finished
+     * 5. increase site url total and finished
+     *
+     * @throws IOException
+     */
     public void run() throws IOException {
-        info("begin url save job");
-        SaveUrlResultReq saveUrlResultReq = urlQueue.poll();
+        info("------------begin url save job-----------------");
+        SaveUrlResultReq saveUrlResultReq = urlResultQueue.poll();
 
         // no queue n to save
         if (Objects.isNull(saveUrlResultReq)) {

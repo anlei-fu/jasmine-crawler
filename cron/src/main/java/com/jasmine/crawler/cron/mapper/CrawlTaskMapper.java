@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.mapper;
 
-import com.jasmine.crawl.common.pojo.entity.CrawlTask;
+import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
@@ -20,17 +20,25 @@ public interface CrawlTaskMapper {
 
     int deleteById(@Param("id") Integer id);
 
-    int dispatchSuccess(@Param("id") Integer id);
-
     CrawlTask getById(@Param("id") Integer id);
-
-    List<CrawlTaskConfig> getTaskConfigToRun();
 
     List<CrawlTask> getTaskToBind(@Param("minBindCount") Integer minBindCount, @Param("maxBindCount") Integer maxBindCount);
 
-    void bindFailed(CrawlTask taskToUpdate);
-
     List<CrawlTask> getTaskToBindLowestLevel();
 
-    boolean bindSuccess(CrawlTask crawlTaskToUpdate);
+    void bindFailed(CrawlTask taskToUpdate);
+
+    boolean bindSuccess(@Param("id") Integer id);
+
+    List<CrawlTaskConfig> getTaskConfigsToDispatch();
+
+    int dispatchSuccess(@Param("id") Integer id);
+
+    void dispatchFailed(CrawlTask dispatchFailedTask);
+
+    List<CrawlTask> getTimeoutTasksToTerminate();
+
+    void terminateTimeoutTask(@Param("id") Integer id);
+
+    CrawlTask getForUpdate(@Param("id") Integer id);
 }

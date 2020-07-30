@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawl.common.pojo.entity.Cookie;
+import com.jasmine.crawler.common.pojo.entity.Cookie;
 import com.jasmine.crawler.cron.mapper.CookieMapper;
 import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public Cookie get(Integer id) {
-        return cookieMapper.getById(id);
+        return cookieMapper.get(id);
     }
 
     @Override
@@ -36,18 +36,13 @@ public class CookieServiceImpl implements CookieService {
     }
 
     @Override
-    public List<Cookie> getExpiredCookies() {
-        return cookieMapper.getExpiredCookies();
-    }
-
-    @Override
-    public void deleteBatch(List<Integer> cookieIds) {
-        cookieMapper.deleteCookieBatch(cookieIds);
-    }
-
-    @Override
     public void decreaseCurrentUseCount(Integer id) {
         cookieMapper.decreaseCurrentUseCountById(id);
+    }
+
+    @Override
+    public void removeExpiredCookies() {
+         cookieMapper.removeExpiredCookies();
     }
 
 }
