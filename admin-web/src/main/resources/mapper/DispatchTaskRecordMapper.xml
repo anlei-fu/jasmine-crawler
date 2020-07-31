@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.DispatchTaskRecordMapper">
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.DispatchTaskRecord" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq">
+          select
+             t.id,
+             t.crawl_task_id,
+             t.dispatch_status,
+             t.dispatch_msg,
+             t.create_time
+          from dispatch_task_record t
+          <where>
+            <if test="crawlTaskId != null">
+                  t.crawl_task_id = #{crawlTaskId}
+            </if>
+            <if test="dispatchStatus != null">
+                  and t.dispatch_status = #{dispatchStatus}
+            </if>
+          </where>
+    </select>
+</mapper>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.DownSystemMapper">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddDownSystemReq">
+          insert into down_system 
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                  name,
+            </if>
+             priority,
+            <if test="description != null and description != ''">
+                  description,
+            </if>
+            <if test="appKey != null and appKey != ''">
+                  app_key,
+            </if>
+            <if test="appSecret != null and appSecret != ''">
+                  app_secret,
+            </if>
+            <if test="dataUrl != null and dataUrl != ''">
+                  data_url,
+            </if>
+            <if test="dataQueue != null and dataQueue != ''">
+                  data_queue,
+            </if>
+             task_max_running_count,
+             enable_status,
+             create_time
+          </trim>
+          values
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                  #{name},
+            </if>
+             #{priority},
+            <if test="description != null and description != ''">
+                  #{description},
+            </if>
+            <if test="appKey != null and appKey != ''">
+                  #{appKey},
+            </if>
+            <if test="appSecret != null and appSecret != ''">
+                  #{appSecret},
+            </if>
+            <if test="dataUrl != null and dataUrl != ''">
+                  #{dataUrl},
+            </if>
+            <if test="dataQueue != null and dataQueue != ''">
+                  #{dataQueue},
+            </if>
+             #{taskMaxRunningCount},
+             #{enableStatus},
+             current_timestamp
+          </trim>
+    </insert>
+    <delete id="deleteById">
+          delete from down_system t
+          <where>
+            t.id = #{id}
+          </where>
+    </delete>
+    <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemParams">
+          update down_system t
+          <set>
+            <if test="name != null and name != ''">
+                  t.name = #{name},
+            </if>
+            <if test="priority != null">
+                  t.priority = #{priority},
+            </if>
+            <if test="description != null and description != ''">
+                  t.description = #{description},
+            </if>
+            <if test="appKey != null and appKey != ''">
+                  t.app_key = #{appKey},
+            </if>
+            <if test="appSecret != null and appSecret != ''">
+                  t.app_secret = #{appSecret},
+            </if>
+            <if test="dataUrl != null and dataUrl != ''">
+                  t.data_url = #{dataUrl},
+            </if>
+            <if test="dataQueue != null and dataQueue != ''">
+                  t.data_queue = #{dataQueue},
+            </if>
+            <if test="taskMaxRunningCount != null">
+                  t.task_max_running_count = #{taskMaxRunningCount},
+            </if>
+            <if test="enableStatus != null">
+                  t.enable_status = #{enableStatus},
+            </if>
+            <if test="id != null">
+                  t.id = #{id}
+            </if>
+          </set>
+          <where>
+            t.id = #{id}
+          </where>
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystem">
+          select
+             t.id,
+             t.name,
+             t.priority,
+             t.description,
+             t.app_key,
+             t.app_secret,
+             t.data_url,
+             t.data_queue,
+             t.task_max_running_count,
+             t.task_current_running_count,
+             t.url_total_count,
+             t.url_finished_count,
+             t.url_bad_count,
+             t.enable_status,
+             t.create_time
+          from down_system t
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.DownSystem" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDownSystemPageReq">
+          select
+             t.id,
+             t.name,
+             t.priority,
+             t.description,
+             t.app_key,
+             t.app_secret,
+             t.data_url,
+             t.data_queue,
+             t.task_max_running_count,
+             t.task_current_running_count,
+             t.url_total_count,
+             t.url_finished_count,
+             t.url_bad_count,
+             t.enable_status,
+             t.create_time
+          from down_system t
+          <where>
+            <if test="enableStatus != null">
+                  t.enable_status = #{enableStatus}
+            </if>
+            <if test="createTimeStart != null">
+                  and  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+</mapper>

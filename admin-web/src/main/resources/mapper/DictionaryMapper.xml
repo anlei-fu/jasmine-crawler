@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.DictionaryMapper">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.param.AddDictionaryParams">
+          insert into dictionary 
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+             type,
+             value,
+             label,
+            <if test="createUser != null and createUser != ''">
+                  create_user,
+            </if>
+             create_time
+          </trim>
+          values
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+             #{type},
+             #{value},
+             #{label},
+            <if test="createUser != null and createUser != ''">
+                  #{createUser},
+            </if>
+             current_timestamp
+          </trim>
+    </insert>
+    <delete id="deleteById">
+          delete from dictionary t
+          <where>
+            t.id = #{id}
+          </where>
+    </delete>
+    <delete id="deleteBatch">
+        delete from dictionary
+        where id in
+        <foreach collection="list" index="item" separator="," open="(" close=")">
+            #{item},
+        </foreach>
+    </delete>
+    <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateDictionaryParams">
+          update dictionary t
+          <set>
+            <if test="type != null and type != ''">
+                  t.type = #{type},
+            </if>
+            <if test="value != null">
+                  t.value = #{value},
+            </if>
+            <if test="label != null and label != ''">
+                  t.label = #{label},
+            </if>
+            <if test="lastUpdateUser != null and lastUpdateUser != ''">
+                  t.last_update_user = #{lastUpdateUser},
+            </if>
+            <if test="id != null">
+                  t.id = #{id},
+            </if>
+            t.last_update_time= current_timestamp
+          </set>
+          <where>
+            t.id = #{id}
+          </where>
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary">
+          select
+             t.id,
+             t.type,
+             t.value,
+             t.label,
+             t.create_user,
+             t.create_time,
+             t.last_update_user,
+             t.last_update_time
+          from dictionary t
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDictionaryPageReq">
+          select
+             t.id,
+             t.type,
+             t.value,
+             t.label,
+             t.create_user,
+             t.create_time,
+             t.last_update_user,
+             t.last_update_time
+          from dictionary t
+          <where>
+            <if test="createTimeStart != null">
+                  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+</mapper>

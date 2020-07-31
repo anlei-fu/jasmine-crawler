@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.ScriptMapper">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddScriptReq">
+          insert into script 
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="description != null and description != ''">
+                  description,
+            </if>
+             path,
+            <if test="scriptType != null">
+                  script_type,
+            </if>
+             down_site_id,
+            <if test="enableStatus != null">
+                  enable_status,
+            </if>
+             create_time
+          </trim>
+          values
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="description != null and description != ''">
+                  #{description},
+            </if>
+             #{path},
+            <if test="scriptType != null">
+                  #{scriptType},
+            </if>
+             #{downSiteId},
+            <if test="enableStatus != null">
+                  #{enableStatus},
+            </if>
+             current_timestamp
+          </trim>
+    </insert>
+    <delete id="deleteById">
+          delete from script t
+          <where>
+            t.id = #{id}
+          </where>
+    </delete>
+    <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateScriptParams">
+          update script t
+          <set>
+            <if test="description != null and description != ''">
+                  t.description = #{description},
+            </if>
+            <if test="path != null and path != ''">
+                  t.path = #{path},
+            </if>
+            <if test="scriptType != null">
+                  t.script_type = #{scriptType},
+            </if>
+            <if test="downSiteId != null">
+                  t.down_site_id = #{downSiteId},
+            </if>
+            <if test="enableStatus != null">
+                  t.enable_status = #{enableStatus},
+            </if>
+            <if test="id != null">
+                  t.id = #{id}
+            </if>
+          </set>
+          <where>
+            t.id = #{id}
+          </where>
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Script">
+          select
+             t.id,
+             t.description,
+             t.path,
+             t.script_type,
+             t.down_site_id,
+             t.enable_status,
+             t.create_time
+          from script t
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Script" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq">
+          select
+             t.id,
+             t.description,
+             t.path,
+             t.script_type,
+             t.down_site_id,
+             t.enable_status,
+             t.create_time
+          from script t
+          <where>
+            <if test="scriptType != null">
+                  t.script_type = #{scriptType}
+            </if>
+            <if test="downSiteId != null">
+                  and t.down_site_id = #{downSiteId}
+            </if>
+            <if test="enableStatus != null">
+                  and t.enable_status = #{enableStatus}
+            </if>
+            <if test="createTimeStart != null">
+                  and  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+</mapper>

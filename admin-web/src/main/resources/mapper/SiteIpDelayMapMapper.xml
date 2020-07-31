@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.SiteIpDelayMapMapper">
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteIpDelayMap" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteIpDelayMapPageReq">
+          select
+             t.id,
+             t.site_id,
+             t.delay_timeout_time,
+             t.ip
+          from site_ip_delay_map t
+          <where>
+              <if test="ip != null">
+                  t.ip = #{ip}
+              </if>
+            <if test="siteId != null">
+                  t.site_id = #{siteId}
+            </if>
+          </where>
+    </select>
+</mapper>

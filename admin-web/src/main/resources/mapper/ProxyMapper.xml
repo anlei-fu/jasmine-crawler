@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.ProxyMapper">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddProxyReq">
+          insert into proxy 
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+             ip,
+             port,
+             account,
+             password,
+             protocol,
+            <if test="proxyType != null">
+                  proxy_type,
+            </if>
+            <if test="maxUseCount != null">
+                  max_use_count,
+            </if>
+             block_max_count,
+            <if test="enableStatus != null">
+                  enable_status,
+            </if>
+             create_time
+          </trim>
+          values
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+             #{ip},
+             #{port},
+             #{account},
+             #{password},
+             #{protocol},
+            <if test="proxyType != null">
+                  #{proxyType},
+            </if>
+            <if test="maxUseCount != null">
+                  #{maxUseCount},
+            </if>
+             #{blockMaxCount},
+            <if test="enableStatus != null">
+                  #{enableStatus},
+            </if>
+             current_timestamp
+          </trim>
+    </insert>
+    <delete id="deleteById">
+          delete from proxy t
+          <where>
+            t.id = #{id}
+          </where>
+    </delete>
+    <delete id="deleteBatch">
+        delete from proxy
+        where id in
+        <foreach collection="list" index="item" separator="," open="(" close=")">
+            #{item},
+        </foreach>
+    </delete>
+    <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateProxyParams">
+          update proxy t
+          <set>
+            <if test="ip != null and ip != ''">
+                  t.ip = #{ip},
+            </if>
+            <if test="port != null">
+                  t.port = #{port},
+            </if>
+            <if test="account != null and account != ''">
+                  t.account = #{account},
+            </if>
+            <if test="password != null and password != ''">
+                  t.password = #{password},
+            </if>
+            <if test="protocol != null and protocol != ''">
+                  t.protocol = #{protocol},
+            </if>
+            <if test="proxyType != null">
+                  t.proxy_type = #{proxyType},
+            </if>
+            <if test="maxUseCount != null">
+                  t.max_use_count = #{maxUseCount},
+            </if>
+            <if test="blockMaxCount != null">
+                  t.block_max_count = #{blockMaxCount},
+            </if>
+            <if test="enableStatus != null">
+                  t.enable_status = #{enableStatus},
+            </if>
+            <if test="id != null">
+                  t.id = #{id}
+            </if>
+          </set>
+          <where>
+            t.id = #{id}
+          </where>
+    </update>
+    <update id="disableBatch">
+        update proxy
+        set enable_status = 0
+        where id in
+        <foreach collection="list" index="item" separator="," open="(" close=")">
+            #{item},
+        </foreach>
+    </update>
+    <update id="enableBatch">
+        update proxy
+        set enable_status = 0
+        where id in
+        <foreach collection="list" index="item" separator="," open="(" close=")">
+            #{item},
+        </foreach>
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Proxy">
+          select
+             t.id,
+             t.ip,
+             t.port,
+             t.account,
+             t.password,
+             t.protocol,
+             t.proxy_type,
+             t.max_use_count,
+             t.current_use_count,
+             t.block_max_count,
+             t.block_current_count,
+             t.block_timeout,
+             t.enable_status,
+             t.create_time
+          from proxy t
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Proxy" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq">
+          select
+             t.id,
+             t.ip,
+             t.port,
+             t.account,
+             t.password,
+             t.protocol,
+             t.proxy_type,
+             t.max_use_count,
+             t.current_use_count,
+             t.block_max_count,
+             t.block_current_count,
+             t.block_timeout,
+             t.enable_status,
+             t.create_time
+          from proxy t
+          <where>
+            <if test="proxyType != null">
+                  t.proxy_type = #{proxyType}
+            </if>
+            <if test="enableStatus != null">
+                  and t.enable_status = #{enableStatus}
+            </if>
+            <if test="createTimeStart != null">
+                  and  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+</mapper>

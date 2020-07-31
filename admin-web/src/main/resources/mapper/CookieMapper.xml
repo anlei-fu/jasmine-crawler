@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.CookieMapper">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddCookieReq">
+          insert into cookie 
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+             site_id,
+             site_account_id,
+             cookie,
+            <if test="loginIp != null and loginIp != ''">
+                  login_ip,
+            </if>
+             expire_tiem,
+             create_time
+          </trim>
+          values
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+             #{siteId},
+             #{siteAccountId},
+             #{cookie},
+            <if test="loginIp != null and loginIp != ''">
+                  #{loginIp},
+            </if>
+             expireTime,
+             current_timestamp
+          </trim>
+    </insert>
+    <delete id="deleteById">
+          delete from cookie t
+          <where>
+            t.id = #{id}
+          </where>
+    </delete>
+    <delete id="deleteBatch">
+        delete from cookie
+        where id in
+        <foreach collection="list" index="item" separator="," open="(" close=")">
+            #{item},
+        </foreach>
+    </delete>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
+          select
+             t.id,
+             t.site_id,
+             t.site_account_id,
+             t.cookie,
+             t.login_ip,
+             t.current_block_count,
+             t.current_use_count,
+             t.expire_time,
+             t.create_time
+          from cookie t
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Cookie" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq">
+          select
+             t.id,
+             t.site_id,
+             t.site_account_id,
+             t.cookie,
+             t.login_ip,
+             t.current_block_count,
+             t.current_use_count,
+             t.expire_time,
+             t.create_time
+          from cookie t
+          <where>
+            <if test="siteId != null">
+                  t.site_id = #{siteId}
+            </if>
+            <if test="siteAccountId != null">
+                  and t.site_account_id = #{siteAccountId}
+            </if>
+            <if test="createTimeStart != null">
+                  and  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+</mapper>

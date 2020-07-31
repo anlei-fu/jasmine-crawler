@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-28 4:23:10 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.SiteBlockRuleMapper">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddSiteBlockRuleReq">
+          insert into site_block_rule 
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="description != null and description != ''">
+                  description,
+            </if>
+             site_id,
+            <if test="httpStatus != null">
+                  http_status,
+            </if>
+             check_type,
+             keywords,
+             page_result_type,
+            <if test="enableStatus != null">
+                  enable_status,
+            </if>
+             create_time
+          </trim>
+          values
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="description != null and description != ''">
+                  #{description},
+            </if>
+             #{siteId},
+            <if test="httpStatus != null">
+                  #{httpStatus},
+            </if>
+             #{checkType},
+             #{keywords},
+             #{pageResultType},
+            <if test="enableStatus != null">
+                  #{enableStatus},
+            </if>
+             current_timestamp
+          </trim>
+    </insert>
+    <delete id="deleteById">
+          delete from site_block_rule t
+          <where>
+            t.id = #{id}
+          </where>
+    </delete>
+    <delete id="deleteBatch">
+        delete from site_block_rule
+        where id in
+        <foreach collection="list" index="item" separator="," open="(" close=")">
+            #{item},
+        </foreach>
+    </delete>
+    <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateSiteBlockRuleParams">
+          update site_block_rule t
+          <set>
+            <if test="description != null and description != ''">
+                  t.description = #{description},
+            </if>
+            <if test="siteId != null">
+                  t.site_id = #{siteId},
+            </if>
+            <if test="httpStatus != null">
+                  t.http_status = #{httpStatus},
+            </if>
+            <if test="checkType != null">
+                  t.check_type = #{checkType},
+            </if>
+            <if test="keywords != null and keywords != ''">
+                  t.keywords = #{keywords},
+            </if>
+            <if test="pageResultType != null">
+                  t.page_result_type = #{pageResultType},
+            </if>
+            <if test="enableStatus != null">
+                  t.enable_status = #{enableStatus},
+            </if>
+            <if test="id != null">
+                  t.id = #{id}
+            </if>
+          </set>
+          <where>
+            t.id = #{id}
+          </where>
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.SiteBlockRule">
+          select
+             t.id,
+             t.description,
+             t.site_id,
+             t.http_status,
+             t.check_type,
+             t.keywords,
+             t.page_result_type,
+             t.enable_status,
+             t.create_time
+          from site_block_rule t
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteBlockRule" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq">
+          select
+             t.id,
+             t.description,
+             t.site_id,
+             t.http_status,
+             t.check_type,
+             t.keywords,
+             t.page_result_type,
+             t.enable_status,
+             t.create_time
+          from site_block_rule t
+          <where>
+            <if test="siteId != null">
+                  t.site_id = #{siteId}
+            </if>
+            <if test="httpStatus != null">
+                  and t.http_status = #{httpStatus}
+            </if>
+            <if test="checkType != null">
+                  and t.check_type = #{checkType}
+            </if>
+            <if test="pageResultType != null">
+                  and t.page_result_type = #{pageResultType}
+            </if>
+            <if test="enableStatus != null">
+                  and t.enable_status = #{enableStatus}
+            </if>
+            <if test="createTimeStart != null">
+                  and  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+    <select id="getDetailById" resultType="com.jasmine.crawler.web.admin.pojo.resp.SiteBlockRuleDetailResp">
+          select
+             t.id,
+             t.description,
+             t.site_id,
+             t.http_status,
+             t.check_type,
+             t.keywords,
+             t.page_result_type,
+             t.enable_status,
+             t.create_time,
+             t1.name as site_name,
+             t2.label as http_status_label,
+             t3.label as check_type_label,
+             t4.label as page_result_type_label,
+             t5.label as enable_status_label
+          from site_block_rule t
+          left join site t1 on  t.site_id = t1.id
+          left join dictionary t2 on t.http_status = t2.value and t2.type = 'httpStatus'
+          left join dictionary t3 on t.check_type = t3.value and t3.type = 'checkType'
+          left join dictionary t4 on t.page_result_type = t4.value and t4.type = 'pageResultType'
+          left join dictionary t5 on t.enable_status = t5.value and t5.type = 'enableStatus'
+          <where>
+            t.id = #{id}
+          </where>
+    </select>
+    <select id="getDetailPage" resultType="com.jasmine.crawler.web.admin.pojo.resp.SiteBlockRuleDetailResp" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq">
+          select
+             t.id,
+             t.description,
+             t.site_id,
+             t.http_status,
+             t.check_type,
+             t.keywords,
+             t.page_result_type,
+             t.enable_status,
+             t.create_time,
+             t1.name as site_name,
+             t2.label as http_status_label,
+             t3.label as check_type_label,
+             t4.label as page_result_type_label,
+             t5.label as enable_status_label
+          from site_block_rule t
+          left join site t1 on  t.site_id = t1.id
+          left join dictionary t2 on t.http_status = t2.value and t2.type = 'httpStatus'
+          left join dictionary t3 on t.check_type = t3.value and t3.type = 'checkType'
+          left join dictionary t4 on t.page_result_type = t4.value and t4.type = 'pageResultType'
+          left join dictionary t5 on t.enable_status = t5.value and t5.type = 'enableStatus'
+          <where>
+            <if test="siteId != null">
+                  t.site_id = #{siteId}
+            </if>
+            <if test="httpStatus != null">
+                  and t.http_status = #{httpStatus}
+            </if>
+            <if test="checkType != null">
+                  and t.check_type = #{checkType}
+            </if>
+            <if test="pageResultType != null">
+                  and t.page_result_type = #{pageResultType}
+            </if>
+            <if test="enableStatus != null">
+                  and t.enable_status = #{enableStatus}
+            </if>
+            <if test="createTimeStart != null">
+                  and  t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                  and t.create_time &lt; #{createTimeEnd}
+            </if>
+          </where>
+    </select>
+</mapper>
