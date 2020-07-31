@@ -5,10 +5,18 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.SiteAccountMapper">
-    <update id="changeEnableStatusBatch">
-        update site_account
-        set available_status = #{status}
-        where id in
+    <update id="disableAccounts">
+        update site_Account sa
+        set
+        sa.block_timeout_time = date_add(
+        current_timestamp,
+        interval (select account_block_timeout from site s where s.id = sa.id ) hour
+        ),
+        block_current_count =0
+        where
+        sa.enable_status =1
+        and
+        sa.block_current_count > (select account_max_block_count from site s where s.id =sa.id)
         <foreach collection="list" open="(" close=")" item="item" separator=",">
             #{item}
         </foreach>
@@ -23,6 +31,4 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_use_count = current_use_count - 1
         where id = #{id}
     </update>
-    <select id="getBlockedAccount" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount"></select>
-    <select id="getAccountsToEnable" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount"></select>
 </mapper>

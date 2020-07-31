@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-25 2:58:14 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.url.store.mapper.UrlMapper">
+    <insert id="addBatch">
+        insert into url
+        (url,down_system_site_id,refer_url,depth,url_type,query_string)
+        values
+        <foreach collection="ls" item="item"  separator="," >
+            (#{item.url},#{downSystemId},#{referUrl},#{depth}, #{urlType},#{queryString})
+        </foreach>
+    </insert>
+    <update id="updateStatus">
+        update url u
+        set
+        u.url_status = #{urlStatus},
+        u.crawl_count = u.crawl_count + 1,
+        u.last_crawl_time = current_timestamp
+        where
+        u.down_system_site_id = #{downSystemSiteId} and u.url = #{url}
+    </update>
+    <update id="failed">
+
+    </update>
+    <update id="updateUrlStatusToWait"></update>
+    <update id="failUrls"></update>
+    <update id="badUrls"></update>
+    <update id="failToRunUrls"></update>
+    <update id="successUrls"></update>
+
+    <select id="getUrlToCacheForSite" resultType="com.jasmine.crawler.common.pojo.entity.Url">
+        select
+        *
+        from url u
+        join down_system_site dss on u.down_system_site_id = dss.id
+        where
+        u.down_system_site_id = 1
+        and u.url_status = 1
+        and u.crawl_count &lt; dss.url_max_crawl_count
+        order by
+            u.depth,
+            u.crawl_count ,
+            u.last_crawl_time
+    </select>
+</mapper>

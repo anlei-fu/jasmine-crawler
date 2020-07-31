@@ -12,43 +12,40 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
-/** 
-* SiteIpDelayServiceImpl Tester. 
-* 
-* @author fuanlei 
-* @since <pre>07/30/2020</pre> 
-* @version 1.0 
-*/ 
+/**
+ * SiteIpDelayServiceImpl Tester.
+ *
+ * @author fuanlei
+ * @version 1.0
+ * @since <pre>07/30/2020</pre>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class SiteIpDelayServiceImplTest { 
+public class SiteIpDelayServiceImplTest {
 
-@Autowired
-private  SiteIpDelayServiceImpl  service;
+    @Autowired
+    private SiteIpDelayServiceImpl service;
 
-@Before
-public void before() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+    }
 
-@After
-public void after() throws Exception { 
-} 
+    @After
+    public void after() throws Exception {
+    }
 
-/** 
-* 
-* Method: add(SiteIpDelayMap siteIpDelayMap) 
-* 
-*/ 
-@Test
-public void testAdd() throws Exception {
-    SiteIpDelayMap siteIpDelayMap =SiteIpDelayMap.builder()
-            .siteId(1)
-            .ip("111")
-            .delayTimeout(new Date())
-            .build();
+    /**
+     * Method: add(SiteIpDelayMap siteIpDelayMap)
+     */
+    @Test
+    public void testAdd() throws Exception {
+        SiteIpDelayMap siteIpDelayMap = SiteIpDelayMap.builder()
+                .siteId(1)
+                .ip("111")
+                .delayTimeoutTime(new Date())
+                .build();
 
-    service.add(siteIpDelayMap);
-} 
-
+        service.add(siteIpDelayMap);
+    }
 
 } 

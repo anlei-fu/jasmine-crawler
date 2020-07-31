@@ -19,6 +19,7 @@ public class JasmineBloomImlTester {
             System.out.println( bloomFilter.add("123"));
             System.out.println( bloomFilter.add("123"));
             String dump =bloomFilter.dump();
+            System.out.println(dump.length());
             bloomFilter =new JasmineBloomFilterImpl();
             bloomFilter.load(dump);
             System.out.println( bloomFilter.add("123"));

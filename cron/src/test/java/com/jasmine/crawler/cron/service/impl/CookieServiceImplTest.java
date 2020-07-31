@@ -9,80 +9,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.LinkedList;
-import java.util.List;
-
-/** 
-* CookieServiceImpl Tester. 
-* 
-* @author fuanlei 
-* @since <pre>07/30/2020</pre> 
-* @version 1.0 
-*/ 
+/**
+ * CookieServiceImpl Tester.
+ *
+ * @author fuanlei
+ * @version 1.0
+ * @since <pre>07/30/2020</pre>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class CookieServiceImplTest { 
+public class CookieServiceImplTest {
 
-@Autowired
-private  CookieServiceImpl  service;
+    @Autowired
+    private CookieServiceImpl service;
 
-@Before
-public void before() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+    }
 
-@After
-public void after() throws Exception { 
-} 
+    @After
+    public void after() throws Exception {
+    }
 
-/** 
-* 
-* Method: get(Integer id) 
-* 
-*/ 
-@Test
-public void testGet() throws Exception { 
-   service.get(1);
-} 
+    /**
+     * Method: get(Integer id)
+     */
+    @Test
+    public void testGet() throws Exception {
+        service.get(1);
+    }
 
-/** 
-* 
-* Method: getCookieForSite(Integer siteId) 
-* 
-*/ 
-@Test
-public void testGetCookieForSite() throws Exception { 
- service.getCookieForSite(1);
-} 
+    /**
+     * Method: getCookieForSite(Integer siteId)
+     */
+    @Test
+    public void testGetCookieForSite() throws Exception {
+        service.getCookieForSite(1);
+    }
 
-/** 
-* 
-* Method: increaseCurrentUseCount(Integer id) 
-* 
-*/ 
-@Test
-public void testIncreaseCurrentUseCount() throws Exception { 
- service.increaseCurrentUseCount(1);
-} 
+    /**
+     * Method: increaseCurrentUseCount(Integer id)
+     */
+    @Test
+    public void testIncreaseCurrentUseCount() throws Exception {
+        service.increaseCurrentUseCount(1);
+    }
 
-/** 
-* 
-* Method: getExpiredCookies() 
-* 
-*/ 
-@Test
-public void testGetExpiredCookies() throws Exception { 
-  service.removeExpiredCookies();
-} 
+    /**
+     * Method: getExpiredCookies()
+     */
+    @Test
+    public void testRemoveExpiredCookies() throws Exception {
+        service.removeExpiredCookies();
+    }
 
-/**
-* 
-* Method: decreaseCurrentUseCount(Integer id) 
-* 
-*/ 
-@Test
-public void testDecreaseCurrentUseCount() throws Exception { 
-  service.increaseCurrentUseCount(1);
-} 
-
+    /**
+     * Method: decreaseCurrentUseCount(Integer id)
+     */
+    @Test
+    public void testDecreaseCurrentUseCount() throws Exception {
+        service.increaseCurrentUseCount(1);
+    }
 
 } 

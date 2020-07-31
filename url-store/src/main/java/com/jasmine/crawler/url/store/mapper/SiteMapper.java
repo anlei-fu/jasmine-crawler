@@ -1,6 +1,7 @@
 package com.jasmine.crawler.url.store.mapper;
 
 import com.jasmine.crawler.url.store.pojo.entity.Site;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 /**
@@ -11,5 +12,11 @@ import org.mapstruct.Mapper;
  */
 @Mapper
 public interface SiteMapper {
-    Site getById(Integer siteId);
+    Site getById(@Param("id") Integer id);
+
+    void increaseNewUrlCount(@Param("id") Integer id, @Param("count") int count);
+
+    void increaseBadUrlCount(@Param("id") Integer id, @Param("count") int count);
+
+    void increaseFinishedUrlCount(@Param("id") Integer id, @Param("count") int count);
 }

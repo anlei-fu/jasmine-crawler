@@ -9,77 +9,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/** 
-* CrawlerServiceImpl Tester. 
-* 
-* @author fuanlei 
-* @since <pre>07/30/2020</pre> 
-* @version 1.0 
-*/ 
+/**
+ * CrawlerServiceImpl Tester.
+ *
+ * @author fuanlei
+ * @version 1.0
+ * @since <pre>07/30/2020</pre>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class CrawlerServiceImplTest { 
+public class CrawlerServiceImplTest {
 
-@Autowired
-private  CrawlerServiceImpl  service;
+    @Autowired
+    private CrawlerServiceImpl service;
 
-@Before
-public void before() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+    }
 
-@After
-public void after() throws Exception { 
-} 
+    @After
+    public void after() throws Exception {
+    }
 
-/** 
-* 
-* Method: getCrawlerForSite(Integer siteId) 
-* 
-*/ 
-@Test
-public void testGetCrawlerForSite() throws Exception { 
-  service.getCrawlerForSite(1);
-} 
+    /**
+     * Method: getCrawlerForSite(Integer siteId)
+     */
+    @Test
+    public void testGetCrawlerForSite() throws Exception {
+        service.getCrawlerForSite(1);
+    }
 
-/** 
-* 
-* Method: increaseCurrentConcurrency(Integer id, Integer concurrencyToIncrease) 
-* 
-*/ 
-@Test
-public void testIncreaseCurrentConcurrency() throws Exception { 
-  service.increaseCurrentConcurrency(1,100);
-} 
+    /**
+     * Method: increaseCurrentConcurrency(Integer id, Integer concurrencyToIncrease)
+     */
+    @Test
+    public void testIncreaseCurrentConcurrency() throws Exception {
+        service.increaseCurrentConcurrency(1, 100);
+    }
 
-/** 
-* 
-* Method: get(int crawlerId) 
-* 
-*/ 
-@Test
-public void testGet() throws Exception { 
-service.get(1);
-} 
+    /**
+     * Method: get(int crawlerId)
+     */
+    @Test
+    public void testGet() throws Exception {
+        service.get(1);
+    }
 
-/** 
-* 
-* Method: getCrawlersNeedHeartbeat() 
-* 
-*/ 
-@Test
-public void testGetCrawlersNeedHeartbeat() throws Exception { 
-  service.getCrawlersNeedHeartbeat();
-} 
+    /**
+     * Method: getCrawlersNeedHeartbeat()
+     */
+    @Test
+    public void testGetCrawlersNeedHeartbeat() throws Exception {
+        service.getCrawlersNeedHeartbeat();
+    }
 
-/** 
-* 
-* Method: updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus) 
-* 
-*/ 
-@Test
-public void testUpdateHeartbeatStatus() throws Exception { 
-service.updateHeartbeatStatus(1,0);
-} 
-
+    /**
+     * Method: updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus)
+     */
+    @Test
+    public void testUpdateHeartbeatStatus() throws Exception {
+        service.updateHeartbeatStatus(1, 0);
+    }
 
 } 

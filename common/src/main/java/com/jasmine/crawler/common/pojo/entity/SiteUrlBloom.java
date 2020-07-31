@@ -19,6 +19,8 @@ public class SiteUrlBloom {
 
     private Integer id;
 
+    private  Integer downSystemSiteId;
+
     private String bloom;
 
     private Integer totalCount;

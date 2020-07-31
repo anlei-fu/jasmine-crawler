@@ -40,7 +40,7 @@ public class BloomManagerImpl implements BloomFilterManager {
             return (JasmineBloomFilter) bloomMapper;
         }
 
-        SiteUrlBloom siteUrlBloom = bloomMapper.getForUpdate(id);
+        SiteUrlBloom siteUrlBloom = bloomMapper.get(id);
         if (Objects.isNull(siteUrlBloom)) {
             return createBloom(id);
         } else {
@@ -66,10 +66,10 @@ public class BloomManagerImpl implements BloomFilterManager {
 
         JasmineBloomWrapper wrapper = new JasmineBloomWrapper();
         DownSystemSite downSystemSite = downSystemSiteService.get(id);
-        wrapper.init(downSystemSite.getExpectedUrlSize(), downSystemSite.getFpp());
+        wrapper.init(200*10000, 0.33d);
         SiteUrlBloom siteUrlBloom = SiteUrlBloom
                 .builder()
-                .id(id)
+                .downSystemSiteId(id)
                 .bloom(wrapper.dump())
                 .build();
         bloomMapper.add(siteUrlBloom);

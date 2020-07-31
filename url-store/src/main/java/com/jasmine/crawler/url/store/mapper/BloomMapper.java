@@ -1,6 +1,7 @@
 package com.jasmine.crawler.url.store.mapper;
 
 import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 /**
@@ -11,13 +12,8 @@ import org.mapstruct.Mapper;
  */
 @Mapper
 public interface BloomMapper {
-    int countById(Integer id);
 
-    int createById(Integer id);
-
-    int disableById(Integer id);
-
-    SiteUrlBloom getForUpdate(Integer id);
+    SiteUrlBloom get(@Param("id") Integer id);
 
     void add(SiteUrlBloom siteUrlBloom);
 

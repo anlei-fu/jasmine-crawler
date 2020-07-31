@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface UrlService {
 
-    List<Url> getUrlForTask(GetUrlForTaskReq req);
+    List<Url> getUrlForTask(GetUrlForTaskReq req) throws Exception;
 
     boolean saveUrlResult(SaveUrlResultReq req);
 }

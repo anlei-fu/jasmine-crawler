@@ -30,7 +30,6 @@ public class BloomDumpJob extends LoggerSupport {
      * Bloom job
      * 1. dump bloom and update bloom total
      * 2. unload inactive bloom
-     *
      */
     public void run() {
         info("------------------------begin dump and unload url bloom-------------------------");
@@ -42,7 +41,7 @@ public class BloomDumpJob extends LoggerSupport {
             if ((new Date().getTime() - wrapper.getLastActiveTime().getTime()) > BLOOM_INACTIVE_TIMEOUT) {
                 dump(wrapper);
                 bloomFilterManager.remove(wrapper.getId());
-                info(String.format("unloading bloom(%d)",wrapper.getId()));
+                info(String.format("unloading bloom(%d)", wrapper.getId()));
             }
         }
     }
@@ -55,9 +54,9 @@ public class BloomDumpJob extends LoggerSupport {
                     .id(wrapper.getId())
                     .build();
             bloomMapper.dump(siteUrlBloom);
-            info(String.format("dump bloom(%d)",wrapper.getId()));
+            info(String.format("dump bloom(%d)", wrapper.getId()));
         } catch (Exception ex) {
-            error(String.format("dump bloom(%d) failed",wrapper.getId()),ex);
+            error(String.format("dump bloom(%d) failed", wrapper.getId()), ex);
         }
     }
 

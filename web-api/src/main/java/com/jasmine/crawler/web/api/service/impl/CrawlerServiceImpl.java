@@ -25,6 +25,7 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public void finishTask(CrawlTask crawlTaskToUpdate) {
-
+        crawlerMapper.finishTask(crawlTaskToUpdate);
     }
+
 }

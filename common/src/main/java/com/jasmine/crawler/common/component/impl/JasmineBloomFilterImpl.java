@@ -39,7 +39,7 @@ public class JasmineBloomFilterImpl implements JasmineBloomFilter {
 
     @Override
     public String dump() throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1000);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(100000);
         innerFilter.writeTo(out);
         return Base64.getEncoder().encodeToString(out.toByteArray());
     }

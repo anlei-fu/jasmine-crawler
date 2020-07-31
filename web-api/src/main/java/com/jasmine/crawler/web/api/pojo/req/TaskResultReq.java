@@ -1,11 +1,13 @@
 package com.jasmine.crawler.web.api.pojo.req;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class TaskResultReq {
     private List<String> data;
 

@@ -19,7 +19,7 @@ public interface CookieMapper {
 
     Cookie get(@Param("id") Integer id);
 
-    Cookie getBySiteId(@Param("siteId") Integer id);
+    Cookie getForSite(@Param("siteId") Integer id);
 
     void increaseCurrentUseCountById(@Param("id") Integer id);
 

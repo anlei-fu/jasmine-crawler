@@ -29,32 +29,9 @@ public class SiteAccountBlockJob extends LoggerSupport {
         info("-------------begin to disable blocked site account---------------------- ");
         List<SiteAccount> accounts = null;
         try {
-            accounts = siteAccountService.getBlockedAccount();
-            if (accounts.size() == 0) {
-                info("no account need to disabled");
-            } else {
-                siteAccountService.changeEnableStatusBatch(getSiteAccountIds(accounts), BooleanFlag.FALSE);
-                info(String.format("get %d account to disable", accounts.size()));
-            }
+                siteAccountService.disableAccounts();
         } catch (Exception ex) {
             error("disable account failed", ex);
         }
-
-        info("-------------begin to enable blocked site account---------------------- ");
-        try {
-            accounts = siteAccountService.getAccountsToEnable();
-            if (accounts.size() == 0) {
-                info("no account need to be enabled");
-                return;
-            }
-            siteAccountService.changeEnableStatusBatch(getSiteAccountIds(accounts), BooleanFlag.TRUE);
-            info(String.format("get %d account to enable", accounts.size()));
-        } catch (Exception ex) {
-            error("enable account failed", ex);
-        }
-    }
-
-    private List<Integer> getSiteAccountIds(List<SiteAccount> accounts) {
-        return null;
     }
 }

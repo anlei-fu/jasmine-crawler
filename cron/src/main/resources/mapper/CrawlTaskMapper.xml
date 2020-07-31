@@ -32,7 +32,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         join down_system ds on dss.down_system_id =ds.id
         join site s on dss.site_id = s.id
         where
-        ct.last_bind_status=1
+        ct.bind_last_status=1
         and s.enable_status =1
         and ds.enable_status =1
         and dss.enable_status =1
@@ -77,9 +77,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="bindSuccess">
         update crawl_task
         set
-        last_bind_status = 1,
-        last_bind_time = current_timestamp,
-        last_bind_msg = 'success',
+        bind_last_status = 1,
+        bind_last_time = current_timestamp,
+        bind_last_msg = 'success',
         dispatch_status = 1,
         bind_count = bind_count + 1
         where
@@ -88,24 +88,39 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="bindFailed">
         update crawl_task
         set
-        last_bind_status = #{lastBindStatus},
-        last_bind_time = current_timestamp,
-        last_bind_msg = #{lastBindMsg},
+        bind_last_status = #{lastBindStatus},
+        bind_last_time = current_timestamp,
+        bind_last_msg = #{lastBindMsg},
         bind_count = bind_count + 1
         where
         id = #{id}
     </update>
     <select id="getTaskConfigsToDispatch" resultType="com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig">
-      select
-       *
-      from crawl_task ct
-      join down_system_site dss on ct.down_site_id = dss.id
-      join down_system ds on dss.down_system_id =ds.id
-      join site s on dss.site_id = s.id
-      where
-         ct.bind_status=1
-      and ct.task_schedule_status=1
-      order by ct.create_time asc
+        select
+        dss.crawler_auto_download_page as auto_download_page,
+        dss.crawler_crawl_type as crawl_type ,
+        dss.crawler_page_encoding as encoding,
+        dss.crawler_page_timeout as page_timeout,
+        dss.url_match_patterns ,
+        dss.url_encodes,
+        dss.script_id,
+
+        ct.id as task_id,
+        ct.down_system_site_id,
+        ct.site_id,
+        ct.cookie_id,
+        ct.proxy_id,
+        ct.crawler_id,
+        (date_add(ct.task_timeout_time,interval -2 minute)) as task_timeout,
+
+        s.ip_minute_speed_limit
+        from crawl_task ct
+        join down_system_site dss on ct.down_system_site_id =dss.id
+        join down_system ds on dss.down_system_id =ds.id
+        join site s on s.id = dss.site_id
+        where
+        ct.bind_last_status =1
+        and ct.dispatch_status =1
   </select>
     <update id="dispatchSuccess">
       update crawl_task
@@ -113,7 +128,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       dispatch_status = 1,
       dispatch_msg = 'success',
       dispatch_time = current_timestamp,
-      start_time = current_timestamp
+      task_start_time = current_timestamp
       where id = #{id}
     </update>
     <update id="dispatchFailed">
@@ -127,7 +142,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="terminateTimeoutTask">
         update crawl_task
         set task_status = 1,
-        finish_time =current_timestamp
+        task_finish_time =current_timestamp
         where id = 1
     </update>
 

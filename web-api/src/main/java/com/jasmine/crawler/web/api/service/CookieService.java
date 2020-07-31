@@ -17,7 +17,7 @@ public interface CookieService {
      *
      * @param cookieId
      */
-    void decreaseCurrentUseTaskCount(Integer cookieId);
+    void decreaseCurrentUseCount(Integer cookieId);
 
     /**
      * Increase current running task count

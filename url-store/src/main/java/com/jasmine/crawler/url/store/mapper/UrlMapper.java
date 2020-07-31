@@ -1,6 +1,7 @@
 package com.jasmine.crawler.url.store.mapper;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -13,11 +14,21 @@ import java.util.List;
  */
 @Mapper
 public interface UrlMapper {
-    List<Url> getUrlToCacheByDownSiteId(Integer downSystemSiteId, Integer urlMaxCacheCount);
+    List<Url> getUrlToCacheForSite(@Param("downSystemSiteId") Integer downSystemSiteId, Integer urlMaxCacheCount);
 
-    void addBatch(List<Url> newUrls);
+    void addBatch(@Param("list") List<Url> newUrls);
 
-    void updateStatus(Url urlToUpdate);
+    void updateStatus(@Param("list") Url urlToUpdate);
 
-    void failed(Url urlToUpdate);
+    void failed(@Param("list") Url urlToUpdate);
+
+    void updateUrlStatusToWait(@Param("list") List<Url> urls);
+
+    void failUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+
+    void badUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+
+    void failToRunUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+
+    void successUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
 }

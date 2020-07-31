@@ -1,16 +1,16 @@
 package com.jasmine.crawler.url.store.job;
 
 import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.common.support.LoggerSupport;
-import com.jasmine.crawler.common.constant.UrlStatus;
+import com.jasmine.crawler.common.util.CollectionUtils;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
 import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;
 import com.jasmine.crawler.url.store.service.DownSystemService;
 import com.jasmine.crawler.url.store.service.DownSystemSiteService;
-import com.jasmine.crawler.url.store.service.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +29,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Component
 public class UlrConsumeJob extends LoggerSupport {
 
+    private static final int URL_INSERT_BATCH_SIZE = 50;
+
+    private static final int URL_UPDATE_BATCH_SIZE = 30;
+
     @Autowired
     private ConcurrentLinkedQueue<SaveUrlResultReq> urlResultQueue;
 
@@ -43,9 +47,6 @@ public class UlrConsumeJob extends LoggerSupport {
 
     @Autowired
     private DownSystemService downSystemService;
-
-    @Autowired
-    private SiteService siteService;
 
     /**
      * Save url result job
@@ -63,17 +64,36 @@ public class UlrConsumeJob extends LoggerSupport {
 
         // no queue n to save
         if (Objects.isNull(saveUrlResultReq)) {
-            info("no url to save");
+            info("no url result poll to save");
             return;
         }
 
+        DownSystemSite downSystemSite = downSystemSiteService.get(saveUrlResultReq.getDownSystemSiteId());
+        if (Objects.isNull(downSystemSite)) {
+            info("failed to run, down system site not exists");
+            return;
+        }
+
+        saveNewUrl(saveUrlResultReq, downSystemSite);
+        successUrls(saveUrlResultReq.getSucceedUrls(), downSystemSite);
+        badUrls(saveUrlResultReq.getBadUrls(), downSystemSite);
+        failUrls(saveUrlResultReq.getFailedUrls(), downSystemSite.getId());
+        failToRunUrls(saveUrlResultReq.getFailedUrls(), saveUrlResultReq.getDownSystemSiteId());
+    }
+
+    private void saveNewUrl(SaveUrlResultReq saveUrlResultReq, DownSystemSite downSystemSite) throws IOException {
         JasmineBloomFilter filter = bloomFilterManager.get(saveUrlResultReq.getDownSystemSiteId());
+        if (Objects.isNull(filter)) {
+            warn(String.format("can not get bloom filter for down site %d", downSystemSite.getId()));
+            return;
+        }
+
         List<Url> urls = new LinkedList<>();
         int t = 0;
         int k = 0;
         for (final Url url : saveUrlResultReq.getNewUrls()) {
-            if (t++ % 100 == 0) {
-                saveNewUrl(urls);
+            if (t++ % URL_INSERT_BATCH_SIZE == 0) {
+                saveNewUrlCore(urls, downSystemSite);
                 urls = new LinkedList<>();
             }
 
@@ -88,82 +108,61 @@ public class UlrConsumeJob extends LoggerSupport {
         }
 
         ((JasmineBloomWrapper) filter).increaseTotalCount(k);
-        saveNewUrl(urls);
-
-        updateUrlStatus(
-                saveUrlResultReq.getSucceedUrls(),
-                saveUrlResultReq.getDownSystemSiteId(),
-                UrlStatus.SUCCESS
-        );
-
-        updateUrlStatus(
-                saveUrlResultReq.getFailedUrls(),
-                saveUrlResultReq.getDownSystemSiteId(),
-                UrlStatus.FAILED
-        );
-
-        updateUrlStatus(
-                saveUrlResultReq.getBadUrls(),
-                saveUrlResultReq.getDownSystemSiteId(),
-                UrlStatus.BAD
-        );
-
-        updateUrlStatus(
-                saveUrlResultReq.getFailedUrls(),
-                saveUrlResultReq.getDownSystemSiteId(),
-                UrlStatus.FAILED_TO_CRAWL
-        );
+        saveNewUrlCore(urls, downSystemSite);
     }
 
-    private void saveNewUrl(List<Url> newUrls) {
+    private void saveNewUrlCore(List<Url> newUrls, DownSystemSite downSystemSite) {
         try {
             urlMapper.addBatch(newUrls);
+            downSystemSiteService.increaseNewUrlCount(downSystemSite.getId(), newUrls.size());
+            downSystemService.increaseNewUrlCount(downSystemSite.getDownSystemId(), newUrls.size());
         } catch (Exception ex) {
             error("add url batch failed", ex);
         }
     }
 
-    private void updateUrlStatus(List<String> urls, Integer downSiteId, Integer urlStatus) {
-        if (urlStatus != UrlStatus.FAILED) {
-            for (final String url : urls) {
-                try {
-                    Url urlToUpdate = Url.builder()
-                            .downSystemSiteId(downSiteId)
-                            .url(url)
-                            .urlStatus(urlStatus)
-                            .build();
-                    urlMapper.updateStatus(urlToUpdate);
-                } catch (Exception ex) {
-                    error(
-                            String.format(
-                                    "update url(%s),down site(%d) ,status(%d) failed",
-                                    url,
-                                    downSiteId,
-                                    urlStatus)
-                            , ex
-                    );
-                }
-            }
-        } else {
-            for (final String url : urls) {
-                try {
-                    Url urlToUpdate = Url.builder()
-                            .downSystemSiteId(downSiteId)
-                            .url(url)
-                            .build();
-                    urlMapper.failed(urlToUpdate);
-                } catch (Exception ex) {
-                    error(
-                            String.format(
-                                    "update url(%s),down site(%d) ,status(%d) failed",
-                                    url,
-                                    downSiteId,
-                                    UrlStatus.FAILED)
-                            , ex
-                    );
-                }
+    private void failUrls(List<String> urls, Integer downSystemSiteId) {
+        for (List<String> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+            try {
+                urlMapper.failUrls(list, downSystemSiteId);
+            } catch (Exception ex) {
+                error("fail url batch failed", ex);
             }
         }
-
     }
+
+    private void badUrls(List<String> urls, DownSystemSite downSystemSite) {
+        for (List<String> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+            try {
+                urlMapper.badUrls(list, downSystemSite.getId());
+                downSystemSiteService.increaseBadUrlCount(downSystemSite.getId(), list.size());
+                downSystemService.increaseBadUrlCount(downSystemSite.getDownSystemId(), list.size());
+            } catch (Exception ex) {
+                error("bad url batch failed", ex);
+            }
+        }
+    }
+
+    private void failToRunUrls(List<String> urls, Integer downSiteId) {
+        for (List<String> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+            try {
+                urlMapper.failToRunUrls(list, downSiteId);
+            } catch (Exception ex) {
+                error("fail to run url batch failed", ex);
+            }
+        }
+    }
+
+    private void successUrls(List<String> urls, DownSystemSite downSystemSite) {
+        for (List<String> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+            try {
+                urlMapper.successUrls(list, downSystemSite.getId());
+                downSystemSiteService.increaseFinishedUrlCount(downSystemSite.getId(), list.size());
+                downSystemService.increaseFinishedUrlCount(downSystemSite.getDownSystemId(), list.size());
+            } catch (Exception ex) {
+                error("success url batch failed", ex);
+            }
+        }
+    }
+
 }

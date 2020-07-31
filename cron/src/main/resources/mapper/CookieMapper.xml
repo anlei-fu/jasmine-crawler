@@ -19,18 +19,17 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         select * from cookie
         where id = #{id}
     </select>
-    <select id="getBySiteId" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
+    <select id="getForSite" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
         select
-         *
+        *
         from cookie c
         join site_account sa on c.site_account_id = sa.id
         join site s on sa.site_id =s.id
         where
-        sa.site_id = #{siteId}
-        and c.enable_status = 1
+        sa.site_id = 1
         and s.enable_status = 1
         and sa.enable_status = 1
-        and sa.available_status = 1
+        and sa.block_timeout_time &lt; current_timestamp
     </select>
     <select id="removeExpiredCookies" >
         delete from cookie c

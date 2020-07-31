@@ -21,11 +21,12 @@ import java.util.List;
  */
 @RestController
 public class UrlController extends ControllerBase {
+
     @Autowired
     private UrlService urlService;
 
     @GetMapping(path = "/url/get/for/task")
-    public R<List<Url>> getUrlForTask(GetUrlForTaskReq req) {
+    public R<List<Url>> getUrlForTask(GetUrlForTaskReq req) throws Exception {
         List<Url> result = urlService.getUrlForTask(req);
         return responseData(result);
     }

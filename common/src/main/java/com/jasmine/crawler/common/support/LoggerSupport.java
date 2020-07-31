@@ -13,6 +13,9 @@ public class LoggerSupport {
     protected void info(String msg) {
         LOG.info(msg);
     }
+    protected  void warn(String msg){
+        LOG.warn(msg);
+    }
 
     protected void error(String msg, Exception ex) {
         LOG.error(msg, ex);

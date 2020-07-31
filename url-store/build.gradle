@@ -12,9 +12,14 @@ repositories {
 }
 
 dependencies {
+    compile 'com.alibaba:druid:1.1.10'
     compile project(':common')
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.0'
+    testCompile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter-test', version: '2.1.0'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
+    compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.12'
 }

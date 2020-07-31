@@ -43,11 +43,11 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
     @Autowired
     private ProxyService proxyService;
 
-    @Autowired
-    private SiteCookieDelayMapService siteCookieDelayMapService;
-
-    @Autowired
-    private SiteAccountDelayService siteAccountDelayService;
+//    @Autowired
+//    private SiteCookieDelayMapService siteCookieDelayMapService;
+//
+//    @Autowired
+//    private SiteAccountDelayService siteAccountDelayService;
 
     @Autowired
     private SiteAccountService siteAccountService;
@@ -111,9 +111,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
             return;
         }
 
-        // decrease  site current task count
-        Site site = siteService.get(task.getSiteId());
-        siteService.decreaseCurrentRunningTaskCount(site.getId());
+
 
         // decrease down system and down system site concurrency
         DownSystemSite downSystemSite = downSystemSiteService.get(task.getDownSystemSiteId());
@@ -128,7 +126,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         if (task.getCookieId() != -1) {
             cookie = cookieService.get(task.getCookieId());
             if (!Objects.isNull(cookie)) {
-                cookieService.decreaseCurrentUseTaskCount(cookie.getId());
+                cookieService.decreaseCurrentUseCount(cookie.getId());
 
                 // decrease site account use count
                 siteAccount = siteAccountService.get(cookie.getAccountId());
@@ -145,9 +143,11 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                 proxyService.decreaseCurrentUseCount(proxy.getId());
         }
 
+        // decrease  site current task count
+        Site site = siteService.get(task.getSiteId());
         // decrease crawler concurrency
         Crawler crawler = crawlerService.get(task.getCrawlerId());
-        if (!Objects.isNull(crawler))
+        if (!Objects.isNull(crawler)&&!Objects.isNull(site))
             crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), site.getMinuteSpeedLimit());
 
         // handle block result

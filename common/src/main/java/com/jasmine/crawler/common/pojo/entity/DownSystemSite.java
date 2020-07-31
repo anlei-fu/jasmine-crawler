@@ -23,4 +23,8 @@ public class DownSystemSite extends EnableStatusFeature {
     private Integer expectedUrlSize;
 
     private Double fpp;
+
+    private  Integer urlMaxCacheCount;
+
+    private  Integer taskUrlBatchCount;
 }

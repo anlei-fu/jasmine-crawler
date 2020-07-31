@@ -13,10 +13,9 @@ public class ProxyExpireJob extends LoggerSupport {
     private ProxyService proxyService;
 
     public void run() {
-        info(String.format("-----------------begin proxy expire job----------------"));
+        info(String.format("-----------------begin disable expired proxy job----------------"));
         List<Proxy> proxies = null;
         try {
-
                 proxyService.disableBlockedProxies();
         } catch (Exception ex) {
             error("disable proxies failed", ex);

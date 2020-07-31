@@ -12,8 +12,6 @@ import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class CookieServiceImpl implements CookieService {
 
@@ -27,7 +25,7 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public Cookie getCookieForSite(Integer siteId) {
-        return cookieMapper.getBySiteId(siteId);
+        return cookieMapper.getForSite(siteId);
     }
 
     @Override

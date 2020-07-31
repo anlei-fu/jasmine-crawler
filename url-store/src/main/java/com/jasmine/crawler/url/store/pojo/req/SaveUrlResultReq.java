@@ -1,7 +1,10 @@
 package com.jasmine.crawler.url.store.pojo.req;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -12,6 +15,9 @@ import java.util.List;
  * @Description:
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SaveUrlResultReq {
     private Integer downSystemSiteId;
 

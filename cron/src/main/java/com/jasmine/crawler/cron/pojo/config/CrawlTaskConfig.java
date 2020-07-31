@@ -67,7 +67,7 @@ public class CrawlTaskConfig {
     /**
      * Task max concurrency
      */
-    private Integer maxConcurrency;
+    private Integer ipMinuteSpeedLimit;
 
     /**
      * Task timeout

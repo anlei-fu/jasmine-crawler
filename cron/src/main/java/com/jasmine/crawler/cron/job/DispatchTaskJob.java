@@ -260,7 +260,7 @@ public class DispatchTaskJob extends LoggerSupport {
         // add delay map
         SiteIpDelayMap siteIpDelayMap =SiteIpDelayMap.builder()
                 .ip(Objects.isNull(proxy)?proxy.getIp():crawler.getIp())
-                .delayTimeout(new Date(System.currentTimeMillis()+site.getIpDelayTimeout()))
+                .delayTimeoutTime(new Date(System.currentTimeMillis()+site.getIpDelayTimeout()))
                 .siteId(site.getId())
                 .build();
         siteIpDelayService.add(siteIpDelayMap);

@@ -42,7 +42,7 @@ public class BindTaskJob extends LoggerSupport {
     @Autowired
     private  SiteAccountService siteAccountService;
 
-    @Scheduled(cron = "*/6 * * * * ?")
+    @Scheduled(cron = "30/30 * * * * ?")
     public void run() {
         bindTask(1);
     }

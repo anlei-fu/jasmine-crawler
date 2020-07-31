@@ -18,5 +18,5 @@ public class SiteIpDelayMap {
 
     private  String ip;
 
-    private Date delayTimeout;
+    private Date delayTimeoutTime;
 }

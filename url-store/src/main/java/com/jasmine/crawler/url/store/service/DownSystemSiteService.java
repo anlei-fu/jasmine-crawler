@@ -10,4 +10,10 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
  */
 public interface DownSystemSiteService {
     DownSystemSite get(Integer id);
+
+    void increaseNewUrlCount(Integer downSystemSiteId, int size);
+
+    void increaseBadUrlCount(Integer id, int size);
+
+    void increaseFinishedUrlCount(Integer id, int size);
 }
