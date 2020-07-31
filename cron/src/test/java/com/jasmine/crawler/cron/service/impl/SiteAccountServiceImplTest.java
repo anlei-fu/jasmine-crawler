@@ -47,9 +47,7 @@ public class SiteAccountServiceImplTest {
      */
     @Test
     public void testChangeEnableStatusBatch() throws Exception {
-        List<Integer> ls = new LinkedList<>();
-        ls.add(1);
-        service.disableAccouts(ls, 1);
+
     }
 
     /**
