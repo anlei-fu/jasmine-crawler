@@ -4,27 +4,136 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Builder
 @Getter
 @Setter
+/**
+ * Model of down system site
+ */
 public class DownSystemSite extends EnableStatusFeature {
+    /**
+     * Unique key
+     */
     private Integer id;
 
+    /**
+     * Target site
+     */
     private Integer siteId;
 
+    /**
+     * The Down system the site belong to
+     */
     private Integer downSystemId;
 
-    private Integer expectedUrlSize;
+    /**
+     * The script to run crawl task
+     */
+    private Integer scriptId;
 
-    private Double fpp;
+    /**
+     * Priority of the site , use for task binding rank
+     */
+    private Integer priority;
 
-    private  Integer urlMaxCacheCount;
+    /**
+     * The encoding of target site
+     */
+    private String crawlerPageEncoding;
 
-    private  Integer taskUrlBatchCount;
+    /**
+     * The download page timeout of target site
+     */
+    private Integer crawlerPageTimeout;
+
+    /**
+     * Crawl type see {@enum CrawlType}
+     */
+    private Integer crawlerCrawlType;
+
+    /**
+     * Determine if the crawler worker auto download page ,
+     * or download page by self int crawl script
+     */
+    private Integer crawlerAutoDownLoadPage;
+
+    /**
+     * The threshold that max url count to cache in url queue
+     */
+    private Integer urlMaxCacheCount;
+
+    /**
+     * The total count of unique url that has been found
+     */
+    private Integer urlTotalCount;
+
+    /**
+     * The count of url that has been crawled successfully
+     */
+    private Integer urlFinishedCount;
+
+    /**
+     * The bad url count of target site
+     */
+    private Integer urlBadCount;
+
+    /**
+     * The url encodes in json array format
+     */
+    private String urlEncodes;
+
+    /**
+     * The url match patterns in json array format
+     */
+    private String urlMatchPatterns;
+
+    /**
+     * Max crawler times of a single url ,over it the url will been seen as a bad url
+     */
+    private Integer urlMaxCrawlCount;
+
+    /**
+     * The max depth limitation
+     */
+    private Integer urlMaxDepth;
+
+    /**
+     * The expected total url count
+     */
+    private Integer bloomExpectedUrlSize;
+
+    /**
+     * The hash adjust factor of bloom
+     */
+    private Double bloomFpp;
+
+    /**
+     * The count of url to crawl per task
+     */
+    private Integer taskUrlBatchCount;
+
+    /**
+     * Max task count wait to run (bind success and not running)
+     */
+    private Integer taskMaxWaitToBindCount;
+
+    /**
+     * Current bind count
+     */
+    private Integer taskCurrentBindCountCount;
+
+    /**
+     * Max task count can run contaneously
+     */
+    private Integer taskMaxRunningCount;
+
+    /**
+     * Current running task count
+     */
+    private Integer taskCurrentRunningCount;
+
+    /**
+     * Task timeout use by task timout termination job
+     */
+    private Integer taskTimeout;
 }

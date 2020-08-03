@@ -14,6 +14,9 @@ import com.jasmine.crawler.web.admin.pojo.req.AddCrawlerReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerReq;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -120,5 +123,11 @@ public class CrawlerServiceTest {
         R result = controller.getPage(req);
 
         TestUtils.printQuery(req, result);
+    }
+
+    @Test
+    public  void  testDeleteBatch(){
+        List<Integer> ids =new LinkedList<>();
+        controller.deleteBatch(ids);
     }
 }

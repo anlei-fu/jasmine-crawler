@@ -11,11 +11,4 @@ public interface SiteService {
      * @return
      */
     Site get(Integer siteId);
-
-    /**
-     * Decrease current running task count
-     *
-     * @param siteId
-     */
-    void decreaseCurrentRunningTaskCount(Integer siteId);
 }

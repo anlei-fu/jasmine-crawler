@@ -12,6 +12,9 @@ import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.SiteIpBlockMapController;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,5 +55,11 @@ public class SiteIpBlockMapServiceTest {
         R result = controller.getPage(req);
 
         TestUtils.printQuery(req, result);
+    }
+
+    @Test
+    public  void  testDeleteBatch(){
+        List<Integer> ids =new LinkedList<>();
+        controller.deleteBatch(ids);
     }
 }

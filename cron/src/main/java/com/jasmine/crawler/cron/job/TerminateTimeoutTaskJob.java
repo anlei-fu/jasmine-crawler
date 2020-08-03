@@ -84,9 +84,7 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
              return;
         }
 
-        Site site = siteService.get(task.getSiteId());
-        if (!Objects.isNull(site))
-            siteService.decreaseCurrentRunningTaskCountById(site.getId());
+
 
         DownSystemSite downSystemSite = downSystemSiteService.get(task.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
@@ -103,6 +101,7 @@ public class TerminateTimeoutTaskJob extends LoggerSupport {
             siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
         }
 
+        Site site = siteService.get(task.getSiteId());
         Crawler crawler = crawlerService.get(task.getCrawlerId());
         if (!Objects.isNull(crawler)) {
             crawlerService.increaseCurrentConcurrency(

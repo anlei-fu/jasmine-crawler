@@ -13,7 +13,8 @@ public class LoggerSupport {
     protected void info(String msg) {
         LOG.info(msg);
     }
-    protected  void warn(String msg){
+
+    protected void warn(String msg) {
         LOG.warn(msg);
     }
 

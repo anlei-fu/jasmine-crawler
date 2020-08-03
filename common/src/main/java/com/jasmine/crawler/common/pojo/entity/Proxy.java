@@ -19,30 +19,6 @@ import java.util.Date;
 public class Proxy extends EnableStatusFeature {
 
     /**
-     * The account of proxy
-     */
-    @ApiModelProperty("the account of the proxy")
-    private String account;
-
-    /**
-     * Create time
-     */
-    @ApiModelProperty("create time")
-    private Date createTime;
-
-    /**
-     * The count of task using the proxy
-     */
-    @ApiModelProperty("the current use count of proxy")
-    private Integer currentUseCount;
-
-    /**
-     * Enable status see {@enum EnableStatus}
-     */
-    @ApiModelProperty("enable status")
-    private Integer enableStatus;
-
-    /**
      * Unique id
      */
     @ApiModelProperty("identifier")
@@ -53,18 +29,6 @@ public class Proxy extends EnableStatusFeature {
      */
     @ApiModelProperty("the hos:port of proxy server")
     private String ip;
-
-    /**
-     * The count that how many task can use the proxy conteousely
-     */
-    @ApiModelProperty("the max use count of proxy")
-    private Integer maxUseCount;
-
-    /**
-     * The password of account
-     */
-    @ApiModelProperty("the password of the proxy")
-    private String password;
 
     /**
      * The port of proxy
@@ -84,4 +48,48 @@ public class Proxy extends EnableStatusFeature {
     @ApiModelProperty("the type of proxy")
     private Integer proxyType;
 
+    /**
+     * The account of proxy
+     */
+    @ApiModelProperty("the account of the proxy")
+    private String account;
+
+    /**
+     * The password of account
+     */
+    @ApiModelProperty("the password of the proxy")
+    private String password;
+
+    /**
+     * The count that how many task can use the proxy conteousely
+     */
+    @ApiModelProperty("the max use count of proxy")
+    private Integer maxUseCount;
+
+    /**
+     * The count of task using the proxy
+     */
+    @ApiModelProperty("the current use count of proxy")
+    private Integer currentUseCount;
+
+    /**
+     * Max block count to determine that proxy is invalid
+     */
+    private Integer blockMaxCount;
+
+    /**
+     * Current blocked count
+     */
+    private Integer blockCurrentCount;
+
+    /**
+     * Proxy not available within in timeout time
+     */
+    private Date blockTimeoutTime;
+
+    /**
+     * Create time
+     */
+    @ApiModelProperty("create time")
+    private Date createTime;
 }

@@ -25,26 +25,27 @@ public class Cookie extends EnableStatusFeature {
     private Integer id;
 
     /**
-     * The account cookie belong to
+     * The account the cookie belong to
      */
     @ApiModelProperty("")
     private Integer accountId;
 
     /**
-     * Cookie in json string
+     * Cookie in json string format
      */
     @ApiModelProperty("")
     private String cookie;
 
     /**
-     * The ip that get the cookie
+     * The ip got the cookie
      */
-    private  String loginIp;
+    private String loginIp;
 
     /**
-     * Current block count of cookie
+     * Current block count of cookie, when task failed or blocked increase it or reset to zero
+     * the max block count config in {@type Site}
      */
-    private  Integer currentBlockCount;
+    private Integer currentBlockCount;
 
     /**
      * Use to record how many task is using the cookie
@@ -53,14 +54,8 @@ public class Cookie extends EnableStatusFeature {
     private Integer currentUseCount;
 
     /**
-     * Expire time of cookie
+     * The expire time of the cookie
      */
-    private  Date expireTime;
-
-    /**
-     * Create time
-     */
-    @ApiModelProperty("")
-    private Date createTime;
+    private Date expireTime;
 
 }

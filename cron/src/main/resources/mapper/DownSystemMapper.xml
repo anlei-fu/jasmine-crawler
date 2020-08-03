@@ -16,7 +16,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where id = #{id}
     </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystem">
-        select * from cookie
+        select * from down_system
         where id = #{id}
     </select>
 </mapper>

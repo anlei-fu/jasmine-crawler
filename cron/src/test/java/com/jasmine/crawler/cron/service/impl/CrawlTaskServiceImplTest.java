@@ -93,8 +93,8 @@ public class CrawlTaskServiceImplTest {
     public void testBindFailed() throws Exception {
         CrawlTask task = CrawlTask.builder()
                 .id(1)
-                .lastBindStatus(BindStatus.DOWN_SYSTEM_NOT_AVAILABLE)
-                .lastBindMsg("s")
+                .bindLastStatus(BindStatus.DOWN_SYSTEM_NOT_AVAILABLE)
+                .bindLastMsg("s")
                 .build();
         service.bindFailed(task);
     }

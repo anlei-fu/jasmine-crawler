@@ -28,6 +28,11 @@ public class Url {
     private Integer urlStatus;
 
     /**
+     * The depth of the url
+     */
+    private Integer depth;
+
+    /**
      * Url
      */
     private String url;

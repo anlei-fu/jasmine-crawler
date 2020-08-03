@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 public interface UrlMapper {
-    List<Url> getUrlToCacheForSite(@Param("downSystemSiteId") Integer downSystemSiteId, Integer urlMaxCacheCount);
+    List<Url> getUrlToCacheForSite(@Param("downSystemSiteId") Integer downSystemSiteId, @Param("maxCount") Integer urlMaxCacheCount);
 
     void addBatch(@Param("list") List<Url> newUrls);
 

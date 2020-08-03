@@ -14,6 +14,9 @@ import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,5 +119,11 @@ public class SiteAccountServiceTest {
         R result = controller.getPage(req);
 
         TestUtils.printQuery(req, result);
+    }
+
+    @Test
+    public  void  testDeleteBatch(){
+        List<Integer> ids =new LinkedList<>();
+        controller.deleteBatch(ids);
     }
 }

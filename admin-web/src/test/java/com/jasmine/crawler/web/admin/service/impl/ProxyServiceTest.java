@@ -14,6 +14,9 @@ import com.jasmine.crawler.web.admin.pojo.req.AddProxyReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyReq;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,9 +69,6 @@ public class ProxyServiceTest {
     @Test
     public void testDeleteById() {
 
-        R result = controller.deleteById(1);
-
-        TestUtils.print(result);
     }
 
     /** updateById */
@@ -115,5 +115,11 @@ public class ProxyServiceTest {
         R result = controller.getPage(req);
 
         TestUtils.printQuery(req, result);
+    }
+
+    @Test
+    public  void  testDeleteBatch(){
+        List<Integer> ids =new LinkedList<>();
+        controller.deleteBatch(ids);
     }
 }

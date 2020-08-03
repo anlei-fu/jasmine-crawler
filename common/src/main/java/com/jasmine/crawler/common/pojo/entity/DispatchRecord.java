@@ -5,20 +5,36 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
+ * Use to record dispatch info
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class DispatchRecord {
+
+    /**
+     * Unique id
+     */
+    private Integer id;
+
+    /**
+     * The task the record belong to
+     */
     private Integer taskId;
 
+    /**
+     * Dispatch status see {@enum DispatchStatus}
+     */
     private Integer dispatchStatus;
 
-    private String msg;
+    /**
+     * The dispatch msg
+     */
+    private String dispatchMsg;
+
+    private Date createTime;
 }

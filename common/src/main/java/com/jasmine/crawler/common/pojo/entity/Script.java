@@ -19,10 +19,14 @@ import java.util.Date;
 public class Script extends EnableStatusFeature {
 
     /**
-     * Create time
+     * unique id
      */
-    @ApiModelProperty("create time")
-    private Date createTime;
+    @ApiModelProperty("i: identifier key")
+    private Integer id;
+
+    private Integer downSystemSiteId;
+
+    private Integer siteId;
 
     /**
      * Usage of the script
@@ -31,10 +35,10 @@ public class Script extends EnableStatusFeature {
     private String description;
 
     /**
-     * unique id
+     * The type of script see {@enum ScriptType}
      */
-    @ApiModelProperty("i: identifier key")
-    private Integer id;
+    @ApiModelProperty("type of script")
+    private Integer scriptType;
 
     /**
      * The path of script on file server
@@ -43,15 +47,8 @@ public class Script extends EnableStatusFeature {
     private String path;
 
     /**
-     * The type of script see {@enum ScriptType}
+     * Create time
      */
-    @ApiModelProperty("type of script")
-    private Integer scriptType;
-
-    /**
-     * The down site the proxy belong to
-     */
-    @ApiModelProperty("site the script belong to")
-    private Integer siteId;
-
+    @ApiModelProperty("create time")
+    private Date createTime;
 }

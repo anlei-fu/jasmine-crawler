@@ -125,7 +125,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.current_use_count,
              t.block_max_count,
              t.block_current_count,
-             t.block_timeout,
+             t.block_timeout_time,
              t.enable_status,
              t.create_time
           from proxy t

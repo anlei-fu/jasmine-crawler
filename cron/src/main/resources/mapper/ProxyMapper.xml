@@ -27,20 +27,19 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         from proxy p
         where
            p.enable_status = 1
-           and p.block_timeout &lt; current_timestamp
-           and p.available_status = 1
+           and p.block_timeout_time &lt; current_timestamp
            and (p.current_use_count &lt; p.max_use_count)
            and
              p.ip not in (
            select ip from site_ip_block_map m
            where
-            m.site_id = #{siteId} and m .block_timeout >current_timestamp
+            m.site_id = #{siteId} and m .block_timeout_time > current_timestamp
         )
         and
         p.ip not in(
            select ip from site_ip_delay_map m
            where
-            m.site_id = #{siteId}  and m .delay_timeout > current_timestamp
+            m.site_id = #{siteId}  and m .delay_timeout_time > current_timestamp
         )
         order by (p.current_use_count / p.max_use_count) asc
         limit 1,1

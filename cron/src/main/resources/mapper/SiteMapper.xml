@@ -5,16 +5,6 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.SiteMapper">
-    <update id="increaseTaskRunningCountById">
-        update site
-        set current_running_task_count = current_running_task_count + 1
-        where id = #{id}
-    </update>
-    <update id="decreaseCurrentRunningTaskCountById">
-        update site
-        set current_running_task_count = current_running_task_count - 1
-        where id = #{id}
-    </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Site">
         select * from site where id = #{id}
     </select>

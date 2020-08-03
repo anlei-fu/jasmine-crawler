@@ -39,19 +39,4 @@ public class SiteServiceImplTest {
         service.get(1);
     }
 
-    /**
-     * Method: increaseRunningTaskCount(Integer id)
-     */
-    @Test
-    public void testIncreaseRunningTaskCount() throws Exception {
-        service.increaseRunningTaskCount(1);
-    }
-
-    /**
-     * Method: decreaseCurrentRunningTaskCountById(Integer id)
-     */
-    @Test
-    public void testDecreaseCurrentRunningTaskCountById() throws Exception {
-        service.decreaseCurrentRunningTaskCountById(1);
-    }
 }

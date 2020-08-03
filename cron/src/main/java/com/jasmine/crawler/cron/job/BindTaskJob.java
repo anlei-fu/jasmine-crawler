@@ -223,8 +223,8 @@ public class BindTaskJob extends LoggerSupport {
                 || ((target instanceof EnableStatusFeature)
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
-            taskToUpdate.setLastBindStatus(bindStatus);
-            taskToUpdate.setLastBindMsg(msg);
+            taskToUpdate.setBindLastStatus(bindStatus);
+            taskToUpdate.setBindLastMsg(msg);
             crawlTaskService.bindFailed(taskToUpdate);
 
             // add bind record
@@ -255,7 +255,6 @@ public class BindTaskJob extends LoggerSupport {
             Cookie cookie
     ) {
 
-        siteService.increaseRunningTaskCount(site.getId());
         downSystemSiteService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
         downSystemService.increaseRunningTaskCount(downSystemSite.getId());
 

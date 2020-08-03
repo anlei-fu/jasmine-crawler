@@ -7,7 +7,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.url.store.mapper.BloomMapper">
     <insert id="add">
         insert into site_url_bloom
-        (donw_system_site_id,
+        (down_system_site_id,
          bloom)values(
          #{downSystemSiteId},
          #{bloom})

@@ -17,8 +17,4 @@ public class SiteServiceImpl implements SiteService {
         return siteMapper.getById(id);
     }
 
-    @Override
-    public void decreaseCurrentRunningTaskCount(Integer id) {
-        siteMapper.decreaseCurrentRunningTaskCount(id);
-    }
 }

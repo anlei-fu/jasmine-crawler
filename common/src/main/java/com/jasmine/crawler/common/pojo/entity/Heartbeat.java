@@ -16,17 +16,17 @@ import java.util.List;
 public class Heartbeat {
 
     /**
-     * File system host "ip:port"
+     * File system host "http://ip:port"
      */
     private String fileHost;
 
     /**
-     * Available masters ip
+     * Available site ip of web api interface which the crawler word summit task result
      */
     private List<String> masters;
 
     /**
-     * The master which send the heartbeat
+     * The site ip which send the heartbeat to the crawler worker
      */
     private String master;
 

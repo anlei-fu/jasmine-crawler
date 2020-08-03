@@ -100,7 +100,7 @@ public class DownSystemServiceTest {
     @Test
     public void testGetById() {
 
-        R result = controller.getById(8);
+        R result = controller.getById(2);
 
         TestUtils.print(result);
     }

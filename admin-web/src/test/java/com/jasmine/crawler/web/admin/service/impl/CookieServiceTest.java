@@ -14,6 +14,9 @@ import com.jasmine.crawler.web.admin.pojo.req.AddCookieReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateCookieReq;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,19 +73,7 @@ public class CookieServiceTest {
     @Test
     public void testUpdateById() {
 
-        UpdateCookieReq req = new UpdateCookieReq();
 
-        req.setSiteId(7);
-        req.setSiteAccountId(899);
-        req.setCookie("mock string");
-        req.setLoginIp("192.168.0.1");
-        req.setCurrentBlockCount(1984);
-        req.setCurrentUseCount(56589);
-        req.setExpireTime(new Date());
-
-        R result = controller.updateById(1, req);
-
-        TestUtils.printQuery(req, result);
     }
 
     /** getById */
@@ -100,7 +91,6 @@ public class CookieServiceTest {
 
         GetCookiePageReq req = new GetCookiePageReq();
 
-        req.setSiteId(29);
         req.setSiteAccountId(12);
         req.setCreateTimeStart(new Date());
         req.setCreateTimeEnd(new Date());
@@ -108,5 +98,11 @@ public class CookieServiceTest {
         R result = controller.getPage(req);
 
         TestUtils.printQuery(req, result);
+    }
+
+    @Test
+    public  void  testDeleteBatch(){
+        List<Integer> ids =new LinkedList<>();
+        controller.deleteBatch(ids);
     }
 }

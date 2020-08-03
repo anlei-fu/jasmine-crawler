@@ -31,25 +31,25 @@ public class Crawler extends EnableStatusFeature {
     private String name;
 
     /**
-     * Description of crawler
+     * Th description of the crawler
      */
     @ApiModelProperty("the description of crawler")
     private String description;
 
     /**
-     * The ip of crawler
+     * The ip of the crawler
      */
     @ApiModelProperty("the ip of crawler")
     private String ip;
 
     /**
-     * The port of crawler rest service
+     * The port of crawler to host rest service
      */
     @ApiModelProperty("the port of crawler")
     private Integer port;
 
     /**
-     * Type of crawler
+     * Type of the crawler
      */
     @ApiModelProperty("")
     private Integer crawlerType;
@@ -68,7 +68,7 @@ public class Crawler extends EnableStatusFeature {
     private String key;
 
     /**
-     * The max concurrency that crawler allowed
+     * The max concurrency(crawl task count per minute) that crawler allowed
      */
     @ApiModelProperty("the max concurrency the crawler allowed")
     private Integer maxConcurrency;
@@ -93,19 +93,8 @@ public class Crawler extends EnableStatusFeature {
     private Date lastHeartbeatTime;
 
     /**
-     * Current heartbeat lost count means the lowest the master do heartbeat check more often
+     * Current heartbeat lost count, use to determine the frequency of heartbeat checking
+     * the lower the master do heartbeat check more often
      */
     private Integer heartbeatLost;
-
-    /**
-     * Enable status
-     */
-    private  Integer enableStatus;
-
-    /**
-     * Create time
-     */
-    @ApiModelProperty("create time")
-    private Date createTime;
-
 }

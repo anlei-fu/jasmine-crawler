@@ -7,9 +7,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.BindRecordMapper">
     <insert id="add">
         insert into bind_record
-        (crawl_task_id,bind_status,msg)
+        (crawl_task_id,bind_status,bind_msg)
         values
-        (#{crawlTaskId},#{bindStatus},#{msg})
+        (#{crawlTaskId},#{bindStatus},#{bindMsg})
     </insert>
-
 </mapper>

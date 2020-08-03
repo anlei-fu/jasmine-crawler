@@ -17,18 +17,4 @@ public interface SiteService {
      * @return
      */
     Site get(Integer siteId);
-
-    /**
-     * Increase current site task running count
-     *
-     * @param siteId
-     */
-    void increaseRunningTaskCount(Integer siteId);
-
-    /**
-     * Decrease current site task running count
-     *
-     * @param siteId
-     */
-    void decreaseCurrentRunningTaskCountById(Integer siteId);
 }

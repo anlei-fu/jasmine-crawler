@@ -7,6 +7,4 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface SiteMapper {
     Site getById(@Param("id") Integer id);
-
-    void decreaseCurrentRunningTaskCount(@Param("id") Integer id);
 }

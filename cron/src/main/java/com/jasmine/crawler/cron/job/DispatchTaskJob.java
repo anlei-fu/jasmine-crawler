@@ -295,7 +295,7 @@ public class DispatchTaskJob extends LoggerSupport {
         DispatchRecord dispatchRecord = DispatchRecord.builder()
                 .taskId(crawlTaskConfig.getTaskId())
                 .dispatchStatus(dispatchStatus)
-                .msg(msg)
+                .dispatchMsg(msg)
                 .build();
         dispatchRecordService.add(dispatchRecord);
 
@@ -311,7 +311,6 @@ public class DispatchTaskJob extends LoggerSupport {
         // decrease site concurrency
         Site site = siteService.get(crawlTaskConfig.getSiteId());
         if (!Objects.isNull(site)) {
-            siteService.decreaseCurrentRunningTaskCountById(site.getId());
 
             Crawler crawler = crawlerService.get(crawlTaskConfig.getCrawlerId());
             if (!Objects.isNull(crawler)) {

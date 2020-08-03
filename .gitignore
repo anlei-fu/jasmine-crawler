@@ -16,3 +16,4 @@ gradle/
 /common/build
 /web-api/build
 /cron/build
+/admin-web/logs/

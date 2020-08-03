@@ -11,6 +11,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class EnableStatusFeature {
+public class EnableStatusFeature extends CreateTimeFeature {
     private Integer enableStatus;
 }

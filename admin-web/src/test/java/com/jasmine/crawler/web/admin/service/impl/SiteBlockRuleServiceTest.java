@@ -14,6 +14,9 @@ import com.jasmine.crawler.web.admin.pojo.req.AddSiteBlockRuleReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBlockRuleReq;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -142,5 +145,11 @@ public class SiteBlockRuleServiceTest {
         R result = controller.getDetailPage(req);
 
         TestUtils.printQuery(req, result);
+    }
+
+    @Test
+    public  void  testDeleteBatch(){
+        List<Integer> ids =new LinkedList<>();
+        controller.deleteBatch(ids);
     }
 }
