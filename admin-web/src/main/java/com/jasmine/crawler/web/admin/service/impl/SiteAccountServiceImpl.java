@@ -12,17 +12,20 @@ import com.jasmine.crawler.web.admin.mapper.SiteAccountMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteAccountParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
 import com.jasmine.crawler.web.admin.service.SiteAccountService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SiteAccountServiceImpl implements SiteAccountService {
 
-    @Autowired private SiteAccountMapper siteAccountMapper;
+    @Autowired
+    private SiteAccountMapper siteAccountMapper;
 
     @Override
     public boolean add(AddSiteAccountReq req) {
@@ -63,5 +66,10 @@ public class SiteAccountServiceImpl implements SiteAccountService {
     @Override
     public int enableBatch(List<Integer> ids) {
         return siteAccountMapper.enableBatch(ids);
+    }
+
+    @Override
+    public int updateBatch(UpdateSiteAccountBatchReq req) {
+        return siteAccountMapper.updateBatch(req);
     }
 }

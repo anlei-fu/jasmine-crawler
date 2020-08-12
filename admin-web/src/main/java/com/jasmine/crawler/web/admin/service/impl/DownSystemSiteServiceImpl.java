@@ -12,17 +12,20 @@ import com.jasmine.crawler.web.admin.mapper.DownSystemSiteMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DownSystemSiteServiceImpl implements DownSystemSiteService {
 
-    @Autowired private DownSystemSiteMapper downSystemSiteMapper;
+    @Autowired
+    private DownSystemSiteMapper downSystemSiteMapper;
 
     @Override
     public boolean add(AddDownSystemSiteReq req) {
@@ -58,5 +61,10 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     @Override
     public int disableBatch(List<Integer> ids) {
         return downSystemSiteMapper.disableBatch(ids);
+    }
+
+    @Override
+    public int updateBatch(UpdateDownSystemSiteBatchReq req) {
+        return downSystemSiteMapper.updateBatch(req);
     }
 }

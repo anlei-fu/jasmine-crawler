@@ -8,11 +8,10 @@ package com.jasmine.crawler.web.admin.mapper;
 
 import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.Script;
-import com.jasmine.crawler.web.admin.pojo.param.UpdateScriptParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddScriptReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface ScriptMapper {
@@ -20,8 +19,6 @@ public interface ScriptMapper {
     int add(AddScriptReq req);
 
     int deleteById(@Param("id") Integer id);
-
-    int updateById(UpdateScriptParams param);
 
     Script getById(@Param("id") Integer id);
 

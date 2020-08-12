@@ -6,47 +6,39 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import com.jasmine.crawler.web.admin.validate.annotation.Ip;
-import com.jasmine.crawler.web.admin.validate.annotation.Password;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.validate.annotation.Enum;
+import com.jasmine.crawler.common.validate.annotation.Ip;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import java.util.Date;
+
 @Getter
 @Setter
 public class UpdateProxyReq {
 
-    @ApiModelProperty("the hos:port of proxy server")
     @Ip
     private String ip;
 
-    @ApiModelProperty("")
     private Integer port;
 
-    @ApiModelProperty("the account of the proxy")
     private String account;
 
-    @ApiModelProperty("the password of the proxy")
-    @Password
     private String password;
 
-    @ApiModelProperty("the protocol that proxy used")
     private String protocol;
 
-    @ApiModelProperty("the type of proxy")
-    @Enum("proxyType")
+    @Enum("ProxyType")
     private Integer proxyType;
 
-    @ApiModelProperty("the max use count of proxy")
     private Integer maxUseCount;
 
-    @ApiModelProperty("")
     private Integer blockMaxCount;
 
-    @ApiModelProperty("enable status")
-    @Enum("enableStatus")
+    private Integer blockTimeout;
+
+    private Date blockTimeoutTime;
+
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

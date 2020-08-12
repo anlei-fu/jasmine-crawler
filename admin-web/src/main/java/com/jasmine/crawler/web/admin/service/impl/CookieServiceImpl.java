@@ -13,14 +13,16 @@ import com.jasmine.crawler.web.admin.pojo.req.AddCookieReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq;
 import com.jasmine.crawler.web.admin.service.CookieService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CookieServiceImpl implements CookieService {
 
-    @Autowired private CookieMapper cookieMapper;
+    @Autowired
+    private CookieMapper cookieMapper;
 
     @Override
     public boolean add(AddCookieReq req) {

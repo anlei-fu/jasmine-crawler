@@ -11,9 +11,11 @@ import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateProxyParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddProxyReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq;
-import java.util.List;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyBatchReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface ProxyMapper {
@@ -33,4 +35,6 @@ public interface ProxyMapper {
     int disableBatch(@Param("list") List<Integer> ids);
 
     int enableBatch(@Param("list") List<Integer> ids);
+
+    int updateBatch(UpdateProxyBatchReq req);
 }

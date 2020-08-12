@@ -21,7 +21,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlServiceImpl implements UrlService {
 
-    @Autowired private UrlMapper urlMapper;
+    @Autowired
+    private UrlMapper urlMapper;
 
     @Override
     public boolean add(AddUrlReq req) {

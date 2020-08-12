@@ -9,7 +9,7 @@ package com.jasmine.crawler.web.admin.service.impl;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.web.admin.Application;
 import com.jasmine.crawler.web.admin.TestUtils;
-import com.jasmine.crawler.web.admin.controller.DispatchTaskRecordController;
+import com.jasmine.crawler.web.admin.controller.DispatchRecordController;
 import com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq;
 import org.junit.After;
 import org.junit.Before;
@@ -30,22 +30,27 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class DispatchTaskRecordServiceTest {
 
-    @Autowired private DispatchTaskRecordController controller;
+    @Autowired
+    private DispatchRecordController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
         GetDispatchTaskRecordPageReq req = new GetDispatchTaskRecordPageReq();
 
         req.setCrawlTaskId(8);
-        req.setDispatchStatus(20);
+        req.setDispatchResult(20);
 
         R result = controller.getPage(req);
 

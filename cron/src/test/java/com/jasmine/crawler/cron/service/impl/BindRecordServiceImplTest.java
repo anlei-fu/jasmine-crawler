@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.common.constant.BindStatus;
+import com.jasmine.crawler.common.constant.BindResult;
 import com.jasmine.crawler.common.pojo.entity.BindRecord;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
@@ -40,7 +40,7 @@ public class BindRecordServiceImplTest {
     public void testAdd() throws Exception {
         BindRecord record = BindRecord
                 .builder()
-                .bindStatus(BindStatus.DOWN_SYSTEM_NOT_AVAILABLE)
+                .bindResult(BindResult.DOWN_SYSTEM_NOT_AVAILABLE)
                 .crawlTaskId(1)
                 .bindMsg("failed")
                 .build();

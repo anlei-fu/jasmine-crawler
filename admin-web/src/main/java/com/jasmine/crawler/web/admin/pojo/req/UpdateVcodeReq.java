@@ -6,24 +6,18 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
 public class UpdateVcodeReq {
 
-    @ApiModelProperty("")
     private Integer accountId;
 
-    @ApiModelProperty("")
     @Enum("vcodeType")
     private Integer vcodeType;
 
-    @ApiModelProperty("")
     private String content;
 }

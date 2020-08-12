@@ -8,31 +8,32 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <delete id="deleteBatch">
         delete from site_ip_block_map
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
         </foreach>
     </delete>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq">
-          select
-             t.id,
-             t.site_id,
-             t.ip,
-             t.create_time,
-             t.block_timeout
-          from site_ip_block_map t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq">
+        select
+        t.id,
+        t.site_id,
+        t.ip,
+        t.create_time,
+        t.block_timeout
+        from site_ip_block_map t
+        <where>
             <if test="siteId != null">
-                  t.site_id = #{siteId}
+                t.site_id = #{siteId}
             </if>
-              <if test="ip != null">
-                  t.ip = #{ip}
-              </if>
+            <if test="ip != null">
+                t.ip = #{ip}
+            </if>
             <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+                and t.create_time >= #{createTimeStart}
             </if>
             <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+                and t.create_time &lt; #{createTimeEnd}
             </if>
-          </where>
+        </where>
     </select>
 </mapper>

@@ -9,7 +9,9 @@ package com.jasmine.crawler.web.admin;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
-/** @Copyright (C) 四川千行你我科技有限公司 @Author: fuanlei @Date: @Description: */
+/**
+ * @Copyright (C) 四川千行你我科技有限公司 @Author: fuanlei @Date: @Description:
+ */
 public class TestUtils {
 
     public static void printQuery(Object dto, Object result) {
@@ -28,5 +30,6 @@ public class TestUtils {
         System.out.println(json);
     }
 
-    public static void checkUpdate(Object dto, Object updated) {}
+    public static void checkUpdate(Object dto, Object updated) {
+    }
 }

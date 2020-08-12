@@ -9,46 +9,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/** 
-* BindTaskJob Tester. 
-* 
-* @author fuanlei 
-* @since <pre>07/30/2020</pre> 
-* @version 1.0 
-*/ 
+/**
+ * BindTaskJob Tester.
+ *
+ * @author fuanlei
+ * @version 1.0
+ * @since <pre>07/30/2020</pre>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class BindTaskJobTest { 
+public class BindTaskJobTest {
 
-@Autowired
-private  BindTaskJob  service;
+    @Autowired
+    private BindTaskJob service;
 
-@Before
-public void before() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+    }
 
-@After
-public void after() throws Exception { 
-} 
+    @After
+    public void after() throws Exception {
+    }
 
-/** 
-* 
-* Method: run() 
-* 
-*/ 
-@Test
-public void testRun() throws Exception { 
-  service.run();
-} 
+    /**
+     * Method: run()
+     */
+    @Test
+    public void testRun() throws Exception {
+        service.run();
+    }
 
-
-/** 
-* 
-* Method: bindTask(Integer level) 
-* 
-*/ 
-@Test
-public void testBindTask() throws Exception { 
+    /**
+     * Method: bindTask(Integer level)
+     */
+    @Test
+    public void testBindTask() throws Exception {
 
 /* 
 try { 
@@ -59,16 +54,14 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
-/** 
-* 
-* Method: bindTaskCore(CrawlTask taskToBind) 
-* 
-*/ 
-@Test
-public void testBindTaskCore() throws Exception { 
+    /**
+     * Method: bindTaskCore(CrawlTask taskToBind)
+     */
+    @Test
+    public void testBindTaskCore() throws Exception {
 
 /* 
 try { 
@@ -79,16 +72,14 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
-/** 
-* 
-* Method: checkIsComponentInvalid(Object target, Integer taskToBindId, Integer bindStatus, CrawlTask taskToUpdate, String msg) 
-* 
-*/ 
-@Test
-public void testCheckIsComponentInvalid() throws Exception { 
+    /**
+     * Method: checkIsComponentInvalid(Object target, Integer taskToBindId, Integer bindStatus, CrawlTask taskToUpdate, String msg)
+     */
+    @Test
+    public void testCheckIsComponentInvalid() throws Exception {
 
 /* 
 try { 
@@ -99,16 +90,14 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
-/** 
-* 
-* Method: bindSuccess(Integer taskToBindId, CrawlTask crawlTaskToUpdate, Site site, DownSystemSite downSystemSite, Crawler crawler, Cookie cookie) 
-* 
-*/ 
-@Test
-public void testBindSuccess() throws Exception { 
+    /**
+     * Method: bindSuccess(Integer taskToBindId, CrawlTask crawlTaskToUpdate, Site site, DownSystemSite downSystemSite, Crawler crawler, Cookie cookie)
+     */
+    @Test
+    public void testBindSuccess() throws Exception {
 
 /* 
 try { 
@@ -119,7 +108,7 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
 } 

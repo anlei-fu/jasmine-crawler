@@ -11,7 +11,9 @@ import lombok.Setter;
 
 public class UpdateSiteBlockAnalyzeParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     public UpdateSiteBlockAnalyzeParams(Integer id) {
         this.id = id;

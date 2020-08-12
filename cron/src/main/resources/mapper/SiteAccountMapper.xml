@@ -10,16 +10,13 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set
         sa.block_timeout_time = date_add(
         current_timestamp,
-        interval (select account_block_timeout from site s where s.id = sa.id ) hour
+        interval (select account_block_timeout from site s where s.id = sa.site_id ) hour
         ),
-        block_current_count =0
+        block_current_count = 0
         where
-        sa.enable_status =1
+        sa.enable_status = 1
         and
-        sa.block_current_count > (select account_max_block_count from site s where s.id =sa.id)
-        <foreach collection="list" open="(" close=")" item="item" separator=",">
-            #{item}
-        </foreach>
+        sa.block_current_count > (select account_max_block_count from site s where s.id = sa.site_id)
     </update>
     <update id="increaseCurrentUseCount">
         update site_account
@@ -30,5 +27,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         update site_account
         set current_use_count = current_use_count - 1
         where id = #{id}
+    </update>
+    <update id="updateDelayTimeout">
+        update site_account sa
+        set
+        delay_timeout_time = date_add(select accout_delay_timeout from site s where s.id = sa.site_id)
+        where
+        id = #{id}
     </update>
 </mapper>

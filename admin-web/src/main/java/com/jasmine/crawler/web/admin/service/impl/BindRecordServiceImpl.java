@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BindRecordServiceImpl implements BindRecordService {
 
-    @Autowired private BindRecordMapper bindRecordMapper;
+    @Autowired
+    private BindRecordMapper bindRecordMapper;
 
     @Override
     public PageResult<BindRecord> getPage(GetBindRecordPageReq req) {

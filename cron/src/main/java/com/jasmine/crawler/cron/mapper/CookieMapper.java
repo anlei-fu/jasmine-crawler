@@ -23,9 +23,13 @@ public interface CookieMapper {
 
     void increaseCurrentUseCountById(@Param("id") Integer id);
 
-    void removeExpiredCookies();
+    void disableInvalidCookies();
 
     void deleteCookieBatch(@Param("list") List<Integer> cookieIds);
 
     void decreaseCurrentUseCountById(@Param("id") Integer id);
+
+    void updateDelayTimeout(@Param("id") Integer id);
+
+    List<Cookie> getInvalidCookies();
 }

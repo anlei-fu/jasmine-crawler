@@ -6,142 +6,143 @@ Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.UrlMapper">
     <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddUrlReq">
-          insert into url 
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             depth,
+        insert into url
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            depth,
             <if test="downSystemSiteId != null">
-                  down_system_site_id,
+                down_system_site_id,
             </if>
-             url_type,
+            url_type,
             <if test="referUrl != null and referUrl != ''">
-                  refer_url,
+                refer_url,
             </if>
             <if test="crawlCount != null">
-                  crawl_count,
+                crawl_count,
             </if>
             <if test="urlStatus != null">
-                  url_status,
+                url_status,
             </if>
             <if test="lastCrawlTime != null and lastCrawlTime != ''">
-                  last_crawl_time,
+                last_crawl_time,
             </if>
             <if test="queryString != null and queryString != ''">
-                  query_string,
+                query_string,
             </if>
-             create_time
-          </trim>
-          values
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             #{depth},
+            create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{depth},
             <if test="downSystemSiteId != null">
-                  #{downSystemSiteId},
+                #{downSystemSiteId},
             </if>
-             #{urlType},
+            #{urlType},
             <if test="referUrl != null and referUrl != ''">
-                  #{referUrl},
+                #{referUrl},
             </if>
             <if test="crawlCount != null">
-                  #{crawlCount},
+                #{crawlCount},
             </if>
             <if test="urlStatus != null">
-                  #{urlStatus},
+                #{urlStatus},
             </if>
             <if test="lastCrawlTime != null and lastCrawlTime != ''">
-                  #{lastCrawlTime},
+                #{lastCrawlTime},
             </if>
             <if test="queryString != null and queryString != ''">
-                  #{queryString},
+                #{queryString},
             </if>
-             current_timestamp
-          </trim>
+            current_timestamp
+        </trim>
     </insert>
     <delete id="deleteByUrl">
-          delete from url t
-          <where>
+        delete from url t
+        <where>
             t.url = #{url}
-          </where>
+        </where>
     </delete>
     <update id="updateByUrl" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateParams">
-          update url t
-          <set>
+        update url t
+        <set>
             <if test="depth != null">
-                  t.depth = #{depth},
+                t.depth = #{depth},
             </if>
             <if test="downSystemSiteId != null">
-                  t.down_system_site_id = #{downSystemSiteId},
+                t.down_system_site_id = #{downSystemSiteId},
             </if>
             <if test="urlType != null">
-                  t.url_type = #{urlType},
+                t.url_type = #{urlType},
             </if>
             <if test="referUrl != null and referUrl != ''">
-                  t.refer_url = #{referUrl},
+                t.refer_url = #{referUrl},
             </if>
             <if test="crawlCount != null">
-                  t.crawl_count = #{crawlCount},
+                t.crawl_count = #{crawlCount},
             </if>
             <if test="urlStatus != null">
-                  t.url_status = #{urlStatus},
+                t.url_status = #{urlStatus},
             </if>
             <if test="lastCrawlTime != null and lastCrawlTime != ''">
-                  t.last_crawl_time = #{lastCrawlTime},
+                t.last_crawl_time = #{lastCrawlTime},
             </if>
             <if test="queryString != null and queryString != ''">
-                  t.query_string = #{queryString},
+                t.query_string = #{queryString},
             </if>
             <if test="url != null and url != ''">
-                  t.url = #{url}
+                t.url = #{url}
             </if>
-          </set>
-          <where>
+        </set>
+        <where>
             t.url = #{url}
-          </where>
+        </where>
     </update>
     <select id="getByUrl" resultType="com.jasmine.crawler.common.pojo.entity.Url">
-          select
-             t.url,
-             t.depth,
-             t.down_system_site_id,
-             t.url_type,
-             t.refer_url,
-             t.crawl_count,
-             t.url_status,
-             t.last_crawl_time,
-             t.query_string,
-             t.create_time
-          from url t
-          <where>
+        select
+        t.url,
+        t.depth,
+        t.down_system_site_id,
+        t.url_type,
+        t.refer_url,
+        t.crawl_count,
+        t.url_status,
+        t.last_crawl_time,
+        t.query_string,
+        t.create_time
+        from url t
+        <where>
             t.url = #{url}
-          </where>
+        </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Url" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq">
-          select
-             t.url,
-             t.depth,
-             t.down_system_site_id,
-             t.url_type,
-             t.refer_url,
-             t.crawl_count,
-             t.url_status,
-             t.last_crawl_time,
-             t.query_string,
-             t.create_time
-          from url t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Url"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq">
+        select
+        t.url,
+        t.depth,
+        t.down_system_site_id,
+        t.url_type,
+        t.refer_url,
+        t.crawl_count,
+        t.url_status,
+        t.last_crawl_time,
+        t.query_string,
+        t.create_time
+        from url t
+        <where>
             <if test="downSystemSiteId != null">
-                  t.down_system_site_id = #{downSystemSiteId}
+                t.down_system_site_id = #{downSystemSiteId}
             </if>
             <if test="urlType != null">
-                  and t.url_type = #{urlType}
+                and t.url_type = #{urlType}
             </if>
             <if test="urlStatus != null">
-                  and t.url_status = #{urlStatus}
+                and t.url_status = #{urlStatus}
             </if>
             <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+                and t.create_time >= #{createTimeStart}
             </if>
             <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+                and t.create_time &lt; #{createTimeEnd}
             </if>
-          </where>
+        </where>
     </select>
 </mapper>

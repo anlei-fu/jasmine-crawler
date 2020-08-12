@@ -28,7 +28,7 @@ public interface CrawlTaskMapper {
 
     void bindFailed(CrawlTask taskToUpdate);
 
-    boolean bindSuccess(@Param("id") Integer id);
+    boolean bindSuccess(CrawlTask task);
 
     List<CrawlTaskConfig> getTaskConfigsToDispatch();
 
@@ -41,4 +41,8 @@ public interface CrawlTaskMapper {
     void terminateTimeoutTask(@Param("id") Integer id);
 
     CrawlTask getForUpdate(@Param("id") Integer id);
+
+    void bindTimeout(@Param("id") Integer id);
+
+    List<CrawlTask> getBindTimeoutTasks();
 }

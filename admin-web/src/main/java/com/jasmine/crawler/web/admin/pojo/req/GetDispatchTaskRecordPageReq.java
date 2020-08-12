@@ -6,22 +6,17 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.pojo.req.PageTimeReq;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetDispatchTaskRecordPageReq extends PageReq {
+public class GetDispatchTaskRecordPageReq extends PageTimeReq {
 
-    @ApiModelProperty("")
     private Integer crawlTaskId;
 
-    @ApiModelProperty("")
-    @Enum("dispatchStatus")
-    private Integer dispatchStatus;
+    @Enum("DispatchResult")
+    private Integer dispatchResult;
 }

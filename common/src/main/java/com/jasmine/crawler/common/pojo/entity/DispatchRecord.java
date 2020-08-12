@@ -29,12 +29,15 @@ public class DispatchRecord {
     /**
      * Dispatch status see {@enum DispatchStatus}
      */
-    private Integer dispatchStatus;
+    private Integer dispatchResult;
 
     /**
      * The dispatch msg
      */
     private String dispatchMsg;
 
+    /**
+     * The time record created
+     */
     private Date createTime;
 }

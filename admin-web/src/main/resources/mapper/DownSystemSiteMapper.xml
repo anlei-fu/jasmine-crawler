@@ -9,24 +9,32 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
           insert into down_system_site 
           <trim prefix="(" suffix=")" suffixOverrides=",">
              site_id,
-             script_id,
+             <if test="scriptId!=null">
+               script_id,
+             </if>
+
              down_system_id,
-             priority,
+             <if  test="priority!=null"> priority,</if>
+
             <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
                   crawler_page_encoding,
             </if>
             <if test="crawlerPageTimeout != null">
                   crawler_page_timeout,
             </if>
-             crawler_crawl_type,
-             crawler_auto_download_page,
-             url_max_cache_count,
+             <if  test="crawlerCrawlType!=null"> crawler_crawl_type,</if>
+             <if  test="crawlerAutoDownloadPage!=null"> crawler_auto_download_page,</if>
+                <if  test="urlMaxCacheCount!=null">    url_max_cache_count,</if>
+
             <if test="urlEncodes != null and urlEncodes != ''">
                   url_encodes,
             </if>
             <if test="urlMaxCrawlCount != null">
                   url_max_crawl_count,
             </if>
+                        <if test="urlMaxDepth != null">
+                              url_max_depth,
+                        </if>
             <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
                   url_match_patterns,
             </if>
@@ -45,7 +53,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="taskMaxRunningCount != null">
                   task_max_running_count,
             </if>
-             task_timeout,
+             <if test="taskTimeout != null">
+                                         task_timeout,
+                                    </if>
+
             <if test="enableStatus != null">
                   enable_status,
             </if>
@@ -54,24 +65,30 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
           values
           <trim prefix="(" suffix=")" suffixOverrides=",">
              #{siteId},
-             #{scriptId},
+             <if test="scriptId!=null">
+                           script_id,
+                         </if>
              #{downSystemId},
-             #{priority},
+             <if  test="priority!=null"> #{priority},</if>
+
             <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
                   #{crawlerPageEncoding},
             </if>
             <if test="crawlerPageTimeout != null">
                   #{crawlerPageTimeout},
             </if>
-             #{crawlerCrawlType},
-             #{crawlerAutoDownloadPage},
-             #{urlMaxCacheCount},
+             <if  test="crawlerCrawlType!=null"> #{crawlerCrawlType},</if>
+              <if  test="crawlerAutoDownloadPage!=null"> #{crawlerAutoDownloadPage},</if>
+               <if  test="urlMaxCacheCount!=null">   #{urlMaxCacheCount},</if>
             <if test="urlEncodes != null and urlEncodes != ''">
                   #{urlEncodes},
             </if>
             <if test="urlMaxCrawlCount != null">
                   #{urlMaxCrawlCount},
             </if>
+             <if test="urlMaxDepth != null">
+                                          #{urlMaxDepth},
+                                    </if>
             <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
                   #{urlMatchPatterns},
             </if>
@@ -90,7 +107,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="taskMaxRunningCount != null">
                   #{taskMaxRunningCount},
             </if>
-             #{taskTimeout},
+             <if test="taskTimeout != null">
+                              #{taskTimeout},
+                        </if>
+
             <if test="enableStatus != null">
                   #{enableStatus},
             </if>
@@ -139,6 +159,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="urlMaxCrawlCount != null">
                   t.url_max_crawl_count = #{urlMaxCrawlCount},
             </if>
+             <if test="urlMaxDepth != null">
+                              t.url_max_depth = #{urlMaxDepth},
+                        </if>
             <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
                   t.url_match_patterns = #{urlMatchPatterns},
             </if>
@@ -168,6 +191,33 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             t.id = #{id}
           </where>
     </update>
+    <update id="updateBatch">
+     update down_system_site
+     <set>
+       <if test="priority!=null">
+       priority =#{priority},
+       </if>
+        <if test="enableStatus!=null">
+        enable_status = #{enableStatus},
+              </if>
+               <if test="urlMaxCacheCount!=null">
+               url_max_cache_count = #{urlMaxCacheCount},
+                     </if>
+                      <if test="taskMaxWaitToBindCount!=null">
+                      task_max_wait_to_bind_count = #{taskMaxWaitToBindCount},
+                            </if>
+                             <if test="taskMaxRunningCount!=null">
+                             task_max_running_count = #{taskMaxRunningCount},
+                                   </if>
+                                       <if test="taskTimeout!=null">
+                                       task_timeout = #{taskTimeout},
+                                                                      </if>
+     </set>
+     where id in
+     <foreach collection ="ids" item ="item" open="(" close=")" separator=",">
+     #{item}
+     </foreach>
+    </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
           select
              t.id,
@@ -185,10 +235,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.url_total_count,
              t.url_encodes,
              t.url_max_crawl_count,
+             t.url_max_depth,
              t.url_match_patterns,
              t.bloom_expected_url_size,
              t.bloom_fpp,
-             t.bloom_last_loading_time,
              t.task_url_batch_count,
              t.task_max_wait_to_bind_count,
              t.task_current_bind_count,
@@ -219,10 +269,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.url_total_count,
              t.url_encodes,
              t.url_max_crawl_count,
+             t.url_max_depth,
              t.url_match_patterns,
              t.bloom_expected_url_size,
              t.bloom_fpp,
-             t.bloom_last_loading_time,
              t.task_url_batch_count,
              t.task_max_wait_to_bind_count,
              t.task_current_bind_count,
@@ -245,18 +295,15 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="crawlerCrawlType != null">
                   and t.crawler_crawl_type = #{crawlerCrawlType}
             </if>
-            <if test="bloomFpp != null">
-                  and t.bloom_fpp = #{bloomFpp}
-            </if>
             <if test="enableStatus != null">
                   and t.enable_status = #{enableStatus}
             </if>
-            <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
-            </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
-            </if>
+            <if test="createTimeStart != null and createTimeStart !=''">
+                            t.create_time >= #{createTimeStart}
+                      </if>
+                      <if test="createTimeEnd != null and createTimeEnd !=''">
+                            and t.create_time &lt; #{createTimeEnd}
+                      </if>
           </where>
     </select>
 </mapper>

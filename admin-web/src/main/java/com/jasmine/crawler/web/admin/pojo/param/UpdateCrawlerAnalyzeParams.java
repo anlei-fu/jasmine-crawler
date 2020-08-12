@@ -11,7 +11,9 @@ import lombok.Setter;
 
 public class UpdateCrawlerAnalyzeParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     public UpdateCrawlerAnalyzeParams(Integer id) {
         this.id = id;

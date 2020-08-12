@@ -10,20 +10,26 @@ import com.jasmine.crawler.common.pojo.entity.Dictionary;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddDictionaryReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDictionaryPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDictionaryBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDictionaryReq;
+
 import java.util.List;
 
 public interface DictionaryService {
 
-    boolean add(String createUser, AddDictionaryReq req);
+    boolean add(AddDictionaryReq req);
 
     boolean deleteById(Integer id);
 
-    boolean updateById(Integer id, String lastUpdateUser, UpdateDictionaryReq req);
+    boolean updateById(Integer id, UpdateDictionaryReq req);
 
     Dictionary getById(Integer id);
 
     PageResult<Dictionary> getPage(GetDictionaryPageReq req);
 
     int deleteBatch(List<Integer> ids);
+
+    int updateBatch(UpdateDictionaryBatchReq req);
+
+    List<Dictionary> getAll();
 }

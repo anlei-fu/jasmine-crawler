@@ -11,9 +11,11 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
-import java.util.List;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface DownSystemSiteMapper {
@@ -31,4 +33,6 @@ public interface DownSystemSiteMapper {
     int enableBatch(@Param("list") List<Integer> ids);
 
     int disableBatch(@Param("list") List<Integer> ids);
+
+    int updateBatch(UpdateDownSystemSiteBatchReq req);
 }

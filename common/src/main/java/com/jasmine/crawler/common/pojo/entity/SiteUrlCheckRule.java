@@ -6,43 +6,31 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.common.pojo.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-@ApiModel("site-url-block-rule")
 @Getter
 @Setter
 public class SiteUrlCheckRule extends EnableStatusFeature {
 
-    @ApiModelProperty("checkTyp: json array")
     private Integer checkType;
 
-    @ApiModelProperty("")
     private Date createTime;
 
-    @ApiModelProperty("description of the rul")
     private String description;
 
-    @ApiModelProperty("enable status")
     private Integer enableStatus;
 
-    @ApiModelProperty("http status code")
     private Integer httpStatus;
 
-    @ApiModelProperty("")
     private Integer id;
 
-    @ApiModelProperty("json array of string to match")
     private String keywords;
 
-    @ApiModelProperty("if match the page result returned")
     private Integer pageResultType;
 
-    @ApiModelProperty("site the rule belong to")
     private Integer siteId;
 
 }

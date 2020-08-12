@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface CrawlerMapper {
 
-    Crawler getCrawlerForSite(@Param("siteId") Integer siteId);
+    Crawler getCrawlerForSite(@Param("siteId") Integer siteId,@Param("withIp") boolean withIp);
 
     void updateConcurrencyById(@Param("id") Integer id, @Param("concurrencyToIncrease") Integer concurrencyToIncrease);
 

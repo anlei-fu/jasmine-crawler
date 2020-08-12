@@ -5,98 +5,121 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.DictionaryMapper">
-    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.param.AddDictionaryParams">
-          insert into dictionary 
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             type,
-             value,
-             label,
-            <if test="createUser != null and createUser != ''">
-                  create_user,
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddDictionaryReq">
+        insert into dictionary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            type,
+            value,
+            label,
+            <if test="color!=null and color!=''">
+                color,
             </if>
-             create_time
-          </trim>
-          values
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             #{type},
-             #{value},
-             #{label},
-            <if test="createUser != null and createUser != ''">
-                  #{createUser},
+            create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{type},
+            #{value},
+            #{label},
+            <if test="color!=null and color!=''">
+                #{color},
             </if>
-             current_timestamp
-          </trim>
+            current_timestamp
+        </trim>
     </insert>
     <delete id="deleteById">
-          delete from dictionary t
-          <where>
+        delete from dictionary t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </delete>
     <delete id="deleteBatch">
         delete from dictionary
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
         </foreach>
     </delete>
     <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateDictionaryParams">
-          update dictionary t
-          <set>
+        update dictionary t
+        <set>
             <if test="type != null and type != ''">
-                  t.type = #{type},
+                t.type = #{type},
             </if>
             <if test="value != null">
-                  t.value = #{value},
+                t.value = #{value},
             </if>
             <if test="label != null and label != ''">
-                  t.label = #{label},
+                t.label = #{label},
             </if>
-            <if test="lastUpdateUser != null and lastUpdateUser != ''">
-                  t.last_update_user = #{lastUpdateUser},
-            </if>
-            <if test="id != null">
-                  t.id = #{id},
+            <if test="color!=null and color!=''">
+                t.color = #{color},
             </if>
             t.last_update_time= current_timestamp
-          </set>
-          <where>
+        </set>
+        <where>
             t.id = #{id}
-          </where>
+        </where>
+    </update>
+    <update id="updateBatch">
+        update dictionary
+        <set>
+            <if test="type!=null  and type != ''">
+                type = #{type}
+            </if>
+        </set>
+        where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary">
-          select
-             t.id,
-             t.type,
-             t.value,
-             t.label,
-             t.create_user,
-             t.create_time,
-             t.last_update_user,
-             t.last_update_time
-          from dictionary t
-          <where>
+        select
+        t.id,
+        t.type,
+        t.value,
+        t.label,
+        t.create_user,
+        t.create_time,
+        t.last_update_user,
+        t.last_update_time
+        from dictionary t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDictionaryPageReq">
-          select
-             t.id,
-             t.type,
-             t.value,
-             t.label,
-             t.create_user,
-             t.create_time,
-             t.last_update_user,
-             t.last_update_time
-          from dictionary t
-          <where>
-            <if test="createTimeStart != null">
-                  t.create_time >= #{createTimeStart}
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDictionaryPageReq">
+        select
+        t.id,
+        t.type,
+        t.value,
+        t.label,
+        t.color,
+        t.create_time
+        from dictionary t
+        <where>
+            <if test="type!=null and type!=''">
+                t.type like concat('%',#{type},'%')
             </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+            <if test="label!=null and label!=''">
+                t.label like concat('%',#{label},'%')
             </if>
-          </where>
+            <if test="createTimeStart != null and createTimeStart !=''">
+                t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
+            </if>
+        </where>
+        order by t.type ,t.value
+    </select>
+    <select id="getAll" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary">
+        select
+        label,
+        value,
+        type,
+        color
+        from dictionary
     </select>
 </mapper>

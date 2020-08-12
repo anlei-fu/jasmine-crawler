@@ -6,82 +6,60 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddDownSystemSiteReq {
 
-    @ApiModelProperty("")
     @NotNull
     private Integer siteId;
 
-    @ApiModelProperty("")
-    @NotNull
-    private Integer scriptId;
-
-    @ApiModelProperty("")
     @NotNull
     private Integer downSystemId;
 
-    @ApiModelProperty("")
-    @NotNull
     private Integer priority;
 
-    @ApiModelProperty("")
+    private Integer scriptId;
+
     private String crawlerPageEncoding;
 
-    @ApiModelProperty("")
     private Integer crawlerPageTimeout;
 
-    @ApiModelProperty("")
-    @NotNull
     @Enum("crawlerCrawlType")
     private Integer crawlerCrawlType;
 
-    @ApiModelProperty("")
-    @NotNull
     private Integer crawlerAutoDownloadPage;
 
-    @ApiModelProperty("")
-    @NotNull
     private Integer urlMaxCacheCount;
 
-    @ApiModelProperty("")
     private String urlEncodes;
 
-    @ApiModelProperty("")
+    /**
+     * Url max retry
+     */
     private Integer urlMaxCrawlCount;
 
-    @ApiModelProperty("")
+    private Integer urlMaxDepth;
+
     private String urlMatchPatterns;
 
-    @ApiModelProperty("")
     private Integer bloomExpectedUrlSize;
 
-    @ApiModelProperty("")
     private Float bloomFpp;
 
-    @ApiModelProperty("")
     private Integer taskUrlBatchCount;
 
-    @ApiModelProperty("")
     private Integer taskMaxWaitToBindCount;
 
-    @ApiModelProperty("")
     private Integer taskMaxRunningCount;
 
-    @ApiModelProperty("")
-    @NotNull
     private Integer taskTimeout;
 
-    @ApiModelProperty("")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

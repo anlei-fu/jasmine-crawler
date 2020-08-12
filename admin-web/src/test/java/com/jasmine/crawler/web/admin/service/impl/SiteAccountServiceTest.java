@@ -13,10 +13,6 @@ import com.jasmine.crawler.web.admin.controller.SiteAccountController;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +20,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * SiteAccountService Tester.
@@ -36,15 +35,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class SiteAccountServiceTest {
 
-    @Autowired private SiteAccountController controller;
+    @Autowired
+    private SiteAccountController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -65,7 +69,9 @@ public class SiteAccountServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -74,7 +80,9 @@ public class SiteAccountServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -87,7 +95,6 @@ public class SiteAccountServiceTest {
         req.setPhone("18009049263");
         req.setEmail("18102345622@ms.com");
         req.setPassword("1qaz2wsx");
-        req.setLastLoginIp("192.168.0.3");
         req.setEnableStatus(0);
 
         R result = controller.updateById(15, req);
@@ -95,7 +102,9 @@ public class SiteAccountServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -104,7 +113,9 @@ public class SiteAccountServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -113,8 +124,6 @@ public class SiteAccountServiceTest {
         req.setLoginType(0);
         req.setSiteId(29);
         req.setEnableStatus(0);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 
@@ -122,8 +131,8 @@ public class SiteAccountServiceTest {
     }
 
     @Test
-    public  void  testDeleteBatch(){
-        List<Integer> ids =new LinkedList<>();
+    public void testDeleteBatch() {
+        List<Integer> ids = new LinkedList<>();
         controller.deleteBatch(ids);
     }
 }

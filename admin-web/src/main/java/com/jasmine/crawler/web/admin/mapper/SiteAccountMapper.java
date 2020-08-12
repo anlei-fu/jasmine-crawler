@@ -11,9 +11,11 @@ import com.jasmine.crawler.common.pojo.entity.SiteAccount;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteAccountParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
-import java.util.List;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface SiteAccountMapper {
@@ -33,4 +35,6 @@ public interface SiteAccountMapper {
     int disableBatch(@Param("list") List<Integer> ids);
 
     int enableBatch(@Param("list") List<Integer> ids);
+
+    int updateBatch(UpdateSiteAccountBatchReq req);
 }

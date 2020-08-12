@@ -22,8 +22,8 @@ public class CrawlerServiceImpl implements CrawlerService {
     private CrawlerMapper crawlerMapper;
 
     @Override
-    public Crawler getCrawlerForSite(Integer siteId) {
-        return crawlerMapper.getCrawlerForSite(siteId);
+    public Crawler getCrawlerForSite(Integer siteId, boolean withIp) {
+        return crawlerMapper.getCrawlerForSite(siteId,withIp);
     }
 
     @Override
@@ -43,9 +43,9 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public void updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus) {
-        if(heartbeatStatus== BooleanFlag.TRUE){
+        if (heartbeatStatus == BooleanFlag.TRUE) {
             crawlerMapper.heartbeatSuccess(crawlerId);
-        }else{
+        } else {
             crawlerMapper.heartbeatFailed(crawlerId);
         }
     }

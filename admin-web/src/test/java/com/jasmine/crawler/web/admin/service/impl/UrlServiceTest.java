@@ -12,7 +12,6 @@ import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.UrlController;
 import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +19,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 /**
  * UrlService Tester.
@@ -32,15 +33,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class UrlServiceTest {
 
-    @Autowired private UrlController controller;
+    @Autowired
+    private UrlController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -65,7 +71,9 @@ public class UrlServiceTest {
 
     }
 
-    /** deleteByUrl */
+    /**
+     * deleteByUrl
+     */
     @Test
     public void testDeleteByUrl() {
 
@@ -74,7 +82,9 @@ public class UrlServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateByUrl */
+    /**
+     * updateByUrl
+     */
     @Test
     public void testUpdateByUrl() {
 
@@ -94,7 +104,9 @@ public class UrlServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getByUrl */
+    /**
+     * getByUrl
+     */
     @Test
     public void testGetByUrl() {
 
@@ -103,7 +115,9 @@ public class UrlServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 

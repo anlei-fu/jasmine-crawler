@@ -26,11 +26,21 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
 
     @Override
     public void increaseRunningTaskCount(Integer downSystemSiteId) {
-        downSystemSiteMapper.increaseRunningTaskCountById(downSystemSiteId);
+        downSystemSiteMapper.increaseCurrentRunningTaskCount(downSystemSiteId);
     }
 
     @Override
     public void decreaseCurrentRunningTaskCount(Integer downSystemSiteId) {
-        downSystemSiteMapper.decreaseCurrentRunningTaskCountById(downSystemSiteId);
+        downSystemSiteMapper.decreaseCurrentRunningTaskCount(downSystemSiteId);
+    }
+
+    @Override
+    public void increaseCurrentBindCount(Integer id) {
+        downSystemSiteMapper.increaseCurrentBindCount(id);
+    }
+
+    @Override
+    public void decreaseCurrentBindCount(Integer downSystemId) {
+        downSystemSiteMapper.decreaseCurrentBindCount(downSystemId);
     }
 }

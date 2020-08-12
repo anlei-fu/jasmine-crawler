@@ -9,9 +9,10 @@ package com.jasmine.crawler.web.admin.mapper;
 import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface SiteIpBlockMapMapper {

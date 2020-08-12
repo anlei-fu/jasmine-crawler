@@ -11,10 +11,14 @@ public class SiteAccountServiceImpl implements SiteAccountService {
     @Autowired
     private SiteAccountMapper siteAccountMapper;
 
+    @Override
+    public void disableBlockedAccounts() {
+        siteAccountMapper.disableAccounts();
+    }
 
     @Override
-    public void disableAccounts() {
-        siteAccountMapper.disableAccounts();
+    public void updateDelayTimeout(Integer accountId) {
+        siteAccountMapper.updateDelayTimeout(accountId);
     }
 
     @Override

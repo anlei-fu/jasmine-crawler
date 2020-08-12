@@ -6,48 +6,41 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.*;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.validate.annotation.Email;
+import com.jasmine.crawler.common.validate.annotation.Enum;
+import com.jasmine.crawler.common.validate.annotation.Phone;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
 public class UpdateSiteAccountReq {
 
-    @ApiModelProperty("")
+    private String account;
+
     private String nickName;
 
-    @ApiModelProperty("description  of account")
+    @Enum("YesNo")
+    private Integer validated;
+
+    @Enum("AccountType")
+    private Integer accountType;
+
     private String description;
 
-    @ApiModelProperty("")
     @Enum("loginType")
     private Integer loginType;
 
-    @ApiModelProperty("the site that account belong")
     private Integer siteId;
 
-    @ApiModelProperty("the phone of account")
     @Phone
     private String phone;
 
-    @ApiModelProperty("the email of account")
     @Email
     private String email;
 
-    @ApiModelProperty("the password of account")
-    @Password
     private String password;
 
-    @ApiModelProperty("the ip that the account last login")
-    @Ip
-    private String lastLoginIp;
-
-    @ApiModelProperty("enable status")
     @Enum("enableStatus")
     private Integer enableStatus;
 }

@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.service.impl;
 
-import com.jasmine.crawler.common.pojo.entity.DispatchTaskRecord;
+import com.jasmine.crawler.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.DispatchTaskRecordMapper;
 import com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq;
@@ -18,10 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DispatchTaskRecordServiceImpl implements DispatchTaskRecordService {
 
-    @Autowired private DispatchTaskRecordMapper dispatchTaskRecordMapper;
+    @Autowired
+    private DispatchTaskRecordMapper dispatchTaskRecordMapper;
 
     @Override
-    public PageResult<DispatchTaskRecord> getPage(GetDispatchTaskRecordPageReq req) {
+    public PageResult<DispatchRecord> getPage(GetDispatchTaskRecordPageReq req) {
         return PageHelperUtils.paging(req, () -> dispatchTaskRecordMapper.getPage(req));
     }
 }

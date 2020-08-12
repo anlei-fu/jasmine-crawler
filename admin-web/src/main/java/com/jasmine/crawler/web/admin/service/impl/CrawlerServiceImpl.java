@@ -12,17 +12,20 @@ import com.jasmine.crawler.web.admin.mapper.CrawlerMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateCrawlerParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddCrawlerReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerReq;
 import com.jasmine.crawler.web.admin.service.CrawlerService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CrawlerServiceImpl implements CrawlerService {
 
-    @Autowired private CrawlerMapper crawlerMapper;
+    @Autowired
+    private CrawlerMapper crawlerMapper;
 
     @Override
     public boolean add(AddCrawlerReq req) {
@@ -63,5 +66,10 @@ public class CrawlerServiceImpl implements CrawlerService {
     @Override
     public int enableBatch(List<Integer> ids) {
         return crawlerMapper.enableBatch(ids);
+    }
+
+    @Override
+    public int updateBatch(UpdateCrawlerBatchReq req) {
+        return crawlerMapper.updateBatch(req);
     }
 }

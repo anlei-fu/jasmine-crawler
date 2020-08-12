@@ -5,27 +5,28 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.BindRecordMapper">
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.BindRecord" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetBindRecordPageReq">
-          select
-             t.id,
-             t.crawl_task_id,
-             t.create_time,
-             t.msg,
-             t.bind_status
-          from bind_record t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.BindRecord"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetBindRecordPageReq">
+        select
+        t.id,
+        t.crawl_task_id,
+        t.create_time,
+        t.bind_msg,
+        t.bind_result
+        from bind_record t
+        <where>
             <if test="crawlTaskId != null">
-                  t.crawl_task_id = #{crawlTaskId}
+                t.crawl_task_id = #{crawlTaskId}
             </if>
-            <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+            <if test="createTimeStart != null and createTimeStart !=''">
+                t.create_time >= #{createTimeStart}
             </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
             </if>
-            <if test="bindStatus != null">
-                  and t.bind_status = #{bindStatus}
+            <if test="bindResult != null">
+                and t.bind_result = #{bindResult}
             </if>
-          </where>
+        </where>
     </select>
 </mapper>

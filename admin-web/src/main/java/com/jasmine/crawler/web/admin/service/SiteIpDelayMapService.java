@@ -10,7 +10,13 @@ import com.jasmine.crawler.common.pojo.entity.SiteIpDelayMap;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpDelayMapPageReq;
 
+import java.util.List;
+
 public interface SiteIpDelayMapService {
 
     PageResult<SiteIpDelayMap> getPage(GetSiteIpDelayMapPageReq req);
+
+    boolean deleteById(Integer id);
+
+    int deleteBatch(List<Integer> ids);
 }

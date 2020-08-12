@@ -6,8 +6,8 @@ import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,9 +21,10 @@ public class CreateNewTaskJob extends LoggerSupport {
     private CrawlTaskService crawlTaskService;
 
     /**
-     * Create new crawl task
+     * Create new crawl task , iterate the down site pick the site which current task bind count
+     * less than task max bind count
      */
-    @Scheduled(cron = "* 0/2 * * * *")
+    // @Scheduled(cron = "* 0/2 * * * *")
     public void run() {
         info("-----------begin creating task--------------");
         List<DownSystemSite> downSystemSites = null;
@@ -46,23 +47,11 @@ public class CreateNewTaskJob extends LoggerSupport {
         int exception = 0;
         for (final DownSystemSite downSystemSite : downSystemSites) {
             try {
-                CrawlTask taskToCreate = CrawlTask.builder()
-                        .siteId(downSystemSite.getSiteId())
-                        .downSystemSiteId(downSystemSite.getId())
-                        .build();
-                boolean result = crawlTaskService.add(taskToCreate);
-                if (result) {
+                if (createTaskCore(downSystemSite)) {
                     succeed++;
                 } else {
                     failed++;
                 }
-
-                info(String.format(
-                        "create task result:%s,down system site id(%d)",
-                        result,
-                        downSystemSite.getId()
-                        )
-                );
             } catch (Exception ex) {
                 error(String.format("create task failed, and site is %d", downSystemSite.getId()), ex);
                 exception++;
@@ -74,6 +63,29 @@ public class CreateNewTaskJob extends LoggerSupport {
                     failed,
                     exception)
             );
+        }
+    }
+
+    @Transactional
+    public boolean createTaskCore(DownSystemSite downSystemSite) {
+        CrawlTask taskToCreate = CrawlTask.builder()
+                .downSystemSiteId(downSystemSite.getId())
+                .siteId(downSystemSite.getSiteId())
+                .systemId(downSystemSite.getDownSystemId())
+                .build();
+        boolean result = crawlTaskService.add(taskToCreate);
+        info(String.format(
+                "create task result:%s,down system site id(%d)",
+                result,
+                downSystemSite.getId()
+                )
+        );
+
+        if (result) {
+            downSystemSiteService.increaseCurrentBindCount(downSystemSite.getId());
+            return true;
+        } else {
+            return false;
         }
     }
 }

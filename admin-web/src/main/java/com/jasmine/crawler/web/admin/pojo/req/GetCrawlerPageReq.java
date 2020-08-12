@@ -6,37 +6,28 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.pojo.req.PageTimeReq;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetCrawlerPageReq extends PageReq {
+public class GetCrawlerPageReq extends PageTimeReq {
 
-    @ApiModelProperty("")
-    @Enum("crawlerType")
+    @Enum("CrawlerType")
     private Integer crawlerType;
 
-    @ApiModelProperty("the unique id of crawler")
-    private String uniqueId;
-
-    @ApiModelProperty("")
-    @Enum("heartbeatStatus")
+    @Enum("HeartbeatStatus")
     private Integer heartbeatStatus;
 
-    @ApiModelProperty("enable status")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 
-    @ApiModelProperty("create time start time")
-    private Date createTimeStart;
+    private String name;
 
-    @ApiModelProperty("create time end time")
-    private Date createTimeEnd;
+    private String ip;
+
+    private String clientVersion;
+
 }

@@ -8,9 +8,15 @@ package com.jasmine.crawler.cron.service;
 
 import com.jasmine.crawler.common.pojo.entity.Proxy;
 
-import java.util.List;
-
 public interface ProxyService {
+
+    /**
+     * Get proxy info
+     *
+     * @param proxyId
+     * @return
+     */
+    Proxy get(Integer proxyId);
 
     /**
      * Get available proxy by site
@@ -29,14 +35,6 @@ public interface ProxyService {
     int increaseCurrentUseCount(Integer proxyId);
 
     /**
-     * Get proxy info
-     *
-     * @param proxyId
-     * @return
-     */
-    Proxy get(Integer proxyId);
-
-    /**
      * Decrease proxy current using count
      *
      * @param proxyId
@@ -45,7 +43,6 @@ public interface ProxyService {
 
     /**
      * Disable proxies batch
-     *
      */
     void disableBlockedProxies();
 }

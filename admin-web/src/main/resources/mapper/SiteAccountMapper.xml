@@ -6,181 +6,245 @@ Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.SiteAccountMapper">
     <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq">
-          insert into site_account 
-          <trim prefix="(" suffix=")" suffixOverrides=",">
+        insert into site_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            account,
             <if test="nickName != null and nickName != ''">
-                  nick_name,
+                nick_name,
             </if>
             <if test="description != null and description != ''">
-                  description,
+                description,
             </if>
-             login_type,
-             site_id,
+            <if test="validated != null ">
+                validated,
+            </if>
+            <if test="accountType != null ">
+                account_type,
+            </if>
+            <if test="loginType != null ">
+                login_type,
+            </if>
+            site_id,
             <if test="phone != null and phone != ''">
-                  phone,
+                phone,
             </if>
             <if test="email != null and email != ''">
-                  email,
+                email,
             </if>
             <if test="password != null and password != ''">
-                  password,
+                password,
             </if>
             <if test="lastLoginIp != null and lastLoginIp != ''">
-                  last_login_ip,
+                last_login_ip,
             </if>
             <if test="enableStatus != null">
-                  enable_status,
+                enable_status,
             </if>
-             create_time
-          </trim>
-          values
-          <trim prefix="(" suffix=")" suffixOverrides=",">
+            create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{account},
             <if test="nickName != null and nickName != ''">
-                  #{nickName},
+                #{nickName},
             </if>
             <if test="description != null and description != ''">
-                  #{description},
+                #{description},
             </if>
-             #{loginType},
-             #{siteId},
+            <if test="validated != null ">
+                #{validated},
+            </if>
+            <if test="accountType != null ">
+                #{accountType},
+            </if>
+            <if test="loginType != null ">
+                #{loginType},
+            </if>
+
+            #{siteId},
             <if test="phone != null and phone != ''">
-                  #{phone},
+                #{phone},
             </if>
             <if test="email != null and email != ''">
-                  #{email},
+                #{email},
             </if>
             <if test="password != null and password != ''">
-                  #{password},
+                #{password},
             </if>
             <if test="lastLoginIp != null and lastLoginIp != ''">
-                  #{lastLoginIp},
+                #{lastLoginIp},
             </if>
             <if test="enableStatus != null">
-                  #{enableStatus},
+                #{enableStatus},
             </if>
-             current_timestamp
-          </trim>
+            current_timestamp
+        </trim>
     </insert>
     <delete id="deleteById">
-          delete from site_account t
-          <where>
+        delete from site_account t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </delete>
     <delete id="deleteBatch">
         delete from site_account
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
         </foreach>
     </delete>
     <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateSiteAccountParams">
-          update site_account t
-          <set>
+        update site_account t
+        <set>
+            <if test="account != null and account != ''">
+                t.account = #{account},
+            </if>
+            <if test="validated != null ">
+                t.validated = #{validated},
+            </if>
+            <if test="accountType != null ">
+                t.account_type = #{accountType},
+            </if>
             <if test="nickName != null and nickName != ''">
-                  t.nick_name = #{nickName},
+                t.nick_name = #{nickName},
             </if>
             <if test="description != null and description != ''">
-                  t.description = #{description},
+                t.description = #{description},
             </if>
             <if test="loginType != null">
-                  t.login_type = #{loginType},
+                t.login_type = #{loginType},
             </if>
             <if test="siteId != null">
-                  t.site_id = #{siteId},
+                t.site_id = #{siteId},
             </if>
             <if test="phone != null and phone != ''">
-                  t.phone = #{phone},
+                t.phone = #{phone},
             </if>
             <if test="email != null and email != ''">
-                  t.email = #{email},
+                t.email = #{email},
             </if>
             <if test="password != null and password != ''">
-                  t.password = #{password},
-            </if>
-            <if test="lastLoginIp != null and lastLoginIp != ''">
-                  t.last_login_ip = #{lastLoginIp},
+                t.password = #{password},
             </if>
             <if test="enableStatus != null">
-                  t.enable_status = #{enableStatus}
+                t.enable_status = #{enableStatus}
             </if>
-          </set>
-          <where>
+        </set>
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </update>
     <update id="disableBatch">
         update site_account
         set enable_status = 0
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
         </foreach>
     </update>
     <update id="enableBatch">
         update site_account
         set enable_status = 0
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updateBatch">
+        update site_Account
+        <set>
+            <if test="enableStatus!=null">
+                enable_status = #{enableStatus},
+            </if>
+            <if test="password!=null and password!=''">
+                password = #{password}
+            </if>
+        </set>
+        where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
         </foreach>
     </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount">
-          select
-             t.id,
-             t.nick_name,
-             t.description,
-             t.login_type,
-             t.site_id,
-             t.phone,
-             t.email,
-             t.password,
-             t.last_login_time,
-             t.last_login_ip,
-             t.current_use_count,
-             t.block_current_count,
-             t.block_timeout_time,
-             t.enable_status,
-             t.create_time
-          from site_account t
-          <where>
+        select
+        t.id,
+        t.account,
+        t.nick_name,
+        t.description,
+        t.validated,
+        t.account_type,
+        t.login_type,
+        t.site_id,
+        t.phone,
+        t.email,
+        t.password,
+        t.last_login_time,
+        t.last_login_ip,
+        t.current_use_count,
+        t.block_current_count,
+        t.block_timeout_time,
+        t.delay_timeout_time,
+        t.enable_status,
+        t.create_time
+        from site_account t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq">
-          select
-             t.id,
-             t.nick_name,
-             t.description,
-             t.login_type,
-             t.site_id,
-             t.phone,
-             t.email,
-             t.password,
-             t.last_login_time,
-             t.last_login_ip,
-             t.current_use_count,
-             t.block_current_count,
-             t.block_timeout_time,
-             t.enable_status,
-             t.create_time
-          from site_account t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq">
+        select
+        t.id,
+        t.account,
+        t.nick_name,
+        t.description,
+        t.validated,
+        t.account_type,
+        t.login_type,
+        t.site_id,
+        t.phone,
+        t.email,
+        t.password,
+        t.last_login_time,
+        t.last_login_ip,
+        t.current_use_count,
+        t.block_current_count,
+        t.block_timeout_time,
+        t.delay_timeout_time,
+        t.enable_status,
+        t.create_time
+        from site_account t
+        <where>
             <if test="loginType != null">
-                  t.login_type = #{loginType}
+                t.login_type = #{loginType}
+            </if>
+            <if test="accountType != null">
+                and t.account_type = #{accountType}
+            </if>
+            <if test="validated != null">
+                and t.validated = #{validated}
             </if>
             <if test="siteId != null">
-                  and t.site_id = #{siteId}
+                and t.site_id = #{siteId}
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like concat('%',#{phone},'%')
+            </if>
+            <if test="account!=null and account!=''">
+                and account like concat('%',#{account},'%')
+            </if>
+            <if test="email!=null and email!=''">
+                and email like concat('%',#{email},'%')
             </if>
             <if test="enableStatus != null">
-                  and t.enable_status = #{enableStatus}
+                and t.enable_status = #{enableStatus}
             </if>
-            <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+            <if test="createTimeStart != null and createTimeStart !=''">
+                t.create_time >= #{createTimeStart}
             </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
             </if>
-          </where>
+        </where>
     </select>
 </mapper>

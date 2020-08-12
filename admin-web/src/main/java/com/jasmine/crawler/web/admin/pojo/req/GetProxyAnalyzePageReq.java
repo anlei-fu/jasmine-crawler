@@ -7,11 +7,10 @@
 package com.jasmine.crawler.web.admin.pojo.req;
 
 import com.jasmine.crawler.common.pojo.req.PageReq;
-import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetProxyAnalyzePageReq extends PageReq {}
+public class GetProxyAnalyzePageReq extends PageReq {
+}

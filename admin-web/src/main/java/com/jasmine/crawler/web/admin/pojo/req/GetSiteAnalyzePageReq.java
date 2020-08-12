@@ -6,24 +6,14 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.pojo.req.PageTimeReq;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetSiteAnalyzePageReq extends PageReq {
+public class GetSiteAnalyzePageReq extends PageTimeReq {
 
-    @ApiModelProperty("")
     private Integer siteId;
 
-    @ApiModelProperty(" start time")
-    private Date createTimeStart;
-
-    @ApiModelProperty(" end time")
-    private Date createTimeEnd;
 }

@@ -8,4 +8,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Site">
         select * from site where id = #{id}
     </select>
+    <update id="increaseCurrentRunningTaskCountById">
+        update site
+        set task_current_running_count = task_current_running_count + 1
+    </update>
+    <update id="decreaseCurrentRunningTaskCountById">
+        update site
+        set task_current_running_count = task_current_running_count - 1
+    </update>
 </mapper>

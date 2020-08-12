@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateSiteParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateSiteReq req;
 

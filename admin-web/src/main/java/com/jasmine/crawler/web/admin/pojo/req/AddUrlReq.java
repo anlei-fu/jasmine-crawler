@@ -6,43 +6,33 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddUrlReq {
 
-    @ApiModelProperty("")
     @NotNull
     private Integer depth;
 
-    @ApiModelProperty("the site that the url belong")
     private Integer downSystemSiteId;
 
-    @ApiModelProperty("")
     @NotNull
     @Enum("urlType")
     private Integer urlType;
 
-    @ApiModelProperty("the related url")
     private String referUrl;
 
-    @ApiModelProperty("current retry count of url")
     private Integer crawlCount;
 
-    @ApiModelProperty("crawl status")
     @Enum("urlStatus")
     private Integer urlStatus;
 
-    @ApiModelProperty("last crawl  time")
     private String lastCrawlTime;
 
-    @ApiModelProperty("")
     private String queryString;
 }

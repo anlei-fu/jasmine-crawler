@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-31 9:09:23 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.admin.mapper.EnumMapper">
+    <select id="getAll" resultType="com.jasmine.crawler.common.pojo.entity.Enum">
+        select
+        label,
+        value,
+        type,
+        color
+        from dictionary
+        union  all
+        select
+        name as label,
+        id as  value ,
+        'Site' as type,
+        null as color
+        from site
+        union  all
+        select
+        concat_ws(':',ip,port) as label,
+        id as  value ,
+		'Crawler' as type,
+        null as color
+        from crawler
+         union  all
+        select
+        ip as label,
+        id as  value ,
+		'Proxy' as type,
+        null as color
+        from proxy
+         union  all
+        select
+        name as label,
+        id as  value ,
+		'System' as type,
+        null as color
+        from down_system
+         union  all
+        select
+        path as label,
+        id as  value ,
+		'Script' as type,
+        null as color
+        from script
+         union  all
+        select
+        account as label,
+        id as  value ,
+         'Account' as type,
+        null as color
+        from site_account
+
+    </select>
+</mapper>

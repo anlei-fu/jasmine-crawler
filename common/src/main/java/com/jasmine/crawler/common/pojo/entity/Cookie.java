@@ -6,14 +6,11 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.common.pojo.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-@ApiModel("")
 @Getter
 @Setter
 public class Cookie extends EnableStatusFeature {
@@ -21,19 +18,16 @@ public class Cookie extends EnableStatusFeature {
     /**
      * Unique key
      */
-    @ApiModelProperty("")
     private Integer id;
 
     /**
      * The account the cookie belong to
      */
-    @ApiModelProperty("")
     private Integer accountId;
 
     /**
      * Cookie in json string format
      */
-    @ApiModelProperty("")
     private String cookie;
 
     /**
@@ -50,7 +44,6 @@ public class Cookie extends EnableStatusFeature {
     /**
      * Use to record how many task is using the cookie
      */
-    @ApiModelProperty("")
     private Integer currentUseCount;
 
     /**

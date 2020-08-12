@@ -6,11 +6,11 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.service;
 
-import com.jasmine.crawler.common.pojo.entity.DispatchTaskRecord;
+import com.jasmine.crawler.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq;
 
 public interface DispatchTaskRecordService {
 
-    PageResult<DispatchTaskRecord> getPage(GetDispatchTaskRecordPageReq req);
+    PageResult<DispatchRecord> getPage(GetDispatchTaskRecordPageReq req);
 }

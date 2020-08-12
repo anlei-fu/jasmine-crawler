@@ -13,7 +13,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where
         c.enable_status = 1
         and
-        date_add(c.heartbeat_last_time,interval least(c.heartbeat_lost_count,5) minute) &lt; current_timestamp
+        -- max heartbeat interval 10 min
+        date_add(c.heartbeat_last_time,interval least(c.heartbeat_lost_count,10) minute) &lt; current_timestamp
     </select>
     <update id="heartbeatSuccess">
         update crawler
@@ -43,17 +44,23 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         c.enable_status = 1
         and c.heartbeat_status =1
         and
-        (c.max_concurrency-c.current_concurrency) &lt;
-         (select ip_minute_speed_limit from site s where s.id = #{siteId})
-        and c.ip not in (
-        select ip from site_ip_block_map sibm
-        where site_id = 1  and  sibm.block_timeout_time > current_timestamp
-        )
-        and c.ip not in (
-        select ip from site_ip_delay_map sidm
-        where  site_id = #{siteId} and sidm.delay_timeout_time > current_timestamp
-        )
+        (c.max_concurrency-c.current_concurrency) > (select ip_minute_speed_limit from site s where s.id = #{siteId})
+        <if test="withIp">
+            and not exists (
+            select 1 from site_ip_block_map sibm
+            where
+            sibm.ip = c.ip
+            and sibm.site_id = #{siteId}
+            and sibm.block_timeout_time > current_timestamp
+            )
+            and not exists (
+            select 1 from site_ip_delay_map sidm
+            where
+            sidm.ip =c.ip
+            and sidm.site_id = #{siteId}
+            and sidm.delay_timeout_time > current_timestamp
+            )
+        </if>
         order by c.current_concurrency/c.max_concurrency asc
-        limit 1,1
     </select>
 </mapper>

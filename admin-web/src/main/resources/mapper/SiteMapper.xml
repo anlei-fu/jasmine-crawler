@@ -6,364 +6,407 @@ Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.SiteMapper">
     <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddSiteReq">
-          insert into site 
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             name,
+        insert into site
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,
             <if test="domain != null and domain != ''">
-                  domain,
+                domain,
             </if>
             <if test="description != null and description != ''">
-                  description,
+                description,
             </if>
-             home_page_url,
+            <if test="homePageUrl!=null and homePageUrl!=''">
+                home_page_url,
+            </if>
+
             <if test="parentSiteId != null">
-                  parent_site_id,
+                parent_site_id,
             </if>
             <if test="crawlNeedUseCookie != null">
-                  crawl_need_use_cookie,
+                crawl_need_use_cookie,
             </if>
             <if test="loginScriptId != null">
-                  login_script_id,
+                login_script_id,
             </if>
             <if test="loginNeedVcode != null">
-                  login_need_vcode,
+                login_need_vcode,
             </if>
             <if test="loginCaptaType != null">
-                  login_capta_type,
+                login_capta_type,
             </if>
             <if test="needUseProxy != null">
-                  need_use_proxy,
+                need_use_proxy,
             </if>
             <if test="ipDelayTimeout != null">
-                  ip_delay_timeout,
+                ip_delay_timeout,
             </if>
             <if test="ipBlockTimeout != null">
-                  ip_block_timeout,
+                ip_block_timeout,
             </if>
             <if test="ipHourSpeedLimit != null">
-                  ip_hour_speed_limit,
+                ip_hour_speed_limit,
             </if>
             <if test="ipMinuteSpeedLimit != null">
-                  ip_minute_speed_limit,
+                ip_minute_speed_limit,
             </if>
             <if test="ipDaySpeedLimit != null">
-                  ip_day_speed_limit,
+                ip_day_speed_limit,
             </if>
             <if test="accountAllowCrossIp != null">
-                  account_allow_cross_ip,
+                account_allow_cross_ip,
             </if>
             <if test="accountAllowMultiple != null">
-                  account_allow_multiple,
+                account_allow_multiple,
             </if>
             <if test="accountMinuteSpeedLimit != null">
-                  account_minute_speed_limit,
+                account_minute_speed_limit,
             </if>
             <if test="accountHourSpeedLimit != null">
-                  account_hour_speed_limit,
+                account_hour_speed_limit,
             </if>
             <if test="accountDaySpeedLimit != null">
-                  account_day_speed_limit,
+                account_day_speed_limit,
             </if>
             <if test="accountMaxBlockCount != null">
-                  account_max_block_count,
+                account_max_block_count,
             </if>
             <if test="accountBlockTimeout != null">
-                  account_block_timeout,
+                account_block_timeout,
             </if>
-             account_max_cookie_count,
+            <if test="accountMaxCookieCount!=null">
+                account_max_cookie_count,
+            </if>
+
             <if test="accountDelayTimeout != null">
-                  account_delay_timeout,
+                account_delay_timeout,
             </if>
             <if test="cookieMaxBlockCount != null">
-                  cookie_max_block_count,
+                cookie_max_block_count,
             </if>
             <if test="cookieExpireTimeout != null">
-                  cookie_expire_timeout,
+                cookie_expire_timeout,
             </if>
             <if test="cookieDelayTimeout != null">
-                  cookie_delay_timeout,
+                cookie_delay_timeout,
             </if>
             <if test="enableStatus != null">
-                  enable_status,
+                enable_status,
             </if>
-             create_time
-          </trim>
-          values
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             #{name},
+            create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{name},
             <if test="domain != null and domain != ''">
-                  #{domain},
+                #{domain},
             </if>
             <if test="description != null and description != ''">
-                  #{description},
+                #{description},
             </if>
-             #{homePageUrl},
+            <if test="homePageUrl!=null and homePageUrl!=''">
+                #{homePageUrl},
+            </if>
+
             <if test="parentSiteId != null">
-                  #{parentSiteId},
+                #{parentSiteId},
             </if>
             <if test="crawlNeedUseCookie != null">
-                  #{crawlNeedUseCookie},
+                #{crawlNeedUseCookie},
             </if>
             <if test="loginScriptId != null">
-                  #{loginScriptId},
+                #{loginScriptId},
             </if>
             <if test="loginNeedVcode != null">
-                  #{loginNeedVcode},
+                #{loginNeedVcode},
             </if>
             <if test="loginCaptaType != null">
-                  #{loginCaptaType},
+                #{loginCaptaType},
             </if>
             <if test="needUseProxy != null">
-                  #{needUseProxy},
+                #{needUseProxy},
             </if>
             <if test="ipDelayTimeout != null">
-                  #{ipDelayTimeout},
+                #{ipDelayTimeout},
             </if>
             <if test="ipBlockTimeout != null">
-                  #{ipBlockTimeout},
+                #{ipBlockTimeout},
             </if>
             <if test="ipHourSpeedLimit != null">
-                  #{ipHourSpeedLimit},
+                #{ipHourSpeedLimit},
             </if>
             <if test="ipMinuteSpeedLimit != null">
-                  #{ipMinuteSpeedLimit},
+                #{ipMinuteSpeedLimit},
             </if>
             <if test="ipDaySpeedLimit != null">
-                  #{ipDaySpeedLimit},
+                #{ipDaySpeedLimit},
             </if>
             <if test="accountAllowCrossIp != null">
-                  #{accountAllowCrossIp},
+                #{accountAllowCrossIp},
             </if>
             <if test="accountAllowMultiple != null">
-                  #{accountAllowMultiple},
+                #{accountAllowMultiple},
             </if>
             <if test="accountMinuteSpeedLimit != null">
-                  #{accountMinuteSpeedLimit},
+                #{accountMinuteSpeedLimit},
             </if>
             <if test="accountHourSpeedLimit != null">
-                  #{accountHourSpeedLimit},
+                #{accountHourSpeedLimit},
             </if>
             <if test="accountDaySpeedLimit != null">
-                  #{accountDaySpeedLimit},
+                #{accountDaySpeedLimit},
             </if>
             <if test="accountMaxBlockCount != null">
-                  #{accountMaxBlockCount},
+                #{accountMaxBlockCount},
             </if>
             <if test="accountBlockTimeout != null">
-                  #{accountBlockTimeout},
+                #{accountBlockTimeout},
             </if>
-             #{accountMaxCookieCount},
+            <if test="accountMaxCookieCount!=null">
+                #{accountMaxCookieCount},
+            </if>
+
             <if test="accountDelayTimeout != null">
-                  #{accountDelayTimeout},
+                #{accountDelayTimeout},
             </if>
             <if test="cookieMaxBlockCount != null">
-                  #{cookieMaxBlockCount},
+                #{cookieMaxBlockCount},
             </if>
             <if test="cookieExpireTimeout != null">
-                  #{cookieExpireTimeout},
+                #{cookieExpireTimeout},
             </if>
             <if test="cookieDelayTimeout != null">
-                  #{cookieDelayTimeout},
+                #{cookieDelayTimeout},
             </if>
             <if test="enableStatus != null">
-                  #{enableStatus},
+                #{enableStatus},
             </if>
-             current_timestamp
-          </trim>
+            current_timestamp
+        </trim>
     </insert>
     <delete id="deleteById">
-          delete from site t
-          <where>
+        delete from site t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </delete>
     <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateSiteParams">
-          update site t
-          <set>
+        update site t
+        <set>
             <if test="name != null and name != ''">
-                  t.name = #{name},
+                t.name = #{name},
             </if>
             <if test="domain != null and domain != ''">
-                  t.domain = #{domain},
+                t.domain = #{domain},
             </if>
             <if test="description != null and description != ''">
-                  t.description = #{description},
+                t.description = #{description},
             </if>
             <if test="homePageUrl != null and homePageUrl != ''">
-                  t.home_page_url = #{homePageUrl},
+                t.home_page_url = #{homePageUrl},
             </if>
             <if test="parentSiteId != null">
-                  t.parent_site_id = #{parentSiteId},
+                t.parent_site_id = #{parentSiteId},
             </if>
             <if test="crawlNeedUseCookie != null">
-                  t.crawl_need_use_cookie = #{crawlNeedUseCookie},
+                t.crawl_need_use_cookie = #{crawlNeedUseCookie},
             </if>
             <if test="loginScriptId != null">
-                  t.login_script_id = #{loginScriptId},
+                t.login_script_id = #{loginScriptId},
             </if>
             <if test="loginNeedVcode != null">
-                  t.login_need_vcode = #{loginNeedVcode},
+                t.login_need_vcode = #{loginNeedVcode},
             </if>
             <if test="loginCaptaType != null">
-                  t.login_capta_type = #{loginCaptaType},
+                t.login_capta_type = #{loginCaptaType},
             </if>
             <if test="needUseProxy != null">
-                  t.need_use_proxy = #{needUseProxy},
+                t.need_use_proxy = #{needUseProxy},
             </if>
             <if test="ipDelayTimeout != null">
-                  t.ip_delay_timeout = #{ipDelayTimeout},
+                t.ip_delay_timeout = #{ipDelayTimeout},
             </if>
             <if test="ipBlockTimeout != null">
-                  t.ip_block_timeout = #{ipBlockTimeout},
+                t.ip_block_timeout = #{ipBlockTimeout},
             </if>
             <if test="ipHourSpeedLimit != null">
-                  t.ip_hour_speed_limit = #{ipHourSpeedLimit},
+                t.ip_hour_speed_limit = #{ipHourSpeedLimit},
             </if>
             <if test="ipMinuteSpeedLimit != null">
-                  t.ip_minute_speed_limit = #{ipMinuteSpeedLimit},
+                t.ip_minute_speed_limit = #{ipMinuteSpeedLimit},
             </if>
             <if test="ipDaySpeedLimit != null">
-                  t.ip_day_speed_limit = #{ipDaySpeedLimit},
+                t.ip_day_speed_limit = #{ipDaySpeedLimit},
             </if>
             <if test="accountAllowCrossIp != null">
-                  t.account_allow_cross_ip = #{accountAllowCrossIp},
+                t.account_allow_cross_ip = #{accountAllowCrossIp},
             </if>
             <if test="accountAllowMultiple != null">
-                  t.account_allow_multiple = #{accountAllowMultiple},
+                t.account_allow_multiple = #{accountAllowMultiple},
             </if>
             <if test="accountMinuteSpeedLimit != null">
-                  t.account_minute_speed_limit = #{accountMinuteSpeedLimit},
+                t.account_minute_speed_limit = #{accountMinuteSpeedLimit},
             </if>
             <if test="accountHourSpeedLimit != null">
-                  t.account_hour_speed_limit = #{accountHourSpeedLimit},
+                t.account_hour_speed_limit = #{accountHourSpeedLimit},
             </if>
             <if test="accountDaySpeedLimit != null">
-                  t.account_day_speed_limit = #{accountDaySpeedLimit},
+                t.account_day_speed_limit = #{accountDaySpeedLimit},
             </if>
             <if test="accountMaxBlockCount != null">
-                  t.account_max_block_count = #{accountMaxBlockCount},
+                t.account_max_block_count = #{accountMaxBlockCount},
             </if>
             <if test="accountBlockTimeout != null">
-                  t.account_block_timeout = #{accountBlockTimeout},
+                t.account_block_timeout = #{accountBlockTimeout},
             </if>
             <if test="accountMaxCookieCount != null">
-                  t.account_max_cookie_count = #{accountMaxCookieCount},
+                t.account_max_cookie_count = #{accountMaxCookieCount},
             </if>
             <if test="accountDelayTimeout != null">
-                  t.account_delay_timeout = #{accountDelayTimeout},
+                t.account_delay_timeout = #{accountDelayTimeout},
             </if>
             <if test="cookieMaxBlockCount != null">
-                  t.cookie_max_block_count = #{cookieMaxBlockCount},
+                t.cookie_max_block_count = #{cookieMaxBlockCount},
             </if>
             <if test="cookieExpireTimeout != null">
-                  t.cookie_expire_timeout = #{cookieExpireTimeout},
+                t.cookie_expire_timeout = #{cookieExpireTimeout},
             </if>
             <if test="cookieDelayTimeout != null">
-                  t.cookie_delay_timeout = #{cookieDelayTimeout},
+                t.cookie_delay_timeout = #{cookieDelayTimeout},
             </if>
             <if test="enableStatus != null">
-                  t.enable_status = #{enableStatus},
+                t.enable_status = #{enableStatus},
             </if>
             <if test="id != null">
-                  t.id = #{id}
+                t.id = #{id}
             </if>
-          </set>
-          <where>
+        </set>
+        <where>
             t.id = #{id}
-          </where>
+        </where>
+    </update>
+    <update id="updateBatch">
+        update site
+        <set>
+            <if test="enableStatus!=null ">
+                enable_status = #{enableStatus},
+            </if>
+            <if test="ipHourSpeedLimit!=null ">
+                ip_hour_speed_limit = #{ipHourSpeedLimit},
+            </if>
+            <if test="ipMinuteSpeedLimit!=null ">
+                ip_minute_speed_limit = #{ipMinuteSpeedLimit},
+            </if>
+            <if test="ipDaySpeedLimit!=null ">
+                ip_day_speed_limit = #{ipDaySpeedLimit}
+            </if>
+        </set>
+        where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Site">
-          select
-             t.id,
-             t.name,
-             t.domain,
-             t.description,
-             t.home_page_url,
-             t.parent_site_id,
-             t.crawl_need_use_cookie,
-             t.login_script_id,
-             t.login_need_vcode,
-             t.login_capta_type,
-             t.need_use_proxy,
-             t.ip_delay_timeout,
-             t.ip_block_timeout,
-             t.ip_hour_speed_limit,
-             t.ip_minute_speed_limit,
-             t.ip_day_speed_limit,
-             t.account_allow_cross_ip,
-             t.account_allow_multiple,
-             t.account_minute_speed_limit,
-             t.account_hour_speed_limit,
-             t.account_day_speed_limit,
-             t.account_max_block_count,
-             t.account_block_timeout,
-             t.account_max_cookie_count,
-             t.account_delay_timeout,
-             t.cookie_max_block_count,
-             t.cookie_expire_timeout,
-             t.cookie_delay_timeout,
-             t.enable_status,
-             t.create_time
-          from site t
-          <where>
+        select
+        t.id,
+        t.name,
+        t.domain,
+        t.description,
+        t.home_page_url,
+        t.parent_site_id,
+        t.crawl_need_use_cookie,
+        t.login_script_id,
+        t.login_need_vcode,
+        t.login_capta_type,
+        t.need_use_proxy,
+        t.ip_delay_timeout,
+        t.ip_block_timeout,
+        t.ip_hour_speed_limit,
+        t.ip_minute_speed_limit,
+        t.ip_day_speed_limit,
+        t.account_allow_cross_ip,
+        t.account_allow_multiple,
+        t.account_minute_speed_limit,
+        t.account_hour_speed_limit,
+        t.account_day_speed_limit,
+        t.account_max_block_count,
+        t.account_block_timeout,
+        t.account_max_cookie_count,
+        t.account_delay_timeout,
+        t.cookie_max_block_count,
+        t.cookie_expire_timeout,
+        t.cookie_delay_timeout,
+        t.enable_status,
+        t.create_time
+        from site t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Site" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq">
-          select
-             t.id,
-             t.name,
-             t.domain,
-             t.description,
-             t.home_page_url,
-             t.parent_site_id,
-             t.crawl_need_use_cookie,
-             t.login_script_id,
-             t.login_need_vcode,
-             t.login_capta_type,
-             t.need_use_proxy,
-             t.ip_delay_timeout,
-             t.ip_block_timeout,
-             t.ip_hour_speed_limit,
-             t.ip_minute_speed_limit,
-             t.ip_day_speed_limit,
-             t.account_allow_cross_ip,
-             t.account_allow_multiple,
-             t.account_minute_speed_limit,
-             t.account_hour_speed_limit,
-             t.account_day_speed_limit,
-             t.account_max_block_count,
-             t.account_block_timeout,
-             t.account_max_cookie_count,
-             t.account_delay_timeout,
-             t.cookie_max_block_count,
-             t.cookie_expire_timeout,
-             t.cookie_delay_timeout,
-             t.enable_status,
-             t.create_time
-          from site t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Site"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq">
+        select
+        t.id,
+        t.name,
+        t.domain,
+        t.description,
+        t.home_page_url,
+        t.parent_site_id,
+        t.crawl_need_use_cookie,
+        t.login_script_id,
+        t.login_need_vcode,
+        t.login_capta_type,
+        t.need_use_proxy,
+        t.ip_delay_timeout,
+        t.ip_block_timeout,
+        t.ip_hour_speed_limit,
+        t.ip_minute_speed_limit,
+        t.ip_day_speed_limit,
+        t.account_allow_cross_ip,
+        t.account_allow_multiple,
+        t.account_minute_speed_limit,
+        t.account_hour_speed_limit,
+        t.account_day_speed_limit,
+        t.account_max_block_count,
+        t.account_block_timeout,
+        t.account_max_cookie_count,
+        t.account_delay_timeout,
+        t.cookie_max_block_count,
+        t.cookie_expire_timeout,
+        t.cookie_delay_timeout,
+        t.enable_status,
+        t.create_time
+        from site t
+        <where>
             <if test="parentSiteId != null">
-                  t.parent_site_id = #{parentSiteId}
+                t.parent_site_id = #{parentSiteId}
             </if>
             <if test="loginScriptId != null">
-                  and t.login_script_id = #{loginScriptId}
+                and t.login_script_id = #{loginScriptId}
             </if>
             <if test="loginCaptaType != null">
-                  and t.login_capta_type = #{loginCaptaType}
+                and t.login_capta_type = #{loginCaptaType}
             </if>
             <if test="needUseProxy != null">
-                  and t.need_use_proxy = #{needUseProxy}
+                and t.need_use_proxy = #{needUseProxy}
+            </if>
+            <if test="crawlNeedUseCookie != null">
+                and t.crawl_need_use_cookie = #{crawlNeedUseCookie}
             </if>
             <if test="enableStatus != null">
-                  and t.enable_status = #{enableStatus}
+                and t.enable_status = #{enableStatus}
             </if>
-            <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+            <if test="name!=null and name!=''">
+                and t.name like concat('%',#{name},'%')
             </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+            <if test="domain!=null and domain!=''">
+                and t.domain like concat('%',#{domain},'%')
             </if>
-          </where>
+            <if test="createTimeStart != null and createTimeStart !=''">
+                t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
+            </if>
+        </where>
     </select>
 </mapper>

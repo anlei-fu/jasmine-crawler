@@ -12,15 +12,14 @@ import lombok.Setter;
 
 public class UpdateDictionaryParams {
 
-    @Getter @Setter private Integer id;
-
-    @Getter @Setter private String lastUpdateUser;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateDictionaryReq req;
 
-    public UpdateDictionaryParams(Integer id, String lastUpdateUser, UpdateDictionaryReq req) {
+    public UpdateDictionaryParams(Integer id, UpdateDictionaryReq req) {
         this.id = id;
-        this.lastUpdateUser = lastUpdateUser;
         this.req = req;
     }
 
@@ -34,5 +33,9 @@ public class UpdateDictionaryParams {
 
     public String getLabel() {
         return req.getLabel();
+    }
+
+    public String getColor() {
+        return req.getColor();
     }
 }

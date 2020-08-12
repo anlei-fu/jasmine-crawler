@@ -12,17 +12,20 @@ import com.jasmine.crawler.web.admin.mapper.ProxyMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateProxyParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddProxyReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyReq;
 import com.jasmine.crawler.web.admin.service.ProxyService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProxyServiceImpl implements ProxyService {
 
-    @Autowired private ProxyMapper proxyMapper;
+    @Autowired
+    private ProxyMapper proxyMapper;
 
     @Override
     public boolean add(AddProxyReq req) {
@@ -53,6 +56,11 @@ public class ProxyServiceImpl implements ProxyService {
     @Override
     public int deleteBatch(List<Integer> ids) {
         return proxyMapper.deleteBatch(ids);
+    }
+
+    @Override
+    public int updateBatch(UpdateProxyBatchReq req) {
+        return proxyMapper.updateBatch(req);
     }
 
     @Override

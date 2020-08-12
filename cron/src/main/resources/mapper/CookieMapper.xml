@@ -15,6 +15,17 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_use_count = current_use_count - 1
         where id = #{id}
     </update>
+    <update id="updateDelayTimeout">
+        update cookie c
+        set
+        c.delay_timeout_time = date_add(
+        current_timestamp,
+        interval (select cookie_delay_timeout from site where id= (select site_id from site_account where id=c.id) ) minute
+        )
+        where c.id = #{id}
+    </update>
+    <delete id="deleteById"></delete>
+    <delete id="deleteCookieBatch"></delete>
     <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
         select * from cookie
         where id = #{id}
@@ -24,22 +35,52 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         *
         from cookie c
         join site_account sa on c.site_account_id = sa.id
-        join site s on sa.site_id =s.id
+        join site s on sa.site_id = s.id
         where
-        sa.site_id = 1
+        s.id = #{siteId}
+        -- enabled
+        and c.enable_status = 1
         and s.enable_status = 1
         and sa.enable_status = 1
+        -- max concurrency
+        and sa.current_use_count &lt; s.account_max_use_count
+        -- delay
+        and (s.account_delay_timeout = -1 or sa.delay_timeout_time &lt; current_timestamp)
+        -- if blocked
+        and sa.block_current_count &lt; s.account_max_block_count
         and sa.block_timeout_time &lt; current_timestamp
+        --  max concurrency
+        and c.current_use_count &lt; s.cookie_max_use_count
+        -- block
+        and c.current_block_count &lt; s.cookie_max_block_count
+        -- delay
+        and (s.cookie_delay_timeout = -1 or c.delay_timeout_time &lt; current_timestamp)
+        -- expired check
+        and c.expire_time > current_timestamp
+        order by sa.current_use_count , c.current_use_count
+        limit 1,1
     </select>
-    <select id="removeExpiredCookies" >
-        delete from cookie c
-        where c.site_id in (
-        select
-        s.id from site s
+    <select id="disableInvalidCookies">
+        update cookie c
+        set enbale_status = 0
         where
-        c.site_id =s.id
-        and c.current_block_count > s.cookie_max_block_count
-        or c.expire_time &lt; current_timestamp
+        c.expire_time &lt; current_timestamp
+        or
+        c.current_block_count > (
+        select cookie_max_block_count from site s
+        where s.id = (select site_id from site_account sa where sa.id =c.id)
+        )
+    </select>
+    <select id="getInvalidCookies" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
+        select
+        *
+        from  cookie c
+        where
+        c.expire_time &lt; current_timestamp
+        or
+        c.current_block_count > (
+        select cookie_max_block_count from site s
+        where s.id = (select site_id from site_account sa where sa.id =c.id)
         )
     </select>
 </mapper>

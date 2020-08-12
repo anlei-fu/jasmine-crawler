@@ -1,8 +1,6 @@
 package com.jasmine.crawler.common.pojo.entity;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,32 +10,31 @@ import java.util.Date;
  * @Date:
  * @Description:
  */
-@Data
+@Getter
+@Setter
 @Builder
-public class SiteIpDelayMap extends CreateTimeFeature {
+@NoArgsConstructor
+@AllArgsConstructor
+public class SiteIpDelayMap {
 
     /**
      * Unique id
      */
-    @ApiModelProperty("")
     private Integer id;
 
     /**
      * The ip of the rule
      */
-    @ApiModelProperty("")
     private String ip;
 
     /**
      * The site of the rule
      */
-    @ApiModelProperty("")
     private Integer siteId;
 
     /**
      * The next available time that the ip can visit the site
      */
-    @ApiModelProperty("")
     private Date delayTimeoutTime;
 
 }

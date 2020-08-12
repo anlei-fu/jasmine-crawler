@@ -9,6 +9,7 @@ package com.jasmine.crawler.web.admin.service;
 import com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq;
+
 import java.util.List;
 
 public interface SiteIpBlockMapService {

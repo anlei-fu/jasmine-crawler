@@ -12,31 +12,36 @@ import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddProxyReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyReq;
 import com.jasmine.crawler.web.admin.service.ProxyService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "proxy info")
+import java.util.List;
+import java.util.Objects;
+
 @RestController
 public class ProxyController extends ControllerBase {
 
-    @Autowired private ProxyService proxyService;
+    @Autowired
+    private ProxyService proxyService;
 
-    @ApiOperation("add proxy")
     @PostMapping(path = "/proxy")
-    public R add(@Validated @ModelAttribute AddProxyReq req) {
+    public R add(@RequestBody @Validated AddProxyReq req) {
         boolean result = proxyService.add(req);
         return responseBoolean(result);
     }
 
-    @PostMapping(path = "/proxy/delete/batch")
-    public R deleteBatch(List<Integer> ids) {
+    @DeleteMapping(path = "/proxy/{id}")
+    public R deleteById(@PathVariable("id") Integer id) {
+        boolean result = proxyService.deleteById(id);
+        return responseBoolean(result);
+    }
+
+    @DeleteMapping(path = "/proxy/delete/batch")
+    public R deleteBatch(@RequestBody List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to remove");
 
         int success = proxyService.deleteBatch(ids);
@@ -45,7 +50,7 @@ public class ProxyController extends ControllerBase {
     }
 
     @PutMapping(path = "/proxy/disable/batch")
-    public R disableBatch(List<Integer> ids) {
+    public R disableBatch(@RequestBody List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to disable");
 
         int success = proxyService.disableBatch(ids);
@@ -55,7 +60,7 @@ public class ProxyController extends ControllerBase {
     }
 
     @PutMapping(path = "/proxy/enable/batch")
-    public R enableBatch(List<Integer> ids) {
+    public R enableBatch(@RequestBody List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to enable");
 
         int success = proxyService.enableBatch(ids);
@@ -63,23 +68,33 @@ public class ProxyController extends ControllerBase {
                 String.format("expect to enable %d, successfully enabled %d", ids.size(), success));
     }
 
-    @ApiOperation("update single proxy")
     @PutMapping(path = "/proxy/{id}")
-    public R updateById(@PathVariable Integer id, @Validated @ModelAttribute UpdateProxyReq req) {
+    public R updateById(@PathVariable Integer id, @RequestBody @Validated UpdateProxyReq req) {
         boolean result = proxyService.updateById(id, req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("get single proxy")
     @GetMapping(path = "/proxy/{id}")
     public R<Proxy> getById(@PathVariable Integer id) {
         Proxy result = proxyService.getById(id);
         return responseData(result);
     }
 
-    @ApiOperation("get proxy page")
+    @PutMapping(path = "/proxy/update/batch")
+    public R updateBatch(@RequestBody UpdateProxyBatchReq req) {
+        if (Objects.isNull(req.getIds()) || req.getIds().size() == 0)
+            return failed("no data to update");
+
+        int success = proxyService.updateBatch(req);
+        return success(String.format(
+                "excepted to update %d data,actual succeed %d ",
+                req.getIds().size(),
+                success)
+        );
+    }
+
     @GetMapping(path = "/proxy/page")
-    public R<PageResult<Proxy>> getPage(@Validated @ModelAttribute GetProxyPageReq req) {
+    public R<PageResult<Proxy>> getPage(@Validated GetProxyPageReq req) {
         PageResult<Proxy> result = proxyService.getPage(req);
         return responseData(result);
     }

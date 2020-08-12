@@ -6,54 +6,41 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import com.jasmine.crawler.web.admin.validate.annotation.Ip;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
+import com.jasmine.crawler.common.validate.annotation.Ip;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddCrawlerReq {
 
-    @ApiModelProperty("")
     @NotNull
-    private Integer clientVersion;
+    private String uniqueId;
 
-    @ApiModelProperty("the name of crawler")
     @NotNull
     private String name;
 
-    @ApiModelProperty("the ip of crawler")
     @NotNull
     @Ip
     private String ip;
 
-    @ApiModelProperty("the description of crawler")
-    private String description;
-
-    @ApiModelProperty("")
-    @Enum("crawlerType")
-    private Integer crawlerType;
-
-    @ApiModelProperty("the secrete key of crawler")
-    private String key;
-
-    @ApiModelProperty("the unique id of crawler")
-    @NotNull
-    private String uniqueId;
-
-    @ApiModelProperty("the port of crawler")
     @NotNull
     private Integer port;
 
-    @ApiModelProperty("the max concurrency the crawler allowed")
+    private String clientVersion;
+
+    private String description;
+
+    @Enum("CrawlerType")
+    private Integer crawlerType;
+
+    private String key;
+
     private Integer maxConcurrency;
 
-    @ApiModelProperty("enable status")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

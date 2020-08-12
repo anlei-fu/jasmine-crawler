@@ -12,21 +12,23 @@ import com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq;
 import com.jasmine.crawler.web.admin.service.SiteIpBlockMapService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "SiteIpBlockMap")
+import java.util.List;
+import java.util.Objects;
+
 @RestController
 public class SiteIpBlockMapController extends ControllerBase {
 
-    @Autowired private SiteIpBlockMapService siteIpBlockMapService;
+    @Autowired
+    private SiteIpBlockMapService siteIpBlockMapService;
 
-    @PostMapping(path = "/siteIpBlockMap/delete/batch")
+    @DeleteMapping(path = "/siteIpBlockMap/delete/batch")
     public R deleteBatch(List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to remove");
 
@@ -36,7 +38,6 @@ public class SiteIpBlockMapController extends ControllerBase {
                         "excepted to delete %d, successfully deleted %d", ids.size(), success));
     }
 
-    @ApiOperation("get siteIpBlockMap page")
     @GetMapping(path = "/siteIpBlockMap/page")
     public R<PageResult<SiteIpBlockMap>> getPage(
             @Validated @ModelAttribute GetSiteIpBlockMapPageReq req) {

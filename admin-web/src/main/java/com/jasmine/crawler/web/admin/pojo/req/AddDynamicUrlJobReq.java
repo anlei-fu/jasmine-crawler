@@ -6,41 +6,32 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddDynamicUrlJobReq {
 
-    @ApiModelProperty("")
     private Integer downSystemId;
 
-    @ApiModelProperty("")
     private Integer scriptId;
 
-    @ApiModelProperty("")
     @Enum("dynamicType")
     private Integer dynamicType;
 
-    @ApiModelProperty("")
     @NotNull
     @Enum("enableStatus")
     private Integer enableStatus;
 
-    @ApiModelProperty("")
     @NotNull
     private Integer delayTimeout;
 
-    @ApiModelProperty("")
     @NotNull
     private Integer concurrency;
 
-    @ApiModelProperty("")
     private Integer maxWaintToBindTaskCount;
 }

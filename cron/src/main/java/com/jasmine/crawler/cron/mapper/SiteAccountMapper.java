@@ -11,4 +11,6 @@ public interface SiteAccountMapper {
     void increaseCurrentUseCount(@Param("id") Integer id);
 
     void decreaseCurrentUseCount(@Param("id") Integer id);
+
+    void updateDelayTimeout(@Param("id") Integer id);
 }

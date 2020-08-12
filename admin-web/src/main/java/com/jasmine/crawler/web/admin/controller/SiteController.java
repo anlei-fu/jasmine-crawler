@@ -12,51 +12,60 @@ import com.jasmine.crawler.common.pojo.entity.Site;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteReq;
 import com.jasmine.crawler.web.admin.service.SiteService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "site info")
+import java.util.Objects;
+
 @RestController
 public class SiteController extends ControllerBase {
 
-    @Autowired private SiteService siteService;
+    @Autowired
+    private SiteService siteService;
 
-    @ApiOperation("add site")
     @PostMapping(path = "/site")
-    public R add(@Validated @ModelAttribute AddSiteReq req) {
+    public R add(@RequestBody @Validated AddSiteReq req) {
         boolean result = siteService.add(req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("delete single site")
     @DeleteMapping(path = "/site/{id}")
     public R deleteById(@PathVariable Integer id) {
         boolean result = siteService.deleteById(id);
         return responseBoolean(result);
     }
 
-    @ApiOperation("update single site")
     @PutMapping(path = "/site/{id}")
-    public R updateById(@PathVariable Integer id, @Validated @ModelAttribute UpdateSiteReq req) {
+    public R updateById(@PathVariable Integer id, @RequestBody @Validated UpdateSiteReq req) {
         boolean result = siteService.updateById(id, req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("get single site")
+    @PutMapping(path = "/site/update/batch")
+    public R updateBatch(@RequestBody UpdateSiteBatchReq req) {
+        if (Objects.isNull(req.getIds()) || req.getIds().size() == 0)
+            return failed("no data to update");
+
+        int success = siteService.updateBatch(req);
+        return success(String.format(
+                "excepted to update %d data,actual succeed %d ",
+                req.getIds().size(),
+                success)
+        );
+    }
+
     @GetMapping(path = "/site/{id}")
     public R<Site> getById(@PathVariable Integer id) {
         Site result = siteService.getById(id);
         return responseData(result);
     }
 
-    @ApiOperation("get site page")
     @GetMapping(path = "/site/page")
-    public R<PageResult<Site>> getPage(@Validated @ModelAttribute GetSitePageReq req) {
+    public R<PageResult<Site>> getPage(@Validated GetSitePageReq req) {
         PageResult<Site> result = siteService.getPage(req);
         return responseData(result);
     }

@@ -6,39 +6,29 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
 public class UpdateSiteBlockRuleReq {
 
-    @ApiModelProperty("description of the rul")
     private String description;
 
-    @ApiModelProperty("site the rule belong to")
     private Integer siteId;
 
-    @ApiModelProperty("http status code")
     @Enum("httpStatus")
     private Integer httpStatus;
 
-    @ApiModelProperty("checkTyp: json array")
     @Enum("checkType")
     private Integer checkType;
 
-    @ApiModelProperty("json array of string to match")
     private String keywords;
 
-    @ApiModelProperty("if match the page result returned")
     @Enum("pageResultType")
     private Integer pageResultType;
 
-    @ApiModelProperty("enable status")
     @Enum("enableStatus")
     private Integer enableStatus;
 }

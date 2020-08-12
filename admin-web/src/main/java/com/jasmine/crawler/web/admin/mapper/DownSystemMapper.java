@@ -11,8 +11,9 @@ import com.jasmine.crawler.common.pojo.entity.DownSystem;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemBatchReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface DownSystemMapper {
@@ -26,4 +27,6 @@ public interface DownSystemMapper {
     DownSystem getById(@Param("id") Integer id);
 
     Page<DownSystem> getPage(GetDownSystemPageReq req);
+
+    int updateBatch(UpdateDownSystemBatchReq req);
 }

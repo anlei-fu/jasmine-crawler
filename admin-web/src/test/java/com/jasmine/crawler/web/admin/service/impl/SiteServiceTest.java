@@ -13,7 +13,6 @@ import com.jasmine.crawler.web.admin.controller.SiteController;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,15 +32,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class SiteServiceTest {
 
-    @Autowired private SiteController controller;
+    @Autowired
+    private SiteController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -81,7 +85,9 @@ public class SiteServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -90,7 +96,9 @@ public class SiteServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -130,7 +138,9 @@ public class SiteServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -139,7 +149,9 @@ public class SiteServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -150,8 +162,6 @@ public class SiteServiceTest {
         req.setLoginCaptaType(20);
         req.setNeedUseProxy(0);
         req.setEnableStatus(1);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 

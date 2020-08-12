@@ -1,8 +1,8 @@
 package com.jasmine.crawler.web.api.mapper;
 
 import com.jasmine.crawler.common.pojo.entity.Cookie;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface CookieMapper {

@@ -11,10 +11,10 @@ import com.jasmine.crawler.common.pojo.entity.SiteBlockRule;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteBlockRuleParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteBlockRuleReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq;
-import com.jasmine.crawler.web.admin.pojo.resp.SiteBlockRuleDetailResp;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface SiteBlockRuleMapper {
@@ -28,10 +28,6 @@ public interface SiteBlockRuleMapper {
     SiteBlockRule getById(@Param("id") Integer id);
 
     Page<SiteBlockRule> getPage(GetSiteBlockRulePageReq req);
-
-    SiteBlockRuleDetailResp getDetailById(@Param("id") Integer id);
-
-    Page<SiteBlockRuleDetailResp> getDetailPage(GetSiteBlockRulePageReq req);
 
     int deleteBatch(@Param("list") List<Integer> ids);
 }

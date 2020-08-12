@@ -6,49 +6,50 @@ Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.SiteUrlBloomMapper">
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.SiteUrlBloom">
-          select
-             t.id,
-             t.down_system_site_id,
-             t.bloom,
-             t.bloom_loading_status,
-             t.total_count,
-             t.last_loading_time,
-             t.last_dump_time,
-             t.enable_status,
-             t.create_time
-          from site_url_bloom t
-          <where>
+        select
+        t.id,
+        t.down_system_site_id,
+        t.bloom,
+        t.bloom_loading_status,
+        t.total_count,
+        t.last_loading_time,
+        t.last_dump_time,
+        t.enable_status,
+        t.create_time
+        from site_url_bloom t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteUrlBloom" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteUrlBloomPageReq">
-          select
-             t.id,
-             t.donw_system_site_id,
-             t.bloom,
-             t.bloom_loading_status,
-             t.total_count,
-             t.last_loading_time,
-             t.last_dump_time,
-             t.enable_status,
-             t.create_time
-          from site_url_bloom t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteUrlBloom"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteUrlBloomPageReq">
+        select
+        t.id,
+        t.donw_system_site_id,
+        t.bloom,
+        t.bloom_loading_status,
+        t.total_count,
+        t.last_loading_time,
+        t.last_dump_time,
+        t.enable_status,
+        t.create_time
+        from site_url_bloom t
+        <where>
             <if test="downSystemSiteId != null">
-                  t.down_system_site_id = #{downSystemSiteId}
+                t.down_system_site_id = #{downSystemSiteId}
             </if>
             <if test="bloomLoadingStatus != null">
-                  and t.bloom_loading_status = #{bloomLoadingStatus}
+                and t.bloom_loading_status = #{bloomLoadingStatus}
             </if>
             <if test="enableStatus != null">
-                  and t.enable_status = #{enableStatus}
+                and t.enable_status = #{enableStatus}
             </if>
-            <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+            <if test="createTimeStart != null and createTimeStart !=''">
+                t.create_time >= #{createTimeStart}
             </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
             </if>
-          </where>
+        </where>
     </select>
 </mapper>

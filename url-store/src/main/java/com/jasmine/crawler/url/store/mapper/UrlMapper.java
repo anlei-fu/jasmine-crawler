@@ -1,8 +1,8 @@
 package com.jasmine.crawler.url.store.mapper;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 import java.util.List;
 

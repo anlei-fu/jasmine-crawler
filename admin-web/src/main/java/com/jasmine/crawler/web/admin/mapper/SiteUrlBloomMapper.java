@@ -9,8 +9,8 @@ package com.jasmine.crawler.web.admin.mapper;
 import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteUrlBloomPageReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface SiteUrlBloomMapper {

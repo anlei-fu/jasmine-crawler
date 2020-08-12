@@ -13,17 +13,18 @@ import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteBlockRuleParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteBlockRuleReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBlockRuleReq;
-import com.jasmine.crawler.web.admin.pojo.resp.SiteBlockRuleDetailResp;
 import com.jasmine.crawler.web.admin.service.SiteBlockRuleService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SiteBlockRuleServiceImpl implements SiteBlockRuleService {
 
-    @Autowired private SiteBlockRuleMapper siteBlockRuleMapper;
+    @Autowired
+    private SiteBlockRuleMapper siteBlockRuleMapper;
 
     @Override
     public boolean add(AddSiteBlockRuleReq req) {
@@ -49,16 +50,6 @@ public class SiteBlockRuleServiceImpl implements SiteBlockRuleService {
     @Override
     public PageResult<SiteBlockRule> getPage(GetSiteBlockRulePageReq req) {
         return PageHelperUtils.paging(req, () -> siteBlockRuleMapper.getPage(req));
-    }
-
-    @Override
-    public SiteBlockRuleDetailResp getDetailById(Integer id) {
-        return siteBlockRuleMapper.getDetailById(id);
-    }
-
-    @Override
-    public PageResult<SiteBlockRuleDetailResp> getDetailPage(GetSiteBlockRulePageReq req) {
-        return PageHelperUtils.paging(req, () -> siteBlockRuleMapper.getDetailPage(req));
     }
 
     @Override

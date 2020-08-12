@@ -11,7 +11,9 @@ import lombok.Setter;
 
 public class UpdateDownSystemAnalyzeParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     public UpdateDownSystemAnalyzeParams(Integer id) {
         this.id = id;

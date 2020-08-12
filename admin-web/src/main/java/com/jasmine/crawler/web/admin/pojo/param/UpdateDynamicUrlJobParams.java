@@ -7,13 +7,16 @@
 package com.jasmine.crawler.web.admin.pojo.param;
 
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDynamicUrlJobReq;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 public class UpdateDynamicUrlJobParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateDynamicUrlJobReq req;
 

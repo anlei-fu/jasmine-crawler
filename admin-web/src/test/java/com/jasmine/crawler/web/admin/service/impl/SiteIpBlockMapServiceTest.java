@@ -11,10 +11,6 @@ import com.jasmine.crawler.web.admin.Application;
 import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.SiteIpBlockMapController;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +18,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * SiteIpBlockMapService Tester.
@@ -34,23 +33,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class SiteIpBlockMapServiceTest {
 
-    @Autowired private SiteIpBlockMapController controller;
+    @Autowired
+    private SiteIpBlockMapController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
         GetSiteIpBlockMapPageReq req = new GetSiteIpBlockMapPageReq();
 
         req.setSiteId(1);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 
@@ -58,8 +60,8 @@ public class SiteIpBlockMapServiceTest {
     }
 
     @Test
-    public  void  testDeleteBatch(){
-        List<Integer> ids =new LinkedList<>();
+    public void testDeleteBatch() {
+        List<Integer> ids = new LinkedList<>();
         controller.deleteBatch(ids);
     }
 }

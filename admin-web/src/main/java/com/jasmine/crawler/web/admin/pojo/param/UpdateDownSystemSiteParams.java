@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateDownSystemSiteParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateDownSystemSiteReq req;
 
@@ -69,14 +71,6 @@ public class UpdateDownSystemSiteParams {
         return req.getUrlMatchPatterns();
     }
 
-    public Integer getBloomExpectedUrlSize() {
-        return req.getBloomExpectedUrlSize();
-    }
-
-    public Float getBloomFpp() {
-        return req.getBloomFpp();
-    }
-
     public Integer getTaskUrlBatchCount() {
         return req.getTaskUrlBatchCount();
     }
@@ -95,5 +89,17 @@ public class UpdateDownSystemSiteParams {
 
     public Integer getEnableStatus() {
         return req.getEnableStatus();
+    }
+
+    public Integer getBloomExpectedUrlSize() {
+        return req.getBloomExpectedUrlSize();
+    }
+
+    public Integer getBloomFpp() {
+        return req.getBloomFpp();
+    }
+
+    public Integer getUrlMaxDepth() {
+        return req.getUrlMaxDepth();
     }
 }

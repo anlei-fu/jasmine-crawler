@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateParams {
 
-    @Getter @Setter private String url;
+    @Getter
+    @Setter
+    private String url;
 
     private UpdateUrlReq req;
 

@@ -13,7 +13,6 @@ import com.jasmine.crawler.web.admin.controller.DownSystemController;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,15 +32,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class DownSystemServiceTest {
 
-    @Autowired private DownSystemController controller;
+    @Autowired
+    private DownSystemController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -62,7 +66,9 @@ public class DownSystemServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -71,7 +77,9 @@ public class DownSystemServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -85,10 +93,6 @@ public class DownSystemServiceTest {
         req.setDataUrl("http://www.qq.com");
         req.setDataQueue("mock string");
         req.setTaskMaxRunningCount(0);
-        req.setTaskCurrentRunningCount(899);
-        req.setUrlTotalCount(56589);
-        req.setUrlFinishedCount(6142);
-        req.setUrlBadCount(6142);
         req.setEnableStatus(0);
 
         R result = controller.updateById(35, req);
@@ -96,7 +100,9 @@ public class DownSystemServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -105,15 +111,15 @@ public class DownSystemServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
         GetDownSystemPageReq req = new GetDownSystemPageReq();
 
         req.setEnableStatus(1);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 

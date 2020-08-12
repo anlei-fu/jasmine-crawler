@@ -10,15 +10,12 @@ import com.jasmine.crawler.common.pojo.entity.Script;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddScriptReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateScriptReq;
 
 public interface ScriptService {
 
     boolean add(AddScriptReq req);
 
     boolean deleteById(Integer id);
-
-    boolean updateById(Integer id, UpdateScriptReq req);
 
     Script getById(Integer id);
 

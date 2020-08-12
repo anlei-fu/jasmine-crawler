@@ -9,6 +9,7 @@ package com.jasmine.crawler.common.validate.annotation;
 import com.jasmine.crawler.job.validate.validator.IdCardNoValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
@@ -19,4 +20,8 @@ public @interface IdCardNo {
     String message() default "IdCardNo incorrect";
 
     boolean required() default false;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

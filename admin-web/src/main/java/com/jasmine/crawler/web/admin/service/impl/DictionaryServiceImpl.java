@@ -6,29 +6,31 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.service.impl;
 
+import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.Dictionary;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.DictionaryMapper;
-import com.jasmine.crawler.web.admin.pojo.param.AddDictionaryParams;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDictionaryParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDictionaryReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDictionaryPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDictionaryBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDictionaryReq;
 import com.jasmine.crawler.web.admin.service.DictionaryService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DictionaryServiceImpl implements DictionaryService {
 
-    @Autowired private DictionaryMapper dictionaryMapper;
+    @Autowired
+    private DictionaryMapper dictionaryMapper;
 
     @Override
-    public boolean add(String createUser, AddDictionaryReq req) {
-        AddDictionaryParams params = new AddDictionaryParams(createUser, req);
-        return dictionaryMapper.add(params) > 0;
+    public boolean add(AddDictionaryReq req) {
+        return dictionaryMapper.add(req) > 0;
     }
 
     @Override
@@ -37,8 +39,8 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public boolean updateById(Integer id, String lastUpdateUser, UpdateDictionaryReq req) {
-        UpdateDictionaryParams params = new UpdateDictionaryParams(id, lastUpdateUser, req);
+    public boolean updateById(Integer id, UpdateDictionaryReq req) {
+        UpdateDictionaryParams params = new UpdateDictionaryParams(id, req);
         return dictionaryMapper.updateById(params) > 0;
     }
 
@@ -49,11 +51,23 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Override
     public PageResult<Dictionary> getPage(GetDictionaryPageReq req) {
-        return PageHelperUtils.paging(req, () -> dictionaryMapper.getPage(req));
+        PageHelperUtils.startPage(req);
+        Page<Dictionary> page = dictionaryMapper.getPage(req);
+        return PageResult.create(req, page);
     }
 
     @Override
     public int deleteBatch(List<Integer> ids) {
         return dictionaryMapper.deleteBatch(ids);
+    }
+
+    @Override
+    public int updateBatch(UpdateDictionaryBatchReq req) {
+        return dictionaryMapper.updateBatch(req);
+    }
+
+    @Override
+    public List<Dictionary> getAll() {
+        return dictionaryMapper.getAll();
     }
 }

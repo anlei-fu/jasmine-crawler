@@ -12,6 +12,8 @@ import com.jasmine.crawler.cron.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CookieServiceImpl implements CookieService {
 
@@ -39,8 +41,18 @@ public class CookieServiceImpl implements CookieService {
     }
 
     @Override
-    public void removeExpiredCookies() {
-         cookieMapper.removeExpiredCookies();
+    public void disableInvalidCookies() {
+        cookieMapper.disableInvalidCookies();
+    }
+
+    @Override
+    public void updateDelayTimeout(Integer id) {
+        cookieMapper.updateDelayTimeout(id);
+    }
+
+    @Override
+    public List<Cookie> getInvalidCookies() {
+        return  cookieMapper.getInvalidCookies();
     }
 
 }

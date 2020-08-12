@@ -6,56 +6,32 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import com.jasmine.crawler.web.admin.validate.annotation.Url;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.validate.annotation.Enum;
+import com.jasmine.crawler.common.validate.annotation.Url;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
 public class UpdateDownSystemReq {
 
-    @ApiModelProperty("")
     private String name;
 
-    @ApiModelProperty("")
     private Integer priority;
 
-    @ApiModelProperty("")
     private String description;
 
-    @ApiModelProperty("")
     private String appKey;
 
-    @ApiModelProperty("")
     private String appSecret;
 
-    @ApiModelProperty("")
     @Url
     private String dataUrl;
 
-    @ApiModelProperty("")
     private String dataQueue;
 
-    @ApiModelProperty("")
     private Integer taskMaxRunningCount;
 
-    @ApiModelProperty("")
-    private Integer taskCurrentRunningCount;
-
-    @ApiModelProperty("")
-    private Integer urlTotalCount;
-
-    @ApiModelProperty("")
-    private Integer urlFinishedCount;
-
-    @ApiModelProperty("")
-    private Integer urlBadCount;
-
-    @ApiModelProperty("")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

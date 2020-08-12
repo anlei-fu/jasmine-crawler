@@ -6,40 +6,33 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.pojo.req.PageTimeReq;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetSitePageReq extends PageReq {
+public class GetSitePageReq extends PageTimeReq {
 
-    @ApiModelProperty("the parent site of the site")
     private Integer parentSiteId;
 
-    @ApiModelProperty("the login script of the site")
     private Integer loginScriptId;
 
-    @ApiModelProperty("the captaa type of the site")
     @Enum("loginCaptaType")
     private Integer loginCaptaType;
 
-    @ApiModelProperty("need proxy")
-    @Enum("booleanFlag")
+    @Enum("YesNo")
     private Integer needUseProxy;
 
-    @ApiModelProperty("")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 
-    @ApiModelProperty("create time start time")
-    private Date createTimeStart;
+    @Enum("YesNo")
+    private Integer crawlNeedUseCookie;
 
-    @ApiModelProperty("create time end time")
-    private Date createTimeEnd;
+    private String name;
+
+    private String domain;
+
 }

@@ -10,7 +10,9 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
+
 import java.util.List;
 
 public interface DownSystemSiteService {
@@ -28,4 +30,6 @@ public interface DownSystemSiteService {
     int enableBatch(List<Integer> ids);
 
     int disableBatch(List<Integer> ids);
+
+    int updateBatch(UpdateDownSystemSiteBatchReq req);
 }

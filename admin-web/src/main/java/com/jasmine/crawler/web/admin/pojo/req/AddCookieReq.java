@@ -6,34 +6,33 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Ip;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
+import com.jasmine.crawler.common.validate.annotation.Ip;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 @Getter
 @Setter
 public class AddCookieReq {
 
-    @ApiModelProperty("")
     @NotNull
     private Integer siteId;
 
-    @ApiModelProperty("")
     @NotNull
     private Integer siteAccountId;
 
-    @ApiModelProperty("")
     @NotNull
     private String cookie;
 
-    @ApiModelProperty("")
+    @NotNull
+    private Date expireTime;
+
     @Ip
     private String loginIp;
 
-    private Date expireTime;
+    @Enum("EnumStatus")
+    private Integer enableStatus;
 }

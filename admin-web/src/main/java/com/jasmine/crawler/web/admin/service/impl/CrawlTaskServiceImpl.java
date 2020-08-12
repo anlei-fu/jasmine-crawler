@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CrawlTaskServiceImpl implements CrawlTaskService {
 
-    @Autowired private CrawlTaskMapper crawlTaskMapper;
+    @Autowired
+    private CrawlTaskMapper crawlTaskMapper;
 
     @Override
     public PageResult<CrawlTask> getPage(GetCrawlTaskPageReq req) {

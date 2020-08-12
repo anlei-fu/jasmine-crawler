@@ -10,7 +10,9 @@ import com.jasmine.crawler.common.pojo.entity.SiteAccount;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
+
 import java.util.List;
 
 public interface SiteAccountService {
@@ -30,4 +32,6 @@ public interface SiteAccountService {
     int disableBatch(List<Integer> ids);
 
     int enableBatch(List<Integer> ids);
+
+    int updateBatch(UpdateSiteAccountBatchReq req);
 }

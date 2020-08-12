@@ -7,12 +7,12 @@
 package com.jasmine.crawler.web.admin.mapper;
 
 import com.github.pagehelper.Page;
-import com.jasmine.crawler.common.pojo.entity.DispatchTaskRecord;
+import com.jasmine.crawler.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq;
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DispatchTaskRecordMapper {
 
-    Page<DispatchTaskRecord> getPage(GetDispatchTaskRecordPageReq req);
+    Page<DispatchRecord> getPage(GetDispatchTaskRecordPageReq req);
 }

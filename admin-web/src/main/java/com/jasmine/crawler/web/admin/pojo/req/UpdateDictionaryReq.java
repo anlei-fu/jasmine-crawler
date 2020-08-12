@@ -6,22 +6,18 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
 public class UpdateDictionaryReq {
 
-    @ApiModelProperty("type of enum,not null")
     private String type;
 
-    @ApiModelProperty("value of enum ,not null")
     private Integer value;
 
-    @ApiModelProperty("label of enum")
     private String label;
+
+    private String color;
 }

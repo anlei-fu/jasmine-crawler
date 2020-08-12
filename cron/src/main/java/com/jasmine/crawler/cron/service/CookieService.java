@@ -39,15 +39,18 @@ public interface CookieService {
     void increaseCurrentUseCount(Integer cookieId);
 
     /**
-     * Get expired cookies which timeouted or blocked by site
-     *
-     */
-    void removeExpiredCookies();
-
-    /**
      * Increase  cookie current using count
      *
      * @param cookieId
      */
     void decreaseCurrentUseCount(Integer cookieId);
+
+    /**
+     * Get expired cookies which timeouted or blocked by site
+     */
+    void disableInvalidCookies();
+
+    void updateDelayTimeout(Integer id);
+
+    List<Cookie> getInvalidCookies();
 }

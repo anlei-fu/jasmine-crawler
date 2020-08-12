@@ -36,7 +36,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testGetCrawlerForSite() throws Exception {
-        service.getCrawlerForSite(1);
+        service.getCrawlerForSite(24, true);
     }
 
     /**

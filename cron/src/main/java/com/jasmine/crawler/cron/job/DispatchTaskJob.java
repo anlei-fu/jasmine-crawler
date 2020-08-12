@@ -2,15 +2,15 @@ package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.constant.BooleanFlag;
-import com.jasmine.crawler.common.constant.DispatchStatus;
+import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
@@ -54,10 +54,10 @@ public class DispatchTaskJob extends LoggerSupport {
     private DispatchRecordService dispatchRecordService;
 
     @Autowired
-    private  SiteAccountService siteAccountService;
+    private SiteAccountService siteAccountService;
 
     @Autowired
-    private  SiteIpDelayService siteIpDelayService;
+    private SiteIpDelayService siteIpDelayService;
 
     /**
      * Dispatch crawl task to crawler to run
@@ -70,7 +70,7 @@ public class DispatchTaskJob extends LoggerSupport {
      * <p>
      * TODO: are these checks required ? binding job has already done check once
      */
-    @Scheduled(cron = "*/6 * * * * ?")
+//    @Scheduled(cron = "*/6 * * * * ?")
     public void run() {
         info("--------------begin dispatching crawl task----------------");
 
@@ -125,109 +125,115 @@ public class DispatchTaskJob extends LoggerSupport {
         return crawlTaskConfigs;
     }
 
-    private boolean dispatchTaskCore(CrawlTaskConfig crawlTaskConfig) {
-        boolean isInvalid = false;
+    @Transactional
+    public boolean dispatchTaskCore(CrawlTaskConfig crawlTaskConfig) {
+        boolean valid = false;
 
         // check site available
         Site site = siteService.get(crawlTaskConfig.getSiteId());
-        isInvalid = checkDispatch(
+        valid = validate(
                 site,
                 crawlTaskConfig,
-                DispatchStatus.SITE_NOT_AVAILABLE,
+                DispatchResult.SITE_NOT_AVAILABLE,
                 "site not available"
         );
 
-        if (isInvalid) {
+        if (!valid) {
             crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
         }
 
         // check down system site available
         DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
-        isInvalid = checkDispatch(
+        valid = validate(
                 site,
                 crawlTaskConfig,
-                DispatchStatus.DOWN_SITE_NOT_AVAILABLE,
+                DispatchResult.DOWN_SITE_NOT_AVAILABLE,
                 "down site not available"
         );
-        if (isInvalid) {
+
+        if (!valid) {
             crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
         }
 
         // check down system available
         DownSystem downSystem = downSystemService.get(downSystemSite.getId());
-        isInvalid = checkDispatch(
+        valid = validate(
                 site,
                 crawlTaskConfig,
-                DispatchStatus.DOWN_SYSTEM_NOT_AVAILABLE,
+                DispatchResult.DOWN_SYSTEM_NOT_AVAILABLE,
                 "down system not available"
         );
-        if (isInvalid) {
+
+        if (!valid) {
             crawlTaskService.delete(crawlTaskConfig.getTaskId());
             return false;
         }
 
         // check and config proxy
-        Proxy proxy=null;
+        Proxy proxy = null;
         if (crawlTaskConfig.getProxyId() != BooleanFlag.NO_NEED) {
             proxy = proxyService.get(crawlTaskConfig.getProxyId());
-            isInvalid = checkDispatch(
+            valid = validate(
                     site,
                     crawlTaskConfig,
-                    DispatchStatus.PROXY_NOT_AVAILABLE,
+                    DispatchResult.PROXY_NOT_AVAILABLE,
                     "proxy not available"
             );
 
-            if (isInvalid)
+            if (valid)
                 return false;
 
             crawlTaskConfig.setProxy(proxy);
         }
 
+        Cookie cookie = null;
         // check and config cookie
         if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED) {
-            Cookie cookie = cookieService.get(crawlTaskConfig.getCookieId());
-            isInvalid = checkDispatch(
+            cookie = cookieService.get(crawlTaskConfig.getCookieId());
+            valid = validate(
                     cookie,
                     crawlTaskConfig,
-                    DispatchStatus.COOKIE_NOT_AVAILABLE,
+                    DispatchResult.COOKIE_NOT_AVAILABLE,
                     "cookie not available"
             );
 
-            if (isInvalid)
+            if (valid)
                 return false;
         }
 
         // check and config crawler
         Crawler crawler = crawlerService.get(crawlTaskConfig.getCrawlerId());
-        isInvalid = checkDispatch(
+        valid = validate(
                 crawler,
                 crawlTaskConfig,
-                DispatchStatus.CRAWLER_NOT_AVAILABLE,
+                DispatchResult.CRAWLER_NOT_AVAILABLE,
                 "crawler not available"
         );
-        if (isInvalid)
+        if (valid)
             return false;
 
         // fetch task urls
         List<Url> urls = urlService.getUrlToExecuteForSite(
                 crawlTaskConfig.getSiteId(),
-                site.getTaskBatchCount()
+                downSystemSite.getTaskUrlBatchCount()
         );
 
         if (urls.size() == 0) {
-            checkDispatch(
+            validate(
                     null,
                     crawlTaskConfig,
-                    DispatchStatus.GET_URL_TO_RUN_FAILED,
+                    DispatchResult.GET_URL_TO_RUN_FAILED,
                     "no url to run task"
             );
             return false;
         }
 
+        crawlTaskConfig.setUrls(urls);
+
         // post crawler to run new task
-        R resp =null;
+        R resp = null;
         try {
             // post crawler to run new task
             resp = restTemplate.postForObject(
@@ -240,72 +246,69 @@ public class DispatchTaskJob extends LoggerSupport {
                     crawlTaskConfig,
                     R.class
             );
-        }catch (Exception ex){
-            error(String.format("post crawler(%d) failed",crawler.getId()),ex);
+        } catch (Exception ex) {
+            error(String.format("post crawler(%d) failed", crawler.getId()), ex);
         }
 
         if (!resp.isSuccess()) {
-            checkDispatch(
+            validate(
                     null,
                     crawlTaskConfig,
-                    DispatchStatus.POST_CRAWLER_FAILED,
+                    DispatchResult.POST_CRAWLER_FAILED,
                     "post crawler failed"
             );
             return false;
         }
 
-        // update dispatch status success
-        crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId());
-
-        // add delay map
-        SiteIpDelayMap siteIpDelayMap =SiteIpDelayMap.builder()
-                .ip(Objects.isNull(proxy)?proxy.getIp():crawler.getIp())
-                .delayTimeoutTime(new Date(System.currentTimeMillis()+site.getIpDelayTimeout()))
-                .siteId(site.getId())
-                .build();
-        siteIpDelayService.add(siteIpDelayMap);
-
+        dispatchSuccess(crawlTaskConfig, crawler, proxy, site, cookie);
         return true;
     }
 
     /**
-     * Update task bind failed
-     * 1. decrease crawler current concurrency
-     * 2. decrease proxy current use count  if use proxy
-     * 3. decrease cookie current use count if use cookie
+     * Check is resource available or release all resource locked by bind job
+     * add bind record and update bind status to 'wait'
      *
      * @param crawlTaskConfig
      * @param msg
      */
-    private boolean checkDispatch(Object target, CrawlTaskConfig crawlTaskConfig, Integer dispatchStatus, String msg) {
+    private boolean validate(Object target, CrawlTaskConfig crawlTaskConfig, Integer dispatchStatus, String msg) {
         if (Objects.isNull(target)
                 || ((target instanceof EnableStatusFeature)
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
-            dispatchFailed(crawlTaskConfig,dispatchStatus,msg);
-            return  false;
+            dispatchFailed(crawlTaskConfig, dispatchStatus, msg);
+            return false;
         }
 
         return true;
     }
 
-    private void dispatchFailed(CrawlTaskConfig crawlTaskConfig,Integer dispatchStatus,String msg) {
+    /**
+     * Release all resources that locked by bind job if dispatch failed
+     *
+     * @param crawlTaskConfig
+     * @param dispatchResult
+     * @param dispatchMsg
+     */
+    @Transactional
+    public void dispatchFailed(CrawlTaskConfig crawlTaskConfig, Integer dispatchResult, String dispatchMsg) {
 
         // add dispatch record
         DispatchRecord dispatchRecord = DispatchRecord.builder()
                 .taskId(crawlTaskConfig.getTaskId())
-                .dispatchStatus(dispatchStatus)
-                .dispatchMsg(msg)
+                .dispatchResult(dispatchResult)
+                .dispatchMsg(dispatchMsg)
                 .build();
         dispatchRecordService.add(dispatchRecord);
 
         // update task dispatch status
-        CrawlTask dispatchFailedTask =CrawlTask
+        CrawlTask dispatchFailedTask = CrawlTask
                 .builder()
                 .id(crawlTaskConfig.getTaskId())
-                .dispatchStatus(dispatchStatus)
-                .dispatchMsg(msg)
+                .dispatchLastSResult(dispatchResult)
+                .dispatchLastMsg(dispatchMsg)
                 .build();
+
         crawlTaskService.dispatchFailed(dispatchFailedTask);
 
         // decrease site concurrency
@@ -316,7 +319,7 @@ public class DispatchTaskJob extends LoggerSupport {
             if (!Objects.isNull(crawler)) {
                 crawlerService.increaseCurrentConcurrency(
                         crawler.getId(),
-                        -site.getMinuteSpeedLimit()
+                        -site.getIpMinuteSpeedLimit()
                 );
             }
         }
@@ -325,6 +328,7 @@ public class DispatchTaskJob extends LoggerSupport {
         DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
+            downSystemSiteService.decreaseCurrentBindCount(downSystemSite.getId());
             DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
             if (!Objects.isNull(downSystem))
                 downSystemService.decreaseCurrentRunningTaskCount(downSystem.getId());
@@ -333,7 +337,7 @@ public class DispatchTaskJob extends LoggerSupport {
         // decrease cookie and account use count
         if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED) {
             cookieService.decreaseCurrentUseCount(crawlTaskConfig.getCookieId());
-            Cookie cookie =cookieService.get(crawlTaskConfig.getCookieId());
+            Cookie cookie = cookieService.get(crawlTaskConfig.getCookieId());
             siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
         }
 
@@ -342,4 +346,13 @@ public class DispatchTaskJob extends LoggerSupport {
             proxyService.decreaseCurrentUseCount(crawlTaskConfig.getProxyId());
 
     }
+
+    public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig, Crawler crawler, Proxy proxy, Site site, Cookie cookie) {
+        // update dispatch status success
+        crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId());
+
+
+
+    }
+
 }

@@ -12,30 +12,28 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "DownSystemSite")
+import java.util.List;
+import java.util.Objects;
+
 @RestController
 public class DownSystemSiteController extends ControllerBase {
 
-    @Autowired private DownSystemSiteService downSystemSiteService;
+    @Autowired
+    private DownSystemSiteService downSystemSiteService;
 
-    @ApiOperation("add downSystemSite")
     @PostMapping(path = "/downSystemSite")
-    public R add(@Validated @ModelAttribute AddDownSystemSiteReq req) {
+    public R add(@RequestBody @Validated AddDownSystemSiteReq req) {
         boolean result = downSystemSiteService.add(req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("delete single downSystemSite")
     @DeleteMapping(path = "/downSystemSite/{id}")
     public R deleteById(@PathVariable Integer id) {
         boolean result = downSystemSiteService.deleteById(id);
@@ -43,7 +41,7 @@ public class DownSystemSiteController extends ControllerBase {
     }
 
     @PutMapping(path = "/downSystemSite/disable/batch")
-    public R disableBatch(List<Integer> ids) {
+    public R disableBatch(@RequestBody List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to disable");
 
         int success = downSystemSiteService.disableBatch(ids);
@@ -52,7 +50,7 @@ public class DownSystemSiteController extends ControllerBase {
     }
 
     @PutMapping(path = "/downSystemSite/enable/batch")
-    public R enableBatch(List<Integer> ids) {
+    public R enableBatch(@RequestBody List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to enable");
 
         int success = downSystemSiteService.enableBatch(ids);
@@ -60,25 +58,35 @@ public class DownSystemSiteController extends ControllerBase {
                 String.format("excepted to enable % , success enabled %d", ids.size(), success));
     }
 
-    @ApiOperation("update single downSystemSite")
     @PutMapping(path = "/downSystemSite/{id}")
     public R updateById(
-            @PathVariable Integer id, @Validated @ModelAttribute UpdateDownSystemSiteReq req) {
+            @PathVariable Integer id, @RequestBody @Validated UpdateDownSystemSiteReq req) {
         boolean result = downSystemSiteService.updateById(id, req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("get single downSystemSite")
+    @PutMapping(path = "/downSystemSite/update/batch")
+    public R updateBatch(@RequestBody UpdateDownSystemSiteBatchReq req) {
+        if (Objects.isNull(req.getIds()) || req.getIds().size() == 0)
+            return failed("no data to update");
+
+        int success = downSystemSiteService.updateBatch(req);
+        return success(String.format(
+                "excepted to update %d data,actual succeed %d ",
+                req.getIds().size(),
+                success)
+        );
+    }
+
     @GetMapping(path = "/downSystemSite/{id}")
     public R<DownSystemSite> getById(@PathVariable Integer id) {
         DownSystemSite result = downSystemSiteService.getById(id);
         return responseData(result);
     }
 
-    @ApiOperation("get downSystemSite page")
     @GetMapping(path = "/downSystemSite/page")
     public R<PageResult<DownSystemSite>> getPage(
-            @Validated @ModelAttribute GetDownSystemSitePageReq req) {
+            @Validated GetDownSystemSitePageReq req) {
         PageResult<DownSystemSite> result = downSystemSiteService.getPage(req);
         return responseData(result);
     }

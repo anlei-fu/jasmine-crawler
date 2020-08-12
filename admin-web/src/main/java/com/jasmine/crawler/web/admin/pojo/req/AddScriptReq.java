@@ -6,36 +6,29 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import com.jasmine.crawler.web.admin.validate.annotation.Path;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
+import com.jasmine.crawler.common.validate.annotation.Url;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddScriptReq {
 
-    @ApiModelProperty("script usage")
-    private String description;
-
-    @ApiModelProperty("script path")
-    @NotNull
-    @Path
-    private String path;
-
-    @ApiModelProperty("type of script")
-    @Enum("scriptType")
-    private Integer scriptType;
-
-    @ApiModelProperty("site the script belong to")
     @NotNull
     private Integer downSiteId;
 
-    @ApiModelProperty("enable status")
-    @Enum("enableStatus")
+    @NotNull
+    @Url
+    private String path;
+
+    private String description;
+
+    @Enum("ScriptType")
+    private Integer scriptType;
+
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

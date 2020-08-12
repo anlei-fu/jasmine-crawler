@@ -63,13 +63,13 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     }
 
     @Override
-    public boolean bindSuccess(Integer crawlTaskId) {
-        return crawlTaskMapper.bindSuccess(crawlTaskId);
+    public boolean bindSuccess(CrawlTask taskToUpdate) {
+        return crawlTaskMapper.bindSuccess(taskToUpdate);
     }
 
     @Override
     public void terminateTimeoutTask(Integer id) {
-         crawlTaskMapper.terminateTimeoutTask(id);
+        crawlTaskMapper.terminateTimeoutTask(id);
     }
 
     @Override
@@ -80,6 +80,16 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     @Override
     public CrawlTask getForUpdate(Integer id) {
         return crawlTaskMapper.getForUpdate(id);
+    }
+
+    @Override
+    public void bindTimeout(Integer id) {
+        crawlTaskMapper.bindTimeout(id);
+    }
+
+    @Override
+    public List<CrawlTask> getBindTimeoutTasks() {
+        return crawlTaskMapper.getBindTimeoutTasks();
     }
 }
 

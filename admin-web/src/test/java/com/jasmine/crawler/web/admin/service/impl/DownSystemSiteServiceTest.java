@@ -13,7 +13,6 @@ import com.jasmine.crawler.web.admin.controller.DownSystemSiteController;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,15 +32,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class DownSystemSiteServiceTest {
 
-    @Autowired private DownSystemSiteController controller;
+    @Autowired
+    private DownSystemSiteController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -72,7 +76,9 @@ public class DownSystemSiteServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -81,7 +87,9 @@ public class DownSystemSiteServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -99,8 +107,6 @@ public class DownSystemSiteServiceTest {
         req.setUrlEncodes("http://www.bbc.co.uk");
         req.setUrlMaxCrawlCount(6142);
         req.setUrlMatchPatterns("http://www.bbc.co.uk");
-        req.setBloomExpectedUrlSize(90);
-        req.setBloomFpp(90f);
         req.setTaskUrlBatchCount(56589);
         req.setTaskMaxWaitToBindCount(6142);
         req.setTaskMaxRunningCount(6142);
@@ -112,7 +118,9 @@ public class DownSystemSiteServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -121,7 +129,9 @@ public class DownSystemSiteServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -131,10 +141,7 @@ public class DownSystemSiteServiceTest {
         req.setScriptId(35);
         req.setDownSystemId(29);
         req.setCrawlerCrawlType(0);
-        req.setBloomFpp(30f);
         req.setEnableStatus(1);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 

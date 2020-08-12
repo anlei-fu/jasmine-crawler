@@ -9,6 +9,7 @@ package com.jasmine.crawler.common.validate.annotation;
 import com.jasmine.crawler.common.validate.validator.PasswordValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
@@ -21,4 +22,8 @@ public @interface Password {
     boolean required() default false;
 
     int level() default 1;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

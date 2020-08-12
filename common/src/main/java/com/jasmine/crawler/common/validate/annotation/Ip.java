@@ -9,6 +9,7 @@ package com.jasmine.crawler.common.validate.annotation;
 import com.jasmine.crawler.common.validate.validator.IpValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
@@ -16,6 +17,10 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Ip {
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
     String message() default "Ip incorrect";
 
     boolean required() default false;

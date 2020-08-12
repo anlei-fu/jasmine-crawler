@@ -1,10 +1,40 @@
 package com.jasmine.crawler.cron.pojo.config;
 
 import com.jasmine.crawler.common.pojo.entity.Proxy;
+import com.jasmine.crawler.common.pojo.entity.Url;
 import lombok.Data;
+
+import java.util.Date;
+import java.util.List;
 
 @Data
 public class CrawlTaskConfig {
+
+    /**
+     * Task id
+     */
+    private Integer taskId;
+
+    /**
+     * Task timeout time
+     */
+    private Date taskTimeoutTime;
+
+    /**
+     * Down system site id
+     */
+    private Integer downSystemSiteId;
+
+    /**
+     * Target site id
+     */
+    private Integer siteId;
+
+    // crawler config
+    /**
+     * Crawler to run the task
+     */
+    private Integer crawlerId;
 
     /***
      * The crawl task type see {@enum CrawlType}
@@ -25,23 +55,15 @@ public class CrawlTaskConfig {
     /**
      * Download page timeout
      */
-    private Integer timeout;
+    private Integer downloadPageTimeout;
 
-    /**
-     * Task id
-     */
-    private Integer taskId;
+    // json string array
+    private String urlMatchPatterns;
 
-    /**
-     * Down system site id
-     */
-    private Integer downSystemSiteId;
+    // json string array
+    private String urlEncodes;
 
-    /**
-     * Target site id
-     */
-    private Integer siteId;
-
+    // proxy config
     /**
      * The proxy config ,'-1' not use proxy
      */
@@ -52,8 +74,20 @@ public class CrawlTaskConfig {
      */
     private Proxy proxy;
 
+    // script config
     /**
-     * The cookie
+     * Script id
+     */
+    private Integer scriptId;
+
+    /**
+     * Crawl script path
+     */
+    private String scriptPath;
+
+    // cookie config
+    /**
+     * The cookie  -1 no need use cookie
      */
     private Integer cookieId;
 
@@ -62,6 +96,9 @@ public class CrawlTaskConfig {
      */
     private String cookie;
 
+    /**
+     *
+     */
     private String blockRules;
 
     /**
@@ -70,16 +107,8 @@ public class CrawlTaskConfig {
     private Integer ipMinuteSpeedLimit;
 
     /**
-     * Task timeout
+     * Task urls
      */
-    private Integer taskTimeout;
-
-    // json string array
-    private String urlMatchPatterns;
-
-    // json string array
-    private String urlEncodes;
-
-    private Integer crawlerId;
+    private List<Url> urls;
 
 }

@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateCrawlerParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateCrawlerReq req;
 
@@ -55,10 +57,6 @@ public class UpdateCrawlerParams {
 
     public Integer getMaxConcurrency() {
         return req.getMaxConcurrency();
-    }
-
-    public Integer getCurrentConcurrency() {
-        return req.getCurrentConcurrency();
     }
 
     public Integer getEnableStatus() {

@@ -11,7 +11,9 @@ import lombok.Setter;
 
 public class UpdateProxyAnalyzeParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     public UpdateProxyAnalyzeParams(Integer id) {
         this.id = id;

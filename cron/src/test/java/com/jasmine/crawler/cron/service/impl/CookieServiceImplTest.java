@@ -44,7 +44,7 @@ public class CookieServiceImplTest {
      */
     @Test
     public void testGetCookieForSite() throws Exception {
-        service.getCookieForSite(1);
+        service.getCookieForSite(24);
     }
 
     /**
@@ -60,7 +60,7 @@ public class CookieServiceImplTest {
      */
     @Test
     public void testRemoveExpiredCookies() throws Exception {
-        service.removeExpiredCookies();
+        service.disableInvalidCookies();
     }
 
     /**

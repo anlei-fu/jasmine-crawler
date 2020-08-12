@@ -6,26 +6,23 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddDictionaryReq {
 
-    @ApiModelProperty("type of enum,not null")
     @NotNull
     private String type;
 
-    @ApiModelProperty("value of enum ,not null")
     @NotNull
     private Integer value;
 
-    @ApiModelProperty("label of enum")
     @NotNull
     private String label;
+
+    private String color;
 }

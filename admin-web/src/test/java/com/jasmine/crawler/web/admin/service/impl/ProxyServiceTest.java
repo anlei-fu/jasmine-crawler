@@ -13,10 +13,6 @@ import com.jasmine.crawler.web.admin.controller.ProxyController;
 import com.jasmine.crawler.web.admin.pojo.req.AddProxyReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyReq;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +20,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * ProxyService Tester.
@@ -36,15 +35,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class ProxyServiceTest {
 
-    @Autowired private ProxyController controller;
+    @Autowired
+    private ProxyController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -65,13 +69,17 @@ public class ProxyServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -92,7 +100,9 @@ public class ProxyServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -101,7 +111,9 @@ public class ProxyServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -109,8 +121,6 @@ public class ProxyServiceTest {
 
         req.setProxyType(90);
         req.setEnableStatus(0);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 
@@ -118,8 +128,8 @@ public class ProxyServiceTest {
     }
 
     @Test
-    public  void  testDeleteBatch(){
-        List<Integer> ids =new LinkedList<>();
+    public void testDeleteBatch() {
+        List<Integer> ids = new LinkedList<>();
         controller.deleteBatch(ids);
     }
 }

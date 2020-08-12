@@ -7,13 +7,16 @@
 package com.jasmine.crawler.web.admin.pojo.param;
 
 import com.jasmine.crawler.web.admin.pojo.req.UpdateCookieReq;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 public class UpdateCookieParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateCookieReq req;
 
@@ -36,14 +39,6 @@ public class UpdateCookieParams {
 
     public String getLoginIp() {
         return req.getLoginIp();
-    }
-
-    public Integer getCurrentBlockCount() {
-        return req.getCurrentBlockCount();
-    }
-
-    public Integer getCurrentUseCount() {
-        return req.getCurrentUseCount();
     }
 
     public Date getExpireTime() {

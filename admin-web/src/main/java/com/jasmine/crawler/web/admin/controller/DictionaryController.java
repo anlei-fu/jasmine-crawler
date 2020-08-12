@@ -12,32 +12,28 @@ import com.jasmine.crawler.common.pojo.entity.Dictionary;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddDictionaryReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDictionaryPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDictionaryBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDictionaryReq;
 import com.jasmine.crawler.web.admin.service.DictionaryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "enum value- name map")
+import java.util.List;
+import java.util.Objects;
+
 @RestController
 public class DictionaryController extends ControllerBase {
 
-    @Autowired private DictionaryService dictionaryService;
+    @Autowired
+    private DictionaryService dictionaryService;
 
-    @ApiOperation("add dictionary")
     @PostMapping(path = "/dictionary")
-    public R add(
-            @SessionAttribute("userId") String createUser,
-            @Validated @ModelAttribute AddDictionaryReq req) {
-        boolean result = dictionaryService.add(createUser, req);
+    public R add(@RequestBody AddDictionaryReq req) {
+        boolean result = dictionaryService.add(req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("delete single dictionary")
     @DeleteMapping(path = "/dictionary/{id}")
     public R deleteById(@PathVariable Integer id) {
         boolean result = dictionaryService.deleteById(id);
@@ -45,40 +41,50 @@ public class DictionaryController extends ControllerBase {
     }
 
     @DeleteMapping(path = "/dictionary/delete/batch")
-    public R deleteBatch(List<Integer> ids) {
+    public R deleteBatch(@RequestBody List<Integer> ids) {
         if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to remove");
 
-        int count = dictionaryService.deleteBatch(ids);
+        int success = dictionaryService.deleteBatch(ids);
         return success(
-                String.format("excepted to delete %d, successfully deleted %d", ids.size(), count));
+                String.format("excepted to delete %d, successfully deleted %d", ids.size(), success));
     }
 
-    @PutMapping(path = "/dictionary/update/type/batch")
-    public R updateTypeBatch() {
-        return null;
+    @PutMapping(path = "/dictionary/update/batch")
+    public R updateBatch(@RequestBody UpdateDictionaryBatchReq req) {
+        if (Objects.isNull(req.getIds()) || req.getIds().size() == 0)
+            return failed("no data to update");
+
+        int success = dictionaryService.updateBatch(req);
+        return success(String.format(
+                "excepted to update %d data,actual succeed %d ",
+                req.getIds().size(),
+                success)
+        );
     }
 
-    @ApiOperation("update single dictionary")
     @PutMapping(path = "/dictionary/{id}")
     public R updateById(
             @PathVariable Integer id,
-            @SessionAttribute("userId") String lastUpdateUser,
-            @Validated @ModelAttribute UpdateDictionaryReq req) {
-        boolean result = dictionaryService.updateById(id, lastUpdateUser, req);
+            @RequestBody UpdateDictionaryReq req) {
+        boolean result = dictionaryService.updateById(id, req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("get single dictionary")
     @GetMapping(path = "/dictionary/{id}")
     public R<Dictionary> getById(@PathVariable Integer id) {
         Dictionary result = dictionaryService.getById(id);
         return responseData(result);
     }
 
-    @ApiOperation("get dictionary page")
     @GetMapping(path = "/dictionary/page")
     public R<PageResult<Dictionary>> getPage(@Validated @ModelAttribute GetDictionaryPageReq req) {
         PageResult<Dictionary> result = dictionaryService.getPage(req);
+        return responseData(result);
+    }
+
+    @GetMapping(path = "/dictionary/all")
+    public R<List<Dictionary>> getAll() {
+        List<Dictionary> result = dictionaryService.getAll();
         return responseData(result);
     }
 }

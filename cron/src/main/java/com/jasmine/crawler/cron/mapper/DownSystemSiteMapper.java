@@ -12,7 +12,11 @@ public interface DownSystemSiteMapper {
 
     DownSystemSite getById(@Param("id") Integer id);
 
-    void increaseRunningTaskCountById(@Param("id") Integer id);
+    void increaseCurrentRunningTaskCount(@Param("id") Integer id);
 
-    void decreaseCurrentRunningTaskCountById(@Param("id") Integer id);
+    void decreaseCurrentRunningTaskCount(@Param("id") Integer id);
+
+    void increaseCurrentBindCount(@Param("id") Integer id);
+
+    void decreaseCurrentBindCount(@Param("id") Integer id);
 }

@@ -10,7 +10,9 @@ import com.jasmine.crawler.common.pojo.entity.Crawler;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddCrawlerReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerReq;
+
 import java.util.List;
 
 public interface CrawlerService {
@@ -30,4 +32,6 @@ public interface CrawlerService {
     int disableBatch(List<Integer> ids);
 
     int enableBatch(List<Integer> ids);
+
+    int updateBatch(UpdateCrawlerBatchReq req);
 }

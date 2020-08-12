@@ -11,8 +11,9 @@ import com.jasmine.crawler.common.pojo.entity.Site;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBatchReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface SiteMapper {
@@ -26,4 +27,6 @@ public interface SiteMapper {
     Site getById(@Param("id") Integer id);
 
     Page<Site> getPage(GetSitePageReq req);
+
+    int updateBatch(UpdateSiteBatchReq req);
 }

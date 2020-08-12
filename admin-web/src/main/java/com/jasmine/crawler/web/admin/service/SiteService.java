@@ -10,6 +10,7 @@ import com.jasmine.crawler.common.pojo.entity.Site;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteReq;
 
 public interface SiteService {
@@ -23,4 +24,6 @@ public interface SiteService {
     Site getById(Integer id);
 
     PageResult<Site> getPage(GetSitePageReq req);
+
+    int updateBatch(UpdateSiteBatchReq req);
 }

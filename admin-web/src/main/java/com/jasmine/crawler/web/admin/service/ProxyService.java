@@ -10,7 +10,9 @@ import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddProxyReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetProxyPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyReq;
+
 import java.util.List;
 
 public interface ProxyService {
@@ -30,4 +32,6 @@ public interface ProxyService {
     int disableBatch(List<Integer> ids);
 
     int deleteBatch(List<Integer> ids);
+
+    int updateBatch(UpdateProxyBatchReq req);
 }

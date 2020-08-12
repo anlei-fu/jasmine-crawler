@@ -10,9 +10,13 @@ import com.jasmine.crawler.web.admin.pojo.req.UpdateProxyReq;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 public class UpdateProxyParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateProxyReq req;
 
@@ -55,5 +59,9 @@ public class UpdateProxyParams {
 
     public Integer getEnableStatus() {
         return req.getEnableStatus();
+    }
+
+    public Date getBlockTimeoutTime() {
+        return req.getBlockTimeoutTime();
     }
 }

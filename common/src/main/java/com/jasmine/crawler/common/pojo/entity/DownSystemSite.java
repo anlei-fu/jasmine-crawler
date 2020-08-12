@@ -1,15 +1,15 @@
 package com.jasmine.crawler.common.pojo.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Builder
-@Getter
-@Setter
 /**
  * Model of down system site
  */
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DownSystemSite extends EnableStatusFeature {
     /**
      * Unique key
@@ -55,7 +55,7 @@ public class DownSystemSite extends EnableStatusFeature {
      * Determine if the crawler worker auto download page ,
      * or download page by self int crawl script
      */
-    private Integer crawlerAutoDownLoadPage;
+    private Integer crawlerAutoDownloadPage;
 
     /**
      * The threshold that max url count to cache in url queue

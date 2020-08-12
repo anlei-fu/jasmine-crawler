@@ -11,7 +11,7 @@ import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteBlockRuleReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBlockRuleReq;
-import com.jasmine.crawler.web.admin.pojo.resp.SiteBlockRuleDetailResp;
+
 import java.util.List;
 
 public interface SiteBlockRuleService {
@@ -25,10 +25,6 @@ public interface SiteBlockRuleService {
     SiteBlockRule getById(Integer id);
 
     PageResult<SiteBlockRule> getPage(GetSiteBlockRulePageReq req);
-
-    SiteBlockRuleDetailResp getDetailById(Integer id);
-
-    PageResult<SiteBlockRuleDetailResp> getDetailPage(GetSiteBlockRulePageReq req);
 
     int deleteBatch(List<Integer> ids);
 }

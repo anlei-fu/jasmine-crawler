@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class AddDictionaryParams {
 
-    @Getter @Setter private String createUser;
+    @Getter
+    @Setter
+    private String createUser;
 
     private AddDictionaryReq req;
 

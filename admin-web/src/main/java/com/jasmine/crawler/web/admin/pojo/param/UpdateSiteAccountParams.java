@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateSiteAccountParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateSiteAccountReq req;
 
@@ -49,11 +51,19 @@ public class UpdateSiteAccountParams {
         return req.getPassword();
     }
 
-    public String getLastLoginIp() {
-        return req.getLastLoginIp();
-    }
-
     public Integer getEnableStatus() {
         return req.getEnableStatus();
+    }
+
+    public String getAccount() {
+        return req.getAccount();
+    }
+
+    public Integer getAccountType() {
+        return req.getAccountType();
+    }
+
+    public Integer getValidated() {
+        return req.getValidated();
     }
 }

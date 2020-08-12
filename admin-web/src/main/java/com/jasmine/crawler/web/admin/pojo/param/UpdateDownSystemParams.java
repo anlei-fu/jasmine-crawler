@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateDownSystemParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateDownSystemReq req;
 
@@ -51,22 +53,6 @@ public class UpdateDownSystemParams {
 
     public Integer getTaskMaxRunningCount() {
         return req.getTaskMaxRunningCount();
-    }
-
-    public Integer getTaskCurrentRunningCount() {
-        return req.getTaskCurrentRunningCount();
-    }
-
-    public Integer getUrlTotalCount() {
-        return req.getUrlTotalCount();
-    }
-
-    public Integer getUrlFinishedCount() {
-        return req.getUrlFinishedCount();
-    }
-
-    public Integer getUrlBadCount() {
-        return req.getUrlBadCount();
     }
 
     public Integer getEnableStatus() {

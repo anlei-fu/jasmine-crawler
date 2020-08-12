@@ -15,7 +15,7 @@ public interface SiteMapper {
 
     Site getById(@Param("id") Integer id);
 
-    void increaseTaskRunningCountById(@Param("id") Integer id);
+    void increaseCurrentRunningTaskCountById(@Param("id") Integer id);
 
     void decreaseCurrentRunningTaskCountById(@Param("id") Integer id);
 }

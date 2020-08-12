@@ -6,8 +6,8 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.job.validate.validator;
 
+import cn.hutool.core.util.StrUtil;
 import com.jasmine.crawler.common.validate.annotation.IdCardNo;
-import jdk.internal.joptsimple.internal.Strings;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -29,7 +29,7 @@ public class IdCardNoValidator implements ConstraintValidator<IdCardNo, String> 
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (Strings.isNullOrEmpty(value)) return !this.required;
+        if (StrUtil.isBlank(value)) return !this.required;
 
         return VALIDATOR.matcher(value).matches();
     }

@@ -6,33 +6,21 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.pojo.req.PageTimeReq;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetScriptPageReq extends PageReq {
+public class GetScriptPageReq extends PageTimeReq {
 
-    @ApiModelProperty("type of script")
-    @Enum("scriptType")
+    @Enum("ScriptType")
     private Integer scriptType;
 
-    @ApiModelProperty("site the script belong to")
-    private Integer downSiteId;
+    private Integer downSystemSiteId;
 
-    @ApiModelProperty("enable status")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 
-    @ApiModelProperty("create time start time")
-    private Date createTimeStart;
-
-    @ApiModelProperty("create time end time")
-    private Date createTimeEnd;
 }

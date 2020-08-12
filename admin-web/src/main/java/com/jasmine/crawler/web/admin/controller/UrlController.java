@@ -14,40 +14,34 @@ import com.jasmine.crawler.web.admin.pojo.req.AddUrlReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
 import com.jasmine.crawler.web.admin.service.UrlService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "url info")
 @RestController
 public class UrlController extends ControllerBase {
 
-    @Autowired private UrlService urlService;
+    @Autowired
+    private UrlService urlService;
 
-    @ApiOperation("add url")
     @PostMapping(path = "/url")
-    public R add(@Validated @ModelAttribute AddUrlReq req) {
+    public R add(@Validated AddUrlReq req) {
         boolean result = urlService.add(req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("delete single url")
     @DeleteMapping(path = "/url/{url}")
     public R deleteByUrl(@PathVariable String url) {
         boolean result = urlService.deleteByUrl(url);
         return responseBoolean(result);
     }
 
-    @ApiOperation("update single url")
     @PutMapping(path = "/url/{url}")
-    public R updateByUrl(@PathVariable String url, @Validated @ModelAttribute UpdateUrlReq req) {
+    public R updateByUrl(@PathVariable String url, @Validated UpdateUrlReq req) {
         boolean result = urlService.updateByUrl(url, req);
         return responseBoolean(result);
     }
 
-    @ApiOperation("get single url")
     @GetMapping(path = "/url/{url}")
     public R<Url> getByUrl(@PathVariable String url) {
         Url result = urlService.getByUrl(url);
@@ -58,9 +52,8 @@ public class UrlController extends ControllerBase {
         return null;
     }
 
-    @ApiOperation("get url page")
     @GetMapping(path = "/url/page")
-    public R<PageResult<Url>> getPage(@Validated @ModelAttribute GetUrlPageReq req) {
+    public R<PageResult<Url>> getPage(@Validated GetUrlPageReq req) {
         PageResult<Url> result = urlService.getPage(req);
         return responseData(result);
     }

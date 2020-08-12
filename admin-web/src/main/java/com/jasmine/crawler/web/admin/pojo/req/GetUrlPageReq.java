@@ -7,32 +7,25 @@
 package com.jasmine.crawler.web.admin.pojo.req;
 
 import com.jasmine.crawler.common.pojo.req.PageReq;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import java.util.Date;
+
 @Getter
 @Setter
 public class GetUrlPageReq extends PageReq {
 
-    @ApiModelProperty("the site that the url belong")
     private Integer downSystemSiteId;
 
-    @ApiModelProperty("")
     @Enum("urlType")
     private Integer urlType;
 
-    @ApiModelProperty("crawl status")
     @Enum("urlStatus")
     private Integer urlStatus;
 
-    @ApiModelProperty(" start time")
     private Date createTimeStart;
 
-    @ApiModelProperty(" end time")
     private Date createTimeEnd;
 }

@@ -6,42 +6,25 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.pojo.req.PageTimeReq;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class GetDownSystemSitePageReq extends PageReq {
+public class GetDownSystemSitePageReq extends PageTimeReq {
 
-    @ApiModelProperty("")
     private Integer siteId;
 
-    @ApiModelProperty("")
     private Integer scriptId;
 
-    @ApiModelProperty("")
     private Integer downSystemId;
 
-    @ApiModelProperty("")
     @Enum("crawlerCrawlType")
     private Integer crawlerCrawlType;
 
-    @ApiModelProperty("")
-    private Float bloomFpp;
-
-    @ApiModelProperty("")
     @Enum("enableStatus")
     private Integer enableStatus;
 
-    @ApiModelProperty(" start time")
-    private Date createTimeStart;
-
-    @ApiModelProperty(" end time")
-    private Date createTimeEnd;
 }

@@ -11,8 +11,8 @@ import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddUrlReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface UrlMapper {

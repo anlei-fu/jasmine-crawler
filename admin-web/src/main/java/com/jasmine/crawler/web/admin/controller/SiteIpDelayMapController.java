@@ -12,28 +12,37 @@ import com.jasmine.crawler.common.pojo.entity.SiteIpDelayMap;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpDelayMapPageReq;
 import com.jasmine.crawler.web.admin.service.SiteIpDelayMapService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "SiteIpDelayMap")
+import java.util.List;
+import java.util.Objects;
+
 @RestController
 public class SiteIpDelayMapController extends ControllerBase {
 
-    @Autowired private SiteIpDelayMapService siteIpDelayMapService;
+    @Autowired
+    private SiteIpDelayMapService siteIpDelayMapService;
 
-    public R deleteBatch() {
-        return null;
+    @DeleteMapping(path = "/siteIpDelayMap/{id}")
+    public R deleteById(@PathVariable("id") Integer id) {
+        boolean result = siteIpDelayMapService.deleteById(id);
+        return responseBoolean(result);
     }
 
-    @ApiOperation("get siteIpDelayMap page")
+    @DeleteMapping(path = "/siteIpDelayMap/delete/batch")
+    public R deleteBatch(@RequestBody List<Integer> ids) {
+        if (Objects.isNull(ids) || ids.size() == 0) return failed("no id to remove");
+
+        int success = siteIpDelayMapService.deleteBatch(ids);
+        return success(
+                String.format("expect to delete %d, successfully deleted %d", ids.size(), success));
+    }
+
     @GetMapping(path = "/siteIpDelayMap/page")
     public R<PageResult<SiteIpDelayMap>> getPage(
-            @Validated @ModelAttribute GetSiteIpDelayMapPageReq req) {
+            @Validated GetSiteIpDelayMapPageReq req) {
         PageResult<SiteIpDelayMap> result = siteIpDelayMapService.getPage(req);
         return responseData(result);
     }

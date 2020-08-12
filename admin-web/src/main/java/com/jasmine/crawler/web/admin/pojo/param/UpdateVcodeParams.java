@@ -12,7 +12,9 @@ import lombok.Setter;
 
 public class UpdateVcodeParams {
 
-    @Getter @Setter private Integer id;
+    @Getter
+    @Setter
+    private Integer id;
 
     private UpdateVcodeReq req;
 

@@ -13,10 +13,6 @@ import com.jasmine.crawler.web.admin.controller.SiteBlockRuleController;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteBlockRuleReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteBlockRulePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBlockRuleReq;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +20,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * SiteBlockRuleService Tester.
@@ -36,15 +36,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class SiteBlockRuleServiceTest {
 
-    @Autowired private SiteBlockRuleController controller;
+    @Autowired
+    private SiteBlockRuleController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -63,7 +68,9 @@ public class SiteBlockRuleServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -72,7 +79,9 @@ public class SiteBlockRuleServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -91,7 +100,9 @@ public class SiteBlockRuleServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -100,7 +111,9 @@ public class SiteBlockRuleServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -119,16 +132,17 @@ public class SiteBlockRuleServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getDetailById */
+    /**
+     * getDetailById
+     */
     @Test
     public void testGetDetailById() {
 
-        R result = controller.getDetailById(2);
-
-        TestUtils.print(result);
     }
 
-    /** getDetailPage */
+    /**
+     * getDetailPage
+     */
     @Test
     public void testGetDetailPage() {
 
@@ -142,14 +156,11 @@ public class SiteBlockRuleServiceTest {
         req.setCreateTimeStart(new Date());
         req.setCreateTimeEnd(new Date());
 
-        R result = controller.getDetailPage(req);
-
-        TestUtils.printQuery(req, result);
     }
 
     @Test
-    public  void  testDeleteBatch(){
-        List<Integer> ids =new LinkedList<>();
+    public void testDeleteBatch() {
+        List<Integer> ids = new LinkedList<>();
         controller.deleteBatch(ids);
     }
 }

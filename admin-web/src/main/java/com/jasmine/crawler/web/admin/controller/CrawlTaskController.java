@@ -12,23 +12,19 @@ import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlTaskPageReq;
 import com.jasmine.crawler.web.admin.service.CrawlTaskService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "task info")
 @RestController
 public class CrawlTaskController extends ControllerBase {
 
-    @Autowired private CrawlTaskService crawlTaskService;
+    @Autowired
+    private CrawlTaskService crawlTaskService;
 
-    @ApiOperation("get crawlTask page")
     @GetMapping(path = "/crawlTask/page")
-    public R<PageResult<CrawlTask>> getPage(@Validated @ModelAttribute GetCrawlTaskPageReq req) {
+    public R<PageResult<CrawlTask>> getPage(@Validated GetCrawlTaskPageReq req) {
         PageResult<CrawlTask> result = crawlTaskService.getPage(req);
         return responseData(result);
     }

@@ -6,14 +6,11 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.common.pojo.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-@ApiModel("site account info")
 @Getter
 @Setter
 public class SiteAccount extends EnableStatusFeature {
@@ -21,80 +18,87 @@ public class SiteAccount extends EnableStatusFeature {
     /**
      * Unique id
      */
-    @ApiModelProperty("")
     private Integer id;
+
+    /**
+     * Account
+     */
+    private String account;
+
+    /**
+     * Mark the account is validated
+     */
+    private Integer validated;
+
+    /**
+     * The type of account see {@enum AccountType}
+     */
+    private Integer AccountType;
 
     /**
      * Nick name
      */
-    @ApiModelProperty("")
     private String nickName;
 
     /**
      * Description of account
      */
-    @ApiModelProperty("description  of account")
     private String description;
 
     /**
      * Login type
      */
-    @ApiModelProperty("")
     private Integer loginType;
 
     /**
      * The site that account belong to
      */
-    @ApiModelProperty("the site that account belong")
     private Integer siteId;
 
     /**
      * The phone of account
      */
-    @ApiModelProperty("the phone of account")
     private String phone;
 
     /**
      * The email of account
      */
-    @ApiModelProperty("the email of account")
     private String email;
 
     /**
      * The password of account
      */
-    @ApiModelProperty("the password of account")
     private String password;
 
     /**
      * Last login time
      */
-    @ApiModelProperty("the time that account last login")
     private Date lastLoginTime;
 
     /**
      * Last login ip
      */
-    @ApiModelProperty("the ip that the account last login")
     private String lastLoginIp;
 
     /**
      * How many task is using the cookie of the account
      */
-    @ApiModelProperty("the current use count of the account ")
     private Integer currentUseCount;
 
     /**
      * The count of account which has been blocked by site ,means the task the cookie of
      * the account has failed
      */
-    @ApiModelProperty("")
     private Integer blockCurrentCount;
 
     /**
-     * The available time of account
+     * The available time after blocked
      */
-    @ApiModelProperty("")
     private Date blockTimeoutTime;
+
+    /**
+     * The available time after delayed
+     */
+    private Date delayTimeoutTime;
 
 }

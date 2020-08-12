@@ -11,7 +11,6 @@ import com.jasmine.crawler.web.admin.Application;
 import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.CrawlTaskController;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlTaskPageReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,15 +30,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class CrawlTaskServiceTest {
 
-    @Autowired private CrawlTaskController controller;
+    @Autowired
+    private CrawlTaskController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -55,8 +59,6 @@ public class CrawlTaskServiceTest {
         req.setCookieId(6);
         req.setProxyId(6);
         req.setEnableStatus(0);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 

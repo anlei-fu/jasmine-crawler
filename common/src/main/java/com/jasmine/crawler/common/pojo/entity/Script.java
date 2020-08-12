@@ -6,14 +6,11 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.common.pojo.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-@ApiModel("script info")
 @Getter
 @Setter
 public class Script extends EnableStatusFeature {
@@ -21,7 +18,6 @@ public class Script extends EnableStatusFeature {
     /**
      * unique id
      */
-    @ApiModelProperty("i: identifier key")
     private Integer id;
 
     private Integer downSystemSiteId;
@@ -31,24 +27,20 @@ public class Script extends EnableStatusFeature {
     /**
      * Usage of the script
      */
-    @ApiModelProperty("script usage")
     private String description;
 
     /**
      * The type of script see {@enum ScriptType}
      */
-    @ApiModelProperty("type of script")
     private Integer scriptType;
 
     /**
      * The path of script on file server
      */
-    @ApiModelProperty("script path")
     private String path;
 
     /**
      * Create time
      */
-    @ApiModelProperty("create time")
     private Date createTime;
 }

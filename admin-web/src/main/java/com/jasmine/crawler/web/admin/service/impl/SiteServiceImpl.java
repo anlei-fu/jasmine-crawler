@@ -12,6 +12,7 @@ import com.jasmine.crawler.web.admin.mapper.SiteMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteReq;
 import com.jasmine.crawler.web.admin.service.SiteService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
@@ -21,7 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SiteServiceImpl implements SiteService {
 
-    @Autowired private SiteMapper siteMapper;
+    @Autowired
+    private SiteMapper siteMapper;
 
     @Override
     public boolean add(AddSiteReq req) {
@@ -47,5 +49,10 @@ public class SiteServiceImpl implements SiteService {
     @Override
     public PageResult<Site> getPage(GetSitePageReq req) {
         return PageHelperUtils.paging(req, () -> siteMapper.getPage(req));
+    }
+
+    @Override
+    public int updateBatch(UpdateSiteBatchReq req) {
+        return siteMapper.updateBatch(req);
     }
 }

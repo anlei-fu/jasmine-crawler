@@ -79,6 +79,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                     .build();
             urlService.saveUrlResult(saveUrlResultReq);
         } catch (Exception ex) {
+            // ignore url loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
         }
     }
@@ -92,6 +93,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                     .build();
             dataService.saveData(saveDataResultReq);
         } catch (Exception ex) {
+            // ignore data loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
         }
     }
@@ -148,7 +150,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         // decrease crawler concurrency
         Crawler crawler = crawlerService.get(task.getCrawlerId());
         if (!Objects.isNull(crawler)&&!Objects.isNull(site))
-            crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), site.getMinuteSpeedLimit());
+            crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), site.getIpMinuteSpeedLimit());
 
         // handle block result
         if (req.getTaskStatus() != TaskStatus.SUCCESS) {
@@ -175,7 +177,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
             if (!Objects.isNull(cookie)) {
                 cookieService.resetBlockCount(cookie.getId());
                 if (!Objects.isNull(siteAccount))
-                    siteAccount.resetBlockCount(siteAccount.getId());
+                    siteAccountService.resetBlockCount(siteAccount.getId());
             }
 
             if (!Objects.isNull(siteAccount))

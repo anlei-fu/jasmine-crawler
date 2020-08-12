@@ -9,10 +9,8 @@ package com.jasmine.crawler.web.admin.service.impl;
 import com.jasmine.crawler.common.pojo.entity.Script;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.ScriptMapper;
-import com.jasmine.crawler.web.admin.pojo.param.UpdateScriptParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddScriptReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateScriptReq;
 import com.jasmine.crawler.web.admin.service.ScriptService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScriptServiceImpl implements ScriptService {
 
-    @Autowired private ScriptMapper scriptMapper;
+    @Autowired
+    private ScriptMapper scriptMapper;
 
     @Override
     public boolean add(AddScriptReq req) {
@@ -31,12 +30,6 @@ public class ScriptServiceImpl implements ScriptService {
     @Override
     public boolean deleteById(Integer id) {
         return scriptMapper.deleteById(id) > 0;
-    }
-
-    @Override
-    public boolean updateById(Integer id, UpdateScriptReq req) {
-        UpdateScriptParams params = new UpdateScriptParams(id, req);
-        return scriptMapper.updateById(params) > 0;
     }
 
     @Override

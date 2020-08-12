@@ -6,37 +6,24 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Ip;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.jasmine.crawler.common.validate.annotation.Ip;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import java.util.Date;
+
 @Getter
 @Setter
 public class UpdateCookieReq {
 
-    @ApiModelProperty("")
     private Integer siteId;
 
-    @ApiModelProperty("")
     private Integer siteAccountId;
 
-    @ApiModelProperty("")
     private String cookie;
 
-    @ApiModelProperty("")
     @Ip
     private String loginIp;
 
-    @ApiModelProperty("")
-    private Integer currentBlockCount;
-
-    @ApiModelProperty("")
-    private Integer currentUseCount;
-
-    @ApiModelProperty("")
     private Date expireTime;
 }

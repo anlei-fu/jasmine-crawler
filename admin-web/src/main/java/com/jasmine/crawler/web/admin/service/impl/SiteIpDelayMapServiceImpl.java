@@ -15,13 +15,26 @@ import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SiteIpDelayMapServiceImpl implements SiteIpDelayMapService {
 
-    @Autowired private SiteIpDelayMapMapper siteIpDelayMapMapper;
+    @Autowired
+    private SiteIpDelayMapMapper siteIpDelayMapMapper;
 
     @Override
     public PageResult<SiteIpDelayMap> getPage(GetSiteIpDelayMapPageReq req) {
         return PageHelperUtils.paging(req, () -> siteIpDelayMapMapper.getPage(req));
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return siteIpDelayMapMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public int deleteBatch(List<Integer> ids) {
+        return siteIpDelayMapMapper.deleteBatch(ids);
     }
 }

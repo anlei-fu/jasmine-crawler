@@ -11,7 +11,6 @@ import com.jasmine.crawler.web.admin.Application;
 import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.SiteUrlBloomController;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteUrlBloomPageReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,15 +30,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class SiteUrlBloomServiceTest {
 
-    @Autowired private SiteUrlBloomController controller;
+    @Autowired
+    private SiteUrlBloomController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -48,7 +52,9 @@ public class SiteUrlBloomServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
@@ -57,8 +63,6 @@ public class SiteUrlBloomServiceTest {
         req.setDownSystemSiteId(6);
         req.setBloomLoadingStatus(0);
         req.setEnableStatus(0);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 

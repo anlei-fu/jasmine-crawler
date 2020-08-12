@@ -1,7 +1,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.common.constant.BindStatus;
-import com.jasmine.crawler.common.constant.DispatchStatus;
+import com.jasmine.crawler.common.constant.BindResult;
+import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
@@ -39,7 +39,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTasksToBind() throws Exception {
-          service.getTasksToBind(1);
+        service.getTasksToBind(1);
     }
 
     /**
@@ -75,7 +75,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTasksConfigsToDispatch() throws Exception {
-          service.getTasksConfigsToDispatch();
+        service.getTasksConfigsToDispatch();
     }
 
     /**
@@ -93,7 +93,7 @@ public class CrawlTaskServiceImplTest {
     public void testBindFailed() throws Exception {
         CrawlTask task = CrawlTask.builder()
                 .id(1)
-                .bindLastStatus(BindStatus.DOWN_SYSTEM_NOT_AVAILABLE)
+                .bindLastResult(BindResult.DOWN_SYSTEM_NOT_AVAILABLE)
                 .bindLastMsg("s")
                 .build();
         service.bindFailed(task);
@@ -104,7 +104,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testBindSuccess() throws Exception {
-        service.bindSuccess(1);
+        service.bindSuccess(null);
     }
 
     /**
@@ -122,8 +122,8 @@ public class CrawlTaskServiceImplTest {
     public void testDispatchFailed() throws Exception {
         CrawlTask task = CrawlTask.builder()
                 .id(1)
-                .dispatchStatus(DispatchStatus.COOKIE_NOT_AVAILABLE)
-                .dispatchMsg("s")
+                .dispatchLastSResult(DispatchResult.COOKIE_NOT_AVAILABLE)
+                .dispatchLastMsg("s")
                 .build();
         service.dispatchFailed(task);
     }

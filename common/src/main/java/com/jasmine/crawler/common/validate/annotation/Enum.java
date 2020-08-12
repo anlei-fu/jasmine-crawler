@@ -6,6 +6,12 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.common.validate.annotation;
 
+import javax.validation.Payload;
+
 public @interface Enum {
     String value();
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

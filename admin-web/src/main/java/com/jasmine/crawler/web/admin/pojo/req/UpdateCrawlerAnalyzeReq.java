@@ -6,11 +6,10 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
-public class UpdateCrawlerAnalyzeReq {}
+public class UpdateCrawlerAnalyzeReq {
+}

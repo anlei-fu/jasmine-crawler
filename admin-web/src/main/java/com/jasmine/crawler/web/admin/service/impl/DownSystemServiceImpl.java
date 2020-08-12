@@ -12,6 +12,7 @@ import com.jasmine.crawler.web.admin.mapper.DownSystemMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemReq;
 import com.jasmine.crawler.web.admin.service.DownSystemService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
@@ -21,7 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DownSystemServiceImpl implements DownSystemService {
 
-    @Autowired private DownSystemMapper downSystemMapper;
+    @Autowired
+    private DownSystemMapper downSystemMapper;
 
     @Override
     public boolean add(AddDownSystemReq req) {
@@ -47,5 +49,10 @@ public class DownSystemServiceImpl implements DownSystemService {
     @Override
     public PageResult<DownSystem> getPage(GetDownSystemPageReq req) {
         return PageHelperUtils.paging(req, () -> downSystemMapper.getPage(req));
+    }
+
+    @Override
+    public int updateBatch(UpdateDownSystemBatchReq req) {
+        return downSystemMapper.updateBatch(req);
     }
 }

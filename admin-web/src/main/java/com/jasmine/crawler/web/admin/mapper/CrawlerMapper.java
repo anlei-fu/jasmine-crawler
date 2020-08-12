@@ -11,9 +11,11 @@ import com.jasmine.crawler.common.pojo.entity.Crawler;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateCrawlerParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddCrawlerReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq;
-import java.util.List;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerBatchReq;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface CrawlerMapper {
@@ -33,4 +35,6 @@ public interface CrawlerMapper {
     int disableBatch(@Param("list") List<Integer> ids);
 
     int enableBatch(@Param("list") List<Integer> ids);
+
+    int updateBatch(UpdateCrawlerBatchReq req);
 }

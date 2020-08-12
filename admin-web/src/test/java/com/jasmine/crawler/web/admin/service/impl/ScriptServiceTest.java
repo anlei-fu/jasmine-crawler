@@ -12,8 +12,6 @@ import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.ScriptController;
 import com.jasmine.crawler.web.admin.pojo.req.AddScriptReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateScriptReq;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,15 +31,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class ScriptServiceTest {
 
-    @Autowired private ScriptController controller;
+    @Autowired
+    private ScriptController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
@@ -58,7 +61,9 @@ public class ScriptServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -67,24 +72,17 @@ public class ScriptServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
-        UpdateScriptReq req = new UpdateScriptReq();
-
-        req.setDescription("this is description mock data segment");
-        req.setPath("p://tencent.gif");
-        req.setScriptType(30);
-        req.setDownSiteId(35);
-        req.setEnableStatus(0);
-
-        R result = controller.updateById(29, req);
-
-        TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -93,17 +91,16 @@ public class ScriptServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
         GetScriptPageReq req = new GetScriptPageReq();
 
         req.setScriptType(90);
-        req.setDownSiteId(15);
         req.setEnableStatus(0);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 

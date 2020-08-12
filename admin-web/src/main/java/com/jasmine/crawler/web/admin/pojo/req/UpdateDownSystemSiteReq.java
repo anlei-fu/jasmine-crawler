@@ -6,73 +6,53 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
 @Getter
 @Setter
 public class UpdateDownSystemSiteReq {
 
-    @ApiModelProperty("")
     private Integer siteId;
 
-    @ApiModelProperty("")
     private Integer scriptId;
 
-    @ApiModelProperty("")
     private Integer downSystemId;
 
-    @ApiModelProperty("")
     private Integer priority;
 
-    @ApiModelProperty("")
     private String crawlerPageEncoding;
 
-    @ApiModelProperty("")
     private Integer crawlerPageTimeout;
 
-    @ApiModelProperty("")
-    @Enum("crawlerCrawlType")
+    @Enum("CrawlerCrawlType")
     private Integer crawlerCrawlType;
 
-    @ApiModelProperty("")
     private Integer crawlerAutoDownloadPage;
 
-    @ApiModelProperty("")
     private Integer urlMaxCacheCount;
 
-    @ApiModelProperty("")
     private String urlEncodes;
 
-    @ApiModelProperty("")
     private Integer urlMaxCrawlCount;
 
-    @ApiModelProperty("")
+    private Integer urlMaxDepth;
+
     private String urlMatchPatterns;
 
-    @ApiModelProperty("")
-    private Integer bloomExpectedUrlSize;
-
-    @ApiModelProperty("")
-    private Float bloomFpp;
-
-    @ApiModelProperty("")
     private Integer taskUrlBatchCount;
 
-    @ApiModelProperty("")
     private Integer taskMaxWaitToBindCount;
 
-    @ApiModelProperty("")
     private Integer taskMaxRunningCount;
 
-    @ApiModelProperty("")
     private Integer taskTimeout;
 
-    @ApiModelProperty("")
-    @Enum("enableStatus")
+    private Integer bloomExpectedUrlSize;
+
+    private Integer bloomFpp;
+
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

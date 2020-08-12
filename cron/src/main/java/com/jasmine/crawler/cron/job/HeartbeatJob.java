@@ -8,7 +8,6 @@ import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,8 +29,9 @@ public class HeartbeatJob extends LoggerSupport {
      * Send crawler a heartbeat to check is crawler still alive
      * 1. post crawler with masters info and file system host, master(self)
      * 2. update crawler heartbeat status
+     * 3. the 'heartbeat-lost-count' smaller, the heartbeat rate more often
      */
-    @Scheduled(cron = "*/6 * * * * ?")
+//    @Scheduled(cron = "*/6 * * * * ?")
     public void run() {
         info("-------------begin sending heartbeat---------------");
         List<Crawler> crawlers = null;

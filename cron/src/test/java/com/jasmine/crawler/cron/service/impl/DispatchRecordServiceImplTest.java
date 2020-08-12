@@ -1,6 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.common.constant.DispatchStatus;
+import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
@@ -41,7 +41,7 @@ public class DispatchRecordServiceImplTest {
         DispatchRecord record = DispatchRecord.builder()
                 .taskId(1)
                 .dispatchMsg("sss")
-                .dispatchStatus(DispatchStatus.COOKIE_NOT_AVAILABLE)
+                .dispatchResult(DispatchResult.COOKIE_NOT_AVAILABLE)
                 .build();
     }
 

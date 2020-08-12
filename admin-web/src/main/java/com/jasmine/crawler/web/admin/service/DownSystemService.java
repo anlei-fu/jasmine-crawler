@@ -10,6 +10,7 @@ import com.jasmine.crawler.common.pojo.entity.DownSystem;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemReq;
 
 public interface DownSystemService {
@@ -23,4 +24,6 @@ public interface DownSystemService {
     DownSystem getById(Integer id);
 
     PageResult<DownSystem> getPage(GetDownSystemPageReq req);
+
+    int updateBatch(UpdateDownSystemBatchReq req);
 }

@@ -6,185 +6,220 @@ Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.CrawlerMapper">
     <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddCrawlerReq">
-          insert into crawler 
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             client_version,
-             name,
-             ip,
+        insert into crawler
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            unique_id,
+            client_version,
+            name,
+            ip,
+            port,
             <if test="description != null and description != ''">
-                  description,
+                description,
             </if>
             <if test="crawlerType != null">
-                  crawler_type,
+                crawler_type,
             </if>
             <if test="key != null and key != ''">
-                  `key`,
+                `key`,
             </if>
-             unique_id,
-             port,
             <if test="maxConcurrency != null">
-                  max_concurrency,
+                max_concurrency,
             </if>
-             enable_status,
-             create_time
-          </trim>
-          values
-          <trim prefix="(" suffix=")" suffixOverrides=",">
-             #{clientVersion},
-             #{name},
-             #{ip},
+            <if test="enableStatus != null">
+                enable_status,
+            </if>
+            create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{uniqueId},
+            #{clientVersion},
+            #{name},
+            #{ip},
+            #{port},
             <if test="description != null and description != ''">
-                  #{description},
+                #{description},
             </if>
             <if test="crawlerType != null">
-                  #{crawlerType},
+                #{crawlerType},
             </if>
             <if test="key != null and key != ''">
-                  #{key},
+                #{key},
             </if>
-             #{uniqueId},
-             #{port},
             <if test="maxConcurrency != null">
-                  #{maxConcurrency},
+                #{maxConcurrency},
             </if>
-             #{enableStatus},
-             current_timestamp
-          </trim>
+            <if test="enableStatus != null">
+                #{enableStatus},
+            </if>
+            current_timestamp
+        </trim>
     </insert>
     <delete id="deleteById">
-          delete from crawler t
-          <where>
+        delete from crawler t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </delete>
     <delete id="deleteBatch">
         delete from crawler
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
         </foreach>
     </delete>
     <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateCrawlerParams">
-          update crawler t
-          <set>
+        update crawler t
+        <set>
             <if test="clientVersion != null">
-                  t.client_version = #{clientVersion},
+                t.client_version = #{clientVersion},
             </if>
             <if test="name != null and name != ''">
-                  t.name = #{name},
+                t.name = #{name},
             </if>
             <if test="ip != null and ip != ''">
-                  t.ip = #{ip},
+                t.ip = #{ip},
             </if>
             <if test="description != null and description != ''">
-                  t.description = #{description},
+                t.description = #{description},
             </if>
             <if test="crawlerType != null">
-                  t.crawler_type = #{crawlerType},
+                t.crawler_type = #{crawlerType},
             </if>
             <if test="key != null and key != ''">
-                  t.`key` = #{key},
+                t.`key` = #{key},
             </if>
             <if test="uniqueId != null and uniqueId != ''">
-                  t.unique_id = #{uniqueId},
+                t.unique_id = #{uniqueId},
             </if>
             <if test="port != null">
-                  t.port = #{port},
+                t.port = #{port},
             </if>
             <if test="maxConcurrency != null">
-                  t.max_concurrency = #{maxConcurrency},
-            </if>
-            <if test="currentConcurrency != null">
-                  t.current_concurrency = #{currentConcurrency},
+                t.max_concurrency = #{maxConcurrency},
             </if>
             <if test="enableStatus != null">
-                  t.enable_status = #{enableStatus},
+                t.enable_status = #{enableStatus},
             </if>
             <if test="id != null">
-                  t.id = #{id}
+                t.id = #{id}
             </if>
-          </set>
-          <where>
+        </set>
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </update>
     <update id="disableBatch">
         update crawler
         set enbale_status = 0
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item
         </foreach>
     </update>
     <update id="enableBatch">
         update crawler
         set enbale_status = 1
         where id in
-        <foreach collection="list" index="item" separator="," open="(" close=")">
-            #{item},
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="updateBatch" parameterType="com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerBatchReq">
+        update crawler
+        <set>
+            <if test="crawlerType!=null ">
+                crawler_type = #{crawlerType},
+            </if>
+            <if test="clientVersion!=null and clientVersion!=''">
+                client_version = #{clientVersion},
+            </if>
+            <if test="ip!=null and clientVersion!=''">
+                ip = #{ip},
+            </if>
+            <if test="description!=null and clientVersion!=''">
+                description = #{description},
+            </if>
+            <if test="enableStatus!=null">
+                enable_status = #{enableStatus},
+            </if>
+            <if test="maxConcurrency!=null ">
+                maX_concurrency = #{maxConcurrency}
+            </if>
+        </set>
+        where id in
+        <foreach collection="ids" open="(" close=")" item="item" separator=",">
+            #{item}
         </foreach>
     </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Crawler">
-          select
-             t.id,
-             t.client_version,
-             t.name,
-             t.ip,
-             t.description,
-             t.crawler_type,
-             t.key,
-             t.unique_id,
-             t.port,
-             t.max_concurrency,
-             t.current_concurrency,
-             t.heartbeat_status,
-             t.heartbeat_last_time,
-             t.heartbeat_lost_count,
-             t.enable_status,
-             t.create_time
-          from crawler t
-          <where>
+        select
+        t.id,
+        t.client_version,
+        t.name,
+        t.ip,
+        t.description,
+        t.crawler_type,
+        t.key,
+        t.unique_id,
+        t.port,
+        t.max_concurrency,
+        t.current_concurrency,
+        t.heartbeat_status,
+        t.heartbeat_last_time,
+        t.heartbeat_lost_count,
+        t.enable_status,
+        t.create_time
+        from crawler t
+        <where>
             t.id = #{id}
-          </where>
+        </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Crawler" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq">
-          select
-             t.id,
-             t.client_version,
-             t.name,
-             t.ip,
-             t.description,
-             t.crawler_type,
-             t.key,
-             t.unique_id,
-             t.port,
-             t.max_concurrency,
-             t.current_concurrency,
-             t.heartbeat_status,
-             t.heartbeat_last_time,
-             t.heartbeat_lost_count,
-             t.enable_status,
-             t.create_time
-          from crawler t
-          <where>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Crawler"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq">
+        select
+        t.id,
+        t.client_version,
+        t.name,
+        t.ip,
+        t.description,
+        t.crawler_type,
+        t.key,
+        t.unique_id,
+        t.port,
+        t.max_concurrency,
+        t.current_concurrency,
+        t.heartbeat_status,
+        t.heartbeat_last_time,
+        t.heartbeat_lost_count,
+        t.enable_status,
+        t.create_time
+        from crawler t
+        <where>
             <if test="crawlerType != null">
-                  t.crawler_type = #{crawlerType}
-            </if>
-            <if test="uniqueId != null">
-                  and t.unique_id = #{uniqueId}
+                t.crawler_type = #{crawlerType}
             </if>
             <if test="heartbeatStatus != null">
-                  and t.heartbeat_status = #{heartbeatStatus}
+                and t.heartbeat_status = #{heartbeatStatus}
+            </if>
+            <if test="ip != null and ip !=''">
+                and t.ip like concat('%', #{ip}, '%')
+            </if>
+            <if test="name != null and name !=''">
+                and t.name like concat('%', #{name}, '%')
+            </if>
+            <if test="clientVersion != null and clientVersion !=''">
+                and t.clientVersion like concat('%', #{clientVersion}, '%')
             </if>
             <if test="enableStatus != null">
-                  and t.enable_status = #{enableStatus}
+                and t.enable_status = #{enableStatus}
             </if>
-            <if test="createTimeStart != null">
-                  and  t.create_time >= #{createTimeStart}
+            <if test="createTimeStart != null and createTimeStart !=''">
+                t.create_time >= #{createTimeStart}
             </if>
-            <if test="createTimeEnd != null">
-                  and t.create_time &lt; #{createTimeEnd}
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
             </if>
-          </where>
+        </where>
     </select>
 </mapper>

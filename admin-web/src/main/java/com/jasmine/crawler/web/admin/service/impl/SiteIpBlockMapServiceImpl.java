@@ -12,14 +12,16 @@ import com.jasmine.crawler.web.admin.mapper.SiteIpBlockMapMapper;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteIpBlockMapPageReq;
 import com.jasmine.crawler.web.admin.service.SiteIpBlockMapService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SiteIpBlockMapServiceImpl implements SiteIpBlockMapService {
 
-    @Autowired private SiteIpBlockMapMapper siteIpBlockMapMapper;
+    @Autowired
+    private SiteIpBlockMapMapper siteIpBlockMapMapper;
 
     @Override
     public PageResult<SiteIpBlockMap> getPage(GetSiteIpBlockMapPageReq req) {

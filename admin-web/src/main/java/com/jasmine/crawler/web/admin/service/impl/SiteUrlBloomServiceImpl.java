@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SiteUrlBloomServiceImpl implements SiteUrlBloomService {
 
-    @Autowired private SiteUrlBloomMapper siteUrlBloomMapper;
+    @Autowired
+    private SiteUrlBloomMapper siteUrlBloomMapper;
 
     @Override
     public SiteUrlBloom getById(Integer id) {

@@ -25,7 +25,7 @@ public class ProxyServiceImpl implements ProxyService {
 
     @Override
     public int increaseCurrentUseCount(Integer proxyId) {
-        return proxyMapper.increaseCurrentUseCountById(proxyId);
+        return proxyMapper.increaseCurrentUseCount(proxyId);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ProxyServiceImpl implements ProxyService {
 
     @Override
     public void decreaseCurrentUseCount(Integer id) {
-        proxyMapper.decreaseCurrentUseCountById(id);
+        proxyMapper.decreaseCurrentUseCount(id);
     }
 
     @Override

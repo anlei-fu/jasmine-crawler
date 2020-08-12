@@ -13,10 +13,6 @@ import com.jasmine.crawler.web.admin.controller.CrawlerController;
 import com.jasmine.crawler.web.admin.pojo.req.AddCrawlerReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlerPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateCrawlerReq;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +20,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * CrawlerService Tester.
@@ -36,21 +35,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class CrawlerServiceTest {
 
-    @Autowired private CrawlerController controller;
+    @Autowired
+    private CrawlerController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** add */
+    /**
+     * add
+     */
     @Test
     public void testAdd() {
 
         AddCrawlerReq req = new AddCrawlerReq();
 
-        req.setClientVersion(30);
+        req.setClientVersion("30");
         req.setName("calla");
         req.setIp("192.168.0.2");
         req.setDescription("this is description mock data segment");
@@ -66,7 +70,9 @@ public class CrawlerServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** deleteById */
+    /**
+     * deleteById
+     */
     @Test
     public void testDeleteById() {
 
@@ -75,7 +81,9 @@ public class CrawlerServiceTest {
         TestUtils.print(result);
     }
 
-    /** updateById */
+    /**
+     * updateById
+     */
     @Test
     public void testUpdateById() {
 
@@ -90,7 +98,6 @@ public class CrawlerServiceTest {
         req.setUniqueId("mock string");
         req.setPort(0);
         req.setMaxConcurrency(90);
-        req.setCurrentConcurrency(20);
         req.setEnableStatus(1);
 
         R result = controller.updateById(1, req);
@@ -98,7 +105,9 @@ public class CrawlerServiceTest {
         TestUtils.printQuery(req, result);
     }
 
-    /** getById */
+    /**
+     * getById
+     */
     @Test
     public void testGetById() {
 
@@ -107,18 +116,17 @@ public class CrawlerServiceTest {
         TestUtils.print(result);
     }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 
         GetCrawlerPageReq req = new GetCrawlerPageReq();
 
         req.setCrawlerType(90);
-        req.setUniqueId("mock string");
         req.setHeartbeatStatus(0);
         req.setEnableStatus(1);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
 
         R result = controller.getPage(req);
 
@@ -126,8 +134,8 @@ public class CrawlerServiceTest {
     }
 
     @Test
-    public  void  testDeleteBatch(){
-        List<Integer> ids =new LinkedList<>();
+    public void testDeleteBatch() {
+        List<Integer> ids = new LinkedList<>();
         controller.deleteBatch(ids);
     }
 }

@@ -30,15 +30,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class SiteIpDelayMapServiceTest {
 
-    @Autowired private SiteIpDelayMapController controller;
+    @Autowired
+    private SiteIpDelayMapController controller;
 
     @Before
-    public void before() {}
+    public void before() {
+    }
 
     @After
-    public void after() {}
+    public void after() {
+    }
 
-    /** getPage */
+    /**
+     * getPage
+     */
     @Test
     public void testGetPage() {
 

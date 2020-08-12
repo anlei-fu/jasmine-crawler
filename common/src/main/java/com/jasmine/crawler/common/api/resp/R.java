@@ -6,21 +6,15 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.common.api.resp;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
 @Getter
-@ApiModel("Response wrapper")
 public class R<T> {
 
-    @ApiModelProperty("Response code")
     private int code;
 
-    @ApiModelProperty("Response message")
     private String message;
 
-    @ApiModelProperty("Response data")
     private T data;
 
     public R(int code, String msg) {

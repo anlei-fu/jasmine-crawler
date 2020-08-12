@@ -6,45 +6,33 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.web.admin.validate.annotation.Enum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
+import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("")
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class AddDownSystemReq {
 
-    @ApiModelProperty("")
+    @NotNull
     private String name;
 
-    @ApiModelProperty("")
-    @NotNull
     private Integer priority;
 
-    @ApiModelProperty("")
     private String description;
 
-    @ApiModelProperty("")
     private String appKey;
 
-    @ApiModelProperty("")
     private String appSecret;
 
-    @ApiModelProperty("")
     private String dataUrl;
 
-    @ApiModelProperty("")
     private String dataQueue;
 
-    @ApiModelProperty("")
-    @NotNull
     private Integer taskMaxRunningCount;
 
-    @ApiModelProperty("")
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
 }

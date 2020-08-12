@@ -31,7 +31,7 @@ public class ControllerBase {
     }
 
     public R failed(String msg) {
-        return create(R.RConstant.SUCCEED_CODE, "failed");
+        return create(R.RConstant.FAILED_CODE, "failed");
     }
 
     public R success() {
