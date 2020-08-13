@@ -72,4 +72,9 @@ public class SiteAccountServiceImpl implements SiteAccountService {
     public int updateBatch(UpdateSiteAccountBatchReq req) {
         return siteAccountMapper.updateBatch(req);
     }
+
+    @Override
+    public List<SiteAccount> getAccountBySiteId(Integer siteId) {
+        return siteAccountMapper.getAccountBySiteId(siteId);
+    }
 }

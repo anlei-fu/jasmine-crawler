@@ -15,6 +15,7 @@ import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
 import com.jasmine.crawler.web.admin.service.SiteAccountService;
+import org.graalvm.compiler.core.common.type.AbstractObjectStamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -75,12 +76,6 @@ public class SiteAccountController extends ControllerBase {
         return responseBoolean(result);
     }
 
-    @GetMapping(path = "/siteAccount/{id}")
-    public R<SiteAccount> getById(@PathVariable Integer id) {
-        SiteAccount result = siteAccountService.getById(id);
-        return responseData(result);
-    }
-
     @PutMapping(path = "/siteAccount/update/batch")
     public R updateBatch(@RequestBody UpdateSiteAccountBatchReq req) {
         if (Objects.isNull(req.getIds()) || req.getIds().size() == 0)
@@ -93,6 +88,19 @@ public class SiteAccountController extends ControllerBase {
                 success)
         );
     }
+
+    @GetMapping(path = "/siteAccount/{id}")
+    public R<SiteAccount> getById(@PathVariable Integer id) {
+        SiteAccount result = siteAccountService.getById(id);
+        return responseData(result);
+    }
+
+    @GetMapping(path = "/siteAccount/getBySite")
+    public  R<List<SiteAccount>> getAccountBySiteId(@RequestParam Integer siteId){
+        List<SiteAccount> accounts =siteAccountService.getAccountBySiteId(siteId);
+        return responseData(accounts);
+    }
+
 
     @GetMapping(path = "/siteAccount/page")
     public R<PageResult<SiteAccount>> getPage(

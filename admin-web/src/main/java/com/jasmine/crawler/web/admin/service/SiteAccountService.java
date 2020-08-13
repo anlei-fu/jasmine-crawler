@@ -34,4 +34,6 @@ public interface SiteAccountService {
     int enableBatch(List<Integer> ids);
 
     int updateBatch(UpdateSiteAccountBatchReq req);
+
+    List<SiteAccount> getAccountBySiteId(Integer siteId);
 }

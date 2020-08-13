@@ -39,7 +39,7 @@ public class DispatchRecordServiceImplTest {
     @Test
     public void testAdd() throws Exception {
         DispatchRecord record = DispatchRecord.builder()
-                .taskId(1)
+                .crawlTaskId(1)
                 .dispatchMsg("sss")
                 .dispatchResult(DispatchResult.COOKIE_NOT_AVAILABLE)
                 .build();

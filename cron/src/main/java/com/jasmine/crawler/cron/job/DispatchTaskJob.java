@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -90,6 +89,7 @@ public class DispatchTaskJob extends LoggerSupport {
                 } else {
                     failed++;
                 }
+                info(String.format("dispatch task(%d) result:%s ",crawlTaskConfig.getTaskId(),dispatchResult));
             } catch (Exception ex) {
                 exception++;
                 error(String.format(
@@ -182,7 +182,7 @@ public class DispatchTaskJob extends LoggerSupport {
                     "proxy not available"
             );
 
-            if (valid)
+            if (!valid)
                 return false;
 
             crawlTaskConfig.setProxy(proxy);
@@ -199,7 +199,7 @@ public class DispatchTaskJob extends LoggerSupport {
                     "cookie not available"
             );
 
-            if (valid)
+            if (!valid)
                 return false;
         }
 
@@ -211,7 +211,7 @@ public class DispatchTaskJob extends LoggerSupport {
                 DispatchResult.CRAWLER_NOT_AVAILABLE,
                 "crawler not available"
         );
-        if (valid)
+        if (!valid)
             return false;
 
         // fetch task urls
@@ -233,12 +233,12 @@ public class DispatchTaskJob extends LoggerSupport {
         crawlTaskConfig.setUrls(urls);
 
         // post crawler to run new task
-        R resp = null;
+        R resp = new R();
         try {
             // post crawler to run new task
             resp = restTemplate.postForObject(
                     String.format(
-                            "%s:%d%s",
+                            "http://%s:%d%s",
                             crawler.getIp(),
                             crawler.getPort(),
                             systemConfig.getCrawlerStartNewTaskPath()
@@ -247,6 +247,8 @@ public class DispatchTaskJob extends LoggerSupport {
                     R.class
             );
         } catch (Exception ex) {
+            resp.setCode(500);
+            resp.setMessage("failed");
             error(String.format("post crawler(%d) failed", crawler.getId()), ex);
         }
 
@@ -277,6 +279,7 @@ public class DispatchTaskJob extends LoggerSupport {
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
             dispatchFailed(crawlTaskConfig, dispatchStatus, msg);
+            info(String.format("dispatch task(%d) failed cause %s",crawlTaskConfig.getTaskId(),msg));
             return false;
         }
 
@@ -295,7 +298,7 @@ public class DispatchTaskJob extends LoggerSupport {
 
         // add dispatch record
         DispatchRecord dispatchRecord = DispatchRecord.builder()
-                .taskId(crawlTaskConfig.getTaskId())
+                .crawlTaskId(crawlTaskConfig.getTaskId())
                 .dispatchResult(dispatchResult)
                 .dispatchMsg(dispatchMsg)
                 .build();
@@ -305,7 +308,7 @@ public class DispatchTaskJob extends LoggerSupport {
         CrawlTask dispatchFailedTask = CrawlTask
                 .builder()
                 .id(crawlTaskConfig.getTaskId())
-                .dispatchLastSResult(dispatchResult)
+                .dispatchLastResult(dispatchResult)
                 .dispatchLastMsg(dispatchMsg)
                 .build();
 
@@ -328,7 +331,7 @@ public class DispatchTaskJob extends LoggerSupport {
         DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
-            downSystemSiteService.decreaseCurrentBindCount(downSystemSite.getId());
+            downSystemSiteService.increaseCurrentBindCount(downSystemSite.getId());
             DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
             if (!Objects.isNull(downSystem))
                 downSystemService.decreaseCurrentRunningTaskCount(downSystem.getId());

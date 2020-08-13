@@ -126,6 +126,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="password != null and password != ''">
                 t.password = #{password},
             </if>
+            <if test="delayTimeoutTime != null and delayTimeoutTime != ''">
+                t.delay_timeout_time = #{delayTimeoutTime},
+            </if>
+            <if test="blockTimeoutTime != null and blockTimeoutTime != ''">
+                t.block_timeout_time = #{blockTimeoutTime},
+            </if>
             <if test="enableStatus != null">
                 t.enable_status = #{enableStatus}
             </if>
@@ -246,5 +252,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 and t.create_time &lt; #{createTimeEnd}
             </if>
         </where>
+    </select>
+    <select id="getAccountBySiteId" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount">
+        select
+        id,
+        account,
+        from site_account
+        where site_id = #{siteId}
     </select>
 </mapper>

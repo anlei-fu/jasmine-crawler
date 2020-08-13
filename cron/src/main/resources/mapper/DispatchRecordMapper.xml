@@ -8,8 +8,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 
     <insert id="add">
         insert into dispatch_record
-        (task_id,dispatch_result,dispatch_msg)
+        (crawl_task_id,dispatch_result,dispatch_msg)
         values
-        (#{task_id},#{dispatchResult},#{dispatchMsg})
+        (#{crawlTaskId},#{dispatchResult},#{dispatchMsg})
     </insert>
 </mapper>

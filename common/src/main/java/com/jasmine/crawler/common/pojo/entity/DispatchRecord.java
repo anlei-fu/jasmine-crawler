@@ -24,7 +24,7 @@ public class DispatchRecord {
     /**
      * The task the record belong to
      */
-    private Integer taskId;
+    private Integer crawlTaskId;
 
     /**
      * Dispatch status see {@enum DispatchStatus}

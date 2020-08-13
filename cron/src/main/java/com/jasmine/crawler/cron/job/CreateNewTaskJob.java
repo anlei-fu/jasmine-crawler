@@ -71,7 +71,7 @@ public class CreateNewTaskJob extends LoggerSupport {
         CrawlTask taskToCreate = CrawlTask.builder()
                 .downSystemSiteId(downSystemSite.getId())
                 .siteId(downSystemSite.getSiteId())
-                .systemId(downSystemSite.getDownSystemId())
+                .downSystemId(downSystemSite.getDownSystemId())
                 .build();
         boolean result = crawlTaskService.add(taskToCreate);
         info(String.format(

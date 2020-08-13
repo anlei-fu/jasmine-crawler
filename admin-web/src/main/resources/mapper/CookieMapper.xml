@@ -58,7 +58,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             parameterType="com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq">
         select
         t.id,
-        t.site_id,
         t.site_account_id,
         t.cookie,
         t.login_ip,

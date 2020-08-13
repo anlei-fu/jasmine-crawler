@@ -34,16 +34,16 @@ public class CrawlTask {
     /**
      * The system task belong to
      */
-    private  Integer systemId;
+    private Integer downSystemId;
 
     /**
      * Task status , see {@enum TaskStatus}
      */
     private Integer taskStatus;
 
-    private  Date taskTimeoutTime;
+    private Date taskTimeoutTime;
 
-    private  Date bindTimeoutTime;
+    private Date bindTimeoutTime;
 
     // task bind fields
 
@@ -72,7 +72,7 @@ public class CrawlTask {
     /**
      * Dispatch status see {@enum DispatchStatus}
      */
-    private Integer dispatchLastSResult;
+    private Integer dispatchLastResult;
 
     /**
      * Dispatch msg
@@ -153,4 +153,6 @@ public class CrawlTask {
      * The bad urls(404 and other) that crawler detected
      */
     private Integer urlBadCount;
+
+    private Date createTime;
 }

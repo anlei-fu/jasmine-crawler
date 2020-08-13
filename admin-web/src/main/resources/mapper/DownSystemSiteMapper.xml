@@ -174,6 +174,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="taskUrlBatchCount != null">
                   t.task_url_batch_count = #{taskUrlBatchCount},
             </if>
+               <if test="taskMaxRunningCount != null">
+                              t.task_max_running_count = #{taskMaxRunningCount},
+                        </if>
             <if test="taskMaxWaitToBindCount != null">
                   t.task_max_wait_to_bind_count = #{taskMaxWaitToBindCount},
             </if>
@@ -222,7 +225,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
           select
              t.id,
              t.site_id,
-             t.script_id,
+             t.script_path,
              t.down_system_id,
              t.priority,
              t.crawler_page_encoding,
@@ -256,7 +259,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
           select
              t.id,
              t.site_id,
-             t.script_id,
+             t.script_path,
              t.down_system_id,
              t.priority,
              t.crawler_page_encoding,

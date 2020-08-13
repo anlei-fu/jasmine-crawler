@@ -7,8 +7,10 @@
 package com.jasmine.crawler.common.api.resp;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class R<T> {
 
     private int code;
@@ -16,6 +18,10 @@ public class R<T> {
     private String message;
 
     private T data;
+
+    public  R(){
+
+    }
 
     public R(int code, String msg) {
         this(code, msg, null);
@@ -32,7 +38,7 @@ public class R<T> {
     }
 
     public static R failed(int code) {
-        return create(RConstant.SUCCEED_CODE, "failed");
+        return create(RConstant.FAILED_CODE, "failed");
     }
 
     public static R failed(String msg) {

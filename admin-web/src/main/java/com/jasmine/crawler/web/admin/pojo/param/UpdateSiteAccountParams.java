@@ -66,4 +66,12 @@ public class UpdateSiteAccountParams {
     public Integer getValidated() {
         return req.getValidated();
     }
+
+    public String getDelayTimeoutTime() {
+        return req.getDelayTimeoutTime();
+    }
+
+    public String getBlockTimeoutTime() {
+        return req.getBlockTimeoutTime();
+    }
 }

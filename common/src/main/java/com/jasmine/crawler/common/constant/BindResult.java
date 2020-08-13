@@ -43,4 +43,11 @@ public final class BindResult {
      * Means bind failed cause exception happened when bind
      */
     public static final Integer EXCEPTION = 8;
+
+    /**
+     *
+     */
+    public  static  final Integer  OVER_DOWN_SYSTEM_SITE_MAX_CONCURRENCY =9;
+
+    public  static  final  Integer OVER_DOWN_SYSTEM_MAX_CONCURRENCY=10;
 }

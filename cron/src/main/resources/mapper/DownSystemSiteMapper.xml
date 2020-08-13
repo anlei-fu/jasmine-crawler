@@ -4,7 +4,8 @@
 <select id="getNeedCreateNewTaskSite" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
 SELECT
 dss.id,
-dss.site_id
+dss.site_id,
+dss.down_system_id
 FROM new_system.down_system_site dss
 left join site s on dss.site_id =s.id
 left join down_system ds on dss.down_system_id =ds.id
@@ -23,12 +24,12 @@ where id = #{id}
 </select>
 <update id="increaseCurrentRunningTaskCount">
 update down_system_site
-set task_current_running_count= task_current_running_count + 1
+set task_current_running_count = task_current_running_count + 1
 where id = #{id}
 </update>
 <update id="decreaseCurrentRunningTaskCount">
 update down_system_site
-set task_current_running_count= task_current_running_count - 1
+set task_current_running_count = task_current_running_count - 1
 where id = #{id}
 </update>
 <update id="increaseCurrentBindCount">

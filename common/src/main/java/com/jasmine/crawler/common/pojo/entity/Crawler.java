@@ -77,11 +77,11 @@ public class Crawler extends EnableStatusFeature {
     /**
      * The last heartbeat check time
      */
-    private Date lastHeartbeatTime;
+    private Date heartbeatLastTime;
 
     /**
      * Current heartbeat lost count, use to determine the frequency of heartbeat checking
      * the lower the master do heartbeat check more often
      */
-    private Integer heartbeatLost;
+    private Integer heartbeatLostCount;
 }

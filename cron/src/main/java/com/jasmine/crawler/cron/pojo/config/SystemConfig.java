@@ -8,9 +8,9 @@ import java.util.List;
 @Data
 @Configuration
 public class SystemConfig {
-    private String crawlerStartNewTaskPath;
+    private String crawlerStartNewTaskPath  ="/run";
 
-    private String crawlerHeartbeatPath;
+    private String crawlerHeartbeatPath="/heartbeat";
 
     private int heartbeatSpeedLimit;
 

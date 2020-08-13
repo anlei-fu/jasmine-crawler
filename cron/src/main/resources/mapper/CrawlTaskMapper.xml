@@ -10,12 +10,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         (
          site_id,
          down_system_site_id,
-         system_id,
+         down_system_id,
          bind_timeout_time
         )values(
           #{siteId},
           #{downSystemSiteId},
-          #{systemId},
+          #{downSystemId},
           date_add(current_timestamp,interval (select task_bind_timeout from down_system_site dss where dss.id = #{downSystemSiteId}) hour)
         )
     </insert>
@@ -98,10 +98,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         bind_last_result = 1,
         bind_last_time = current_timestamp,
         bind_last_msg = 'success',
-        task_timeout_time = date_add(
-        current_timestamp,
-        interval (select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}) minute
-        ),
         bind_count = bind_count + 1,
         task_status = 1
         where
@@ -130,10 +126,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         dss.url_match_patterns ,
         dss.url_encodes,
 
-        sc.id as script_id,
-        sc.path as script,
+        dss.script_path,
 
-        s.crawl_need_use_cookie,
         ct.cookie_id,
         ck.cookie,
 
@@ -141,7 +135,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         ct.site_id,
         ct.down_system_site_id,
 
-        s.need_use_proxy,
         ct.proxy_id,
 
         -- ahead 2 min than real task timeout
@@ -152,11 +145,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         join down_system_site dss on ct.down_system_site_id =dss.id
         join down_system ds on dss.down_system_id =ds.id
         join site s on s.id = dss.site_id
-        join script sc on dss.script_id = sc.id
         left join cookie ck on ct.cookie_id
         where
         ct.task_status = 1
-        order by cr.last_bind_time asc
+        order by ct.create_time asc
   </select>
     <update id="dispatchSuccess">
       update crawl_task
@@ -165,14 +157,18 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       dispatch_last_msg = 'success',
       dispatch_last_time = current_timestamp,
       task_start_time = current_timestamp,
+      task_timeout_time = date_add(
+        current_timestamp,
+        interval (select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}) minute
+      ),
       task_status = 2
       where id = #{id}
     </update>
     <update id="dispatchFailed">
       update crawl_task
       set
-      dispatch_last_result = #{dispatchStatus},
-      dispatch_last_msg = #{dispatchMsg},
+      dispatch_last_result = #{dispatchLastResult},
+      dispatch_last_msg = #{dispatchLastMsg},
       dispatch_last_time = current_timestamp,
       -- set wait ot bind
       task_status = 0

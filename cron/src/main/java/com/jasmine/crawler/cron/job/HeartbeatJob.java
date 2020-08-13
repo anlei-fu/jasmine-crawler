@@ -77,7 +77,7 @@ public class HeartbeatJob extends LoggerSupport {
         try {
             resp = restTemplate.postForObject(
                     String.format(
-                            "%s:%d%s",
+                            "http://%s:%d%s",
                             crawler.getIp(),
                             crawler.getPort(),
                             systemConfig.getCrawlerHeartbeatPath()

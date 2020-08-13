@@ -122,7 +122,7 @@ public class CrawlTaskServiceImplTest {
     public void testDispatchFailed() throws Exception {
         CrawlTask task = CrawlTask.builder()
                 .id(1)
-                .dispatchLastSResult(DispatchResult.COOKIE_NOT_AVAILABLE)
+                .dispatchLastResult(DispatchResult.COOKIE_NOT_AVAILABLE)
                 .dispatchLastMsg("s")
                 .build();
         service.dispatchFailed(task);

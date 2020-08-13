@@ -37,4 +37,6 @@ public interface SiteAccountMapper {
     int enableBatch(@Param("list") List<Integer> ids);
 
     int updateBatch(UpdateSiteAccountBatchReq req);
+
+    List<SiteAccount> getAccountBySiteId(@Param("siteId") Integer siteId);
 }

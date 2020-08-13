@@ -43,7 +43,7 @@ public class BindTaskJob extends LoggerSupport {
     private SiteAccountService siteAccountService;
 
     @Autowired
-    private  SiteIpDelayService siteIpDelayService;
+    private SiteIpDelayService siteIpDelayService;
 
     //    @Scheduled(cron = "30/30 * * * * ?")
     public void run() {
@@ -144,6 +144,19 @@ public class BindTaskJob extends LoggerSupport {
             return false;
         }
 
+        // over down system site max concurrency
+        if (downSystemSite.getTaskCurrentRunningCount() >= downSystemSite.getTaskMaxRunningCount()) {
+            validate(
+                    null,
+                    taskToBind.getId(),
+                    BindResult.OVER_DOWN_SYSTEM_SITE_MAX_CONCURRENCY,
+                    crawlTaskToUpdate,
+                    "over down system site max concurrency"
+            );
+
+            return false;
+        }
+
         // check down system
         DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
         valid = validate(
@@ -163,7 +176,20 @@ public class BindTaskJob extends LoggerSupport {
             return false;
         }
 
-        // find and check cookie
+        // over down system max concurrency
+        if (downSystem.getTaskCurrentRunningCount() >= downSystem.getTaskMaxRunningCount()) {
+            validate(
+                    null,
+                    taskToBind.getId(),
+                    BindResult.OVER_DOWN_SYSTEM_MAX_CONCURRENCY,
+                    crawlTaskToUpdate,
+                    "over down system max concurrency"
+            );
+
+            return false;
+        }
+
+        // get cookie for site if needed
         Cookie cookie = null;
         if (site.getCrawlNeedUseCookie() == BooleanFlag.TRUE) {
             cookie = cookieService.getCookieForSite(site.getId());
@@ -181,10 +207,10 @@ public class BindTaskJob extends LoggerSupport {
             taskToBind.setCookieId(cookie.getId());
         }
 
-        // find and check proxy
-        Proxy proxy=null;
+        // get proxy for site if needed
+        Proxy proxy = null;
         if (site.getNeedUseProxy() == BooleanFlag.TRUE) {
-            proxy= proxyService.getProxyForSite(site.getId());
+            proxy = proxyService.getProxyForSite(site.getId());
             valid = validate(
                     proxy,
                     taskToBind.getId(),
@@ -199,9 +225,9 @@ public class BindTaskJob extends LoggerSupport {
             crawlTaskToUpdate.setProxyId(proxy.getId());
         }
 
-        // find crawler and check crawler
-        boolean withIp =proxy==null;
-        Crawler crawler = crawlerService.getCrawlerForSite(site.getId(),withIp);
+        // get crawler for site
+        boolean withIp = proxy == null;
+        Crawler crawler = crawlerService.getCrawlerForSite(site.getId(), withIp);
         valid = validate(
                 crawler,
                 taskToBind.getId(),
@@ -215,7 +241,7 @@ public class BindTaskJob extends LoggerSupport {
 
         crawlTaskToUpdate.setCrawlerId(crawler.getId());
 
-        bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler,proxy, cookie);
+        bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler, proxy, cookie);
         info(String.format("bind task(%d) succeed", taskToBind.getId()));
         return true;
     }
@@ -264,9 +290,9 @@ public class BindTaskJob extends LoggerSupport {
             Cookie cookie
     ) {
 
-        downSystemSiteService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
-        downSystemSiteService.decreaseCurrentBindCount(downSystemSite.getDownSystemId());
-        downSystemService.increaseRunningTaskCount(downSystemSite.getId());
+        downSystemSiteService.increaseRunningTaskCount(downSystemSite.getId());
+        downSystemSiteService.decreaseCurrentBindCount(downSystemSite.getId());
+        downSystemService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
 
         if (site.getCrawlNeedUseCookie() == BooleanFlag.TRUE) {
             cookieService.increaseCurrentUseCount(crawlTaskToUpdate.getId());

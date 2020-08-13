@@ -63,4 +63,13 @@ public class DownSystemSiteServiceImplTest {
         service.decreaseCurrentRunningTaskCount(1);
     }
 
+    @Test
+    public void testIncreaseCurrentBindCount() {
+        service.increaseCurrentBindCount(1);
+    }
+
+    @Test
+    public void testDecreaseCurrentBindCount() {
+        service.decreaseCurrentBindCount(1);
+    }
 } 

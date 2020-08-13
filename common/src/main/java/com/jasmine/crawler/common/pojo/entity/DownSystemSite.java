@@ -29,7 +29,7 @@ public class DownSystemSite extends EnableStatusFeature {
     /**
      * The script to run crawl task
      */
-    private Integer scriptId;
+    private String scriptPath;
 
     /**
      * Priority of the site , use for task binding rank
@@ -120,7 +120,7 @@ public class DownSystemSite extends EnableStatusFeature {
     /**
      * Current bind count
      */
-    private Integer taskCurrentBindCountCount;
+    private Integer taskCurrentBindCount;
 
     /**
      * Max task count can run contaneously

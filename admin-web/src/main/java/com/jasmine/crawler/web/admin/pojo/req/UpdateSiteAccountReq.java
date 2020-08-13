@@ -28,7 +28,7 @@ public class UpdateSiteAccountReq {
 
     private String description;
 
-    @Enum("loginType")
+    @Enum("LoginType")
     private Integer loginType;
 
     private Integer siteId;
@@ -41,6 +41,10 @@ public class UpdateSiteAccountReq {
 
     private String password;
 
-    @Enum("enableStatus")
+    @Enum("EnableStatus")
     private Integer enableStatus;
+
+    private String delayTimeoutTime;
+
+    private  String blockTimeoutTime;
 }

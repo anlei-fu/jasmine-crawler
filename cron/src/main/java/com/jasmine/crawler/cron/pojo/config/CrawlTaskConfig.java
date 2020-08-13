@@ -76,11 +76,6 @@ public class CrawlTaskConfig {
 
     // script config
     /**
-     * Script id
-     */
-    private Integer scriptId;
-
-    /**
      * Crawl script path
      */
     private String scriptPath;
