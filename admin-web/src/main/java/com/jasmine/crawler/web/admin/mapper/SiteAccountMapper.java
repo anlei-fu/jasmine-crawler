@@ -12,6 +12,7 @@ import com.jasmine.crawler.web.admin.pojo.param.UpdateSiteAccountParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
+import com.jasmine.crawler.web.admin.pojo.vo.SiteAccountVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,7 +29,7 @@ public interface SiteAccountMapper {
 
     SiteAccount getById(@Param("id") Integer id);
 
-    Page<SiteAccount> getPage(GetSiteAccountPageReq req);
+    Page<SiteAccountVo> getPage(GetSiteAccountPageReq req);
 
     int deleteBatch(@Param("list") List<Integer> ids);
 

@@ -23,11 +23,11 @@ public class SaveUrlResultReq {
 
     private List<Url> newUrls;
 
-    private List<String> succeedUrls;
+    private List<Integer> succeedUrls;
 
-    private List<String> badUrls;
+    private List<Integer> badUrls;
 
-    private List<String> failedUrls;
+    private List<Integer> failedUrls;
 
-    private List<String> urlNotToRun;
+    private List<Integer> unStartedUrl;
 }

@@ -19,16 +19,13 @@ import java.util.Date;
 public class AddCookieReq {
 
     @NotNull
-    private Integer siteId;
-
-    @NotNull
     private Integer siteAccountId;
 
     @NotNull
     private String cookie;
 
     @NotNull
-    private Date expireTime;
+    private String expireTime;
 
     @Ip
     private String loginIp;

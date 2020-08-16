@@ -14,7 +14,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.ip
         from site_ip_delay_map t
         <where>
-            <if test="ip != null">
+            <if test="ip != null and ip!=''">
                 t.ip = #{ip}
             </if>
             <if test="siteId != null">

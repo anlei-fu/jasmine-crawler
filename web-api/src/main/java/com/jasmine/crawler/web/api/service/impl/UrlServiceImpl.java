@@ -15,9 +15,9 @@ public class UrlServiceImpl implements UrlService {
 
     @Override
     public void saveUrlResult(SaveUrlResultReq saveUrlResultReq) {
-        try{
-           R resp= restTemplate.postForObject("",saveUrlResultReq, R.class);
-        }catch (Exception ex){
+        try {
+            R resp = restTemplate.postForObject("", saveUrlResultReq, R.class);
+        } catch (Exception ex) {
 
         }
     }

@@ -13,7 +13,7 @@ public interface DownSystemSiteService {
     DownSystemSite get(Integer downSystemSiteId);
 
     /**
-     * Decrease current running task count
+     * Decrease current running task count adn task count
      *
      * @param downSystemSiteId
      */

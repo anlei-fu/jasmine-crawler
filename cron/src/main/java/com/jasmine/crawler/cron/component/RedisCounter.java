@@ -5,12 +5,6 @@ import org.redisson.api.RedissonClient;
 
 import java.util.Date;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public class RedisCounter implements Counter {
 
     private RedissonClient client;

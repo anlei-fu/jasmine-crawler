@@ -17,7 +17,7 @@ public class UpdateDownSystemSiteBatchReq extends IdsFeature {
 
     private Integer taskMaxRunningCount;
 
-    private Integer taskMaxWaitToBindCount;
+    private Integer taskMaxCount;
 
     private Integer taskTimeout;
 

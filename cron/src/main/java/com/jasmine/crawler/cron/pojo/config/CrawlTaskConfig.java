@@ -102,6 +102,21 @@ public class CrawlTaskConfig {
     private Integer ipMinuteSpeedLimit;
 
     /**
+     *
+     */
+    private Integer taskUrlMaxFail;
+
+    /**
+     *
+     */
+    private Integer taskUrlMaxContinuouslyFail;
+
+    /**
+     *
+     */
+    private Integer taskUrlMaxConcurrency;
+
+    /**
      * Task urls
      */
     private List<Url> urls;

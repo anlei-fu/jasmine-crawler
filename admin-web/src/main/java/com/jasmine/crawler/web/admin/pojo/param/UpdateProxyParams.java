@@ -41,8 +41,8 @@ public class UpdateProxyParams {
         return req.getPassword();
     }
 
-    public String getProtocol() {
-        return req.getProtocol();
+    public Integer getProxyProtocol() {
+        return req.getProxyProtocol();
     }
 
     public Integer getProxyType() {

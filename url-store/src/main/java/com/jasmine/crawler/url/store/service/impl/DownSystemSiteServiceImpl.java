@@ -19,8 +19,8 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     private DownSystemSiteMapper downSystemSiteMapper;
 
     @Override
-    public DownSystemSite get(Integer id) {
-        return downSystemSiteMapper.get(id);
+    public DownSystemSite get(Integer downSystemId) {
+        return downSystemSiteMapper.get(downSystemId);
     }
 
     @Override

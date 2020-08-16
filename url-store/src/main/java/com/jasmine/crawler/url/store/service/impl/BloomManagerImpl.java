@@ -1,12 +1,10 @@
 package com.jasmine.crawler.url.store.service.impl;
 
 import com.jasmine.crawler.common.component.JasmineBloomFilter;
-import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
+import com.jasmine.crawler.url.store.component.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.mapper.BloomMapper;
-import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;
-import com.jasmine.crawler.url.store.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,12 +13,6 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class BloomManagerImpl implements BloomFilterManager {
 
@@ -29,26 +21,22 @@ public class BloomManagerImpl implements BloomFilterManager {
     @Autowired
     private BloomMapper bloomMapper;
 
-    @Autowired
-    private DownSystemSiteService downSystemSiteService;
-
     @Override
-    public JasmineBloomFilter get(Integer id) throws IOException {
-        if (cache.containsKey(id)) {
-            JasmineBloomWrapper wrapper = cache.get(id);
+    public JasmineBloomFilter get(Integer downSystemSiteId) throws Exception {
+        if (cache.containsKey(downSystemSiteId)) {
+            JasmineBloomWrapper wrapper = cache.get(downSystemSiteId);
             wrapper.setLastActiveTime(new Date());
             return (JasmineBloomFilter) bloomMapper;
         }
 
-        SiteUrlBloom siteUrlBloom = bloomMapper.get(id);
+        SiteUrlBloom siteUrlBloom = bloomMapper.get(downSystemSiteId);
         if (Objects.isNull(siteUrlBloom)) {
-            return createBloom(id);
+            throw new Exception(String.format("bloom of site(%d) not exists", downSystemSiteId));
         } else {
             JasmineBloomWrapper wrapper = new JasmineBloomWrapper();
             wrapper.load(siteUrlBloom.getBloom());
-            cache.put(id, wrapper);
-            wrapper.setTotalCount(siteUrlBloom.getTotalCount());
-            return wrapper;
+            cache.putIfAbsent(downSystemSiteId, wrapper);
+            return cache.get(downSystemSiteId);
         }
     }
 
@@ -58,24 +46,15 @@ public class BloomManagerImpl implements BloomFilterManager {
     }
 
     @Override
-    public void remove(Integer id) {
-        cache.remove(id);
+    public void remove(Integer downSystemSiteId) throws IOException {
+        JasmineBloomWrapper wrapper = cache.get(downSystemSiteId);
+        if (!Objects.isNull(wrapper)) {
+            SiteUrlBloom siteUrlBloom = SiteUrlBloom.builder()
+                    .id(downSystemSiteId)
+                    .bloom(wrapper.dump())
+                    .build();
+            bloomMapper.dump(siteUrlBloom);
+            cache.remove(downSystemSiteId);
+        }
     }
-
-    private JasmineBloomFilter createBloom(Integer id) throws IOException {
-
-        JasmineBloomWrapper wrapper = new JasmineBloomWrapper();
-        DownSystemSite downSystemSite = downSystemSiteService.get(id);
-        wrapper.init(200*10000, 0.33d);
-        SiteUrlBloom siteUrlBloom = SiteUrlBloom
-                .builder()
-                .downSystemSiteId(id)
-                .bloom(wrapper.dump())
-                .build();
-        bloomMapper.add(siteUrlBloom);
-        cache.put(id, wrapper);
-        wrapper.setTotalCount(0);
-        return wrapper;
-    }
-
 }

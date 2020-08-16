@@ -8,24 +8,24 @@ import java.util.List;
 
 @Data
 @Builder
-public class TaskResultReq {
+public class SaveTaskResultReq {
+    private Integer taskResult;
+
+    private Integer taskId;
+
+    private Integer urlTotal;
+
     private List<String> data;
 
     private List<Url> newUrls;
 
-    private List<String> badUrls;
+    private List<Integer> badUrls;
 
-    private List<String> succeedUrls;
+    private List<Integer> succeedUrls;
 
-    private List<String> failedUrls;
+    private List<Integer> failedUrls;
 
-    private List<String> unStartUrls;
-
-    private Integer taskStatus;
-
-    private Integer taskId;
-
-    private Integer downSystemSiteId;
+    private List<Integer> unStartUrls;
 
     private Integer averageSpeedOfSuccess;
 

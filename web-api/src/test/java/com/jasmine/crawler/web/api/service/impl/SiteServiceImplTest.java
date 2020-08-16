@@ -39,5 +39,4 @@ public class SiteServiceImplTest {
         service.get(1);
     }
 
-
-} 
+}

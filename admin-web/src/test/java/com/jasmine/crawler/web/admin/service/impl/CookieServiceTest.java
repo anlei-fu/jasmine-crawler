@@ -53,7 +53,6 @@ public class CookieServiceTest {
 
         AddCookieReq req = new AddCookieReq();
 
-        req.setSiteId(35);
         req.setSiteAccountId(12);
         req.setCookie("mock string");
         req.setLoginIp("192.168.0.1");

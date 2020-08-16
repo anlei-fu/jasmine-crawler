@@ -15,8 +15,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 password,
             </if>
 
-            <if test="protocol!=null">
-                protocol,
+            <if test="proxyProtocol!=null">
+                proxy_protocol,
             </if>
 
             <if test="proxyType != null">
@@ -43,8 +43,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 #{password},
             </if>
 
-            <if test="protocol!=null">
-                #{protocol},
+            <if test="proxyProtocol!=null">
+                #{proxyProtocol},
             </if>
 
             <if test="proxyType != null">
@@ -91,8 +91,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="password != null and password != ''">
                 t.password = #{password},
             </if>
-            <if test="protocol != null and protocol != ''">
-                t.protocol = #{protocol},
+            <if test="proxyProtocol != null ">
+                t.proxy_protocol = #{proxyProtocol},
             </if>
             <if test="proxyType != null">
                 t.proxy_type = #{proxyType},
@@ -164,7 +164,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.port,
         t.account,
         t.password,
-        t.protocol,
+        t.proxy_protocol,
         t.proxy_type,
         t.max_use_count,
         t.current_use_count,
@@ -186,7 +186,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.port,
         t.account,
         t.password,
-        t.protocol,
+        t.proxy_protocol,
         t.proxy_type,
         t.max_use_count,
         t.current_use_count,

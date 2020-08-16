@@ -9,6 +9,7 @@ import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -69,7 +70,7 @@ public class DispatchTaskJob extends LoggerSupport {
      * <p>
      * TODO: are these checks required ? binding job has already done check once
      */
-//    @Scheduled(cron = "*/6 * * * * ?")
+    @Scheduled(cron = "50/50 * * * * ?")
     public void run() {
         info("--------------begin dispatching crawl task----------------");
 
@@ -89,7 +90,6 @@ public class DispatchTaskJob extends LoggerSupport {
                 } else {
                     failed++;
                 }
-                info(String.format("dispatch task(%d) result:%s ",crawlTaskConfig.getTaskId(),dispatchResult));
             } catch (Exception ex) {
                 exception++;
                 error(String.format(
@@ -117,6 +117,8 @@ public class DispatchTaskJob extends LoggerSupport {
             return null;
         }
 
+        info(String.format("got %d task to dispatch",crawlTaskConfigs.size()));
+
         if (crawlTaskConfigs.size() == 0) {
             info("no task need to run");
             return null;
@@ -125,7 +127,7 @@ public class DispatchTaskJob extends LoggerSupport {
         return crawlTaskConfigs;
     }
 
-    @Transactional
+
     public boolean dispatchTaskCore(CrawlTaskConfig crawlTaskConfig) {
         boolean valid = false;
 
@@ -263,6 +265,9 @@ public class DispatchTaskJob extends LoggerSupport {
         }
 
         dispatchSuccess(crawlTaskConfig, crawler, proxy, site, cookie);
+
+        info(String.format("dispatch task(%d) success",crawlTaskConfig.getTaskId()));
+
         return true;
     }
 
@@ -331,7 +336,6 @@ public class DispatchTaskJob extends LoggerSupport {
         DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
-            downSystemSiteService.increaseCurrentBindCount(downSystemSite.getId());
             DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
             if (!Objects.isNull(downSystem))
                 downSystemService.decreaseCurrentRunningTaskCount(downSystem.getId());
@@ -353,9 +357,6 @@ public class DispatchTaskJob extends LoggerSupport {
     public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig, Crawler crawler, Proxy proxy, Site site, Cookie cookie) {
         // update dispatch status success
         crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId());
-
-
-
     }
 
 }

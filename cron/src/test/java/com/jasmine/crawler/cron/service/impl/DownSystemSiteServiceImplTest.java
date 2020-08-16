@@ -65,11 +65,11 @@ public class DownSystemSiteServiceImplTest {
 
     @Test
     public void testIncreaseCurrentBindCount() {
-        service.increaseCurrentBindCount(1);
+        service.increaseCurrentTaskCount(1);
     }
 
     @Test
     public void testDecreaseCurrentBindCount() {
-        service.decreaseCurrentBindCount(1);
+        service.decreaseCurrentTaskCount(1);
     }
 } 

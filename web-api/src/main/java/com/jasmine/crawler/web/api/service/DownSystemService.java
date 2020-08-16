@@ -2,7 +2,7 @@ package com.jasmine.crawler.web.api.service;
 
 public interface DownSystemService {
     /**
-     * Increase current running task count
+     * Decrease current running task count
      *
      * @param downSystemId
      */

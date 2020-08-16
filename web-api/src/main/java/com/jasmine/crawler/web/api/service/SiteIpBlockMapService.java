@@ -1,10 +1,13 @@
 package com.jasmine.crawler.web.api.service;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
+import com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap;
+
 public interface SiteIpBlockMapService {
+
+    /**
+     * Add block record
+     *
+     * @param siteIpBlockMap
+     */
+    void add(SiteIpBlockMap siteIpBlockMap);
 }

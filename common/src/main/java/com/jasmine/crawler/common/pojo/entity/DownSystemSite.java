@@ -115,12 +115,12 @@ public class DownSystemSite extends EnableStatusFeature {
     /**
      * Max task count wait to run (bind success and not running)
      */
-    private Integer taskMaxWaitToBindCount;
+    private Integer taskMaxCount;
 
     /**
      * Current bind count
      */
-    private Integer taskCurrentBindCount;
+    private Integer taskCurrentCount;
 
     /**
      * Max task count can run contaneously
@@ -136,4 +136,19 @@ public class DownSystemSite extends EnableStatusFeature {
      * Task timeout use by task timout termination job
      */
     private Integer taskTimeout;
+
+    /**
+     * Max fail count of a task
+     */
+    private Integer taskUrlMaxFailCount;
+
+    /**
+     * Max continuously fail count of a task
+     */
+    private Integer taskUrlMaxContinuouslyFailCount;
+
+    /**
+     * Max concurrent executing count of url
+     */
+    private Integer taskUrlMaxConcurrency;
 }

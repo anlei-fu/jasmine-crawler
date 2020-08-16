@@ -4,12 +4,11 @@
 boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
-<mapper namespace="com.jasmine.crawler.web.api.mapper.SiteIpDelayMapMapper">
+<mapper namespace="com.jasmine.crawler.web.api.mapper.SiteIpBlockMapMapper">
     <insert id="add">
-        insert into site_ip_delay_map(
-        site_id,ip,delay_timeout_time
-        )values (
-         #{siteId},#{ip},#{delayTimeoutTime}
-        )
+        insert into site_ip_block_map
+        (site_id,ip,block_timeout_time)
+        values
+        (#{siteId},#{ip},#{blockTimeoutTime})
     </insert>
 </mapper>

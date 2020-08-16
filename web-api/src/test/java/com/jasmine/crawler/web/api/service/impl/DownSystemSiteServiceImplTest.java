@@ -36,7 +36,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testDecreaseCurrentRunningTaskCount() throws Exception {
-      service.decreaseCurrentRunningTaskCount(1);
+        service.decreaseCurrentRunningTaskCount(1);
     }
 
 } 

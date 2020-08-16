@@ -26,7 +26,8 @@ public class UpdateProxyReq {
 
     private String password;
 
-    private String protocol;
+    @Enum("ProxyProtocol")
+    private Integer proxyProtocol;
 
     @Enum("ProxyType")
     private Integer proxyType;

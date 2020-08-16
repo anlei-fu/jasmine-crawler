@@ -12,6 +12,7 @@ import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
+import com.jasmine.crawler.web.admin.pojo.vo.SiteAccountVo;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface SiteAccountService {
 
     SiteAccount getById(Integer id);
 
-    PageResult<SiteAccount> getPage(GetSiteAccountPageReq req);
+    PageResult<SiteAccountVo> getPage(GetSiteAccountPageReq req);
 
     int deleteBatch(List<Integer> ids);
 

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class DownSystemSiteController extends ControllerBase {
     private DownSystemSiteService downSystemSiteService;
 
     @PostMapping(path = "/downSystemSite")
-    public R add(@RequestBody @Validated AddDownSystemSiteReq req) {
+    public R add(@RequestBody @Validated AddDownSystemSiteReq req) throws IOException {
         boolean result = downSystemSiteService.add(req);
         return responseBoolean(result);
     }

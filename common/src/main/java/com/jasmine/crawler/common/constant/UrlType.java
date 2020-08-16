@@ -12,5 +12,10 @@ public final class UrlType {
     /**
      * Means url can crawl many times
      */
-    public static final Integer DYNAMIC = 1;
+    public static final Integer DYNAMIC = 2;
+
+    /**
+     * Means url is a seed
+     */
+    public static final Integer SEED = 3;
 }

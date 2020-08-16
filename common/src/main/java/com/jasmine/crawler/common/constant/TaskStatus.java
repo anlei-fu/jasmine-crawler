@@ -8,33 +8,23 @@ package com.jasmine.crawler.common.constant;
  */
 public final class TaskStatus {
     /**
-     * Means task wait to execute
+     * Means task wait to bind
      */
-    public static final Integer WAIT = 0;
+    public static final Integer WAIT_TO_BIND = 0;
+
+    /**
+     * Means task wait to dispatch
+     */
+    public static final Integer WAIT_TO_DISPATCH = 1;
 
     /**
      * Means task is executing
      */
-    public static final Integer EXECUTING = 1;
+    public static final Integer EXECUTING = 2;
 
     /**
-     * Means task executed successfully
+     * Means task finished
      */
-    public static final Integer SUCCESS = 2;
-
-    /**
-     * Means task execute failed , cause network failed ,maybe proxy problem or local network error
-     */
-    public static final Integer NETWORK_FAILED = 3;
-
-    /**
-     * Means task execute failed ,cause exceeding max task timeout
-     */
-    public static final Integer TIMEOUT = 4;
-
-    /**
-     * Means task execute failed ,cause ip or cookie has been seam as a crawler by site
-     */
-    public static final Integer BLOCKED = 5;
+    public static final Integer FINISHED = 3;
 
 }

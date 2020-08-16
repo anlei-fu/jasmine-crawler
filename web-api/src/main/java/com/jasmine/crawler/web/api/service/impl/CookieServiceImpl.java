@@ -19,7 +19,7 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public void decreaseCurrentUseCount(Integer id) {
-        cookieMapper.decreaseCurrentRunningTaskCount(id);
+        cookieMapper.decreaseCurrentUseCount(id);
     }
 
     @Override

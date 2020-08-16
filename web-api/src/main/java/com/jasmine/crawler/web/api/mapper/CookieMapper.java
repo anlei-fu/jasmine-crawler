@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface CookieMapper {
     Cookie getById(@Param("id") Integer id);
 
-    void decreaseCurrentRunningTaskCount(@Param("id") Integer id);
+    void decreaseCurrentUseCount(@Param("id") Integer id);
 
     void increaseBlockCount(@Param("id") Integer id);
 

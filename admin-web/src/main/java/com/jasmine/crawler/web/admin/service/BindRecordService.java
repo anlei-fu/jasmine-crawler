@@ -10,7 +10,11 @@ import com.jasmine.crawler.common.pojo.entity.BindRecord;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetBindRecordPageReq;
 
+import java.util.List;
+
 public interface BindRecordService {
 
     PageResult<BindRecord> getPage(GetBindRecordPageReq req);
+
+    List<BindRecord> getByTaskId(Integer taskId);
 }

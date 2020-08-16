@@ -13,11 +13,12 @@ import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface DownSystemSiteService {
 
-    boolean add(AddDownSystemSiteReq req);
+    boolean add(AddDownSystemSiteReq req) throws IOException;
 
     boolean deleteById(Integer id);
 

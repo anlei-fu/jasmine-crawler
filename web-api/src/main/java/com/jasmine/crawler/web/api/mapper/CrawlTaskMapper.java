@@ -7,4 +7,8 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface CrawlTaskMapper {
     CrawlTask getCrawlTaskForUpdate(@Param("id") Integer id);
+
+    void finishTask(CrawlTask crawlTaskToUpdate);
+
+    Integer getDownSystemIdById(@Param("id") Integer id);
 }

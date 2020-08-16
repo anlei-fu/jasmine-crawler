@@ -13,7 +13,7 @@ where
 dss .enable_status = 1
 and ds .enable_status = 1
 and s.enable_status = 1
-and dss.task_current_bind_count &lt; dss.task_max_wait_to_bind_count
+and dss.task_current_count &lt; dss.task_max_count
 
 </select>
 <select id ="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
@@ -32,14 +32,14 @@ update down_system_site
 set task_current_running_count = task_current_running_count - 1
 where id = #{id}
 </update>
-<update id="increaseCurrentBindCount">
+<update id="increaseCurrentTaskCount">
 update down_system_site
-set task_current_bind_count = task_current_bind_count + 1
+set task_current_count = task_current_count + 1
 where id = #{id}
 </update>
-<update id="decreaseCurrentBindCount">
+<update id="decreaseCurrentTaskCount">
 update down_system_site
-set task_current_bind_count = task_current_bind_count - 1
+set task_current_count = task_current_count - 1
 where id = #{id}
 </update>
 </mapper>

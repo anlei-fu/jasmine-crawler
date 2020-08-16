@@ -5,21 +5,14 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.url.store.mapper.BloomMapper">
-    <insert id="add">
-        insert into site_url_bloom
-        (down_system_site_id,
-         bloom)values(
-         #{downSystemSiteId},
-         #{bloom})
-    </insert>
     <update id="dump">
-        update site_url_bloom
+        update down_system_site
         set
         bloom = #{bloom},
-        last_dump_time = current_timestamp
+        bloom_last_dump_time = current_timestamp
         where id = #{id}
     </update>
     <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.SiteUrlBloom">
-        select * from site_url_bloom where id = #{id}
+        select bloom from down_system_site where id = #{id}
     </select>
 </mapper>

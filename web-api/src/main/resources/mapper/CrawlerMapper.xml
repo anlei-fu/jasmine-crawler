@@ -10,7 +10,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_concurrency = current_concurrency + #{concurrencyToDecrease}
         where id = #{id}
     </update>
-    <update id="finishTask"></update>
     <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.Crawler">
         select * from crawler where id = #{id}
     </select>

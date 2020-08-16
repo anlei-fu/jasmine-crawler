@@ -52,7 +52,6 @@ public class DownSystemSiteServiceTest {
         AddDownSystemSiteReq req = new AddDownSystemSiteReq();
 
         req.setSiteId(15);
-        req.setScriptId(1);
         req.setDownSystemId(6);
         req.setPriority(20);
         req.setCrawlerPageEncoding("mock string");
@@ -66,7 +65,7 @@ public class DownSystemSiteServiceTest {
         req.setBloomExpectedUrlSize(0);
         req.setBloomFpp(30f);
         req.setTaskUrlBatchCount(12);
-        req.setTaskMaxWaitToBindCount(899);
+        req.setTaskMaxCount(899);
         req.setTaskMaxRunningCount(12);
         req.setTaskTimeout(0);
         req.setEnableStatus(1);
@@ -96,7 +95,6 @@ public class DownSystemSiteServiceTest {
         UpdateDownSystemSiteReq req = new UpdateDownSystemSiteReq();
 
         req.setSiteId(15);
-        req.setScriptId(15);
         req.setDownSystemId(7);
         req.setPriority(30);
         req.setCrawlerPageEncoding("mock string");
@@ -108,7 +106,7 @@ public class DownSystemSiteServiceTest {
         req.setUrlMaxCrawlCount(6142);
         req.setUrlMatchPatterns("http://www.bbc.co.uk");
         req.setTaskUrlBatchCount(56589);
-        req.setTaskMaxWaitToBindCount(6142);
+        req.setTaskMaxCount(6142);
         req.setTaskMaxRunningCount(6142);
         req.setTaskTimeout(0);
         req.setEnableStatus(0);

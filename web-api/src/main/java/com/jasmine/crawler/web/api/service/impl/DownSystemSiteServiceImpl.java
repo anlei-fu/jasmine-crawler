@@ -2,7 +2,6 @@ package com.jasmine.crawler.web.api.service.impl;
 
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.web.api.mapper.DownSystemSiteMapper;
-import com.jasmine.crawler.web.api.service.DownSystemService;
 import com.jasmine.crawler.web.api.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,8 +3,8 @@ package com.jasmine.crawler.url.store.service.impl;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.common.support.LoggerSupport;
+import com.jasmine.crawler.common.util.CollectionUtils;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
-import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.service.DownSystemSiteService;
 import com.jasmine.crawler.url.store.service.UrlService;
@@ -18,12 +18,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Service
 public class UrlServiceImpl extends LoggerSupport implements UrlService {
 
@@ -40,28 +34,26 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     private ConcurrentLinkedQueue<SaveUrlResultReq> queue;
 
     @Override
-    public List<Url> getUrlForTask(GetUrlForTaskReq req) throws Exception {
-        DownSystemSite downSystemSite = downSystemSiteService.get(req.getDownSystemSiteId());
-        if(Objects.isNull(downSystemSite)){
-           throw  new Exception(String.format("down system site (%d) not exists",req.getDownSystemSiteId()));
+    public List<Url> getUrlForTask(Integer downSystemSiteId) throws Exception {
+        DownSystemSite downSystemSite = downSystemSiteService.get(downSystemSiteId);
+        if (Objects.isNull(downSystemSite)) {
+            throw new Exception(String.format("down system site (%d) not exists", downSystemSiteId));
         }
 
-        RQueue<Url> queue = redissonClient.getQueue(String.format("url_q_%d", req.getDownSystemSiteId()));
-
+        RQueue<Url> queue = redissonClient.getQueue(String.format("url_q_%d", downSystemSiteId));
         List<Url> urls = new LinkedList<>();
-
         int size = queue.size();
 
         // load url from db to redis when cached url count less than task url count
         if (size < downSystemSite.getTaskUrlBatchCount()) {
             info(String.format("load url from db,current cached url %d", size));
             List<Url> urlsToCache = urlMapper.getUrlToCacheForSite(
-                    req.getDownSystemSiteId(),
+                    downSystemSiteId,
                     downSystemSite.getUrlMaxCacheCount()
             );
 
             queue.addAll(urlsToCache);
-            updateUrlStatusToWait(urls);
+            updateUrlStatusToCached(urls);
             info(String.format(
                     "load %d url tp cache,current cache size %d",
                     urlsToCache.size(),
@@ -85,33 +77,18 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     }
 
     @Override
-    public boolean saveUrlResult(SaveUrlResultReq req) {
+    public boolean saveTaskUrlResult(SaveUrlResultReq req) {
         queue.add(req);
         return true;
     }
 
-    private void updateUrlStatusToWait(List<Url> urls) {
-        List<Url> ls = new LinkedList<>();
+    private void updateUrlStatusToCached(List<Url> urls) {
+        for (final List<Url> urlGroup : CollectionUtils.split(urls, 100)) {
+            try {
+                urlMapper.updateUrlStatusToWait(urlGroup);
+            } catch (Exception ex) {
 
-        int t = 0;
-        for (final Url url : urls) {
-            if (t++ % 100 == 0) {
-                updateUrlStatusToWait(ls);
-                ls = new LinkedList<>();
             }
-
-            ls.add(url);
-        }
-
-        updateUrlStatusToWaitCore(ls);
-    }
-
-    private void updateUrlStatusToWaitCore(List<Url> urls) {
-        try {
-            urlMapper.updateUrlStatusToWait(urls);
-        } catch (Exception ex) {
-
         }
     }
-
 }

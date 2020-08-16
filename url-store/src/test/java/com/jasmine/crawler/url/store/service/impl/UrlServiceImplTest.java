@@ -41,7 +41,7 @@ public class UrlServiceImplTest {
         GetUrlForTaskReq req = GetUrlForTaskReq.builder()
                 .downSystemSiteId(2)
                 .build();
-          service.getUrlForTask(req);
+        service.getUrlForTask(req);
     }
 
     /**
@@ -49,15 +49,14 @@ public class UrlServiceImplTest {
      */
     @Test
     public void testSaveUrlResult() throws Exception {
-        SaveUrlResultReq req =SaveUrlResultReq.builder()
+        SaveUrlResultReq req = SaveUrlResultReq.builder()
                 .badUrls(null)
                 .failedUrls(null)
                 .downSystemSiteId(1)
                 .succeedUrls(null)
-                .urlNotToRun(null)
+                .unStartedUrl(null)
                 .build();
-        service.saveUrlResult(req);
+        service.saveTaskUrlResult(req);
     }
 
-
-} 
+}

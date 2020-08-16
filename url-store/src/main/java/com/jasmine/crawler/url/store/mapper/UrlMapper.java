@@ -6,12 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Mapper
 public interface UrlMapper {
     List<Url> getUrlToCacheForSite(@Param("downSystemSiteId") Integer downSystemSiteId, @Param("maxCount") Integer urlMaxCacheCount);
@@ -24,11 +18,11 @@ public interface UrlMapper {
 
     void updateUrlStatusToWait(@Param("list") List<Url> urls);
 
-    void failUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+    void failedUrls(@Param("list") List<Integer> list);
 
-    void badUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+    void badUrls(@Param("list") List<Integer> list);
 
-    void failToRunUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+    void failToRunUrls(@Param("list") List<Integer> list);
 
-    void successUrls(@Param("list") List<String> list, @Param("downSystemSiteId") Integer downSystemSiteId);
+    void successUrls(@Param("list") List<Integer> list);
 }

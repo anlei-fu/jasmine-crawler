@@ -1,4 +1,4 @@
-package com.jasmine.crawler.url.store.pojo.entity;
+package com.jasmine.crawler.url.store.component;
 
 import com.jasmine.crawler.common.component.JasmineBloomFilter;
 import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
@@ -8,16 +8,7 @@ import lombok.Setter;
 import java.io.IOException;
 import java.util.Date;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
-
 public class JasmineBloomWrapper implements JasmineBloomFilter {
-
-    private final Object LOCK = new Object();
 
     private JasmineBloomFilterImpl innerFilter;
 
@@ -32,10 +23,6 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
     @Getter
     @Setter
     private Date lastActiveTime;
-
-    @Getter
-    @Setter
-    private Integer totalCount;
 
     public JasmineBloomWrapper() {
         innerFilter = new JasmineBloomFilterImpl();
@@ -66,9 +53,4 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
         return innerFilter.initialized();
     }
 
-    public void increaseTotalCount(Integer count) {
-        synchronized (LOCK) {
-            totalCount += count;
-        }
-    }
 }

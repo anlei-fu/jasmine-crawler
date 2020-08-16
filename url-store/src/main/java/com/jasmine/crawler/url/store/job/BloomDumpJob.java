@@ -2,19 +2,14 @@ package com.jasmine.crawler.url.store.job;
 
 import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
 import com.jasmine.crawler.common.support.LoggerSupport;
+import com.jasmine.crawler.url.store.component.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.mapper.BloomMapper;
-import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.util.Date;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public class BloomDumpJob extends LoggerSupport {
     private final int DUMP_INTERVAL = 60 * 60 * 1000;
 
@@ -31,7 +26,7 @@ public class BloomDumpJob extends LoggerSupport {
      * 1. dump bloom and update bloom total
      * 2. unload inactive bloom
      */
-    public void run() {
+    public void run() throws IOException {
         info("------------------------begin dump and unload url bloom-------------------------");
         for (final JasmineBloomWrapper wrapper : bloomFilterManager.getAll()) {
             if ((new Date().getTime() - wrapper.getLastDumpTime().getTime()) > DUMP_INTERVAL) {
@@ -49,7 +44,6 @@ public class BloomDumpJob extends LoggerSupport {
     private void dump(JasmineBloomWrapper wrapper) {
         try {
             SiteUrlBloom siteUrlBloom = SiteUrlBloom.builder()
-                    .totalCount(wrapper.getTotalCount())
                     .bloom(wrapper.dump())
                     .id(wrapper.getId())
                     .build();

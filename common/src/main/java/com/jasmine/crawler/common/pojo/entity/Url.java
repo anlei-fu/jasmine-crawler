@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @Copyright (C) 四川千行你我科技有限公司
  * @Author: fuanlei
@@ -15,7 +17,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Url {
+public class Url extends EnableStatusFeature {
+
+    /**
+     * Unique id
+     */
+    private Integer id;
 
     /**
      * Down site id of url
@@ -43,7 +50,28 @@ public class Url {
     private String referUrl;
 
     /**
-     * Url type
+     * Url type see {@enum UrlType}
      */
     private Integer urlType;
+
+    /**
+     * Error msg
+     */
+    private String lastCrawlMsg;
+
+    /**
+     * Crawl count
+     */
+    private Integer crawlCount;
+
+    /**
+     * Last crawl time
+     */
+    private Date lastCrawlTime;
+
+    /**
+     * Last success time
+     */
+    private Date lastSuccessTime;
+
 }

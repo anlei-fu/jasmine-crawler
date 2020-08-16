@@ -27,8 +27,8 @@ public class UpdateDownSystemSiteParams {
         return req.getSiteId();
     }
 
-    public Integer getScriptId() {
-        return req.getScriptId();
+    public String getScriptPath() {
+        return req.getScriptPath();
     }
 
     public Integer getDownSystemId() {
@@ -75,8 +75,8 @@ public class UpdateDownSystemSiteParams {
         return req.getTaskUrlBatchCount();
     }
 
-    public Integer getTaskMaxWaitToBindCount() {
-        return req.getTaskMaxWaitToBindCount();
+    public Integer getTaskMaxCount() {
+        return req.getTaskMaxCount();
     }
 
     public Integer getTaskMaxRunningCount() {
@@ -102,4 +102,17 @@ public class UpdateDownSystemSiteParams {
     public Integer getUrlMaxDepth() {
         return req.getUrlMaxDepth();
     }
+
+    public Integer getTaskUrlMaxFailCount() {
+        return req.getTaskUrlMaxFailCount();
+    }
+
+    public Integer getTaskUrlMaxContinuouslyFailCount() {
+        return req.getTaskUrlMaxContinuouslyFailCount();
+    }
+
+    public Integer getTaskUrlMaxConcurrency() {
+        return req.getTaskUrlMaxConcurrency();
+    }
+
 }

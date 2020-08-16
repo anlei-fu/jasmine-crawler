@@ -11,6 +11,7 @@ import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.CookieMapper;
 import com.jasmine.crawler.web.admin.pojo.req.AddCookieReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CookieVo;
 import com.jasmine.crawler.web.admin.service.CookieService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class CookieServiceImpl implements CookieService {
     }
 
     @Override
-    public PageResult<Cookie> getPage(GetCookiePageReq req) {
+    public PageResult<CookieVo> getPage(GetCookiePageReq req) {
         return PageHelperUtils.paging(req, () -> cookieMapper.getPage(req));
     }
 

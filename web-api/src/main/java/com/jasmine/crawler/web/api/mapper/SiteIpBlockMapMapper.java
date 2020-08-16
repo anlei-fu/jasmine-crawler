@@ -1,5 +1,6 @@
 package com.jasmine.crawler.web.api.mapper;
 
+import com.jasmine.crawler.common.pojo.entity.SiteIpBlockMap;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,5 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description:
  */
 @Mapper
-public interface SiteIpBlockMapper {
+public interface SiteIpBlockMapMapper {
+    void add(SiteIpBlockMap siteIpBlockMap);
 }

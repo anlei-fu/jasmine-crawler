@@ -4,12 +4,6 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Mapper
 public interface DownSystemSiteMapper {
     DownSystemSite get(@Param("id") Integer id);

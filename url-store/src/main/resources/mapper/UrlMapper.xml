@@ -9,7 +9,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         insert into url
         (url,down_system_site_id,refer_url,depth,url_type,query_string)
         values
-        <foreach collection="ls" item="item"  separator="," >
+        <foreach collection="ls" item="item" separator=",">
             (#{item.url},#{downSystemId},#{referUrl},#{depth}, #{urlType},#{queryString})
         </foreach>
     </insert>
@@ -19,17 +19,44 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         u.url_status = #{urlStatus},
         u.crawl_count = u.crawl_count + 1,
         u.last_crawl_time = current_timestamp
-        where
-        u.down_system_site_id = #{downSystemSiteId} and u.url = #{url}
+        where id = #{id}
     </update>
     <update id="failed">
-
+        update url
+        set url_status = 0
+        where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </update>
     <update id="updateUrlStatusToWait"></update>
-    <update id="failUrls"></update>
-    <update id="badUrls"></update>
-    <update id="failToRunUrls"></update>
-    <update id="successUrls"></update>
+    <update id="failedUrls">
+        update url
+        set url_status = 0
+        where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <update id="badUrls">
+        update url
+        set url_status = 2
+        where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <update id="failToRunUrls">
+
+    </update>
+    <update id="successUrls">
+        update url
+        set url_status = 1
+        where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
 
     <select id="getUrlToCacheForSite" resultType="com.jasmine.crawler.common.pojo.entity.Url">
         select

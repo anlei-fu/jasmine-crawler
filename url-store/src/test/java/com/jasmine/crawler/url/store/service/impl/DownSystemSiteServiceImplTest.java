@@ -36,7 +36,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testGet() throws Exception {
-         service.get(1);
+        service.get(1);
     }
 
     /**
@@ -44,7 +44,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testIncreaseNewUrlCount() throws Exception {
-      service.increaseNewUrlCount(1,1);
+        service.increaseNewUrlCount(1, 1);
     }
 
     /**
@@ -52,7 +52,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testIncreaseBadUrlCount() throws Exception {
-     service.increaseBadUrlCount(1,1);
+        service.increaseBadUrlCount(1, 1);
     }
 
     /**
@@ -60,7 +60,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testIncreaseFinishedUrlCount() throws Exception {
-          service.increaseFinishedUrlCount(1,1);
+        service.increaseFinishedUrlCount(1, 1);
     }
 
 } 

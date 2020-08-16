@@ -2,7 +2,6 @@ package com.jasmine.crawler.url.store.component;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-import org.redisson.client.codec.StringCodec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司

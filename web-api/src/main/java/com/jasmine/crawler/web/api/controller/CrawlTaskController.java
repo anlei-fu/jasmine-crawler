@@ -2,7 +2,7 @@ package com.jasmine.crawler.web.api.controller;
 
 import com.jasmine.crawler.common.api.ControllerBase;
 import com.jasmine.crawler.common.api.resp.R;
-import com.jasmine.crawler.web.api.pojo.req.TaskResultReq;
+import com.jasmine.crawler.web.api.pojo.req.SaveTaskResultReq;
 import com.jasmine.crawler.web.api.service.CrawlTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class CrawlTaskController extends ControllerBase {
     private CrawlTaskService crawlTaskService;
 
     @PostMapping(path = "/api/task/result/save")
-    public R saveTaskResult(TaskResultReq req) {
+    public R saveTaskResult(SaveTaskResultReq req) {
         boolean result = crawlTaskService.saveTaskResult(req);
         return responseBoolean(result);
     }

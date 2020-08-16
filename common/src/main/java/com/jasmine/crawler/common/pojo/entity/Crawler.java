@@ -25,6 +25,9 @@ public class Crawler extends EnableStatusFeature {
      */
     private String name;
 
+    /**
+     *
+     */
     private String clientVersion;
 
     /**
@@ -84,4 +87,9 @@ public class Crawler extends EnableStatusFeature {
      * the lower the master do heartbeat check more often
      */
     private Integer heartbeatLostCount;
+
+    /**
+     *
+     */
+    private Date lastSyncConcurrencyTime;
 }

@@ -10,6 +10,7 @@ import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.Cookie;
 import com.jasmine.crawler.web.admin.pojo.req.AddCookieReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CookieVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +25,7 @@ public interface CookieMapper {
 
     Cookie getById(@Param("id") Integer id);
 
-    Page<Cookie> getPage(GetCookiePageReq req);
+    Page<CookieVo> getPage(GetCookiePageReq req);
 
     int deleteBatch(@Param("list") List<Integer> ids);
 }

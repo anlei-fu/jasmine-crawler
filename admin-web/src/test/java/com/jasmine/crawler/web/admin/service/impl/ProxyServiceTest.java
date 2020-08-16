@@ -58,7 +58,6 @@ public class ProxyServiceTest {
         req.setPort(20);
         req.setAccount("guest2");
         req.setPassword("123456");
-        req.setProtocol("mock string");
         req.setProxyType(30);
         req.setMaxUseCount(12);
         req.setBlockMaxCount(0);
@@ -89,7 +88,6 @@ public class ProxyServiceTest {
         req.setPort(90);
         req.setAccount("admin");
         req.setPassword("122189");
-        req.setProtocol("mock string");
         req.setProxyType(0);
         req.setMaxUseCount(6142);
         req.setBlockMaxCount(0);

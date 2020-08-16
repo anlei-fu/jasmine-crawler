@@ -1,21 +1,33 @@
 package com.jasmine.crawler.url.store.service;
 
 import com.jasmine.crawler.common.component.JasmineBloomFilter;
-import com.jasmine.crawler.url.store.pojo.entity.JasmineBloomWrapper;
+import com.jasmine.crawler.url.store.component.JasmineBloomWrapper;
 
 import java.io.IOException;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public interface BloomFilterManager {
-    JasmineBloomFilter get(Integer id) throws IOException;
 
+    /**
+     * Get bloom filter for down system site
+     *
+     * @param downSystemSiteId
+     * @return
+     * @throws Exception
+     */
+    JasmineBloomFilter get(Integer downSystemSiteId) throws Exception;
+
+    /**
+     * Get all loaded bloom filter
+     *
+     * @return
+     */
     Iterable<JasmineBloomWrapper> getAll();
 
-    void remove(Integer id);
+    /**
+     * Unload  bloom filter by down system site id
+     *
+     * @param downSystemSiteId
+     */
+    void remove(Integer downSystemSiteId) throws IOException;
 
 }

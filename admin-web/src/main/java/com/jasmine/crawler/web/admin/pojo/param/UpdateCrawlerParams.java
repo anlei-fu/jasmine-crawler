@@ -23,7 +23,7 @@ public class UpdateCrawlerParams {
         this.req = req;
     }
 
-    public Integer getClientVersion() {
+    public String getClientVersion() {
         return req.getClientVersion();
     }
 

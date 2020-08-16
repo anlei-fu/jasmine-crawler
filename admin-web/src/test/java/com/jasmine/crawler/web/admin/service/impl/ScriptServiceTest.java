@@ -9,7 +9,6 @@ package com.jasmine.crawler.web.admin.service.impl;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.web.admin.Application;
 import com.jasmine.crawler.web.admin.TestUtils;
-import com.jasmine.crawler.web.admin.controller.ScriptController;
 import com.jasmine.crawler.web.admin.pojo.req.AddScriptReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq;
 import org.junit.After;

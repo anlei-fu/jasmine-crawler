@@ -28,10 +28,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="ip != null">
                 t.ip = #{ip}
             </if>
-            <if test="createTimeStart != null">
+            <if test="createTimeStart != null and createTimeStart !=''">
                 and t.create_time >= #{createTimeStart}
             </if>
-            <if test="createTimeEnd != null">
+            <if test="createTimeEnd != null and createTimeEnd != ''">
                 and t.create_time &lt; #{createTimeEnd}
             </if>
         </where>

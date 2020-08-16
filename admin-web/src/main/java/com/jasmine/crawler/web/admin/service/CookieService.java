@@ -10,6 +10,7 @@ import com.jasmine.crawler.common.pojo.entity.Cookie;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddCookieReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CookieVo;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface CookieService {
 
     Cookie getById(Integer id);
 
-    PageResult<Cookie> getPage(GetCookiePageReq req);
+    PageResult<CookieVo> getPage(GetCookiePageReq req);
 
     int deleteBatch(List<Integer> ids);
 }

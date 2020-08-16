@@ -197,7 +197,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             t.id = #{id}
         </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount"
+    <select id="getPage" resultType="com.jasmine.crawler.web.admin.pojo.vo.SiteAccountVo"
             parameterType="com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq">
         select
         t.id,
@@ -218,8 +218,11 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.block_timeout_time,
         t.delay_timeout_time,
         t.enable_status,
-        t.create_time
+        t.create_time,
+        s.account_max_use_count as max_use_count,
+        s.account_max_block_count as max_block_count
         from site_account t
+       join site s on t.site_id = s.id
         <where>
             <if test="loginType != null">
                 t.login_type = #{loginType}
@@ -256,7 +259,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <select id="getAccountBySiteId" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount">
         select
         id,
-        account,
+        account
         from site_account
         where site_id = #{siteId}
     </select>

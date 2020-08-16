@@ -4,10 +4,6 @@ package com.jasmine.crawler.common.constant;
  * Enum of bind status
  */
 public final class BindResult {
-    /**
-     * Means task wait to bind
-     */
-    public static final Integer WAIT = 1;
 
     /**
      * Means task bind failed cause site not available (removed or disabled)
@@ -45,9 +41,12 @@ public final class BindResult {
     public static final Integer EXCEPTION = 8;
 
     /**
-     *
+     * Means bind failed cause over down system site max  concurrent running task count
      */
-    public  static  final Integer  OVER_DOWN_SYSTEM_SITE_MAX_CONCURRENCY =9;
+    public static final Integer OVER_DOWN_SYSTEM_SITE_MAX_CONCURRENCY = 9;
 
-    public  static  final  Integer OVER_DOWN_SYSTEM_MAX_CONCURRENCY=10;
+    /**
+     * Means bind failed cause over down system max concurrent running task count
+     */
+    public static final Integer OVER_DOWN_SYSTEM_MAX_CONCURRENCY = 10;
 }

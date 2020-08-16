@@ -19,7 +19,7 @@ public class R<T> {
 
     private T data;
 
-    public  R(){
+    public R() {
 
     }
 

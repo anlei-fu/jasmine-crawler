@@ -6,6 +6,8 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.service.impl;
 
+import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.DownSystemSiteMapper;
@@ -19,6 +21,7 @@ import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -28,7 +31,10 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     private DownSystemSiteMapper downSystemSiteMapper;
 
     @Override
-    public boolean add(AddDownSystemSiteReq req) {
+    public boolean add(AddDownSystemSiteReq req) throws IOException {
+        JasmineBloomFilter bloomFilter =new JasmineBloomFilterImpl();
+        bloomFilter.init(req.getBloomExpectedUrlSize(),req.getBloomFpp());
+        req.setBloom(bloomFilter.dump());
         return downSystemSiteMapper.add(req) > 0;
     }
 

@@ -11,17 +11,18 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class SaveUrlResultReq {
-    private List<Url> newUrls;
-
-    private List<String> badUrls;
-
-    private List<String> succeedUrls;
-
-    private List<String> failedUrls;
-
-    private List<String> unStartUrls;
 
     private Integer downSystemSiteId;
+
+    private List<Url> newUrls;
+
+    private List<Integer> badUrls;
+
+    private List<Integer> succeedUrls;
+
+    private List<Integer> failedUrls;
+
+    private List<Integer> unStartUrls;
 
     private Integer taskId;
 }

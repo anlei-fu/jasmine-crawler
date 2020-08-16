@@ -17,5 +17,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetUrlForTaskReq {
     private Integer downSystemSiteId;
-    private Integer siteId;
 }

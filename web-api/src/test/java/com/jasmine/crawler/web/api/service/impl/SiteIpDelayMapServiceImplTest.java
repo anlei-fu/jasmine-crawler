@@ -39,7 +39,7 @@ public class SiteIpDelayMapServiceImplTest {
      */
     @Test
     public void testAdd() throws Exception {
-        SiteIpDelayMap siteIpDelayMap =SiteIpDelayMap.builder()
+        SiteIpDelayMap siteIpDelayMap = SiteIpDelayMap.builder()
                 .siteId(1).ip("12.5.3.65")
                 .delayTimeoutTime(new Date())
                 .build();

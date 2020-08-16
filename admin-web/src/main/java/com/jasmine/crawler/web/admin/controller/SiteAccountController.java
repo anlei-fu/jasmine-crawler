@@ -14,6 +14,7 @@ import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
+import com.jasmine.crawler.web.admin.pojo.vo.SiteAccountVo;
 import com.jasmine.crawler.web.admin.service.SiteAccountService;
 import org.graalvm.compiler.core.common.type.AbstractObjectStamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,9 +104,9 @@ public class SiteAccountController extends ControllerBase {
 
 
     @GetMapping(path = "/siteAccount/page")
-    public R<PageResult<SiteAccount>> getPage(
+    public R<PageResult<SiteAccountVo>> getPage(
             @Validated GetSiteAccountPageReq req) {
-        PageResult<SiteAccount> result = siteAccountService.getPage(req);
+        PageResult<SiteAccountVo> result = siteAccountService.getPage(req);
         return responseData(result);
     }
 }

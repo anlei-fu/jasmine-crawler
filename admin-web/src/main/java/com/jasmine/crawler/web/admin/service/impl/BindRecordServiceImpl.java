@@ -15,6 +15,8 @@ import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BindRecordServiceImpl implements BindRecordService {
 
@@ -24,5 +26,10 @@ public class BindRecordServiceImpl implements BindRecordService {
     @Override
     public PageResult<BindRecord> getPage(GetBindRecordPageReq req) {
         return PageHelperUtils.paging(req, () -> bindRecordMapper.getPage(req));
+    }
+
+    @Override
+    public List<BindRecord> getByTaskId(Integer taskId) {
+        return bindRecordMapper.getByTaskId(taskId);
     }
 }

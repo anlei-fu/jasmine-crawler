@@ -6,7 +6,9 @@ import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -45,7 +47,7 @@ public class BindTaskJob extends LoggerSupport {
     @Autowired
     private SiteIpDelayService siteIpDelayService;
 
-    //    @Scheduled(cron = "30/30 * * * * ?")
+    @Scheduled(cron = "30/30 * * * * ?")
     public void run() {
         bindTask(1);
     }
@@ -280,7 +282,8 @@ public class BindTaskJob extends LoggerSupport {
         return true;
     }
 
-    private void bindSuccess(
+    @Transactional
+    public void bindSuccess(
             Integer taskToBindId,
             CrawlTask crawlTaskToUpdate,
             Site site,
@@ -291,7 +294,6 @@ public class BindTaskJob extends LoggerSupport {
     ) {
 
         downSystemSiteService.increaseRunningTaskCount(downSystemSite.getId());
-        downSystemSiteService.decreaseCurrentBindCount(downSystemSite.getId());
         downSystemService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
 
         if (site.getCrawlNeedUseCookie() == BooleanFlag.TRUE) {

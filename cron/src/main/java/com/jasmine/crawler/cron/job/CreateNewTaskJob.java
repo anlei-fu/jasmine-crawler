@@ -6,6 +6,7 @@ import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,7 @@ public class CreateNewTaskJob extends LoggerSupport {
      * Create new crawl task , iterate the down site pick the site which current task bind count
      * less than task max bind count
      */
-    // @Scheduled(cron = "* 0/2 * * * *")
+     @Scheduled(cron = "*/10 * * * * *")
     public void run() {
         info("-----------begin creating task--------------");
         List<DownSystemSite> downSystemSites = null;
@@ -82,7 +83,7 @@ public class CreateNewTaskJob extends LoggerSupport {
         );
 
         if (result) {
-            downSystemSiteService.increaseCurrentBindCount(downSystemSite.getId());
+            downSystemSiteService.increaseCurrentTaskCount(downSystemSite.getId());
             return true;
         } else {
             return false;

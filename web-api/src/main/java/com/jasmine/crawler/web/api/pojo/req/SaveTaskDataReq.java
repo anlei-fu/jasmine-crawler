@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class SaveDataResultReq {
+public class SaveTaskDataReq {
     private Integer downSystemId;
 
     private List<String> data;

@@ -1,20 +1,26 @@
 package com.jasmine.crawler.url.store.service;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
 import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public interface UrlService {
 
-    List<Url> getUrlForTask(GetUrlForTaskReq req) throws Exception;
+    /**
+     * Get urls to run task
+     *
+     * @param downSystemSiteId
+     * @return
+     * @throws Exception
+     */
+    List<Url> getUrlForTask(Integer downSystemSiteId) throws Exception;
 
-    boolean saveUrlResult(SaveUrlResultReq req);
+    /**
+     * Save task url result
+     *
+     * @param req
+     * @return
+     */
+    boolean saveTaskUrlResult(SaveUrlResultReq req);
 }

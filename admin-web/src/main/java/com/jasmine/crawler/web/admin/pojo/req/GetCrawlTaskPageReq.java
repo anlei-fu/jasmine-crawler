@@ -17,7 +17,7 @@ public class GetCrawlTaskPageReq extends PageTimeReq {
 
     private Integer siteId;
 
-    private Integer downSystemSiteId;
+    private Integer downSystemId;
 
     @Enum("taskStatus")
     private Integer taskStatus;

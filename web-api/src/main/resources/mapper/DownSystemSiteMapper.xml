@@ -7,7 +7,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.api.mapper.DownSystemSiteMapper">
     <update id="decreaseCurrentRunningTaskCount">
         update down_system_site
-        set task_current_running_count = task_current_running_count - 1
+        set
+          task_current_running_count = task_current_running_count - 1,
+          task_current_count =task_current_count-1
         where id = #{id}
     </update>
     <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">

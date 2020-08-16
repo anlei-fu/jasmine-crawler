@@ -50,7 +50,6 @@ public class CrawlTaskServiceTest {
         GetCrawlTaskPageReq req = new GetCrawlTaskPageReq();
 
         req.setSiteId(6);
-        req.setDownSystemSiteId(8);
         req.setTaskStatus(30);
         req.setTaskExecuteResultType(0);
         req.setCrawlerId(6);

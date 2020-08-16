@@ -33,7 +33,7 @@ public class Proxy extends EnableStatusFeature {
     /**
      * The protocol of proxy see {@enum ProxyProtocol}
      */
-    private String protocol;
+    private Integer proxyProtocol;
 
     /**
      * The proxy type of proxy

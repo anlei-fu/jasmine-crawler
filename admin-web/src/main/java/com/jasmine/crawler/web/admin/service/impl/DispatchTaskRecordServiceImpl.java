@@ -15,6 +15,8 @@ import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DispatchTaskRecordServiceImpl implements DispatchTaskRecordService {
 
@@ -24,5 +26,10 @@ public class DispatchTaskRecordServiceImpl implements DispatchTaskRecordService 
     @Override
     public PageResult<DispatchRecord> getPage(GetDispatchTaskRecordPageReq req) {
         return PageHelperUtils.paging(req, () -> dispatchTaskRecordMapper.getPage(req));
+    }
+
+    @Override
+    public List<DispatchRecord> getByTaskId(Integer taskId) {
+        return dispatchTaskRecordMapper.getByTaskId(taskId);
     }
 }

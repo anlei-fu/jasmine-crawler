@@ -96,7 +96,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
             return false;
         }
 
-        if (task.getTaskStatus() != TaskStatus.EXECUTING) {
+        if (task.getTaskStatus() != TaskStatus.WAIT_TO_DISPATCH) {
             info(String.format("incorrect task status %d", task.getTaskStatus()));
             return false;
         }

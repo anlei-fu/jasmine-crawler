@@ -24,10 +24,11 @@ public class AddProxyReq {
     @NotNull
     private Integer port;
 
-    @Enum("proxyType")
+    @Enum("ProxyType")
     private Integer proxyType;
 
-    private String protocol;
+    @Enum("ProxyProtocol")
+    private Integer protocol;
 
     private String account;
 

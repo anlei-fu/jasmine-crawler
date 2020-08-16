@@ -1,13 +1,13 @@
 package com.jasmine.crawler.web.api.service;
 
-import com.jasmine.crawler.web.api.pojo.req.SaveDataResultReq;
+import com.jasmine.crawler.web.api.pojo.req.SaveTaskDataReq;
 
 public interface DataService {
 
     /**
      * Save task data
      *
-     * @param saveDataResultReq
+     * @param saveTaskDataReq
      */
-    void saveData(SaveDataResultReq saveDataResultReq);
+    void saveData(SaveTaskDataReq saveTaskDataReq);
 }

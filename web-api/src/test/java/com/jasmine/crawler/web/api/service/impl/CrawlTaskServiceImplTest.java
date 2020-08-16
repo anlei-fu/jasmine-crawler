@@ -2,7 +2,7 @@ package com.jasmine.crawler.web.api.service.impl;
 
 import com.google.common.collect.Lists;
 import com.jasmine.crawler.web.api.Application;
-import com.jasmine.crawler.web.api.pojo.req.TaskResultReq;
+import com.jasmine.crawler.web.api.pojo.req.SaveTaskResultReq;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,24 +38,23 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testSaveTaskResult() throws Exception {
-        TaskResultReq taskResultReq =TaskResultReq
+        SaveTaskResultReq taskResultReq = SaveTaskResultReq
                 .builder()
                 .taskId(1)
-                .taskStatus(1)
+                .taskResult(1)
                 .averageSpeedOfAll(1)
                 .badUrls(Lists.newArrayList())
                 .succeedUrls(Lists.newArrayList())
                 .failedUrls(Lists.newArrayList())
                 .newUrls(Lists.newArrayList())
                 .data(Lists.newArrayList())
-                .downSystemSiteId(1)
                 .maxSpeedOfSuccess(1)
                 .averageSpeedOfSuccess(1)
                 .meanSpeedOfSuccess(1)
                 .unStartUrls(Lists.newArrayList())
                 .build();
 
-         service.saveTaskResult(taskResultReq);
+        service.saveTaskResult(taskResultReq);
     }
 
     /**

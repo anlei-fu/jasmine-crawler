@@ -1,6 +1,6 @@
 package com.jasmine.crawler.web.api.service.impl;
 
-import com.jasmine.crawler.web.api.pojo.req.SaveDataResultReq;
+import com.jasmine.crawler.web.api.pojo.req.SaveTaskDataReq;
 import com.jasmine.crawler.web.api.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class DataServiceImpl implements DataService {
     private RestTemplate template;
 
     @Override
-    public void saveData(SaveDataResultReq saveDataResultReq) {
+    public void saveData(SaveTaskDataReq saveDataResultReq) {
 
     }
 }

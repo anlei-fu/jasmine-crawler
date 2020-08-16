@@ -1,6 +1,6 @@
 package com.jasmine.crawler.web.api.service;
 
-import com.jasmine.crawler.web.api.pojo.req.TaskResultReq;
+import com.jasmine.crawler.web.api.pojo.req.SaveTaskResultReq;
 
 public interface CrawlTaskService {
 
@@ -10,5 +10,5 @@ public interface CrawlTaskService {
      * @param req
      * @return
      */
-    boolean saveTaskResult(TaskResultReq req);
+    boolean saveTaskResult(SaveTaskResultReq req);
 }

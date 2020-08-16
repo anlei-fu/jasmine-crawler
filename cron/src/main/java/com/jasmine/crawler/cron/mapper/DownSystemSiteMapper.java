@@ -16,7 +16,7 @@ public interface DownSystemSiteMapper {
 
     void decreaseCurrentRunningTaskCount(@Param("id") Integer id);
 
-    void increaseCurrentBindCount(@Param("id") Integer id);
+    void increaseCurrentTaskCount(@Param("id") Integer id);
 
-    void decreaseCurrentBindCount(@Param("id") Integer id);
+    void decreaseCurrentTaskCount(@Param("id") Integer id);
 }

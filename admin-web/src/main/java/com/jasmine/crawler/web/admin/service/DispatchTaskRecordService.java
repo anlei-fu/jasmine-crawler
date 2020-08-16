@@ -10,7 +10,11 @@ import com.jasmine.crawler.common.pojo.entity.DispatchRecord;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq;
 
+import java.util.List;
+
 public interface DispatchTaskRecordService {
 
     PageResult<DispatchRecord> getPage(GetDispatchTaskRecordPageReq req);
+
+    List<DispatchRecord> getByTaskId(Integer taskId);
 }

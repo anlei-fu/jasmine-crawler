@@ -10,11 +10,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         select
         t.id,
         t.site_id,
-        t.down_system_site_id,
         t.down_system_id,
         t.task_timeout_time,
         t.task_status,
-        t.task_execute_result_type,
+        t.task_result,
         t.crawler_id,
         t.bind_timeout_time,
         t.bind_last_result,
@@ -43,8 +42,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="siteId != null">
                 t.site_id = #{siteId}
             </if>
-            <if test="downSystemSiteId != null">
-                and t.down_system_site_id = #{downSystemSiteId}
+            <if test="downSystemId != null">
+                and t.down_system_id = #{downSystemId}
             </if>
             <if test="taskStatus != null">
                 and t.task_status = #{taskStatus}
@@ -77,5 +76,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 and t.create_time &lt; #{createTimeEnd}
             </if>
         </where>
+        order by t.id desc
     </select>
 </mapper>

@@ -89,7 +89,6 @@ public class CrawlerServiceTest {
 
         UpdateCrawlerReq req = new UpdateCrawlerReq();
 
-        req.setClientVersion(90);
         req.setName("jasmine");
         req.setIp("192.168.0.1");
         req.setDescription("mock generator, generate lots of data for testing");

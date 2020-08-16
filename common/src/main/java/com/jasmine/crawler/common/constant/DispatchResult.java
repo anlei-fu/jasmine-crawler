@@ -5,11 +5,6 @@ package com.jasmine.crawler.common.constant;
  */
 public final class DispatchResult {
     /**
-     * Means wait to dispatch
-     */
-    public static final Integer WAIT = 0;
-
-    /**
      * Means dispatch failed, cause site not available
      */
     public static final Integer SITE_NOT_AVAILABLE = 1;

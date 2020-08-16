@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class UpdateCrawlerReq {
 
-    private Integer clientVersion;
+    private String clientVersion;
 
     private String name;
 

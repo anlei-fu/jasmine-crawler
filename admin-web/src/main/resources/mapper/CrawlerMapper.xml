@@ -169,7 +169,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.heartbeat_last_time,
         t.heartbeat_lost_count,
         t.enable_status,
-        t.create_time
+        t.create_time,
+        t.last_sync_concurrency_time
         from crawler t
         <where>
             t.id = #{id}
@@ -193,7 +194,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.heartbeat_last_time,
         t.heartbeat_lost_count,
         t.enable_status,
-        t.create_time
+        t.create_time,
+        t.last_sync_concurrency_time
         from crawler t
         <where>
             <if test="crawlerType != null">

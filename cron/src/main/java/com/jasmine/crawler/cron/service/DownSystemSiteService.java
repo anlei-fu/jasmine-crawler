@@ -39,12 +39,12 @@ public interface DownSystemSiteService {
      *
      * @param id
      */
-    void increaseCurrentBindCount(Integer id);
+    void increaseCurrentTaskCount(Integer id);
 
     /**
      * Decrease current bind task count
      *
      * @param downSystemId
      */
-    void decreaseCurrentBindCount(Integer downSystemId);
+    void decreaseCurrentTaskCount(Integer downSystemId);
 }

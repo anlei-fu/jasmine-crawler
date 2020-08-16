@@ -24,7 +24,7 @@ public class AddDownSystemSiteReq {
 
     private Integer priority;
 
-    private Integer scriptId;
+    private String scriptPath;
 
     private String crawlerPageEncoding;
 
@@ -52,13 +52,32 @@ public class AddDownSystemSiteReq {
 
     private Float bloomFpp;
 
+    private  String bloom;
+
+
     private Integer taskUrlBatchCount;
 
-    private Integer taskMaxWaitToBindCount;
+    private Integer taskMaxCount;
 
     private Integer taskMaxRunningCount;
 
     private Integer taskTimeout;
+
+
+    /**
+     * Max fail count of a task
+     */
+    private  Integer taskUrlMaxFailCount;
+
+    /**
+     * Max continuously fail count of a task
+     */
+    private  Integer taskUrlMaxContinuouslyFailCount;
+
+    /**
+     * Max concurrent executing count of url
+     */
+    private  Integer taskUrlMaxConcurrency;
 
     @Enum("EnableStatus")
     private Integer enableStatus;

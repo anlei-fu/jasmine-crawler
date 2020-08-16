@@ -26,7 +26,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="heartbeatFailed">
         update crawler
         set heartbeat_status = 0,
-        current_concurrency = 0,
         heartbeat_lost_count = heartbeat_lost_count + 1,
         heartbeat_last_time = current_timestamp
         where id = #{id}
@@ -62,5 +61,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             )
         </if>
         order by c.current_concurrency/c.max_concurrency asc
+        limit 1,1
     </select>
 </mapper>

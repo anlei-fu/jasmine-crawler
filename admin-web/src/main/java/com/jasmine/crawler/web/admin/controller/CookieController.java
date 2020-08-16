@@ -12,6 +12,7 @@ import com.jasmine.crawler.common.pojo.entity.Cookie;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddCookieReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetCookiePageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CookieVo;
 import com.jasmine.crawler.web.admin.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -55,8 +56,8 @@ public class CookieController extends ControllerBase {
     }
 
     @GetMapping(path = "/cookie/page")
-    public R<PageResult<Cookie>> getPage(@Validated GetCookiePageReq req) {
-        PageResult<Cookie> result = cookieService.getPage(req);
+    public R<PageResult<CookieVo>> getPage(@Validated GetCookiePageReq req) {
+        PageResult<CookieVo> result = cookieService.getPage(req);
         return responseData(result);
     }
 }

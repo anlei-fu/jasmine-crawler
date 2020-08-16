@@ -15,7 +15,11 @@ import com.jasmine.crawler.web.admin.service.DispatchTaskRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class DispatchRecordController extends ControllerBase {
@@ -28,5 +32,11 @@ public class DispatchRecordController extends ControllerBase {
             @Validated GetDispatchTaskRecordPageReq req) {
         PageResult<DispatchRecord> result = dispatchTaskRecordService.getPage(req);
         return responseData(result);
+    }
+
+    @GetMapping(path = "/dispatchRecord/getByTaskId/{taskId}")
+    public R<List<DispatchRecord>> getByTaskId(@PathVariable Integer taskId){
+        List<DispatchRecord> result =dispatchTaskRecordService.getByTaskId(taskId);
+        return  responseData(result);
     }
 }

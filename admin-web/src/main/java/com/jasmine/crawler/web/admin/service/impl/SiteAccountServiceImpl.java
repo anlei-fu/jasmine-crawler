@@ -14,6 +14,7 @@ import com.jasmine.crawler.web.admin.pojo.req.AddSiteAccountReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetSiteAccountPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateSiteAccountReq;
+import com.jasmine.crawler.web.admin.pojo.vo.SiteAccountVo;
 import com.jasmine.crawler.web.admin.service.SiteAccountService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class SiteAccountServiceImpl implements SiteAccountService {
     }
 
     @Override
-    public PageResult<SiteAccount> getPage(GetSiteAccountPageReq req) {
+    public PageResult<SiteAccountVo> getPage(GetSiteAccountPageReq req) {
         return PageHelperUtils.paging(req, () -> siteAccountMapper.getPage(req));
     }
 

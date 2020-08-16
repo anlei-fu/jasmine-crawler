@@ -36,7 +36,7 @@ public class BloomManagerImplTest {
      */
     @Test
     public void testGet() throws Exception {
-       service.get(1);
+        service.get(1);
     }
 
     /**
@@ -44,7 +44,7 @@ public class BloomManagerImplTest {
      */
     @Test
     public void testGetAll() throws Exception {
-           service.getAll();
+        service.getAll();
     }
 
     /**
@@ -55,5 +55,4 @@ public class BloomManagerImplTest {
         service.remove(1);
     }
 
-
-} 
+}

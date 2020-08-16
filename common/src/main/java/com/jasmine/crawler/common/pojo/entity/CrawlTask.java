@@ -112,7 +112,7 @@ public class CrawlTask {
     /**
      * The result of the task
      */
-    private Integer taskExecuteResultType;
+    private Integer taskResult;
 
     /**
      * Use for statistics
@@ -135,19 +135,24 @@ public class CrawlTask {
     private Integer meanSpeedOfSuccess;
 
     /**
-     * Task result field
+     *
      */
-    private Integer failedUrlCount;
+    private Integer urlTotalCount;
 
     /**
      * Task result field
      */
-    private Integer newUrlCount;
+    private Integer urlFailedCount;
 
     /**
      * Task result field
      */
-    private Integer successUrlCount;
+    private Integer urlNewCount;
+
+    /**
+     * Task result field
+     */
+    private Integer urlSuccessCount;
 
     /**
      * The bad urls(404 and other) that crawler detected

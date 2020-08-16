@@ -8,14 +8,12 @@ package com.jasmine.crawler.common.pojo.entity;
 
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SiteUrlBloom extends CreateTimeFeature {
+public class SiteUrlBloom {
 
     /**
      * Unique id
@@ -23,33 +21,8 @@ public class SiteUrlBloom extends CreateTimeFeature {
     private Integer id;
 
     /**
-     * The down system site the bloom belong to
-     */
-    private Integer downSystemSiteId;
-
-    /**
      * The bloom in base64 format
      */
     private String bloom;
-
-    /**
-     * The load status of the bloom
-     */
-    private Integer bloomLoadStatus;
-
-    /**
-     * The total unique url count of the bloom
-     */
-    private Integer totalCount;
-
-    /**
-     * The last load time of bloom
-     */
-    private Date lastLoadTime;
-
-    /**
-     * The last dump of the bloom
-     */
-    private Date lastDumpTime;
 
 }
