@@ -38,8 +38,8 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     }
 
     @Override
-    public boolean dispatchSuccess(Integer taskId) {
-        return crawlTaskMapper.dispatchSuccess(taskId) > 0;
+    public boolean dispatchSuccess(Integer id, Integer downSystemSiteId) {
+        return crawlTaskMapper.dispatchSuccess(id,downSystemSiteId) > 0;
     }
 
     @Override
@@ -68,8 +68,8 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     }
 
     @Override
-    public void terminateTimeoutTask(Integer id) {
-        crawlTaskMapper.terminateTimeoutTask(id);
+    public void terminateExecuteTimeoutTask(Integer id) {
+        crawlTaskMapper.terminateExecuteTimeoutTask(id);
     }
 
     @Override
@@ -90,6 +90,11 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     @Override
     public List<CrawlTask> getBindTimeoutTasks() {
         return crawlTaskMapper.getBindTimeoutTasks();
+    }
+
+    @Override
+    public CrawlTask get(Integer taskId) {
+        return crawlTaskMapper.getById(taskId);
     }
 }
 

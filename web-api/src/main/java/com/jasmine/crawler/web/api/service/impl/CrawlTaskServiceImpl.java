@@ -55,18 +55,15 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
     @Override
     public boolean saveTaskResult(SaveTaskResultReq req) {
-        saveUrls(req);
-
-        Integer downSystemId = crawlTaskMapper.getDownSystemIdById(req.getTaskId());
-
-        saveData(req, downSystemId);
-
         try {
-            finishCrawTask(req);
+            if (finishCrawTask(req)) {
+                saveUrls(req);
+                Integer downSystemId = crawlTaskMapper.getDownSystemIdById(req.getTaskId());
+                saveData(req, downSystemId);
+            }
         } catch (Exception ex) {
             error(String.format("terminate task(%d) failed", req.getTaskId()), ex);
         }
-
         return true;
     }
 
@@ -77,7 +74,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                     .newUrls(req.getNewUrls())
                     .badUrls(req.getBadUrls())
                     .failedUrls(req.getFailedUrls())
-                    .unStartUrls(req.getUnStartUrls())
+                    .unCrawledUrls(req.getUnCrawledUrls())
                     .succeedUrls(req.getSucceedUrls())
                     .build();
             urlService.saveUrlResult(saveUrlResultReq);
@@ -102,19 +99,19 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
     }
 
     @Transactional
-    public void finishCrawTask(SaveTaskResultReq req) {
+    public boolean finishCrawTask(SaveTaskResultReq req) {
 
         // task removed
         CrawlTask task = crawlTaskMapper.getCrawlTaskForUpdate(req.getTaskId());
         if (Objects.isNull(task)) {
             info("task removed");
-            return;
+            return false;
         }
 
         // incorrect task status may have been processed by timeout termination job
         if (task.getTaskStatus() != TaskStatus.WAIT_TO_DISPATCH) {
             info(String.format("task status incorrect %d", req.getTaskResult()));
-            return;
+            return false;
         }
 
         // decrease down system and down system site concurrency
@@ -152,7 +149,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         // decrease crawler concurrency
         Crawler crawler = crawlerService.get(task.getCrawlerId());
         if (!Objects.isNull(crawler) && !Objects.isNull(site))
-            crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), site.getIpMinuteSpeedLimit());
+            crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), downSystemSite.getTaskUrlMaxConcurrency());
 
         // handle block result
         if (req.getTaskResult() == TaskResult.SUCCESS) {
@@ -189,6 +186,8 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         }
 
         finishCrawlTask(req);
+
+        return true;
     }
 
     private void finishCrawlTask(SaveTaskResultReq req) {

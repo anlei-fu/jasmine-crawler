@@ -8,7 +8,6 @@ package com.jasmine.crawler.web.admin.mapper;
 
 import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.BindRecord;
-import com.jasmine.crawler.common.validate.annotation.Path;
 import com.jasmine.crawler.web.admin.pojo.req.GetBindRecordPageReq;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

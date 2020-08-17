@@ -137,6 +137,8 @@ public class DownSystemSite extends EnableStatusFeature {
      */
     private Integer taskTimeout;
 
+    private  Integer taskBindTimeout;
+
     /**
      * Max fail count of a task
      */

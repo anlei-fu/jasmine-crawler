@@ -11,9 +11,9 @@ import java.util.List;
 public class UrlServiceImpl implements UrlService {
     @Override
     public List<Url> getUrlToExecuteForSite(Integer siteId, Integer taskBatchCount) {
-        Url url =new Url();
-        List<Url> result =new LinkedList<>();
+        Url url = new Url();
+        List<Url> result = new LinkedList<>();
         result.add(url);
-        return  result;
+        return result;
     }
 }

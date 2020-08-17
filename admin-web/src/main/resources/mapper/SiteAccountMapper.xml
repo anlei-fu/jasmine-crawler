@@ -222,7 +222,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         s.account_max_use_count as max_use_count,
         s.account_max_block_count as max_block_count
         from site_account t
-       join site s on t.site_id = s.id
+        join site s on t.site_id = s.id
         <where>
             <if test="loginType != null">
                 t.login_type = #{loginType}

@@ -22,7 +22,7 @@ public class SaveUrlResultReq {
 
     private List<Integer> failedUrls;
 
-    private List<Integer> unStartUrls;
+    private List<Integer> unCrawledUrls;
 
     private Integer taskId;
 }

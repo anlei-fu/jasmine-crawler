@@ -46,5 +46,5 @@ public class UpdateSiteAccountReq {
 
     private String delayTimeoutTime;
 
-    private  String blockTimeoutTime;
+    private String blockTimeoutTime;
 }

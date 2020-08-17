@@ -55,7 +55,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testDispatchSuccess() throws Exception {
-        service.dispatchSuccess(1);
+       // service.dispatchSuccess(crawlTaskConfig.getTaskId(), 1);
     }
 
     /**
@@ -112,7 +112,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testTerminateTimeoutTask() throws Exception {
-        service.terminateTimeoutTask(1);
+        service.terminateExecuteTimeoutTask(1);
     }
 
     /**

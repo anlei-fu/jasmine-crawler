@@ -51,7 +51,7 @@ public class CrawlTaskServiceImplTest {
                 .maxSpeedOfSuccess(1)
                 .averageSpeedOfSuccess(1)
                 .meanSpeedOfSuccess(1)
-                .unStartUrls(Lists.newArrayList())
+                .unCrawledUrls(Lists.newArrayList())
                 .build();
 
         service.saveTaskResult(taskResultReq);

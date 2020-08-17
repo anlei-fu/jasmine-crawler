@@ -22,12 +22,12 @@ public class CrawlerServiceImpl implements CrawlerService {
     private CrawlerMapper crawlerMapper;
 
     @Override
-    public Crawler getCrawlerForSite(Integer siteId, boolean withIp) {
-        return crawlerMapper.getCrawlerForSite(siteId,withIp);
+    public Crawler getCrawlerForSite(Integer siteId, Integer taskUrlMaxConcurrency, boolean withIp) {
+        return crawlerMapper.getCrawlerForSite(siteId, taskUrlMaxConcurrency, withIp);
     }
 
     @Override
-    public void increaseCurrentConcurrency(Integer id, Integer concurrencyToIncrease) {
+    public void changeCurrentConcurrency(Integer id, Integer concurrencyToIncrease) {
         crawlerMapper.updateConcurrencyById(id, concurrencyToIncrease);
     }
 

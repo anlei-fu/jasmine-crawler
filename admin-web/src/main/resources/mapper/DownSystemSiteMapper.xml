@@ -50,6 +50,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="taskMaxRunningCount != null">
                   task_max_running_count,
             </if>
+             <if test="taskBindTimeout != null">
+                              task_bind_timeout,
+                        </if>
              <if test="taskTimeout != null">
                                          task_timeout,
                                </if>
@@ -109,6 +112,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="taskMaxRunningCount != null">
                   #{taskMaxRunningCount},
             </if>
+             <if test="taskBindTimeout != null">
+                                          #{taskBindTimeout},
+                                    </if>
              <if test="taskTimeout != null">
                               #{taskTimeout},
                         </if>
@@ -190,6 +196,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="taskMaxCount != null">
                   t.task_max_count = #{taskMaxCount},
             </if>
+                <if test="taskBindTimeout != null">
+                                                     task_bind_timeout= #{taskBindTimeout},
+                                                </if>
             <if test="taskTimeout != null">
                   t.task_timeout = #{taskTimeout},
             </if>
@@ -229,6 +238,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                              <if test="taskMaxRunningCount!=null">
                              task_max_running_count = #{taskMaxRunningCount},
                                    </if>
+                                    <if test="taskBindTimeout != null">
+                                                                                        task_bind_timeout= #{taskBindTimeout},
+                                                                                   </if>
                                        <if test="taskTimeout!=null">
                                        task_timeout = #{taskTimeout},
                                                                       </if>
@@ -265,6 +277,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.task_max_running_count,
              t.task_current_running_count,
              t.task_timeout,
+             t.task_bind_timeout,
              t.task_url_max_fail_count,
              t.task_url_max_continuously_fail_count,
              t.task_url_max_concurrency,
@@ -302,6 +315,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.task_max_running_count,
              t.task_current_running_count,
              t.task_timeout,
+              t.task_bind_timeout,
              t.task_url_max_fail_count,
              t.task_url_max_continuously_fail_count,
              t.task_url_max_concurrency,

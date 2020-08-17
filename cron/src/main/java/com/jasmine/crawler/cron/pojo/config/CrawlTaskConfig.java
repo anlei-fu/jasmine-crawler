@@ -4,7 +4,6 @@ import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,20 +14,14 @@ public class CrawlTaskConfig {
      */
     private Integer taskId;
 
-    /**
-     * Task timeout time
-     */
-    private Date taskTimeoutTime;
+    private  Integer siteId;
+
+    private  Integer downSystemSiteId;
 
     /**
-     * Down system site id
+     * Task urls
      */
-    private Integer downSystemSiteId;
-
-    /**
-     * Target site id
-     */
-    private Integer siteId;
+    private List<Url> urls;
 
     // crawler config
     /**
@@ -57,10 +50,14 @@ public class CrawlTaskConfig {
      */
     private Integer downloadPageTimeout;
 
-    // json string array
+    /**
+     * json string array
+     */
     private String urlMatchPatterns;
 
-    // json string array
+    /**
+     * json string array
+     */
     private String urlEncodes;
 
     // proxy config
@@ -117,8 +114,18 @@ public class CrawlTaskConfig {
     private Integer taskUrlMaxConcurrency;
 
     /**
-     * Task urls
+     *
      */
-    private List<Url> urls;
+    private Integer userAgentType;
+
+    /**
+     *
+     */
+    public String headers;
+
+    /**
+     *
+     */
+    public String additionalParams;
 
 }

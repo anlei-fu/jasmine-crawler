@@ -36,7 +36,7 @@ public class DispatchTaskJobTest {
      */
     @Test
     public void testRun() throws Exception {
-          service.run();
+        service.run();
     }
 
     /**

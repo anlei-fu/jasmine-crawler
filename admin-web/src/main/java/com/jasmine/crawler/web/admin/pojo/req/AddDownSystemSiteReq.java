@@ -52,32 +52,32 @@ public class AddDownSystemSiteReq {
 
     private Float bloomFpp;
 
-    private  String bloom;
-
+    private String bloom;
 
     private Integer taskUrlBatchCount;
 
     private Integer taskMaxCount;
 
+    private  Integer taskBindTimeout;
+
     private Integer taskMaxRunningCount;
 
     private Integer taskTimeout;
 
-
     /**
      * Max fail count of a task
      */
-    private  Integer taskUrlMaxFailCount;
+    private Integer taskUrlMaxFailCount;
 
     /**
      * Max continuously fail count of a task
      */
-    private  Integer taskUrlMaxContinuouslyFailCount;
+    private Integer taskUrlMaxContinuouslyFailCount;
 
     /**
      * Max concurrent executing count of url
      */
-    private  Integer taskUrlMaxConcurrency;
+    private Integer taskUrlMaxConcurrency;
 
     @Enum("EnableStatus")
     private Integer enableStatus;

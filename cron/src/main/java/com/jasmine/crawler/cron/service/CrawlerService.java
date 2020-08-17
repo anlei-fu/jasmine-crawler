@@ -27,10 +27,11 @@ public interface CrawlerService {
      * Get an available crawler for site
      *
      * @param siteId
+     * @param taskUrlMaxConcurrency
      * @param withIp
      * @return
      */
-    Crawler getCrawlerForSite(Integer siteId, boolean withIp);
+    Crawler getCrawlerForSite(Integer siteId, Integer taskUrlMaxConcurrency, boolean withIp);
 
     /**
      * Increase crawler current concurrency
@@ -38,7 +39,7 @@ public interface CrawlerService {
      * @param crawlerId
      * @param concurrencyToIncrease
      */
-    void increaseCurrentConcurrency(Integer crawlerId, Integer concurrencyToIncrease);
+    void changeCurrentConcurrency(Integer crawlerId, Integer concurrencyToIncrease);
 
     /**
      * Get crawlers which need to do heartbeat check,the {@Field Crawler.heartbeatLostCount} smaller

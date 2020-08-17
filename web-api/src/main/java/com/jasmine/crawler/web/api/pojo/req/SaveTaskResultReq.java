@@ -9,9 +9,11 @@ import java.util.List;
 @Data
 @Builder
 public class SaveTaskResultReq {
+    private Integer taskId;
+
     private Integer taskResult;
 
-    private Integer taskId;
+    private String message;
 
     private Integer urlTotal;
 
@@ -25,7 +27,7 @@ public class SaveTaskResultReq {
 
     private List<Integer> failedUrls;
 
-    private List<Integer> unStartUrls;
+    private List<Integer> unCrawledUrls;
 
     private Integer averageSpeedOfSuccess;
 

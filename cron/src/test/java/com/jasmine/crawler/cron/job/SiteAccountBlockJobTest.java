@@ -36,7 +36,7 @@ public class SiteAccountBlockJobTest {
      */
     @Test
     public void testDisableBlockedAccount() throws Exception {
-          service.disableBlockedAccount();
+        service.disableBlockedAccount();
     }
 
 } 

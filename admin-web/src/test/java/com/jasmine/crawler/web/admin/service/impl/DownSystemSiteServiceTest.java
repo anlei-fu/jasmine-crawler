@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+
 /**
  * DownSystemSiteService Tester.
  *
@@ -47,7 +49,7 @@ public class DownSystemSiteServiceTest {
      * add
      */
     @Test
-    public void testAdd() {
+    public void testAdd() throws IOException {
 
         AddDownSystemSiteReq req = new AddDownSystemSiteReq();
 

@@ -6,16 +6,13 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.service.impl;
 
-import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.web.admin.Application;
-import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.pojo.req.AddScriptReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetScriptPageReq;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -30,8 +27,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class ScriptServiceTest {
 
-    @Autowired
-    private ScriptController controller;
 
     @Before
     public void before() {
@@ -55,9 +50,9 @@ public class ScriptServiceTest {
         req.setDownSiteId(35);
         req.setEnableStatus(0);
 
-        R result = controller.add(req);
-
-        TestUtils.printQuery(req, result);
+//        R result = controller.add(req);
+//
+//        TestUtils.printQuery(req, result);
     }
 
     /**
@@ -66,9 +61,9 @@ public class ScriptServiceTest {
     @Test
     public void testDeleteById() {
 
-        R result = controller.deleteById(6);
-
-        TestUtils.print(result);
+//        R result = controller.deleteById(6);
+//
+//        TestUtils.print(result);
     }
 
     /**
@@ -85,9 +80,9 @@ public class ScriptServiceTest {
     @Test
     public void testGetById() {
 
-        R result = controller.getById(1);
-
-        TestUtils.print(result);
+//        R result = controller.getById(1);
+//
+//        TestUtils.print(result);
     }
 
     /**
@@ -101,8 +96,8 @@ public class ScriptServiceTest {
         req.setScriptType(90);
         req.setEnableStatus(0);
 
-        R result = controller.getPage(req);
-
-        TestUtils.printQuery(req, result);
+//        R result = controller.getPage(req);
+//
+//        TestUtils.printQuery(req, result);
     }
 }

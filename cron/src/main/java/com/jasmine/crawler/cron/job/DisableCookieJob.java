@@ -18,16 +18,16 @@ public class DisableCookieJob extends LoggerSupport {
      * To disable cookie that over max block count and set enable status 'false'
      */
     public void run() {
-        List<Cookie> cookies=null;
+        List<Cookie> cookies = null;
         try {
-            cookies= cookieService.getInvalidCookies();
+            cookies = cookieService.getInvalidCookies();
             cookieService.disableInvalidCookies();
         } catch (Exception ex) {
             error(String.format("delete invalid cookie failed"), ex);
         }
     }
 
-    public  void  disableCookieCore(Cookie cookie){
+    public void disableCookieCore(Cookie cookie) {
 
     }
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class SiteAccountVo extends SiteAccount {
 
-    private  Integer maxUseCount;
+    private Integer maxUseCount;
 
-    private  Integer maxBlockCount;
+    private Integer maxBlockCount;
 }

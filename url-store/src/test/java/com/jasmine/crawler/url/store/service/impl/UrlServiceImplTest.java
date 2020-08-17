@@ -41,7 +41,7 @@ public class UrlServiceImplTest {
         GetUrlForTaskReq req = GetUrlForTaskReq.builder()
                 .downSystemSiteId(2)
                 .build();
-        service.getUrlForTask(req);
+//        service.getUrlForTask(req);
     }
 
     /**

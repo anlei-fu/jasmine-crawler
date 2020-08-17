@@ -138,7 +138,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         ct.proxy_id,
 
         -- ahead 2 min than real task timeout
-        (date_add(ct.task_timeout_time,interval -2 minute)) as task_timeout,
+        date_add(current_timestamp ,interval greatest((dss.task_timeout-2),10) minute) as task_timeout,
         -- site
         s.ip_minute_speed_limit
         from crawl_task ct
@@ -159,7 +159,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       task_start_time = current_timestamp,
       task_timeout_time = date_add(
         current_timestamp,
-        interval (select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}) minute
+        interval greatest((select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}),8) minute
       ),
       task_status = 2
       where id = #{id}
@@ -174,10 +174,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       task_status = 0
       where id = #{id}
     </update>
-    <update id="terminateTimeoutTask">
+    <update id="terminateExecuteTimeoutTask">
         update crawl_task
-        set task_status = 3,
-        task_finish_time = current_timestamp
+        set
+           task_status = 3,
+           task_result = 3,
+           task_finish_time = current_timestamp
         where id = #{id}
     </update>
     <update id="bindTimeout"></update>
@@ -188,7 +190,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         from crawl_task ct
         where
         ct.task_status = 2
-        and ct.task_timeout_time &lt; current_timestamp
+        and (ct.task_timeout_time is not null and ct.task_timeout_time &lt; current_timestamp)
     </select>
     <select id="getForUpdate" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select * from crawl_task where id = #{id} for update
@@ -199,6 +201,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         from crawl_task ct
         where
         ct.task_status = 0
-        and ct.bind_timeout_time &lt; current_timestamp
+        and (ct.bind_timeout_time is not null and ct.bind_timeout_time &lt; current_timestamp)
     </select>
 </mapper>

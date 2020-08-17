@@ -65,10 +65,12 @@ public interface CrawlTaskService {
     /**
      * Update crawl task to bind
      *
-     * @param taskId
+     *
+     * @param downSystemSiteId
+     * @param downSystemSiteId
      * @return
      */
-    boolean dispatchSuccess(Integer taskId);
+    boolean dispatchSuccess(Integer taskId, Integer downSystemSiteId);
 
     /**
      * Update task when dispatch failed
@@ -89,7 +91,7 @@ public interface CrawlTaskService {
      *
      * @param taskId
      */
-    void terminateTimeoutTask(Integer taskId);
+    void terminateExecuteTimeoutTask(Integer taskId);
 
     /**
      * Get task and lock it
@@ -102,4 +104,6 @@ public interface CrawlTaskService {
     void bindTimeout(Integer id);
 
     List<CrawlTask> getBindTimeoutTasks();
+
+    CrawlTask get(Integer taskId);
 }

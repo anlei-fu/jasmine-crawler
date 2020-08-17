@@ -24,8 +24,8 @@ public class BindRecordController extends ControllerBase {
     private BindRecordService bindRecordService;
 
     @GetMapping(path = "/bindRecord/getByTaskId/{taskId}")
-    public R<List<BindRecord>> getByTaskId(@PathVariable Integer taskId){
-        List<BindRecord> result =bindRecordService.getByTaskId(taskId);
-        return  responseData(result);
+    public R<List<BindRecord>> getByTaskId(@PathVariable Integer taskId) {
+        List<BindRecord> result = bindRecordService.getByTaskId(taskId);
+        return responseData(result);
     }
 }

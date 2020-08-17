@@ -8,13 +8,24 @@ import java.util.List;
 @Data
 @Configuration
 public class SystemConfig {
-    private String crawlerStartNewTaskPath  ="/run";
 
-    private String crawlerHeartbeatPath="/heartbeat";
+    /**
+     *
+     */
+    private String crawlerStartNewTaskPath = "/run";
 
-    private int heartbeatSpeedLimit;
+    /**
+     *
+     */
+    private String crawlerHeartbeatPath = "/heartbeat";
 
+    /**
+     *
+     */
     private List<String> masters;
 
-    private String fileHost;
+    /**
+     *
+     */
+    private String fileHost="http://localhost:80";
 }

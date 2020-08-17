@@ -14,7 +14,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         c.enable_status = 1
         and
         -- max heartbeat interval 10 min
-        date_add(c.heartbeat_last_time,interval least(c.heartbeat_lost_count,10) minute) &lt; current_timestamp
+        date_add(c.heartbeat_last_time,interval greatest(1,least(c.heartbeat_lost_count,10)) minute) &lt; current_timestamp
     </select>
     <update id="heartbeatSuccess">
         update crawler
@@ -43,7 +43,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         c.enable_status = 1
         and c.heartbeat_status =1
         and
-        (c.max_concurrency-c.current_concurrency) > (select ip_minute_speed_limit from site s where s.id = #{siteId})
+        (c.max_concurrency-c.current_concurrency) > #{taskUrlMaxConcurrency}
         <if test="withIp">
             and not exists (
             select 1 from site_ip_block_map sibm
@@ -61,6 +61,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             )
         </if>
         order by c.current_concurrency/c.max_concurrency asc
-        limit 1,1
+        limit 0,1
     </select>
 </mapper>

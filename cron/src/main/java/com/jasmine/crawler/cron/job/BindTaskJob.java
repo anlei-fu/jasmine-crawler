@@ -229,7 +229,7 @@ public class BindTaskJob extends LoggerSupport {
 
         // get crawler for site
         boolean withIp = proxy == null;
-        Crawler crawler = crawlerService.getCrawlerForSite(site.getId(), withIp);
+        Crawler crawler = crawlerService.getCrawlerForSite(site.getId(), downSystemSite.getTaskUrlMaxConcurrency(), withIp);
         valid = validate(
                 crawler,
                 taskToBind.getId(),
@@ -305,9 +305,9 @@ public class BindTaskJob extends LoggerSupport {
             proxyService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
 
         // update crawler current concurrency
-        crawlerService.increaseCurrentConcurrency(
+        crawlerService.changeCurrentConcurrency(
                 crawler.getId(),
-                site.getIpMinuteSpeedLimit()
+                downSystemSite.getTaskUrlMaxConcurrency()
         );
 
         // add delay ip

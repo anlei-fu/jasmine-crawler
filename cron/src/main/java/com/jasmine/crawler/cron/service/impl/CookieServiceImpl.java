@@ -52,7 +52,7 @@ public class CookieServiceImpl implements CookieService {
 
     @Override
     public List<Cookie> getInvalidCookies() {
-        return  cookieMapper.getInvalidCookies();
+        return cookieMapper.getInvalidCookies();
     }
 
 }

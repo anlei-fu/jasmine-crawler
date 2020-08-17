@@ -21,6 +21,8 @@ public class UpdateDownSystemSiteBatchReq extends IdsFeature {
 
     private Integer taskTimeout;
 
+    private  Integer taskBindTimeout;
+
     private Integer urlMaxCacheCount;
 
     private Integer enableStatus;

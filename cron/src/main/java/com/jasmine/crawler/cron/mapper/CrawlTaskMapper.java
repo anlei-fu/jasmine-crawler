@@ -32,13 +32,13 @@ public interface CrawlTaskMapper {
 
     List<CrawlTaskConfig> getTaskConfigsToDispatch();
 
-    int dispatchSuccess(@Param("id") Integer id);
+    int dispatchSuccess(@Param("id") Integer id,@Param("downSystemSiteId") Integer downSystemSiteId);
 
     void dispatchFailed(CrawlTask dispatchFailedTask);
 
     List<CrawlTask> getTimeoutTasksToTerminate();
 
-    void terminateTimeoutTask(@Param("id") Integer id);
+    void terminateExecuteTimeoutTask(@Param("id") Integer id);
 
     CrawlTask getForUpdate(@Param("id") Integer id);
 

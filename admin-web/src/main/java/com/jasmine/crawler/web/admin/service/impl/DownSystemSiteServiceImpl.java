@@ -32,8 +32,8 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
 
     @Override
     public boolean add(AddDownSystemSiteReq req) throws IOException {
-        JasmineBloomFilter bloomFilter =new JasmineBloomFilterImpl();
-        bloomFilter.init(req.getBloomExpectedUrlSize(),req.getBloomFpp());
+        JasmineBloomFilter bloomFilter = new JasmineBloomFilterImpl();
+        bloomFilter.init(req.getBloomExpectedUrlSize(), req.getBloomFpp());
         req.setBloom(bloomFilter.dump());
         return downSystemSiteMapper.add(req) > 0;
     }

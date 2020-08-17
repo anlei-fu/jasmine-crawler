@@ -13,10 +13,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CookieVo extends Cookie {
-    private  Integer siteId;
+    private Integer siteId;
 
-    private  Integer maxUseCount;
+    private Integer maxUseCount;
 
-    private  Integer maxBlockCount;
+    private Integer maxBlockCount;
 
 }

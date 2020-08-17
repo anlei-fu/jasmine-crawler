@@ -25,7 +25,7 @@ public class CreateNewTaskJob extends LoggerSupport {
      * Create new crawl task , iterate the down site pick the site which current task bind count
      * less than task max bind count
      */
-     @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "*/10 * * * * *")
     public void run() {
         info("-----------begin creating task--------------");
         List<DownSystemSite> downSystemSites = null;

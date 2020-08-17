@@ -31,7 +31,6 @@ public class UpdateDownSystemSiteReq {
 
     private Integer crawlerAutoDownloadPage;
 
-
     private Integer urlMaxCacheCount;
 
     private String urlEncodes;
@@ -42,7 +41,6 @@ public class UpdateDownSystemSiteReq {
 
     private String urlMatchPatterns;
 
-
     private Integer taskUrlBatchCount;
 
     private Integer taskMaxCount;
@@ -51,21 +49,22 @@ public class UpdateDownSystemSiteReq {
 
     private Integer taskTimeout;
 
+    private  Integer taskBindTimeout;
+
     /**
      * Max fail count of a task
      */
-    private  Integer taskUrlMaxFailCount;
+    private Integer taskUrlMaxFailCount;
 
     /**
      * Max continuously fail count of a task
      */
-    private  Integer taskUrlMaxContinuouslyFailCount;
+    private Integer taskUrlMaxContinuouslyFailCount;
 
     /**
      * Max concurrent executing count of url
      */
-    private  Integer taskUrlMaxConcurrency;
-
+    private Integer taskUrlMaxConcurrency;
 
     private Integer bloomExpectedUrlSize;
 

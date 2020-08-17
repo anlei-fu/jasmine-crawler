@@ -23,8 +23,8 @@ import java.util.Date;
 @SpringBootTest(classes = Application.class)
 public class SiteIpDelayMapServiceImplTest {
 
-    @Autowired
-    private SiteIpDelayMapServiceImpl service;
+//    @Autowired
+//    private SiteIpDelayMapServiceImpl service;
 
     @Before
     public void before() throws Exception {
@@ -39,11 +39,11 @@ public class SiteIpDelayMapServiceImplTest {
      */
     @Test
     public void testAdd() throws Exception {
-        SiteIpDelayMap siteIpDelayMap = SiteIpDelayMap.builder()
-                .siteId(1).ip("12.5.3.65")
-                .delayTimeoutTime(new Date())
-                .build();
-        service.add(siteIpDelayMap);
+//        SiteIpDelayMap siteIpDelayMap = SiteIpDelayMap.builder()
+//                .siteId(1).ip("12.5.3.65")
+//                .delayTimeoutTime(new Date())
+//                .build();
+//        service.add(siteIpDelayMap);
     }
 
 } 

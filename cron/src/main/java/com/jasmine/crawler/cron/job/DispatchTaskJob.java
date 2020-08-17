@@ -5,6 +5,7 @@ import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.support.LoggerSupport;
+import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
 import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
 import com.jasmine.crawler.cron.pojo.config.SystemConfig;
 import com.jasmine.crawler.cron.service.*;
@@ -57,7 +58,7 @@ public class DispatchTaskJob extends LoggerSupport {
     private SiteAccountService siteAccountService;
 
     @Autowired
-    private SiteIpDelayService siteIpDelayService;
+    private CrawlTaskTerminator crawlTaskTerminator;
 
     /**
      * Dispatch crawl task to crawler to run
@@ -117,7 +118,7 @@ public class DispatchTaskJob extends LoggerSupport {
             return null;
         }
 
-        info(String.format("got %d task to dispatch",crawlTaskConfigs.size()));
+        info(String.format("got %d task to dispatch", crawlTaskConfigs.size()));
 
         if (crawlTaskConfigs.size() == 0) {
             info("no task need to run");
@@ -126,7 +127,6 @@ public class DispatchTaskJob extends LoggerSupport {
 
         return crawlTaskConfigs;
     }
-
 
     public boolean dispatchTaskCore(CrawlTaskConfig crawlTaskConfig) {
         boolean valid = false;
@@ -264,9 +264,9 @@ public class DispatchTaskJob extends LoggerSupport {
             return false;
         }
 
-        dispatchSuccess(crawlTaskConfig, crawler, proxy, site, cookie);
+        dispatchSuccess(crawlTaskConfig,downSystemSite.getId());
 
-        info(String.format("dispatch task(%d) success",crawlTaskConfig.getTaskId()));
+        info(String.format("dispatch task(%d) success", crawlTaskConfig.getTaskId()));
 
         return true;
     }
@@ -284,7 +284,7 @@ public class DispatchTaskJob extends LoggerSupport {
                 && ((EnableStatusFeature) target).getEnableStatus() == BooleanFlag.FALSE)
         ) {
             dispatchFailed(crawlTaskConfig, dispatchStatus, msg);
-            info(String.format("dispatch task(%d) failed cause %s",crawlTaskConfig.getTaskId(),msg));
+            info(String.format("dispatch task(%d) failed cause %s", crawlTaskConfig.getTaskId(), msg));
             return false;
         }
 
@@ -300,6 +300,9 @@ public class DispatchTaskJob extends LoggerSupport {
      */
     @Transactional
     public void dispatchFailed(CrawlTaskConfig crawlTaskConfig, Integer dispatchResult, String dispatchMsg) {
+
+        CrawlTask task = crawlTaskService.get(crawlTaskConfig.getTaskId());
+        crawlTaskTerminator.terminate(task);
 
         // add dispatch record
         DispatchRecord dispatchRecord = DispatchRecord.builder()
@@ -318,45 +321,11 @@ public class DispatchTaskJob extends LoggerSupport {
                 .build();
 
         crawlTaskService.dispatchFailed(dispatchFailedTask);
-
-        // decrease site concurrency
-        Site site = siteService.get(crawlTaskConfig.getSiteId());
-        if (!Objects.isNull(site)) {
-
-            Crawler crawler = crawlerService.get(crawlTaskConfig.getCrawlerId());
-            if (!Objects.isNull(crawler)) {
-                crawlerService.increaseCurrentConcurrency(
-                        crawler.getId(),
-                        -site.getIpMinuteSpeedLimit()
-                );
-            }
-        }
-
-        // decrease  down system site concurrency
-        DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
-        if (!Objects.isNull(downSystemSite)) {
-            downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
-            DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
-            if (!Objects.isNull(downSystem))
-                downSystemService.decreaseCurrentRunningTaskCount(downSystem.getId());
-        }
-
-        // decrease cookie and account use count
-        if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED) {
-            cookieService.decreaseCurrentUseCount(crawlTaskConfig.getCookieId());
-            Cookie cookie = cookieService.get(crawlTaskConfig.getCookieId());
-            siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
-        }
-
-        // decrease proxy use count
-        if (crawlTaskConfig.getProxyId() != BooleanFlag.NO_NEED)
-            proxyService.decreaseCurrentUseCount(crawlTaskConfig.getProxyId());
-
     }
 
-    public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig, Crawler crawler, Proxy proxy, Site site, Cookie cookie) {
+    public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig,Integer downSystemSiteId) {
         // update dispatch status success
-        crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId());
+        crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId(),downSystemSiteId);
     }
 
 }

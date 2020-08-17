@@ -83,6 +83,10 @@ public class UpdateDownSystemSiteParams {
         return req.getTaskMaxRunningCount();
     }
 
+    public  Integer getTaskBindTimeout(){
+        return  req.getTaskBindTimeout();
+    }
+
     public Integer getTaskTimeout() {
         return req.getTaskTimeout();
     }

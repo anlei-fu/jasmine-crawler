@@ -36,7 +36,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testGetCrawlerForSite() throws Exception {
-        service.getCrawlerForSite(24, true);
+//        service.getCrawlerForSite(site.getId(), 24, true);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testIncreaseCurrentConcurrency() throws Exception {
-        service.increaseCurrentConcurrency(1, 100);
+        service.changeCurrentConcurrency(1, 100);
     }
 
     /**
