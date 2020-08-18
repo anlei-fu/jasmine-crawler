@@ -8,19 +8,21 @@ package com.jasmine.crawler.web.admin.service;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
-import com.jasmine.crawler.web.admin.pojo.req.AddUrlReq;
+import com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
 
+import java.util.List;
+
 public interface UrlService {
 
-    boolean add(AddUrlReq req);
+    boolean add(AddSeedUrlReq req);
 
-    boolean deleteByUrl(String url);
+    boolean delete(Integer id);
 
     boolean updateByUrl(String url, UpdateUrlReq req);
 
     Url getByUrl(String url);
 
-    PageResult<Url> getPage(GetUrlPageReq req);
+    List<Url> getPage(Integer downSystemSiteId);
 }

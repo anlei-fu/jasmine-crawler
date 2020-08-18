@@ -193,7 +193,7 @@ public class BindTaskJob extends LoggerSupport {
 
         // get cookie for site if needed
         Cookie cookie = null;
-        if (site.getCrawlNeedUseCookie() == BooleanFlag.TRUE) {
+        if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
             cookie = cookieService.getCookieForSite(site.getId());
             valid = validate(
                     cookie,
@@ -233,7 +233,7 @@ public class BindTaskJob extends LoggerSupport {
         valid = validate(
                 crawler,
                 taskToBind.getId(),
-                BindResult.NO_PROXY_AVAILABLE,
+                BindResult.NO_CRAWLER_AVAILABLE,
                 crawlTaskToUpdate,
                 "no crawler available"
         );
@@ -296,7 +296,7 @@ public class BindTaskJob extends LoggerSupport {
         downSystemSiteService.increaseRunningTaskCount(downSystemSite.getId());
         downSystemService.increaseRunningTaskCount(downSystemSite.getDownSystemId());
 
-        if (site.getCrawlNeedUseCookie() == BooleanFlag.TRUE) {
+        if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
             cookieService.increaseCurrentUseCount(crawlTaskToUpdate.getId());
             siteAccountService.increaseCurrentUseCount(cookie.getAccountId());
         }
@@ -321,7 +321,7 @@ public class BindTaskJob extends LoggerSupport {
         }
 
         // delay account cookie
-        if (site.getCrawlNeedUseCookie() == BooleanFlag.TRUE) {
+        if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
             if (site.getAccountDelayTimeout() != BooleanFlag.NO_NEED)
                 siteAccountService.updateDelayTimeout(cookie.getAccountId());
 

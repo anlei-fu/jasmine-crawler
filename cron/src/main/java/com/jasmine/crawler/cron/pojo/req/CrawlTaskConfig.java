@@ -1,4 +1,4 @@
-package com.jasmine.crawler.cron.pojo.config;
+package com.jasmine.crawler.cron.pojo.req;
 
 import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.common.pojo.entity.Url;

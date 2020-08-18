@@ -4,6 +4,7 @@ import com.jasmine.crawler.common.constant.BindResult;
 import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.cron.Application;
+import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * CrawlTaskServiceImpl Tester.
@@ -75,7 +78,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTasksConfigsToDispatch() throws Exception {
-        service.getTasksConfigsToDispatch();
+       List<CrawlTaskConfig> configs= service.getTasksConfigsToDispatch();
     }
 
     /**

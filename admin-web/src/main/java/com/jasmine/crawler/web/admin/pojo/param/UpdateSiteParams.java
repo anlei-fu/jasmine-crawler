@@ -43,8 +43,8 @@ public class UpdateSiteParams {
         return req.getParentSiteId();
     }
 
-    public Integer getCrawlNeedUseCookie() {
-        return req.getCrawlNeedUseCookie();
+    public Integer getNeedUseCookie() {
+        return req.getNeedUseCookie();
     }
 
     public Integer getLoginScriptId() {

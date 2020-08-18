@@ -56,7 +56,7 @@ public class SiteServiceTest {
         req.setDescription("avoid annoy thing to do");
         req.setHomePageUrl("http://www.google.com");
         req.setParentSiteId(15);
-        req.setCrawlNeedUseCookie(0);
+        req.setNeedUseCookie(0);
         req.setLoginScriptId(7);
         req.setLoginNeedVcode(0);
         req.setLoginCaptaType(90);
@@ -109,7 +109,7 @@ public class SiteServiceTest {
         req.setDescription("this is description mock data segment");
         req.setHomePageUrl("http://www.qq.com");
         req.setParentSiteId(8);
-        req.setCrawlNeedUseCookie(90);
+        req.setNeedUseCookie(90);
         req.setLoginScriptId(8);
         req.setLoginNeedVcode(20);
         req.setLoginCaptaType(30);

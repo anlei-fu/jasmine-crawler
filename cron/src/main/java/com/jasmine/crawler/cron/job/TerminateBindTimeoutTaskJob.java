@@ -1,13 +1,16 @@
 package com.jasmine.crawler.cron.job;
 
+import com.jasmine.crawler.common.constant.TaskStatus;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TerminateBindTimeoutTaskJob extends LoggerSupport {
 
@@ -20,6 +23,7 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
     /**
      * Terminate the task that over max bind time
      */
+    @Scheduled(cron = "30/30 * * * * ?")
     public void terminateBindTimeoutTask() {
         info("------------------------begin terminate bind timeout task---------------------");
         List<CrawlTask> tasks = null;
@@ -51,6 +55,10 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
 
     @Transactional
     public void terminateBindTimeoutTaskCore(CrawlTask task) {
+        CrawlTask crawlTask =crawlTaskService.getForUpdate(task.getId());
+        if(Objects.isNull(crawlTask)||crawlTask.getTaskStatus()!= TaskStatus.WAIT_TO_BIND)
+            return;
+
         crawlTaskTerminator.terminate(task);
         crawlTaskService.bindTimeout(task.getId());
     }

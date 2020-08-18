@@ -12,5 +12,10 @@ public final class CrawlType {
     /**
      * Dynamic page ,use browser to resolve
      */
-    private static final Integer DYNAMIC_PAGE = 2;
+    private static final Integer BROWSER_PAGE = 2;
+
+    /**
+     * Call api
+     */
+    public  static  final  Integer API=3;
 }

@@ -29,7 +29,7 @@ public class GetSitePageReq extends PageTimeReq {
     private Integer enableStatus;
 
     @Enum("YesNo")
-    private Integer crawlNeedUseCookie;
+    private Integer needUseCookie;
 
     private String name;
 

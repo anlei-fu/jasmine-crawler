@@ -22,8 +22,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="parentSiteId != null">
                 parent_site_id,
             </if>
-            <if test="crawlNeedUseCookie != null">
-                crawl_need_use_cookie,
+            <if test="needUseCookie != null">
+                need_use_cookie,
             </if>
             <if test="loginScriptId != null">
                 login_script_id,
@@ -110,8 +110,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="parentSiteId != null">
                 #{parentSiteId},
             </if>
-            <if test="crawlNeedUseCookie != null">
-                #{crawlNeedUseCookie},
+            <if test="needUseCookie != null">
+                #{needUseCookie},
             </if>
             <if test="loginScriptId != null">
                 #{loginScriptId},
@@ -207,8 +207,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="parentSiteId != null">
                 t.parent_site_id = #{parentSiteId},
             </if>
-            <if test="crawlNeedUseCookie != null">
-                t.crawl_need_use_cookie = #{crawlNeedUseCookie},
+            <if test="needUseCookie != null">
+                t.need_use_cookie = #{needUseCookie},
             </if>
             <if test="loginScriptId != null">
                 t.login_script_id = #{loginScriptId},
@@ -313,7 +313,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.description,
         t.home_page_url,
         t.parent_site_id,
-        t.crawl_need_use_cookie,
+        t.need_use_cookie,
         t.login_script_id,
         t.login_need_vcode,
         t.login_capta_type,
@@ -351,7 +351,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.description,
         t.home_page_url,
         t.parent_site_id,
-        t.crawl_need_use_cookie,
+        t.need_use_cookie,
         t.login_script_id,
         t.login_need_vcode,
         t.login_capta_type,
@@ -389,8 +389,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="needUseProxy != null">
                 and t.need_use_proxy = #{needUseProxy}
             </if>
-            <if test="crawlNeedUseCookie != null">
-                and t.crawl_need_use_cookie = #{crawlNeedUseCookie}
+            <if test="needUseCookie != null">
+                and t.need_use_cookie = #{needUseCookie}
             </if>
             <if test="enableStatus != null">
                 and t.enable_status = #{enableStatus}

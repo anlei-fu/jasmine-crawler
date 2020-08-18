@@ -29,7 +29,7 @@ public class AddSiteReq {
 
     private Integer parentSiteId;
 
-    private Integer crawlNeedUseCookie;
+    private Integer needUseCookie;
 
     private Integer loginScriptId;
 

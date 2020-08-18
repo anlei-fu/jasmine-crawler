@@ -1,14 +1,17 @@
 package com.jasmine.crawler.cron.job;
 
+import com.jasmine.crawler.common.constant.TaskStatus;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
@@ -19,6 +22,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
     @Autowired
     private CrawlTaskTerminator crawlTaskTerminator;
 
+    @Scheduled(cron = "30/30 * * * * ?")
     public void run() {
         info("----------------------------begin terminate timeout task-------------------------------");
         List<CrawlTask> tasks = null;
@@ -60,6 +64,10 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
      */
     @Transactional
     public void terminateTimeoutTaskCore(CrawlTask task) {
+       CrawlTask crawlTask= crawlTaskService.getForUpdate(task.getId());
+       if(Objects.isNull(crawlTask)||crawlTask.getTaskStatus()!= TaskStatus.EXECUTING)
+           return;
+
         crawlTaskTerminator.terminate(task);
         crawlTaskService.terminateExecuteTimeoutTask(task.getId());
     }

@@ -46,6 +46,7 @@ public class CrawlTaskTerminator {
         }
 
         downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
+        downSystemSiteService.decreaseCurrentTaskCount(downSystemSite.getId());
 
         if (task.getProxyId() != BooleanFlag.NO_NEED)
             proxyService.decreaseCurrentUseCount(task.getProxyId());

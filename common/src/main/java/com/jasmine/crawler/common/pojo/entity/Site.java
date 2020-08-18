@@ -49,7 +49,7 @@ public class Site extends EnableStatusFeature {
     /**
      * Determine if use cookie
      */
-    private Integer crawlNeedUseCookie;
+    private Integer needUseCookie;
 
     /**
      * Determine if use proxy

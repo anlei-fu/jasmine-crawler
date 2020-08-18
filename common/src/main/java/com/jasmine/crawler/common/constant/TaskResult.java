@@ -11,17 +11,22 @@ public final class TaskResult {
     public static final Integer SUCCESS = 1;
 
     /**
+     * Means task finished and failed
+     */
+    public static  final  Integer FAILED=2;
+
+    /**
      * Means task finished and blocked
      */
-    public static final Integer BLOCKED = 2;
+    public static final Integer BLOCKED = 3;
 
     /**
      * Means task failed and bind timeout
      */
-    public static final Integer BIND_TIMEOUT = 3;
+    public static final Integer BIND_TIMEOUT = 4;
 
     /**
      * Means task execute  timeout
      */
-    public static final Integer EXECUTE_TIMEOUT = 4;
+    public static final Integer EXECUTE_TIMEOUT = 5;
 }

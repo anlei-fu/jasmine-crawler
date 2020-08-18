@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class AddUrlReq {
+public class AddSeedUrlReq {
 
     @NotNull
     private Integer depth;

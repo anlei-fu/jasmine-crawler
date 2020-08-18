@@ -10,13 +10,15 @@ import com.jasmine.crawler.common.api.ControllerBase;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
-import com.jasmine.crawler.web.admin.pojo.req.AddUrlReq;
+import com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
 import com.jasmine.crawler.web.admin.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UrlController extends ControllerBase {
@@ -25,14 +27,14 @@ public class UrlController extends ControllerBase {
     private UrlService urlService;
 
     @PostMapping(path = "/url")
-    public R add(@Validated AddUrlReq req) {
+    public R add(@Validated AddSeedUrlReq req) {
         boolean result = urlService.add(req);
         return responseBoolean(result);
     }
 
-    @DeleteMapping(path = "/url/{url}")
-    public R deleteByUrl(@PathVariable String url) {
-        boolean result = urlService.deleteByUrl(url);
+    @DeleteMapping(path = "/url/{id}")
+    public R deleteByUrl(@PathVariable Integer id) {
+        boolean result = urlService.delete(id);
         return responseBoolean(result);
     }
 
@@ -52,9 +54,9 @@ public class UrlController extends ControllerBase {
         return null;
     }
 
-    @GetMapping(path = "/url/page")
-    public R<PageResult<Url>> getPage(@Validated GetUrlPageReq req) {
-        PageResult<Url> result = urlService.getPage(req);
+    @GetMapping(path = "/url/{downSystemSiteId}")
+    public R<List<Url>> getPage(@Validated Integer downSystemSiteId) {
+        List<Url> result = urlService.getPage(downSystemSiteId);
         return responseData(result);
     }
 }

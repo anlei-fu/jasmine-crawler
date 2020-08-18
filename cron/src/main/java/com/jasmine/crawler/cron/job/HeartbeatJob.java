@@ -5,7 +5,7 @@ import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.pojo.entity.Crawler;
 import com.jasmine.crawler.common.pojo.entity.Heartbeat;
 import com.jasmine.crawler.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.pojo.config.SystemConfig;
+import com.jasmine.crawler.cron.config.SystemConfig;
 import com.jasmine.crawler.cron.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

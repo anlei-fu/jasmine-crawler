@@ -5,7 +5,7 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.UrlMapper">
-    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddUrlReq">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq">
         insert into url
         <trim prefix="(" suffix=")" suffixOverrides=",">
             depth,
@@ -55,11 +55,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             current_timestamp
         </trim>
     </insert>
-    <delete id="deleteByUrl">
+    <delete id="delete">
         delete from url t
-        <where>
-            t.url = #{url}
-        </where>
+       where id = #{id}
     </delete>
     <update id="updateByUrl" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateParams">
         update url t
@@ -113,36 +111,29 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             t.url = #{url}
         </where>
     </select>
-    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.Url"
-            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq">
+    <select id="getSeedUrlByDownSystemSiteId" resultType="com.jasmine.crawler.common.pojo.entity.Url"
+           >
         select
         t.url,
         t.depth,
         t.down_system_site_id,
+        t.priority,
+        t.http_method,
         t.url_type,
         t.refer_url,
         t.crawl_count,
         t.url_status,
         t.last_crawl_time,
-        t.query_string,
+        t.last_success_time,
+        t.total_count,
+        t.total_success_count,
+        t.query,
+        t.params,
+        t.enable_status,
         t.create_time
         from url t
-        <where>
-            <if test="downSystemSiteId != null">
-                t.down_system_site_id = #{downSystemSiteId}
-            </if>
-            <if test="urlType != null">
-                and t.url_type = #{urlType}
-            </if>
-            <if test="urlStatus != null">
-                and t.url_status = #{urlStatus}
-            </if>
-            <if test="createTimeStart != null">
-                and t.create_time >= #{createTimeStart}
-            </if>
-            <if test="createTimeEnd != null">
-                and t.create_time &lt; #{createTimeEnd}
-            </if>
-        </where>
+        where
+        t.down_system_site_id = #{downSystemSiteId}
+        and t.url_type =2
     </select>
 </mapper>

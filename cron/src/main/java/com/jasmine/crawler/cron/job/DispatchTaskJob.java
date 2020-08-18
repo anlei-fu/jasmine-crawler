@@ -6,8 +6,8 @@ import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
-import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
-import com.jasmine.crawler.cron.pojo.config.SystemConfig;
+import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
+import com.jasmine.crawler.cron.config.SystemConfig;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -53,9 +53,6 @@ public class DispatchTaskJob extends LoggerSupport {
 
     @Autowired
     private DispatchRecordService dispatchRecordService;
-
-    @Autowired
-    private SiteAccountService siteAccountService;
 
     @Autowired
     private CrawlTaskTerminator crawlTaskTerminator;
@@ -150,7 +147,7 @@ public class DispatchTaskJob extends LoggerSupport {
         valid = validate(
                 site,
                 crawlTaskConfig,
-                DispatchResult.DOWN_SITE_NOT_AVAILABLE,
+                DispatchResult.DOWN_SYSTEM_SITE_NOT_AVAILABLE,
                 "down site not available"
         );
 
@@ -173,6 +170,21 @@ public class DispatchTaskJob extends LoggerSupport {
             return false;
         }
 
+        Cookie cookie = null;
+        // check and config cookie
+        if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED) {
+            cookie = cookieService.get(crawlTaskConfig.getCookieId());
+            valid = validate(
+                    cookie,
+                    crawlTaskConfig,
+                    DispatchResult.COOKIE_NOT_AVAILABLE,
+                    "cookie not available"
+            );
+
+            if (!valid)
+                return false;
+        }
+
         // check and config proxy
         Proxy proxy = null;
         if (crawlTaskConfig.getProxyId() != BooleanFlag.NO_NEED) {
@@ -190,20 +202,6 @@ public class DispatchTaskJob extends LoggerSupport {
             crawlTaskConfig.setProxy(proxy);
         }
 
-        Cookie cookie = null;
-        // check and config cookie
-        if (crawlTaskConfig.getCookieId() != BooleanFlag.NO_NEED) {
-            cookie = cookieService.get(crawlTaskConfig.getCookieId());
-            valid = validate(
-                    cookie,
-                    crawlTaskConfig,
-                    DispatchResult.COOKIE_NOT_AVAILABLE,
-                    "cookie not available"
-            );
-
-            if (!valid)
-                return false;
-        }
 
         // check and config crawler
         Crawler crawler = crawlerService.get(crawlTaskConfig.getCrawlerId());
@@ -264,7 +262,7 @@ public class DispatchTaskJob extends LoggerSupport {
             return false;
         }
 
-        dispatchSuccess(crawlTaskConfig,downSystemSite.getId());
+        dispatchSuccess(crawlTaskConfig, downSystemSite.getId());
 
         info(String.format("dispatch task(%d) success", crawlTaskConfig.getTaskId()));
 
@@ -323,9 +321,16 @@ public class DispatchTaskJob extends LoggerSupport {
         crawlTaskService.dispatchFailed(dispatchFailedTask);
     }
 
-    public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig,Integer downSystemSiteId) {
-        // update dispatch status success
-        crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId(),downSystemSiteId);
+    public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig, Integer downSystemSiteId) {
+        DispatchRecord dispatchRecord =DispatchRecord.builder()
+                .crawlTaskId(crawlTaskConfig.getTaskId())
+                .dispatchResult(DispatchResult.SUCCESS)
+                .dispatchMsg("success")
+                .build();
+
+        dispatchRecordService.add(dispatchRecord);
+
+        crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId(), downSystemSiteId);
     }
 
 }

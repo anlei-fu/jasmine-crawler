@@ -1,4 +1,4 @@
-package com.jasmine.crawler.cron.pojo.config;
+package com.jasmine.crawler.cron.config;
 
 import lombok.Data;
 import org.springframework.context.annotation.Configuration;

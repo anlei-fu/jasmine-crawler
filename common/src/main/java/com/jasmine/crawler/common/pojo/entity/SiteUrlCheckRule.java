@@ -9,28 +9,43 @@ package com.jasmine.crawler.common.pojo.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 public class SiteUrlCheckRule extends EnableStatusFeature {
 
-    private Integer checkType;
-
-    private Date createTime;
-
-    private String description;
-
-    private Integer enableStatus;
-
-    private Integer httpStatus;
-
+    /**
+     * Unique id
+     */
     private Integer id;
 
-    private String keywords;
+    /**
+     * Description of rule
+     */
+    private String description;
 
+    /**
+     * Owned down system site
+     */
+    private Integer downSystemSiteId;
+
+    /**
+     * Target page result type see {@enum PageResult}
+     */
     private Integer pageResultType;
 
-    private Integer siteId;
+    /**
+     * The check type see {@enum CheckType}
+     */
+    private Integer checkType;
+
+    /**
+     * See {@enum HttpStatus}
+     */
+    private Integer httpStatus;
+
+    /**
+     * Json string array
+     */
+    private String keywords;
 
 }

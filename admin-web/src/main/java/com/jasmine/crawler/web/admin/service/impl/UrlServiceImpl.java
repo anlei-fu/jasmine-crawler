@@ -7,16 +7,15 @@
 package com.jasmine.crawler.web.admin.service.impl;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.UrlMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateParams;
-import com.jasmine.crawler.web.admin.pojo.req.AddUrlReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
+import com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
 import com.jasmine.crawler.web.admin.service.UrlService;
-import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UrlServiceImpl implements UrlService {
@@ -25,13 +24,13 @@ public class UrlServiceImpl implements UrlService {
     private UrlMapper urlMapper;
 
     @Override
-    public boolean add(AddUrlReq req) {
+    public boolean add(AddSeedUrlReq req) {
         return urlMapper.add(req) > 0;
     }
 
     @Override
-    public boolean deleteByUrl(String url) {
-        return urlMapper.deleteByUrl(url) > 0;
+    public boolean delete(Integer id) {
+        return urlMapper.delete(id) > 0;
     }
 
     @Override
@@ -46,7 +45,7 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
-    public PageResult<Url> getPage(GetUrlPageReq req) {
-        return PageHelperUtils.paging(req, () -> urlMapper.getPage(req));
+    public List<Url> getPage(Integer downSystemSiteId) {
+        return urlMapper.getSeedUrlByDownSystemSiteId(downSystemSiteId);
     }
 }

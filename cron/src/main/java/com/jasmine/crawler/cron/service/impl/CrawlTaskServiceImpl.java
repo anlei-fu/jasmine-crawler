@@ -8,7 +8,7 @@ package com.jasmine.crawler.cron.service.impl;
 
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.cron.mapper.CrawlTaskMapper;
-import com.jasmine.crawler.cron.pojo.config.CrawlTaskConfig;
+import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

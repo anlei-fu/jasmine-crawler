@@ -7,12 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Data
 @Builder
 @AllArgsConstructor
@@ -30,16 +24,6 @@ public class Url extends EnableStatusFeature {
     private Integer downSystemSiteId;
 
     /**
-     * Url status see {@enum UrlStatus}
-     */
-    private Integer urlStatus;
-
-    /**
-     * The depth of the url
-     */
-    private Integer depth;
-
-    /**
      * Url
      */
     private String url;
@@ -55,14 +39,49 @@ public class Url extends EnableStatusFeature {
     private Integer urlType;
 
     /**
-     * Error msg
+     * Url status see {@enum UrlStatus}
      */
-    private String lastCrawlMsg;
+    private Integer urlStatus;
+
+    /**
+     * Priority of url
+     */
+    private  Integer priority;
+
+    /**
+     * The http method for url see {@enum HttpMethod}
+     */
+    private  Integer httpMethod;
+
+    /**
+     * The depth of the url
+     */
+    private Integer depth;
+
+    /**
+     * Query parameters of url
+     */
+    private String query;
+
+    /**
+     * Params json string
+     */
+    private String params;
 
     /**
      * Crawl count
      */
-    private Integer crawlCount;
+    private Integer totalCrawlCount;
+
+    /**
+     * Total count of success
+     */
+    private  Integer totalSuccessCount;
+
+    /**
+     * Error msg
+     */
+    private String lastCrawlMsg;
 
     /**
      * Last crawl time

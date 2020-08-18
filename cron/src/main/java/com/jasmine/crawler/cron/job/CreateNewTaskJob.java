@@ -27,7 +27,7 @@ public class CreateNewTaskJob extends LoggerSupport {
      */
     @Scheduled(cron = "*/10 * * * * *")
     public void run() {
-        info("-----------begin creating task--------------");
+        info("-----------begin creating new task--------------");
         List<DownSystemSite> downSystemSites = null;
         try {
             downSystemSites = downSystemSiteService.getNeedCreateNewTaskSites();
@@ -36,7 +36,7 @@ public class CreateNewTaskJob extends LoggerSupport {
             return;
         }
 
-        info(String.format("get %d site to create", downSystemSites.size()));
+        info(String.format("get %d down system site to create", downSystemSites.size()));
 
         if (downSystemSites.size() == 0) {
             info("no down system site need to create task");

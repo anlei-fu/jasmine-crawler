@@ -18,4 +18,9 @@ public final class UrlType {
      * Means url is a seed
      */
     public static final Integer SEED = 3;
+
+    /**
+     * Means url is a api
+     */
+    public  static  final  Integer API =4;
 }
