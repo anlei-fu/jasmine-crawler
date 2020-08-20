@@ -50,16 +50,16 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
             }
         }
 
-        info(String.format("finish job [success:%d][exception:%d]", success, exception));
+        info(String.format("terminate bind timeout finished, [success:%d][exception:%d]", success, exception));
     }
 
     @Transactional
     public void terminateBindTimeoutTaskCore(CrawlTask task) {
-        CrawlTask crawlTask =crawlTaskService.getForUpdate(task.getId());
-        if(Objects.isNull(crawlTask)||crawlTask.getTaskStatus()!= TaskStatus.WAIT_TO_BIND)
+        CrawlTask crawlTask = crawlTaskService.getForUpdate(task.getId());
+        if (Objects.isNull(crawlTask) || crawlTask.getTaskStatus() != TaskStatus.WAIT_TO_BIND)
             return;
 
-        crawlTaskTerminator.terminate(task);
+        crawlTaskTerminator.terminate(crawlTask);
         crawlTaskService.bindTimeout(task.getId());
     }
 }

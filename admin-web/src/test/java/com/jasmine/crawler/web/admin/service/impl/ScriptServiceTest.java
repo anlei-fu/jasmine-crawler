@@ -27,7 +27,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = Application.class)
 public class ScriptServiceTest {
 
-
     @Before
     public void before() {
     }

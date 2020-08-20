@@ -49,7 +49,7 @@ public class UpdateDownSystemSiteReq {
 
     private Integer taskTimeout;
 
-    private  Integer taskBindTimeout;
+    private Integer taskBindTimeout;
 
     /**
      * Max fail count of a task

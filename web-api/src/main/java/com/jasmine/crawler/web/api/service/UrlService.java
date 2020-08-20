@@ -1,7 +1,5 @@
 package com.jasmine.crawler.web.api.service;
 
-import com.jasmine.crawler.web.api.pojo.req.SaveUrlResultReq;
-
 public interface UrlService {
 
     /**

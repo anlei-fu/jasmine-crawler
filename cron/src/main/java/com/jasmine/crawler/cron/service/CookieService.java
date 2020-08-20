@@ -50,7 +50,7 @@ public interface CookieService {
      */
     void disableInvalidCookies();
 
-    void updateDelayTimeout(Integer id);
+    void updateDelayTimeoutTime(Integer id);
 
     List<Cookie> getInvalidCookies();
 }

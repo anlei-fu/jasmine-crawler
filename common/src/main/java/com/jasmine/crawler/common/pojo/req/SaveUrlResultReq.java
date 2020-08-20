@@ -1,6 +1,7 @@
-package com.jasmine.crawler.url.store.pojo.req;
+package com.jasmine.crawler.common.pojo.req;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
+import com.jasmine.crawler.common.pojo.dto.UrlResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,13 +22,7 @@ import java.util.List;
 public class SaveUrlResultReq {
     private Integer downSystemSiteId;
 
+    private List<UrlResult> urlResults;
+
     private List<Url> newUrls;
-
-    private List<Integer> succeedUrls;
-
-    private List<Integer> badUrls;
-
-    private List<Integer> failedUrls;
-
-    private List<Integer> unStartedUrl;
 }

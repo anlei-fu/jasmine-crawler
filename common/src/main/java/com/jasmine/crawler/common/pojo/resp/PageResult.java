@@ -7,7 +7,7 @@
 package com.jasmine.crawler.common.pojo.resp;
 
 import com.github.pagehelper.Page;
-import com.jasmine.crawler.common.pojo.req.PageReq;
+import com.jasmine.crawler.common.api.req.PageReq;
 import lombok.Data;
 
 import java.util.List;

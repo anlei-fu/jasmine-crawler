@@ -93,7 +93,7 @@ public class HeartbeatJob extends LoggerSupport {
 
         crawlerService.updateHeartbeatStatus(
                 crawler.getId(),
-                resp.isSuccess() ? BooleanFlag.TRUE : BooleanFlag.FALSE
+                resp.isSuccess()
         );
 
         info(String.format(

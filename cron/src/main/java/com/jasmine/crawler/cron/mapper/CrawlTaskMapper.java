@@ -32,7 +32,7 @@ public interface CrawlTaskMapper {
 
     List<CrawlTaskConfig> getTaskConfigsToDispatch();
 
-    int dispatchSuccess(@Param("id") Integer id,@Param("downSystemSiteId") Integer downSystemSiteId);
+    int dispatchSuccess(@Param("id") Integer id, @Param("downSystemSiteId") Integer downSystemSiteId);
 
     void dispatchFailed(CrawlTask dispatchFailedTask);
 

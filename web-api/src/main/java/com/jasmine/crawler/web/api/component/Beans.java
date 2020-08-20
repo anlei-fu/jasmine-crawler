@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 public class Beans {
 
     @Bean
-    public RestTemplate getRestTemplate(){
-        return  new RestTemplate();
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
     }
 }

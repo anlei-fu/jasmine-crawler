@@ -58,7 +58,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testDispatchSuccess() throws Exception {
-       // service.dispatchSuccess(crawlTaskConfig.getTaskId(), 1);
+        // service.dispatchSuccess(crawlTaskConfig.getTaskId(), 1);
     }
 
     /**
@@ -78,7 +78,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTasksConfigsToDispatch() throws Exception {
-       List<CrawlTaskConfig> configs= service.getTasksConfigsToDispatch();
+        List<CrawlTaskConfig> configs = service.getTasksConfigsToDispatch();
     }
 
     /**

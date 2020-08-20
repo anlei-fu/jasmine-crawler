@@ -99,7 +99,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         bind_last_time = current_timestamp,
         bind_last_msg = 'success',
         bind_count = bind_count + 1,
-        task_status = 1
+        task_status = 2
         where
         id = #{id}
     </update>
@@ -147,7 +147,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         join site s on s.id = dss.site_id
         left join cookie ck on ct.cookie_id = ck.id
         where
-        ct.task_status = 1
+        ct.task_status = 2
         order by ct.create_time asc
   </select>
     <update id="dispatchSuccess">
@@ -171,18 +171,25 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       dispatch_last_msg = #{dispatchLastMsg},
       dispatch_last_time = current_timestamp,
       -- set wait ot bind
-      task_status = 0
+      task_status = 1
       where id = #{id}
     </update>
     <update id="terminateExecuteTimeoutTask">
         update crawl_task
         set
-           task_status = 3,
+           task_status = 4,
+           task_result = 5,
+           task_finish_time = current_timestamp
+        where id = #{id}
+    </update>
+    <update id="bindTimeout">
+        update crawl_task
+        set
+           task_status = 4,
            task_result = 4,
            task_finish_time = current_timestamp
         where id = #{id}
     </update>
-    <update id="bindTimeout"></update>
 
     <select id="getTimeoutTasksToTerminate" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select

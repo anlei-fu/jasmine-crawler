@@ -50,7 +50,6 @@ public final class DispatchResult {
      */
     public static final Integer POST_CRAWLER_FAILED = 9;
 
-
     /**
      * Means dispatch failed ,exception happened when dispatch
      */

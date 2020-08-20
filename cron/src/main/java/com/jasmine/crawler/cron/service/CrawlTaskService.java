@@ -65,7 +65,6 @@ public interface CrawlTaskService {
     /**
      * Update crawl task to bind
      *
-     *
      * @param downSystemSiteId
      * @param downSystemSiteId
      * @return

@@ -6,8 +6,8 @@ import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
-import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
 import com.jasmine.crawler.cron.config.SystemConfig;
+import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -202,7 +202,6 @@ public class DispatchTaskJob extends LoggerSupport {
             crawlTaskConfig.setProxy(proxy);
         }
 
-
         // check and config crawler
         Crawler crawler = crawlerService.get(crawlTaskConfig.getCrawlerId());
         valid = validate(
@@ -257,15 +256,14 @@ public class DispatchTaskJob extends LoggerSupport {
                     null,
                     crawlTaskConfig,
                     DispatchResult.POST_CRAWLER_FAILED,
-                    "post crawler failed"
+                    resp.getMessage()
             );
+
             return false;
         }
 
         dispatchSuccess(crawlTaskConfig, downSystemSite.getId());
-
         info(String.format("dispatch task(%d) success", crawlTaskConfig.getTaskId()));
-
         return true;
     }
 
@@ -322,14 +320,13 @@ public class DispatchTaskJob extends LoggerSupport {
     }
 
     public void dispatchSuccess(CrawlTaskConfig crawlTaskConfig, Integer downSystemSiteId) {
-        DispatchRecord dispatchRecord =DispatchRecord.builder()
+        DispatchRecord dispatchRecord = DispatchRecord.builder()
                 .crawlTaskId(crawlTaskConfig.getTaskId())
                 .dispatchResult(DispatchResult.SUCCESS)
                 .dispatchMsg("success")
                 .build();
 
         dispatchRecordService.add(dispatchRecord);
-
         crawlTaskService.dispatchSuccess(crawlTaskConfig.getTaskId(), downSystemSiteId);
     }
 

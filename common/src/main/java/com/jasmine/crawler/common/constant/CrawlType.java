@@ -17,5 +17,5 @@ public final class CrawlType {
     /**
      * Call api
      */
-    public  static  final  Integer API=3;
+    public static final Integer API = 3;
 }

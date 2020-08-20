@@ -21,5 +21,5 @@ public interface SiteAccountService {
      */
     void disableBlockedAccounts();
 
-    void updateDelayTimeout(Integer accountId);
+    void updateDelayTimeoutTime(Integer accountId);
 }

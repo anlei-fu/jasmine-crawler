@@ -1,6 +1,6 @@
 package com.jasmine.crawler.url.store.component;
 
-import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
+import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

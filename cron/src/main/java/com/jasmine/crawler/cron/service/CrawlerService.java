@@ -53,8 +53,8 @@ public interface CrawlerService {
      * Update crawler heartbeat status
      *
      * @param crawlerId
-     * @param heartbeatStatus
+     * @param isUp
      */
-    void updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus);
+    void updateHeartbeatStatus(Integer crawlerId, boolean isUp);
 
 }

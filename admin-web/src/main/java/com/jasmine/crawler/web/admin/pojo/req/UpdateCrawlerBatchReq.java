@@ -1,6 +1,6 @@
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.IdsFeature;
+import com.jasmine.crawler.common.api.req.IdsFeature;
 import com.jasmine.crawler.common.validate.annotation.Enum;
 import com.jasmine.crawler.common.validate.annotation.Ip;
 import lombok.Getter;

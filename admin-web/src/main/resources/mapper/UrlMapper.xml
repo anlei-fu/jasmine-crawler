@@ -5,58 +5,46 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.UrlMapper">
-    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq">
+    <insert id="addSeedUrl" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq">
         insert into url
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            depth,
-            <if test="downSystemSiteId != null">
-                down_system_site_id,
-            </if>
+            down_system_site_id,
+            url,
             url_type,
+            <if test="httpMethod!=null">
+                http_method,
+            </if>
             <if test="referUrl != null and referUrl != ''">
                 refer_url,
             </if>
-            <if test="crawlCount != null">
-                crawl_count,
+            <if test="query != null and query != ''">
+                query,
             </if>
-            <if test="urlStatus != null">
-                url_status,
+            <if test="params != null and params != ''">
+                params,
             </if>
-            <if test="lastCrawlTime != null and lastCrawlTime != ''">
-                last_crawl_time,
-            </if>
-            <if test="queryString != null and queryString != ''">
-                query_string,
-            </if>
-            create_time
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            #{depth},
-            <if test="downSystemSiteId != null">
-                #{downSystemSiteId},
+            #{downSystemSiteId},
+            #{url},
+            2,
+            <if test="httpMethod!=null">
+                #{httpMethod},
             </if>
-            #{urlType},
             <if test="referUrl != null and referUrl != ''">
                 #{referUrl},
             </if>
-            <if test="crawlCount != null">
-                #{crawlCount},
+            <if test="query != null and query != ''">
+                #{query},
             </if>
-            <if test="urlStatus != null">
-                #{urlStatus},
+            <if test="params != null and params != ''">
+                #{params}
             </if>
-            <if test="lastCrawlTime != null and lastCrawlTime != ''">
-                #{lastCrawlTime},
-            </if>
-            <if test="queryString != null and queryString != ''">
-                #{queryString},
-            </if>
-            current_timestamp
         </trim>
     </insert>
     <delete id="delete">
-        delete from url t
+       delete from url t
        where id = #{id}
     </delete>
     <update id="updateByUrl" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateParams">
@@ -112,28 +100,18 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </where>
     </select>
     <select id="getSeedUrlByDownSystemSiteId" resultType="com.jasmine.crawler.common.pojo.entity.Url"
-           >
+    >0
         select
+        t.id,
         t.url,
-        t.depth,
-        t.down_system_site_id,
-        t.priority,
         t.http_method,
-        t.url_type,
         t.refer_url,
-        t.crawl_count,
-        t.url_status,
-        t.last_crawl_time,
-        t.last_success_time,
-        t.total_count,
-        t.total_success_count,
         t.query,
         t.params,
-        t.enable_status,
         t.create_time
         from url t
         where
         t.down_system_site_id = #{downSystemSiteId}
-        and t.url_type =2
+        and t.url_type = 2
     </select>
 </mapper>

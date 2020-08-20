@@ -42,8 +42,8 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public void updateHeartbeatStatus(Integer crawlerId, Integer heartbeatStatus) {
-        if (heartbeatStatus == BooleanFlag.TRUE) {
+    public void updateHeartbeatStatus(Integer crawlerId, boolean isUp) {
+        if (isUp) {
             crawlerMapper.heartbeatSuccess(crawlerId);
         } else {
             crawlerMapper.heartbeatFailed(crawlerId);

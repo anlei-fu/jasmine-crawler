@@ -14,9 +14,9 @@ public class CrawlTaskConfig {
      */
     private Integer taskId;
 
-    private  Integer siteId;
+    private Integer siteId;
 
-    private  Integer downSystemSiteId;
+    private Integer downSystemSiteId;
 
     /**
      * Task urls

@@ -16,13 +16,13 @@ public interface UrlMapper {
 
     void failed(@Param("list") Url urlToUpdate);
 
-    void updateUrlStatusToWait(@Param("list") List<Url> urls);
+    void updateUrlStatusToCached(@Param("list") List<Url> urls);
 
-    void failedUrls(@Param("list") List<Integer> list);
+    void failedUrls(@Param("list") List<Url> list);
 
-    void badUrls(@Param("list") List<Integer> list);
+    void badUrls(@Param("list") List<Url> list);
 
-    void failToRunUrls(@Param("list") List<Integer> list);
+    void failToRunUrls(@Param("list") List<Url> list);
 
-    void successUrls(@Param("list") List<Integer> list);
+    void successUrls(@Param("list") List<Url> list);
 }

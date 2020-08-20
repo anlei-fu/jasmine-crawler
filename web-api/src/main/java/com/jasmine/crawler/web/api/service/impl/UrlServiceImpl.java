@@ -1,7 +1,6 @@
 package com.jasmine.crawler.web.api.service.impl;
 
 import com.jasmine.crawler.common.api.resp.R;
-import com.jasmine.crawler.web.api.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.web.api.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

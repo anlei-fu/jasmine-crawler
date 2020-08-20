@@ -11,13 +11,13 @@ import lombok.Data;
 @Data
 public class AddBlockRuleReq {
 
-    private  Integer downSystemSiteId;
+    private Integer downSystemSiteId;
 
-    private  Integer compareType;
+    private Integer compareType;
 
-    private  Integer httpStatus;
+    private Integer httpStatus;
 
-    private  Integer pageResult;
+    private Integer pageResult;
 
-    private  String keywords;
+    private String keywords;
 }

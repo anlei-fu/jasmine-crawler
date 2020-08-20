@@ -7,16 +7,14 @@
 package com.jasmine.crawler.web.admin.service;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
 
 import java.util.List;
 
 public interface UrlService {
 
-    boolean add(AddSeedUrlReq req);
+    boolean addSeedUrl(AddSeedUrlReq req);
 
     boolean delete(Integer id);
 
@@ -24,5 +22,5 @@ public interface UrlService {
 
     Url getByUrl(String url);
 
-    List<Url> getPage(Integer downSystemSiteId);
+    List<Url> getSeedUrlByDownSystemSIteId(Integer downSystemSiteId);
 }

@@ -1,8 +1,8 @@
 package com.jasmine.crawler.web.api.service.impl;
 
 import com.google.common.collect.Lists;
+import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
 import com.jasmine.crawler.web.api.Application;
-import com.jasmine.crawler.web.api.pojo.req.SaveTaskResultReq;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

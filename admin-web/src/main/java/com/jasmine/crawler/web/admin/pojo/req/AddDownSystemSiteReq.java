@@ -58,7 +58,7 @@ public class AddDownSystemSiteReq {
 
     private Integer taskMaxCount;
 
-    private  Integer taskBindTimeout;
+    private Integer taskBindTimeout;
 
     private Integer taskMaxRunningCount;
 

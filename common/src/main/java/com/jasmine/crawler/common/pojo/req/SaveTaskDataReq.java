@@ -1,4 +1,4 @@
-package com.jasmine.crawler.web.api.pojo.req;
+package com.jasmine.crawler.common.pojo.req;
 
 import lombok.Builder;
 import lombok.Data;

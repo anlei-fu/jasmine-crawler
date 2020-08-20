@@ -6,33 +6,22 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.validate.annotation.Enum;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 public class AddSeedUrlReq {
 
-    @NotNull
-    private Integer depth;
-
     private Integer downSystemSiteId;
 
-    @NotNull
-    @Enum("urlType")
-    private Integer urlType;
+    private String url;
 
     private String referUrl;
 
-    private Integer crawlCount;
+    private String httpMethod;
 
-    @Enum("urlStatus")
-    private Integer urlStatus;
+    private String query;
 
-    private String lastCrawlTime;
-
-    private String queryString;
+    private String params;
 }

@@ -4,6 +4,7 @@ import com.jasmine.crawler.common.pojo.entity.BlockRule;
 import com.jasmine.crawler.web.admin.mapper.BlockRuleMapper;
 import com.jasmine.crawler.web.admin.service.BlockRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Date:
  * @Description:
  */
+@Service
 public class BlockRuleServiceImpl implements BlockRuleService {
 
     @Autowired
@@ -20,12 +22,12 @@ public class BlockRuleServiceImpl implements BlockRuleService {
 
     @Override
     public boolean add(BlockRule blockRule) {
-        return blockRuleMapper.add(blockRule)>0;
+        return blockRuleMapper.add(blockRule) > 0;
     }
 
     @Override
     public boolean delete(Integer id) {
-        return blockRuleMapper.delete(id)>0;
+        return blockRuleMapper.delete(id) > 0;
     }
 
     @Override

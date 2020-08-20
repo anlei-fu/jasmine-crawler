@@ -39,7 +39,7 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
 
     @Override
     public boolean dispatchSuccess(Integer id, Integer downSystemSiteId) {
-        return crawlTaskMapper.dispatchSuccess(id,downSystemSiteId) > 0;
+        return crawlTaskMapper.dispatchSuccess(id, downSystemSiteId) > 0;
     }
 
     @Override

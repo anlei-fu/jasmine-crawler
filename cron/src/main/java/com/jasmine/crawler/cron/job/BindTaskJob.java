@@ -53,7 +53,7 @@ public class BindTaskJob extends LoggerSupport {
     }
 
     private void bindTask(Integer level) {
-        info(String.format("-----------begin bind '%d' level task--------------", level));
+        info(String.format("-----------begin binding '%d' level task--------------", level));
         List<CrawlTask> tasks = null;
         try {
             tasks = crawlTaskService.getTasksToBind(level);
@@ -87,7 +87,7 @@ public class BindTaskJob extends LoggerSupport {
         }
 
         info(String.format(
-                "finish bind '%d' level task, [succeed:%d][failed:%d][exception:%d]",
+                "bind '%d' level task finished, [succeed:%d][failed:%d][exception:%d]",
                 level,
                 succeed,
                 failed,
@@ -276,6 +276,7 @@ public class BindTaskJob extends LoggerSupport {
                     taskToBindId,
                     bindMsg
             ));
+
             return false;
         }
 
@@ -323,10 +324,10 @@ public class BindTaskJob extends LoggerSupport {
         // delay account cookie
         if (site.getNeedUseCookie() == BooleanFlag.TRUE) {
             if (site.getAccountDelayTimeout() != BooleanFlag.NO_NEED)
-                siteAccountService.updateDelayTimeout(cookie.getAccountId());
+                siteAccountService.updateDelayTimeoutTime(cookie.getAccountId());
 
             if (site.getCookieDelayTimeout() != BooleanFlag.NO_NEED)
-                cookieService.updateDelayTimeout(cookie.getId());
+                cookieService.updateDelayTimeoutTime(cookie.getId());
         }
 
         // add bind record

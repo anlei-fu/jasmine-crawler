@@ -6,7 +6,7 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.pojo.req;
 
-import com.jasmine.crawler.common.pojo.req.PageReq;
+import com.jasmine.crawler.common.api.req.PageReq;
 import lombok.Getter;
 import lombok.Setter;
 

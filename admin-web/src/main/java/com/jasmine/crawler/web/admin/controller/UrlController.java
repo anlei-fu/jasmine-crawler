@@ -9,9 +9,7 @@ package com.jasmine.crawler.web.admin.controller;
 import com.jasmine.crawler.common.api.ControllerBase;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateUrlReq;
 import com.jasmine.crawler.web.admin.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +24,14 @@ public class UrlController extends ControllerBase {
     @Autowired
     private UrlService urlService;
 
-    @PostMapping(path = "/url")
-    public R add(@Validated AddSeedUrlReq req) {
-        boolean result = urlService.add(req);
+    @PostMapping(path = "/url/seed")
+    public R addSeedUrl( @RequestBody @Validated AddSeedUrlReq req) {
+        boolean result = urlService.addSeedUrl(req);
         return responseBoolean(result);
     }
 
     @DeleteMapping(path = "/url/{id}")
-    public R deleteByUrl(@PathVariable Integer id) {
+    public R deleteById(@PathVariable Integer id) {
         boolean result = urlService.delete(id);
         return responseBoolean(result);
     }
@@ -54,9 +52,9 @@ public class UrlController extends ControllerBase {
         return null;
     }
 
-    @GetMapping(path = "/url/{downSystemSiteId}")
-    public R<List<Url>> getPage(@Validated Integer downSystemSiteId) {
-        List<Url> result = urlService.getPage(downSystemSiteId);
+    @GetMapping(path = "/url/getSeedUrlByDownSystemSiteId/{downSystemSiteId}")
+    public R<List<Url>> getSeedUrlByDownSystemSIteId(@PathVariable Integer downSystemSiteId) {
+        List<Url> result = urlService.getSeedUrlByDownSystemSIteId(downSystemSiteId);
         return responseData(result);
     }
 }

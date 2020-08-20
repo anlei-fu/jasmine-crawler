@@ -1,6 +1,6 @@
 package com.jasmine.crawler.web.api.service;
 
-import com.jasmine.crawler.web.api.pojo.req.SaveTaskResultReq;
+import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
 
 public interface CrawlTaskService {
 

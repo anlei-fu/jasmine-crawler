@@ -46,12 +46,12 @@ public class Url extends EnableStatusFeature {
     /**
      * Priority of url
      */
-    private  Integer priority;
+    private Integer priority;
 
     /**
      * The http method for url see {@enum HttpMethod}
      */
-    private  Integer httpMethod;
+    private Integer httpMethod;
 
     /**
      * The depth of the url
@@ -76,7 +76,7 @@ public class Url extends EnableStatusFeature {
     /**
      * Total count of success
      */
-    private  Integer totalSuccessCount;
+    private Integer totalSuccessCount;
 
     /**
      * Error msg
@@ -92,5 +92,25 @@ public class Url extends EnableStatusFeature {
      * Last success time
      */
     private Date lastSuccessTime;
+
+    /**
+     * Last cache time
+     */
+    private Date lastCacheTime;
+
+    /**
+     * Last crawl http status
+     */
+    private Integer lastCrawlHttpStatus;
+
+    /**
+     * Last task id
+     */
+    private Integer lastCrawlTaskId;
+
+    /**
+     * Last page result
+     */
+    private Integer lastPageResult;
 
 }

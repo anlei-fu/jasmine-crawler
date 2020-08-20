@@ -6,12 +6,9 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.web.admin.mapper;
 
-import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.common.validate.annotation.Path;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddSeedUrlReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetUrlPageReq;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface UrlMapper {
 
-    int add(AddSeedUrlReq req);
+    int addSeedUrl(AddSeedUrlReq req);
 
     int delete(@Param("id") Integer id);
 

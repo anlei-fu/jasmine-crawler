@@ -1,8 +1,8 @@
 package com.jasmine.crawler.url.store.service.impl;
 
+import com.jasmine.crawler.common.pojo.req.GetUrlForTaskReq;
+import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.Application;
-import com.jasmine.crawler.url.store.pojo.req.GetUrlForTaskReq;
-import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +54,7 @@ public class UrlServiceImplTest {
                 .failedUrls(null)
                 .downSystemSiteId(1)
                 .succeedUrls(null)
-                .unStartedUrl(null)
+                .unCrawledUrl(null)
                 .build();
         service.saveTaskUrlResult(req);
     }

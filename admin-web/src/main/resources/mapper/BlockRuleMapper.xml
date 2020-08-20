@@ -9,7 +9,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         insert into block_rule
         (down_system_site_id,http_status,page_result,compare_type,keywords)
         values
-        (#{downSystemSisteId},#{httpStatus},#{pageResult},#{compareType},#{keyWords})
+        (#{downSystemSiteId},#{httpStatus},#{pageResult},#{compareType},#{keywords})
     </insert>
     <delete id="delete">
         delete from block_rule where id = #{id}

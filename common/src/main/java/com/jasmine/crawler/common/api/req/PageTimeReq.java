@@ -1,4 +1,4 @@
-package com.jasmine.crawler.common.pojo.req;
+package com.jasmine.crawler.common.api.req;
 
 import lombok.Getter;
 import lombok.Setter;

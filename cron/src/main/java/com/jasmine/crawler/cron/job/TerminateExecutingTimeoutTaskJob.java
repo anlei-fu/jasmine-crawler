@@ -29,7 +29,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
         try {
             tasks = crawlTaskService.getTimeoutTasksToTerminate();
         } catch (Exception ex) {
-            error("terminate task failed", ex);
+            error("call terminate task failed", ex);
         }
 
         if (tasks.size() == 0) {
@@ -50,7 +50,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
         }
 
         info(String.format(
-                "finish terminate timeout tasks, [succeed:%d][exception:%d]",
+                "terminate executing timeout tasks finished, [succeed:%d][exception:%d]",
                 succeed,
                 exception)
         );
@@ -64,9 +64,9 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
      */
     @Transactional
     public void terminateTimeoutTaskCore(CrawlTask task) {
-       CrawlTask crawlTask= crawlTaskService.getForUpdate(task.getId());
-       if(Objects.isNull(crawlTask)||crawlTask.getTaskStatus()!= TaskStatus.EXECUTING)
-           return;
+        CrawlTask crawlTask = crawlTaskService.getForUpdate(task.getId());
+        if (Objects.isNull(crawlTask) || crawlTask.getTaskStatus() != TaskStatus.EXECUTING)
+            return;
 
         crawlTaskTerminator.terminate(task);
         crawlTaskService.terminateExecuteTimeoutTask(task.getId());

@@ -27,5 +27,5 @@ public class SystemConfig {
     /**
      *
      */
-    private String fileHost="http://localhost:80";
+    private String fileHost = "http://localhost:80";
 }

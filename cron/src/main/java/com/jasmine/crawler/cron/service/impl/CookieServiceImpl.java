@@ -46,7 +46,7 @@ public class CookieServiceImpl implements CookieService {
     }
 
     @Override
-    public void updateDelayTimeout(Integer id) {
+    public void updateDelayTimeoutTime(Integer id) {
         cookieMapper.updateDelayTimeout(id);
     }
 

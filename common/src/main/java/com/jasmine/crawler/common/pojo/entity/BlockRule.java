@@ -2,6 +2,8 @@ package com.jasmine.crawler.common.pojo.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Copyright (C) 四川千行你我科技有限公司
  * @Author: fuanlei
@@ -11,13 +13,17 @@ import lombok.Data;
 @Data
 public class BlockRule {
 
-    private  Integer downSystemSiteId;
+    private  Integer id;
 
-    private  Integer compareType;
+    private Integer downSystemSiteId;
 
-    private  Integer httpStatus;
+    private Integer compareType;
 
-    private  Integer pageResult;
+    private Integer httpStatus;
 
-    private  String keywords;
+    private Integer pageResult;
+
+    private String keywords;
+
+    private Date createTime;
 }

@@ -22,5 +22,5 @@ public final class UrlType {
     /**
      * Means url is a api
      */
-    public  static  final  Integer API =4;
+    public static final Integer API = 4;
 }

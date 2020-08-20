@@ -4,11 +4,9 @@ import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.constant.TaskResult;
 import com.jasmine.crawler.common.constant.TaskStatus;
 import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.web.api.mapper.CrawlTaskMapper;
-import com.jasmine.crawler.web.api.pojo.req.SaveTaskDataReq;
-import com.jasmine.crawler.web.api.pojo.req.SaveTaskResultReq;
-import com.jasmine.crawler.web.api.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.web.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,15 +67,15 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
     private void saveUrls(SaveTaskResultReq req) {
         try {
-            SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
-                    .taskId(req.getTaskId())
-                    .newUrls(req.getNewUrls())
-                    .badUrls(req.getBadUrls())
-                    .failedUrls(req.getFailedUrls())
-                    .unCrawledUrls(req.getUnCrawledUrls())
-                    .succeedUrls(req.getSucceedUrls())
-                    .build();
-            urlService.saveUrlResult(saveUrlResultReq);
+//            SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
+//                    .taskId(req.getTaskId())
+//                    .newUrls(req.getNewUrls())
+//                    .badUrls(req.getBadUrls())
+//                    .failedUrls(req.getFailedUrls())
+//                    .unCrawledUrls(req.getUnCrawledUrls())
+//                    .succeedUrls(req.getSucceedUrls())
+//                    .build();
+//            urlService.saveUrlResult(saveUrlResultReq);
         } catch (Exception ex) {
             // ignore url loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
@@ -86,12 +84,12 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
     private void saveData(SaveTaskResultReq req, Integer downSystemId) {
         try {
-            SaveTaskDataReq saveDataResultReq = SaveTaskDataReq.builder()
-                    .data(req.getData())
-                    .taskId(req.getTaskId())
-                    .downSystemId(downSystemId)
-                    .build();
-            dataService.saveData(saveDataResultReq);
+//            SaveTaskDataReq saveDataResultReq = SaveTaskDataReq.builder()
+//                    .data(req.getData())
+//                    .taskId(req.getTaskId())
+//                    .downSystemId(downSystemId)
+//                    .build();
+//            dataService.saveData(saveDataResultReq);
         } catch (Exception ex) {
             // ignore data loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
@@ -199,10 +197,10 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                 .averageSpeedOfAll(req.getAverageSpeedOfAll())
                 .averageSpeedOfSuccess(req.getAverageSpeedOfSuccess())
                 .meanSpeedOfSuccess(req.getMeanSpeedOfSuccess())
-                .urlSuccessCount(req.getSucceedUrls().size())
-                .urlFailedCount(req.getFailedUrls().size())
-                .urlBadCount(req.getBadUrls().size())
-                .urlNewCount(req.getNewUrls().size())
+//                .urlSuccessCount(req.getSucceedUrls().size())
+//                .urlFailedCount(req.getFailedUrls().size())
+//                .urlBadCount(req.getBadUrls().size())
+//                .urlNewCount(req.getNewUrls().size())
                 .urlTotalCount(req.getUrlTotal())
                 .build();
         crawlTaskMapper.finishTask(crawlTaskToUpdate);

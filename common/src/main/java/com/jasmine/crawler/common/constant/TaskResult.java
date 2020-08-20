@@ -13,7 +13,7 @@ public final class TaskResult {
     /**
      * Means task finished and failed
      */
-    public static  final  Integer FAILED=2;
+    public static final Integer FAILED = 2;
 
     /**
      * Means task finished and blocked

@@ -17,7 +17,7 @@ public class SiteAccountServiceImpl implements SiteAccountService {
     }
 
     @Override
-    public void updateDelayTimeout(Integer accountId) {
+    public void updateDelayTimeoutTime(Integer accountId) {
         siteAccountMapper.updateDelayTimeout(accountId);
     }
 

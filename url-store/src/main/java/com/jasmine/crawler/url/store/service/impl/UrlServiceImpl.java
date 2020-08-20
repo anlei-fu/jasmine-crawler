@@ -2,10 +2,10 @@ package com.jasmine.crawler.url.store.service.impl;
 
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.Url;
+import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.common.util.CollectionUtils;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
-import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.url.store.service.DownSystemSiteService;
 import com.jasmine.crawler.url.store.service.UrlService;
 import org.redisson.api.RQueue;
@@ -85,7 +85,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     private void updateUrlStatusToCached(List<Url> urls) {
         for (final List<Url> urlGroup : CollectionUtils.split(urls, 100)) {
             try {
-                urlMapper.updateUrlStatusToWait(urlGroup);
+                urlMapper.updateUrlStatusToCached(urlGroup);
             } catch (Exception ex) {
 
             }

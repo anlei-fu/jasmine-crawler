@@ -24,8 +24,8 @@ public class UrlServiceImpl implements UrlService {
     private UrlMapper urlMapper;
 
     @Override
-    public boolean add(AddSeedUrlReq req) {
-        return urlMapper.add(req) > 0;
+    public boolean addSeedUrl(AddSeedUrlReq req) {
+        return urlMapper.addSeedUrl(req) > 0;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
-    public List<Url> getPage(Integer downSystemSiteId) {
+    public List<Url> getSeedUrlByDownSystemSIteId(Integer downSystemSiteId) {
         return urlMapper.getSeedUrlByDownSystemSiteId(downSystemSiteId);
     }
 }

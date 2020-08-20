@@ -1,7 +1,7 @@
 package com.jasmine.crawler.url.store.service;
 
 import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.url.store.pojo.req.SaveUrlResultReq;
+import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 
 import java.util.List;
 

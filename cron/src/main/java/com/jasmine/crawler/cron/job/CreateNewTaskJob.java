@@ -25,14 +25,14 @@ public class CreateNewTaskJob extends LoggerSupport {
      * Create new crawl task , iterate the down site pick the site which current task bind count
      * less than task max bind count
      */
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "*/5 * * * * *")
     public void run() {
         info("-----------begin creating new task--------------");
         List<DownSystemSite> downSystemSites = null;
         try {
             downSystemSites = downSystemSiteService.getNeedCreateNewTaskSites();
         } catch (RuntimeException ex) {
-            error(String.format("run getNeedCreateNewTaskSite sql failed"), ex);
+            error(String.format("call getNeedCreateNewTaskSite failed"), ex);
             return;
         }
 
@@ -59,7 +59,7 @@ public class CreateNewTaskJob extends LoggerSupport {
             }
 
             info(String.format(
-                    "finish create task succeed:%d,failed:%d,exception:%d",
+                    "create new task finished,[succeed:%d][failed:%d][exception:%d]",
                     succeed,
                     failed,
                     exception)

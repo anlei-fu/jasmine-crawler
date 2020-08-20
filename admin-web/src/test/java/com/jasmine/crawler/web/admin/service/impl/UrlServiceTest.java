@@ -77,7 +77,7 @@ public class UrlServiceTest {
     @Test
     public void testDeleteByUrl() {
 
-        R result = controller.deleteByUrl("http://www.qq.com");
+        R result = controller.deleteById("http://www.qq.com");
 
         TestUtils.print(result);
     }
