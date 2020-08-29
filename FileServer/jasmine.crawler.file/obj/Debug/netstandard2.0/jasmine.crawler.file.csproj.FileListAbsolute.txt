@@ -1,0 +1,9 @@
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\bin\Debug\netstandard2.0\jasmine.crawler.file.deps.json
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\bin\Debug\netstandard2.0\jasmine.crawler.file.dll
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\bin\Debug\netstandard2.0\jasmine.crawler.file.pdb
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.dll
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.pdb
+C:\Users\Administrator\source\repos\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.csproj.CoreCompileInputs.cache
