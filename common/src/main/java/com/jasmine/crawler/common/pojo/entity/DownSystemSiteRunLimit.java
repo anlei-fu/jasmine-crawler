@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DownSystemSiteRunLimit extends  EnableStatusFeature {
+public class DownSystemSiteRunLimit extends EnableStatusFeature {
 
-    private  Integer downSystemSiteId;
+    private Integer downSystemSiteId;
 
-    private  Integer weekDayType;
+    private Integer weekDayType;
 
-    private  Integer dayPartType;
+    private Integer dayPartType;
 
 }

@@ -100,7 +100,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </where>
     </select>
     <select id="getSeedUrlByDownSystemSiteId" resultType="com.jasmine.crawler.common.pojo.entity.Url"
-    >0
+    >
         select
         t.id,
         t.url,

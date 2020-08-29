@@ -1,5 +1,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
+import com.jasmine.crawler.common.pojo.entity.Proxy;
+import com.jasmine.crawler.common.util.TestUtils;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +38,8 @@ public class ProxyServiceImplTest {
      */
     @Test
     public void testGetProxyForSite() throws Exception {
-        service.getProxyForSite(1);
+        Proxy p = service.getProxyForSite(1);
+        TestUtils.print(p, "proxy");
     }
 
     /**

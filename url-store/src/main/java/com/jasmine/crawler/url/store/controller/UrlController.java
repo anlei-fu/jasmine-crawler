@@ -21,11 +21,11 @@ public class UrlController extends ControllerBase {
 
     @GetMapping(path = "/url/getByDownSystemSiteId/{downSystemSiteId}")
     public R<List<Url>> getUrlForTask(@PathVariable Integer downSystemSiteId) throws Exception {
-        List<Url> result = urlService.getUrlForTask(downSystemSiteId);
+        List<Url> result = urlService.getUrlForSite(downSystemSiteId);
         return responseData(result);
     }
 
-    @PostMapping(path = "/url/save/result")
+    @PostMapping(path = "/url/save/")
     public R saveUrlResult(SaveUrlResultReq req) {
         boolean result = urlService.saveTaskUrlResult(req);
         return responseBoolean(result);

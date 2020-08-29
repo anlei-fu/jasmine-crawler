@@ -30,7 +30,11 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 
     <select id="getTaskToBind" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select
-        *
+        ct.id,
+        ct.site_id,
+        ct.down_system_site_id,
+        ct.down_system_id,
+        ct.task_status
         from crawl_task ct
         join down_system_site dss on ct.down_system_site_id = dss.id
         join down_system ds on dss.down_system_id =ds.id
@@ -121,11 +125,16 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         dss.crawler_crawl_type as crawl_type ,
         dss.crawler_page_encoding as encoding,
         dss.crawler_page_timeout as download_page_timeout,
+        dss.crawler_page_headers as headers,
+        dss.crawler_page_user_agent_type as user_agent_type,
+
+        dss.task_url_max_concurrency as url_max_concurrency,
+        dss.task_url_max_fail_count as url_max_fail_count,
+        dss.task_url_max_continuously_fail_count as url_max_continuously_fail_count,
 
         -- url config
         dss.url_match_patterns ,
         dss.url_encodes,
-
         dss.script_path,
 
         ct.cookie_id,
@@ -136,9 +145,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         ct.down_system_site_id,
 
         ct.proxy_id,
-
-        -- ahead 2 min than real task timeout
-        date_add(current_timestamp ,interval greatest((dss.task_timeout-2),10) minute) as task_timeout,
         -- site
         s.ip_minute_speed_limit
         from crawl_task ct
@@ -159,7 +165,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       task_start_time = current_timestamp,
       task_timeout_time = date_add(
         current_timestamp,
-        interval greatest((select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}),8) minute
+        interval greatest((select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}),5) minute
       ),
       task_status = 3
       where id = #{id}

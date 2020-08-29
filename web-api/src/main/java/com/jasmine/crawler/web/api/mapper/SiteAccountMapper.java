@@ -13,4 +13,6 @@ public interface SiteAccountMapper {
     void resetBlockCount(@Param("id") Integer id);
 
     void decreaseCurrentUseCount(@Param("id") Integer id);
+
+    void block(@Param("id") Integer id);
 }

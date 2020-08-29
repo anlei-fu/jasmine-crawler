@@ -4,10 +4,12 @@
  * Generated at 2020-7-31 5:06:21 PM
  * All rights reserved by fuanlei(email:767550758@qq.com) since 2019
  *---------------------------------------------------------------------------*/
-package com.jasmine.crawler.web.admin;
+package com.jasmine.crawler.common.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+
+import java.util.Objects;
 
 /**
  * @Copyright (C) 四川千行你我科技有限公司 @Author: fuanlei @Date: @Description:
@@ -15,13 +17,18 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 public class TestUtils {
 
     public static void printQuery(Object dto, Object result) {
-        System.out.println("dto");
-        print(dto);
-        System.out.println("result");
-        print(result);
+        print(dto, "dto");
+        print(result, "result");
     }
 
     public static void print(Object obj) {
+        print(obj, null);
+    }
+
+    public static void print(Object obj, String name) {
+        if (!Objects.isNull((name)))
+            System.out.println(String.format("%s:", name));
+
         String json =
                 JSON.toJSONString(
                         obj,

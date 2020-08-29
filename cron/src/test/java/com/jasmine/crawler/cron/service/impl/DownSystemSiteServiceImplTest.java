@@ -1,5 +1,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
+import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
+import com.jasmine.crawler.common.util.TestUtils;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
 import org.junit.Before;
@@ -8,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * DownSystemSiteServiceImpl Tester.
@@ -36,7 +40,8 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testGetNeedCreateNewTaskSites() throws Exception {
-        service.getNeedCreateNewTaskSites();
+        List<DownSystemSite> sites = service.getNeedCreateNewTaskSites();
+        TestUtils.print(sites, "sites to create task");
     }
 
     /**

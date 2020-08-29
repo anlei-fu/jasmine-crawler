@@ -57,6 +57,9 @@ public class DispatchTaskJob extends LoggerSupport {
     @Autowired
     private CrawlTaskTerminator crawlTaskTerminator;
 
+    @Autowired
+    private BlockRuleService blockRuleService;
+
     /**
      * Dispatch crawl task to crawler to run
      * 1. check site available
@@ -145,7 +148,7 @@ public class DispatchTaskJob extends LoggerSupport {
         // check down system site available
         DownSystemSite downSystemSite = downSystemSiteService.get(crawlTaskConfig.getDownSystemSiteId());
         valid = validate(
-                site,
+                downSystemSite,
                 crawlTaskConfig,
                 DispatchResult.DOWN_SYSTEM_SITE_NOT_AVAILABLE,
                 "down site not available"
@@ -157,9 +160,9 @@ public class DispatchTaskJob extends LoggerSupport {
         }
 
         // check down system available
-        DownSystem downSystem = downSystemService.get(downSystemSite.getId());
+        DownSystem downSystem = downSystemService.get(downSystemSite.getDownSystemId());
         valid = validate(
-                site,
+                downSystem,
                 crawlTaskConfig,
                 DispatchResult.DOWN_SYSTEM_NOT_AVAILABLE,
                 "down system not available"
@@ -231,6 +234,8 @@ public class DispatchTaskJob extends LoggerSupport {
 
         crawlTaskConfig.setUrls(urls);
 
+        crawlTaskConfig.setBlockRules(blockRuleService.getByDownSystemSiteId(downSystemSite.getId()));
+
         // post crawler to run new task
         R resp = new R();
         try {
@@ -298,7 +303,7 @@ public class DispatchTaskJob extends LoggerSupport {
     public void dispatchFailed(CrawlTaskConfig crawlTaskConfig, Integer dispatchResult, String dispatchMsg) {
 
         CrawlTask task = crawlTaskService.get(crawlTaskConfig.getTaskId());
-        crawlTaskTerminator.terminate(task);
+        crawlTaskTerminator.terminate(task, false);
 
         // add dispatch record
         DispatchRecord dispatchRecord = DispatchRecord.builder()

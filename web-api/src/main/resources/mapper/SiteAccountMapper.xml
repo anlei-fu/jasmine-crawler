@@ -20,6 +20,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_use_count = current_use_count -1
         where id = #{id}
     </update>
+    <update id="block">
+        update site_account
+        set
+          block_timeout_time = date_add(current_timestamp, interval block_timeout hour)
+        where id = #{id}
+    </update>
     <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.SiteAccount">
         select * from site_account where id = #{id}
     </select>

@@ -19,20 +19,20 @@ public class SiteAccountRunLimitController extends ControllerBase {
     private SiteAccountRunLimitService siteAccountRunLimitService;
 
     @GetMapping(path = "/siteAccountRunLimit/{downSystemSiteId}")
-    public R<List<SiteAccountRunLimit>> getByDownSystemSiteId(@PathVariable Integer downSystemSiteId){
-        List<SiteAccountRunLimit> result =siteAccountRunLimitService.getByDownSystemSiteId(downSystemSiteId);
-        return  responseData(result);
+    public R<List<SiteAccountRunLimit>> getByDownSystemSiteId(@PathVariable Integer downSystemSiteId) {
+        List<SiteAccountRunLimit> result = siteAccountRunLimitService.getByDownSystemSiteId(downSystemSiteId);
+        return responseData(result);
     }
 
     @PutMapping(path = "/siteAccountRunLimit/disable/{id}")
-    public R disable(@PathVariable Integer id){
+    public R disable(@PathVariable Integer id) {
         boolean result = siteAccountRunLimitService.disable(id);
-        return  responseBoolean(result);
+        return responseBoolean(result);
     }
 
     @PutMapping(path = "/siteAccountRunLimit/enable/{id}")
-    public R enable(@PathVariable Integer id){
+    public R enable(@PathVariable Integer id) {
         boolean result = siteAccountRunLimitService.enable(id);
-        return  responseBoolean(result);
+        return responseBoolean(result);
     }
 }

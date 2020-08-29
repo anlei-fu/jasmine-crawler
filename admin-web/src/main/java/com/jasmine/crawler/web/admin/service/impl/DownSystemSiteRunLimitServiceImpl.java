@@ -4,9 +4,11 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSiteRunLimit;
 import com.jasmine.crawler.web.admin.mapper.DownSystemSiteRunLimitMapper;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteRunLimitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DownSystemSiteRunLimitServiceImpl implements DownSystemSiteRunLimitService {
 
     @Autowired
@@ -19,11 +21,11 @@ public class DownSystemSiteRunLimitServiceImpl implements DownSystemSiteRunLimit
 
     @Override
     public boolean disable(Integer id) {
-        return downSystemSiteRunLimitMapper.disable(id)>0;
+        return downSystemSiteRunLimitMapper.disable(id) > 0;
     }
 
     @Override
     public boolean enable(Integer id) {
-        return downSystemSiteRunLimitMapper.enable(id)>0;
+        return downSystemSiteRunLimitMapper.enable(id) > 0;
     }
 }

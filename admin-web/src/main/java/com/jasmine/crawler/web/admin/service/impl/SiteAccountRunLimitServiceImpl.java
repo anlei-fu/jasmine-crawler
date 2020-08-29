@@ -21,11 +21,11 @@ public class SiteAccountRunLimitServiceImpl implements SiteAccountRunLimitServic
 
     @Override
     public boolean disable(Integer id) {
-        return siteAccountRunLimitMapper.disable(id)>0;
+        return siteAccountRunLimitMapper.disable(id) > 0;
     }
 
     @Override
     public boolean enable(Integer id) {
-        return siteAccountRunLimitMapper.enable(id)>0;
+        return siteAccountRunLimitMapper.enable(id) > 0;
     }
 }

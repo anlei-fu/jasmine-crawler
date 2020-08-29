@@ -6,7 +6,6 @@
  *---------------------------------------------------------------------------*/
 package com.jasmine.crawler.cron.service.impl;
 
-import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.pojo.entity.Crawler;
 import com.jasmine.crawler.cron.mapper.CrawlerMapper;
 import com.jasmine.crawler.cron.service.CrawlerService;

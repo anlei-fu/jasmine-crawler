@@ -5,23 +5,17 @@ package com.jasmine.crawler.common.constant;
  */
 public final class UrlStatus {
     /**
-     * Means url crawl successfully
+     * Means url wait to run
      */
-    public static final Integer SUCCESS = 1;
+    public static final Integer WAIT = 1;
 
     /**
-     * Means url crawl failed
+     * Means url cached to redis and wait to crawl
      */
-    public static final Integer FAILED = 2;
+    public static final Integer CACHED = 2;
 
     /**
-     * Means url is a bad url (not available or fake url)
+     * Means url finished
      */
-    public static final Integer BAD = 3;
-
-    /**
-     * Means task failed and url has not been crawled
-     */
-    public static final Integer FAILED_TO_CRAWL = 4;
-
+    public static final Integer FINISHED = 3;
 }

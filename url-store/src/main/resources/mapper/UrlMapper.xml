@@ -40,7 +40,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         update url
         set
         url_status = 3,
-        url_result = 2
+        last_page_result = 2
         where id in
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             #{item}
@@ -57,21 +57,20 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="failedUrls">
-
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             update url
             set
             total_crawl_count = crawl_count + 1,
             last_crawl_time = current_timestamp,
-            last_task_id = #{item.task_id}
             url_status = 3,
+            last_crawl_task_id = #{item.taskId},
             <if test="item.msg!=null and item.msg !=''">
-                last_crawl_msg =#{item.msg},
+                last_crawl_msg = #{item.msg},
             </if>
             <if test="item.httpStatus!=null">
-                last_crawl_http_status = #{item.last_crawl_http_status},
+                last_crawl_http_status = #{item.httpStatus},
             </if>
-            url_result = 2
+            last_page_result = #{item.pageResult}
             where id = #{item.id}
         </foreach>
     </update>
@@ -81,15 +80,16 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             set
             total_crawl_count = crawl_count + 1,
             last_crawl_time = current_timestamp,
-            last_task_id = #{item.task_id}
+            last_crawl_task_id = #{item.taskId}
             url_status = 3,
             <if test="item.msg!=null and item.msg !=''">
-                last_crawl_msg =#{item.msg},
+                last_crawl_msg = #{item.msg},
             </if>
             <if test="item.httpStatus!=null">
-                last_crawl_http_status = #{item.last_crawl_http_status},
+                last_crawl_http_status = #{item.httpStatus},
             </if>
-            url_result = 3
+            url_type = 2,
+            last_page_result = #{item.pageResult}
             where id = #{item.id}
         </foreach>
     </update>
@@ -99,7 +99,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             set
             url_status = 1,
             last_crawl_time = current_timestamp,
-            last_task_id = #{item.task_id}
+            last_crawl_task_id = #{item.taskId}
             where id = {item.id}
         </foreach>
     </update>
@@ -108,7 +108,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             update url
             set
             url_status = 3,
-            url_result = 1,
+            last_page_result = 1,
             total_crawl_count = crawl_count + 1,
             last_succss_time = current_timestamp,
             last_crawl_time = current_timestamp,
@@ -118,7 +118,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="item.httpStatus!=null">
                 last_crawl_http_status = #{item.last_crawl_http_status},
             </if>
-            last_task_id =#{item.taskId}
+            last_crawl_task_id =#{item.taskId}
             total_success_count = total_success_count + 1
             where id = #{item.id}
         </foreach>
@@ -133,6 +133,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         u.down_system_site_id = #{downSystemSiteId}
         and u.enable_status = 1
         and u.url_status = 1
+        and u.url_type &lt;&gt; 2
         and u.total_crawl_count &lt; dss.url_max_crawl_count
         order by
             u.priority,

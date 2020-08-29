@@ -32,4 +32,6 @@ public interface CookieService {
      * @param cookieId
      */
     void resetBlockCount(Integer cookieId);
+
+    void disable(Integer id);
 }

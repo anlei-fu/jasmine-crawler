@@ -62,7 +62,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     </select>
     <select id="disableInvalidCookies">
         update cookie c
-        set enbale_status = 0
+        set enable_status = 0
         where
         c.expire_time &lt; current_timestamp
         or

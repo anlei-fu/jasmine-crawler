@@ -55,6 +55,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         and dm.delay_timeout_time > current_timestamp
         )
         order by p.current_use_count/p.max_use_count asc
+        limit 0,1
     </select>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Proxy">
         select * from  proxy where id = #{id}

@@ -1,5 +1,7 @@
 package com.jasmine.crawler.cron.service.impl;
 
+import com.jasmine.crawler.common.pojo.entity.Crawler;
+import com.jasmine.crawler.common.util.TestUtils;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
 import org.junit.Before;
@@ -8,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * CrawlerServiceImpl Tester.
@@ -36,7 +40,8 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testGetCrawlerForSite() throws Exception {
-//        service.getCrawlerForSite(site.getId(), 24, true);
+        Crawler crawler = service.getCrawlerForSite(1, 24, true);
+        TestUtils.print(crawler, "crawler");
     }
 
     /**
@@ -52,7 +57,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testGet() throws Exception {
-        service.get(1);
+        TestUtils.print(service.get(1), "target");
     }
 
     /**
@@ -60,7 +65,8 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testGetCrawlersNeedHeartbeat() throws Exception {
-        service.getCrawlersNeedHeartbeat();
+        List<Crawler> crawlers = service.getCrawlersNeedHeartbeat();
+        TestUtils.print(crawlers, "crawlers to send heartbeat");
     }
 
     /**
@@ -68,7 +74,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testUpdateHeartbeatStatus() throws Exception {
-        service.updateHeartbeatStatus(1, 0);
+        service.updateHeartbeatStatus(1, true);
     }
 
 } 

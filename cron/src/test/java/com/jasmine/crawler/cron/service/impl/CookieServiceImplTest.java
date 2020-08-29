@@ -1,5 +1,6 @@
 package com.jasmine.crawler.cron.service.impl;
 
+import com.jasmine.crawler.common.util.TestUtils;
 import com.jasmine.crawler.cron.Application;
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class CookieServiceImplTest {
      */
     @Test
     public void testGet() throws Exception {
-        service.get(1);
+        TestUtils.print(service.get(1), "target");
     }
 
     /**
@@ -44,7 +45,7 @@ public class CookieServiceImplTest {
      */
     @Test
     public void testGetCookieForSite() throws Exception {
-        service.getCookieForSite(24);
+        TestUtils.print(service.getCookieForSite(24), "cookie for site");
     }
 
     /**
@@ -68,7 +69,7 @@ public class CookieServiceImplTest {
      */
     @Test
     public void testDecreaseCurrentUseCount() throws Exception {
-        service.increaseCurrentUseCount(1);
+        service.decreaseCurrentUseCount(1);
     }
 
 } 

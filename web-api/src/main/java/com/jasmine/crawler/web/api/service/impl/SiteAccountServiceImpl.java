@@ -31,4 +31,9 @@ public class SiteAccountServiceImpl implements SiteAccountService {
     public void decreaseCurrentUseCount(Integer id) {
         siteAccountMapper.decreaseCurrentUseCount(id);
     }
+
+    @Override
+    public void block(Integer id) {
+        siteAccountMapper.block(id);
+    }
 }

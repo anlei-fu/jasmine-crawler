@@ -25,7 +25,7 @@ public class UrlController extends ControllerBase {
     private UrlService urlService;
 
     @PostMapping(path = "/url/seed")
-    public R addSeedUrl( @RequestBody @Validated AddSeedUrlReq req) {
+    public R addSeedUrl(@RequestBody @Validated AddSeedUrlReq req) {
         boolean result = urlService.addSeedUrl(req);
         return responseBoolean(result);
     }

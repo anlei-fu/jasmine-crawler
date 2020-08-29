@@ -13,4 +13,6 @@ public interface CookieMapper {
     void increaseBlockCount(@Param("id") Integer id);
 
     void resetBlockCount(@Param("id") Integer id);
+
+    void disable(Integer id);
 }

@@ -9,10 +9,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         update down_system_site
         set
           task_current_running_count = task_current_running_count - 1,
-          task_current_count =task_current_count-1
+          task_current_count = task_current_count - 1
         where id = #{id}
     </update>
     <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
-        select * from down_system_site where id =#{id}
+        select * from down_system_site where id = #{id}
     </select>
 </mapper>

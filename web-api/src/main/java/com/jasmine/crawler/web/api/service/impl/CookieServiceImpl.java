@@ -31,4 +31,9 @@ public class CookieServiceImpl implements CookieService {
     public void resetBlockCount(Integer id) {
         cookieMapper.resetBlockCount(id);
     }
+
+    @Override
+    public void disable(Integer id) {
+        cookieMapper.disable(id);
+    }
 }

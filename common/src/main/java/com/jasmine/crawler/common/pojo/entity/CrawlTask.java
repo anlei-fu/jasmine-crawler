@@ -41,8 +41,14 @@ public class CrawlTask {
      */
     private Integer taskStatus;
 
+    /**
+     * Task execute timeout (minute)
+     */
     private Date taskTimeoutTime;
 
+    /**
+     * Task bind timeout (minute)
+     */
     private Date bindTimeoutTime;
 
     // task bind fields
@@ -79,6 +85,9 @@ public class CrawlTask {
      */
     private String dispatchLastMsg;
 
+    /**
+     * Last dispatch time
+     */
     private Date dispatchLastTime;
 
     // task config fields
@@ -115,6 +124,11 @@ public class CrawlTask {
     private Integer taskResult;
 
     /**
+     * The msg of the task
+     */
+    private String taskMsg;
+
+    /**
      * Use for statistics
      */
     private Integer averageSpeedOfAll;
@@ -132,10 +146,10 @@ public class CrawlTask {
     /**
      * Statistics field
      */
-    private Integer meanSpeedOfSuccess;
+    private Integer medianSpeedOfSuccess;
 
     /**
-     *
+     * Count of url of task to execute
      */
     private Integer urlTotalCount;
 
@@ -159,5 +173,8 @@ public class CrawlTask {
      */
     private Integer urlBadCount;
 
+    /**
+     * The time task created
+     */
     private Date createTime;
 }

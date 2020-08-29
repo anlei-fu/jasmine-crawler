@@ -32,4 +32,6 @@ public interface SiteAccountService {
      * @param id
      */
     void decreaseCurrentUseCount(Integer id);
+
+    void block(Integer id);
 }

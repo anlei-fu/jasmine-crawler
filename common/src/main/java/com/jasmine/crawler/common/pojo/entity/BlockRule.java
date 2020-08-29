@@ -13,11 +13,11 @@ import java.util.Date;
 @Data
 public class BlockRule {
 
-    private  Integer id;
+    private Integer id;
 
     private Integer downSystemSiteId;
 
-    private Integer compareType;
+    private Integer checkType;
 
     private Integer httpStatus;
 

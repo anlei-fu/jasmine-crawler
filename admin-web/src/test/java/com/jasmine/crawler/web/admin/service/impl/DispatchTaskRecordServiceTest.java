@@ -7,8 +7,8 @@
 package com.jasmine.crawler.web.admin.service.impl;
 
 import com.jasmine.crawler.common.api.resp.R;
+import com.jasmine.crawler.common.util.TestUtils;
 import com.jasmine.crawler.web.admin.Application;
-import com.jasmine.crawler.web.admin.TestUtils;
 import com.jasmine.crawler.web.admin.controller.DispatchRecordController;
 import com.jasmine.crawler.web.admin.pojo.req.GetDispatchTaskRecordPageReq;
 import org.junit.After;

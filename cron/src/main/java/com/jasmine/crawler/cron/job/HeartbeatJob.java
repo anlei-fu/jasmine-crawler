@@ -1,7 +1,6 @@
 package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawler.common.api.resp.R;
-import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.pojo.entity.Crawler;
 import com.jasmine.crawler.common.pojo.entity.Heartbeat;
 import com.jasmine.crawler.common.support.LoggerSupport;
@@ -32,7 +31,7 @@ public class HeartbeatJob extends LoggerSupport {
      * 2. update crawler heartbeat status
      * 3. the 'heartbeat-lost-count' smaller, the heartbeat rate more often
      */
-    @Scheduled(cron = "*/6 * * * * ?")
+    @Scheduled(cron = "40 * * * * ?")
     public void run() {
         info("-------------begin sending heartbeat---------------");
         List<Crawler> crawlers = null;

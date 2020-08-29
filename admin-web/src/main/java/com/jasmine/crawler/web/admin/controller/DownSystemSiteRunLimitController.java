@@ -19,20 +19,20 @@ public class DownSystemSiteRunLimitController extends ControllerBase {
     private DownSystemSiteRunLimitService downSystemSiteRunLimitService;
 
     @GetMapping(path = "/downSystemSiteRunLimit/{downSystemSiteId}")
-    public R<List<DownSystemSiteRunLimit>> getByDownSystemSiteId(@PathVariable Integer downSystemSiteId){
-        List<DownSystemSiteRunLimit> result =downSystemSiteRunLimitService.getByDownSystemSiteId(downSystemSiteId);
-        return  responseData(result);
+    public R<List<DownSystemSiteRunLimit>> getByDownSystemSiteId(@PathVariable Integer downSystemSiteId) {
+        List<DownSystemSiteRunLimit> result = downSystemSiteRunLimitService.getByDownSystemSiteId(downSystemSiteId);
+        return responseData(result);
     }
 
     @PutMapping(path = "/downSystemSiteRunLimit/disable/{id}")
-    public R disable(@PathVariable Integer id){
+    public R disable(@PathVariable Integer id) {
         boolean result = downSystemSiteRunLimitService.disable(id);
-        return  responseBoolean(result);
+        return responseBoolean(result);
     }
 
     @PutMapping(path = "/downSystemSiteRunLimit/enable/{id}")
-    public R enable(@PathVariable Integer id){
+    public R enable(@PathVariable Integer id) {
         boolean result = downSystemSiteRunLimitService.enable(id);
-        return  responseBoolean(result);
+        return responseBoolean(result);
     }
 }

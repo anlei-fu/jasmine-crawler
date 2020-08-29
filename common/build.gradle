@@ -23,4 +23,5 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE'
     compile group: 'cn.hutool', name: 'hutool-all', version: '4.6.10'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.61'
 }

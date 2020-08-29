@@ -23,4 +23,9 @@ public final class UrlType {
      * Means url is a api
      */
     public static final Integer API = 4;
+
+    /**
+     * Means url is a bad url
+     */
+    public static final Integer BAD = 5;
 }

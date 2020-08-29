@@ -1,5 +1,6 @@
 package com.jasmine.crawler.url.store.mapper;
 
+import com.jasmine.crawler.common.pojo.dto.PageResult;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,11 +19,11 @@ public interface UrlMapper {
 
     void updateUrlStatusToCached(@Param("list") List<Url> urls);
 
-    void failedUrls(@Param("list") List<Url> list);
+    void failedUrls(@Param("list") List<PageResult> list);
 
-    void badUrls(@Param("list") List<Url> list);
+    void badUrls(@Param("list") List<PageResult> list);
 
-    void failToRunUrls(@Param("list") List<Url> list);
+    void failToRunUrls(@Param("list") List<PageResult> list);
 
-    void successUrls(@Param("list") List<Url> list);
+    void successUrls(@Param("list") List<PageResult> list);
 }

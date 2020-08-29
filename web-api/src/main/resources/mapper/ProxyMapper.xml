@@ -21,6 +21,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where id = #{id}
     </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Proxy">
-        select * from proxy where id =#{id}
+        select * from proxy where id = #{id}
     </select>
 </mapper>

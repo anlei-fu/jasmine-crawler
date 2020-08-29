@@ -33,7 +33,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.url_bad_count,
         t.average_speed_of_all,
         t.average_speed_of_success,
-        t.mean_speed_of_success,
+        t.median_speed_of_success,
         t.max_speed_of_success,
         t.enable_status,
         t.create_time

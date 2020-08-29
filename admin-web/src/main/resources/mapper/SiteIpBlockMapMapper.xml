@@ -26,7 +26,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 t.site_id = #{siteId}
             </if>
             <if test="ip != null">
-                t.ip = #{ip}
+                and t.ip = #{ip}
             </if>
             <if test="createTimeStart != null and createTimeStart !=''">
                 and t.create_time >= #{createTimeStart}

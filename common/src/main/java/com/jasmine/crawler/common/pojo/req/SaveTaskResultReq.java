@@ -1,7 +1,6 @@
 package com.jasmine.crawler.common.pojo.req;
 
-import com.jasmine.crawler.common.pojo.entity.Url;
-import com.jasmine.crawler.common.pojo.dto.UrlResult;
+import com.jasmine.crawler.common.pojo.dto.PageResult;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,19 +13,17 @@ public class SaveTaskResultReq {
 
     private Integer taskResult;
 
-    private String message;
+    private String msg;
 
     private Integer urlTotal;
 
-    private List<UrlResult> urlResults;
-
-    private List<Url> unCrawledUrls;
+    private List<PageResult> pageResults;
 
     private Integer averageSpeedOfSuccess;
 
     private Integer averageSpeedOfAll;
 
-    private Integer meanSpeedOfSuccess;
+    private Integer medianSpeedOfSuccess;
 
     private Integer maxSpeedOfSuccess;
 }

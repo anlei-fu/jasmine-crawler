@@ -1,6 +1,8 @@
 package com.jasmine.crawler.url.store.job;
 
+import cn.hutool.core.util.StrUtil;
 import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.pojo.dto.PageResult;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
@@ -11,6 +13,7 @@ import com.jasmine.crawler.url.store.service.BloomFilterManager;
 import com.jasmine.crawler.url.store.service.DownSystemService;
 import com.jasmine.crawler.url.store.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -51,6 +54,7 @@ public class UlrConsumeJob extends LoggerSupport {
      *
      * @throws IOException
      */
+    @Scheduled(cron = "30/30 * * * * ?")
     public void run() throws Exception {
         info("------------begin url save job-----------------");
         SaveUrlResultReq saveUrlResultReq = urlResultQueue.poll();
@@ -68,10 +72,28 @@ public class UlrConsumeJob extends LoggerSupport {
         }
 
         saveNewUrl(saveUrlResultReq, downSystemSite);
-//        succeedUrls(saveUrlResultReq.getSucceedUrls(), downSystemSite);
-//        badUrls(saveUrlResultReq.getBadUrls(), downSystemSite);
-//        failedUrls(saveUrlResultReq.getFailedUrls(), downSystemSite.getId());
-//        failToRunUrls(saveUrlResultReq.getFailedUrls());
+
+        List<PageResult> failedUrls = new LinkedList<>();
+        List<PageResult> badUrls = new LinkedList<>();
+        List<PageResult> failedToRunUrls = new LinkedList<>();
+        List<PageResult> succeedUrls = new LinkedList<>();
+        for (final PageResult pr : saveUrlResultReq.getPageResults()) {
+            pr.setTaskId(saveUrlResultReq.getTaskId());
+            if (pr.getPageResult() == com.jasmine.crawler.common.constant.PageResult.SUCCESS) {
+                succeedUrls.add(pr);
+            } else if (pr.getPageResult() == com.jasmine.crawler.common.constant.PageResult.FAILED_TO_RUN) {
+                failedToRunUrls.add(pr);
+            } else if (pr.getPageResult() == com.jasmine.crawler.common.constant.PageResult.BAD) {
+                badUrls.add(pr);
+            } else {
+                failedUrls.add(pr);
+            }
+        }
+
+        failToRunUrls(failedToRunUrls);
+        badUrls(badUrls, downSystemSite);
+        failedUrls(failedUrls);
+        succeedUrls(succeedUrls, downSystemSite);
     }
 
     private void saveNewUrl(SaveUrlResultReq saveUrlResultReq, DownSystemSite downSystemSite) throws Exception {
@@ -81,26 +103,31 @@ public class UlrConsumeJob extends LoggerSupport {
             return;
         }
 
-        List<Url> urls = new LinkedList<>();
-        int t = 0;
-        int k = 0;
-        for (final Url url : saveUrlResultReq.getNewUrls()) {
-            if (t++ % URL_INSERT_BATCH_SIZE == 0) {
-                saveNewUrlCore(urls, downSystemSite);
-                urls = new LinkedList<>();
+        List<Url> newUrls = new LinkedList<>();
+        saveUrlResultReq.getPageResults().stream().forEach(result -> {
+            if (result.getPageResult() == 1) {
+                newUrls.addAll(result.getNewUrls());
             }
+        });
+
+        List<Url> filteredUrls = new LinkedList<>();
+        for (final Url url : newUrls) {
+
+            if (StrUtil.isEmpty(url.getUrl()))
+                continue;
 
             try {
-                if (!Objects.isNull(url.getUrl()) && filter.add(url.getUrl())) {
-                    urls.add(url);
-                    k++;
+                if (filter.add(url.getUrl())) {
+                    filteredUrls.add(url);
                 }
             } catch (Exception ex) {
-                error(String.format("filter url(%s) failed", url.getUrl()), ex);
+
             }
         }
 
-        saveNewUrlCore(urls, downSystemSite);
+        for (final List<Url> ls : CollectionUtils.split(filteredUrls, URL_INSERT_BATCH_SIZE)) {
+            saveNewUrlCore(ls, downSystemSite);
+        }
     }
 
     private void saveNewUrlCore(List<Url> newUrls, DownSystemSite downSystemSite) {
@@ -113,8 +140,8 @@ public class UlrConsumeJob extends LoggerSupport {
         }
     }
 
-    private void failedUrls(List<Url> urls, Integer downSystemSiteId) {
-        for (List<Url> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+    private void failedUrls(List<PageResult> urls) {
+        for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
                 urlMapper.failedUrls(list);
             } catch (Exception ex) {
@@ -123,20 +150,22 @@ public class UlrConsumeJob extends LoggerSupport {
         }
     }
 
-    private void badUrls(List<Url> urls, DownSystemSite downSystemSite) {
-        for (List<Url> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+    private void badUrls(List<PageResult> urls, DownSystemSite downSystemSite) {
+        for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
                 urlMapper.badUrls(list);
                 downSystemSiteService.increaseBadUrlCount(downSystemSite.getId(), list.size());
                 downSystemService.increaseBadUrlCount(downSystemSite.getDownSystemId(), list.size());
+                downSystemSiteService.increaseFinishedUrlCount(downSystemSite.getId(), list.size());
+                downSystemService.increaseFinishedUrlCount(downSystemSite.getDownSystemId(), list.size());
             } catch (Exception ex) {
                 error("bad url batch failed", ex);
             }
         }
     }
 
-    private void failToRunUrls(List<Url> urls) {
-        for (List<Url> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+    private void failToRunUrls(List<PageResult> urls) {
+        for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
                 urlMapper.failToRunUrls(list);
             } catch (Exception ex) {
@@ -145,8 +174,8 @@ public class UlrConsumeJob extends LoggerSupport {
         }
     }
 
-    private void succeedUrls(List<Url> urls, DownSystemSite downSystemSite) {
-        for (List<Url> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
+    private void succeedUrls(List<PageResult> urls, DownSystemSite downSystemSite) {
+        for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
                 urlMapper.successUrls(list);
                 downSystemSiteService.increaseFinishedUrlCount(downSystemSite.getId(), list.size());
@@ -158,3 +187,4 @@ public class UlrConsumeJob extends LoggerSupport {
     }
 
 }
+104

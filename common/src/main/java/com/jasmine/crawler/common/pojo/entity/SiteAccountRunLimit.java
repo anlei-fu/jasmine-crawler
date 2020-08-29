@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class SiteAccountRunLimit extends EnableStatusFeature {
 
-    private  Integer siteAccountType;
+    private Integer siteAccountType;
 
     private Integer monthDayType;
 }

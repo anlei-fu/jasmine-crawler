@@ -63,4 +63,9 @@ public class CookieServiceImplTest {
         service.resetBlockCount(1);
     }
 
+    @Test
+    public void disable() {
+        service.disable(1);
+    }
+
 } 

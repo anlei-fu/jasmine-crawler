@@ -18,7 +18,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 t.ip = #{ip}
             </if>
             <if test="siteId != null">
-                t.site_id = #{siteId}
+                and t.site_id = #{siteId}
             </if>
         </where>
     </select>

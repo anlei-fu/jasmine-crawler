@@ -20,6 +20,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set current_block_count = 0
         where id = #{id}
     </update>
+    <update id="disable">
+        update cookie
+        set enable_status = 0
+    </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.Cookie">
         select * from cookie where id = #{id}
     </select>

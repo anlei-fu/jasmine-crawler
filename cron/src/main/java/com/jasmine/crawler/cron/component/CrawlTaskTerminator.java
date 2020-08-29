@@ -39,14 +39,19 @@ public class CrawlTaskTerminator {
     private SiteAccountService siteAccountService;
 
     public void terminate(CrawlTask task) {
+        terminate(task, true);
+    }
+
+    public void terminate(CrawlTask task, boolean decreaseTaskCount) {
 
         DownSystemSite downSystemSite = downSystemSiteService.get(task.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
             downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
-        }
+            downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
 
-        downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
-        downSystemSiteService.decreaseCurrentTaskCount(downSystemSite.getId());
+            if (decreaseTaskCount)
+                downSystemSiteService.decreaseCurrentTaskCount(downSystemSite.getId());
+        }
 
         if (task.getProxyId() != BooleanFlag.NO_NEED)
             proxyService.decreaseCurrentUseCount(task.getProxyId());

@@ -8,8 +8,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="finishTask">
         update crawl_task
         <set>
+            task_status = 4,
             task_result = #{taskResult},
-            task_finish_time =current_timestamp,
+            task_finish_time = current_timestamp,
+            <if test="taskMsg!=null and taskMsg!=''">
+                task_msg = #{taskMsg},
+            </if>
             <if test="urlTotalCount!=null">
                 url_total_count = #{urlTotalCount},
             </if>
@@ -25,8 +29,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="urlNewCount!=null">
                 url_new_count = #{urlNewCount},
             </if>
-            <if test="meanSpeedOfSuccess!=null">
-                mean_speed_of_success = #{meanSpeedOfSuccess},
+            <if test="medianSpeedOfSuccess!=null">
+                median_speed_of_success = #{medianSpeedOfSuccess},
             </if>
             <if test="averageSpeedOfSuccess!=null">
                 average_speed_of_success = #{averageSpeedOfSuccess},
@@ -34,8 +38,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="maxSpeedOfSuccess!=null">
                 max_speed_of_success = #{maxSpeedOfSuccess},
             </if>
-            <if test="meanSpeedOfAll!=null">
-                mean_speed_of_all = #{meanSpeedOfAll},
+            <if test="averageSpeedOfAll!=null">
+                average_speed_of_all = #{averageSpeedOfAll},
             </if>
         </set>
 
@@ -43,7 +47,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     </update>
     <select id="getCrawlTaskForUpdate" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select
-        task_status
+        *
         from crawl_task
         where id = #{id}
         for update

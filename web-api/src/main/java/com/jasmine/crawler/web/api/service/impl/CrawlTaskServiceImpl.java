@@ -1,10 +1,13 @@
 package com.jasmine.crawler.web.api.service.impl;
 
 import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.constant.PageResult;
 import com.jasmine.crawler.common.constant.TaskResult;
 import com.jasmine.crawler.common.constant.TaskStatus;
 import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.pojo.req.SaveTaskDataReq;
 import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
+import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.web.api.mapper.CrawlTaskMapper;
 import com.jasmine.crawler.web.api.service.*;
@@ -13,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -54,44 +59,50 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
     @Override
     public boolean saveTaskResult(SaveTaskResultReq req) {
         try {
-            if (finishCrawTask(req)) {
-                saveUrls(req);
-                Integer downSystemId = crawlTaskMapper.getDownSystemIdById(req.getTaskId());
-                saveData(req, downSystemId);
-            }
+            finishCrawTask(req);
+            Integer downSystemId = crawlTaskMapper.getDownSystemIdById(req.getTaskId());
+            saveData(req, downSystemId);
+            saveUrls(req);
         } catch (Exception ex) {
             error(String.format("terminate task(%d) failed", req.getTaskId()), ex);
         }
         return true;
     }
 
-    private void saveUrls(SaveTaskResultReq req) {
+    private void saveData(SaveTaskResultReq req, Integer downSystemId) {
         try {
-//            SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
-//                    .taskId(req.getTaskId())
-//                    .newUrls(req.getNewUrls())
-//                    .badUrls(req.getBadUrls())
-//                    .failedUrls(req.getFailedUrls())
-//                    .unCrawledUrls(req.getUnCrawledUrls())
-//                    .succeedUrls(req.getSucceedUrls())
-//                    .build();
-//            urlService.saveUrlResult(saveUrlResultReq);
+
+            List<String> data = new LinkedList<>();
+            req.getPageResults().stream().forEach(result -> {
+                if (result.getPageResult() == PageResult.SUCCESS)
+                    data.add(result.getData());
+            });
+
+            SaveTaskDataReq saveDataResultReq = SaveTaskDataReq.builder()
+                    .downSystemId(downSystemId)
+                    .taskId(req.getTaskId())
+                    .data(data)
+                    .build();
+            dataService.saveData(saveDataResultReq);
         } catch (Exception ex) {
-            // ignore url loss
+            // ignore data loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
         }
     }
 
-    private void saveData(SaveTaskResultReq req, Integer downSystemId) {
+    private void saveUrls(SaveTaskResultReq req) {
         try {
-//            SaveTaskDataReq saveDataResultReq = SaveTaskDataReq.builder()
-//                    .data(req.getData())
-//                    .taskId(req.getTaskId())
-//                    .downSystemId(downSystemId)
-//                    .build();
-//            dataService.saveData(saveDataResultReq);
+            req.getPageResults().stream().forEach(r -> {
+                r.setData(null);
+            });
+
+            SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
+                    .pageResults(req.getPageResults())
+                    .taskId(req.getTaskId())
+                    .build();
+            urlService.saveUrlResult(saveUrlResultReq);
         } catch (Exception ex) {
-            // ignore data loss
+            // ignore url loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
         }
     }
@@ -99,7 +110,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
     @Transactional
     public boolean finishCrawTask(SaveTaskResultReq req) {
 
-        // task removed
+        // lock and check task status
         CrawlTask task = crawlTaskMapper.getCrawlTaskForUpdate(req.getTaskId());
         if (Objects.isNull(task)) {
             info("task removed");
@@ -107,7 +118,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         }
 
         // incorrect task status may have been processed by timeout termination job
-        if (task.getTaskStatus() != TaskStatus.WAIT_TO_DISPATCH) {
+        if (task.getTaskStatus() != TaskStatus.EXECUTING) {
             info(String.format("task status incorrect %d", req.getTaskResult()));
             return false;
         }
@@ -142,9 +153,8 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                 proxyService.decreaseCurrentUseCount(proxy.getId());
         }
 
-        // decrease  site current task count
-        Site site = siteService.get(task.getSiteId());
         // decrease crawler concurrency
+        Site site = siteService.get(task.getSiteId());
         Crawler crawler = crawlerService.get(task.getCrawlerId());
         if (!Objects.isNull(crawler) && !Objects.isNull(site))
             crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), downSystemSite.getTaskUrlMaxConcurrency());
@@ -161,20 +171,24 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                 if (!Objects.isNull(siteAccount))
                     siteAccountService.resetBlockCount(siteAccount.getId());
             }
-        } else if (req.getTaskResult() == TaskResult.BLOCKED) {
+        } else if (req.getTaskResult() == TaskResult.IP_BLOCKED) {
+            SiteIpBlockMap siteIpBlockMap = SiteIpBlockMap.builder()
+                    .ip(Objects.isNull(proxy) ? crawler.getIp() : proxy.getIp())
+                    .siteId(site.getId())
+                    .blockTimeoutTime(new Date(System.currentTimeMillis() + site.getIpBlockTimeout()))
+                    .build();
 
-            // add block count when block
-            if (!Objects.isNull(proxy)) {
-                proxyService.increaseBlockCount(proxy.getId());
-            } else {
-                SiteIpBlockMap siteIpBlockMap = SiteIpBlockMap.builder()
-                        .ip(Objects.isNull(proxy) ? crawler.getIp() : proxy.getIp())
-                        .siteId(site.getId())
-                        .blockTimeoutTime(new Date(System.currentTimeMillis() + site.getIpBlockTimeout()))
-                        .build();
+            siteIpBlockMapService.add(siteIpBlockMap);
 
-                siteIpBlockMapService.add(siteIpBlockMap);
+        } else if (req.getTaskResult() == TaskResult.ACCOUNT_BLOCKED) {
+            if (!Objects.isNull(cookie)) {
+                cookieService.disable(cookie.getId());
+                if (!Objects.isNull(siteAccount))
+                    siteAccountService.block(siteAccount.getId());
             }
+        } else {
+            if (!Objects.isNull(proxy))
+                proxyService.increaseBlockCount(proxy.getId());
 
             if (!Objects.isNull(cookie)) {
                 cookieService.increaseBlockCount(cookie.getId());
@@ -189,18 +203,32 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
     }
 
     private void finishCrawlTask(SaveTaskResultReq req) {
-        // update task
+        int success = 0;
+        int fail = 0;
+        int bad = 0;
+        int _new = 0;
+        for (final com.jasmine.crawler.common.pojo.dto.PageResult pr : req.getPageResults()) {
+            if (pr.getPageResult() == PageResult.SUCCESS) {
+                success++;
+                _new += pr.getNewUrls().size();
+            } else if (pr.getPageResult() == PageResult.BAD) {
+                bad++;
+            } else {
+                fail++;
+            }
+        }
 
         CrawlTask crawlTaskToUpdate = CrawlTask.builder()
                 .id(req.getTaskId())
                 .taskResult(req.getTaskResult())
+                .taskMsg(req.getMsg())
                 .averageSpeedOfAll(req.getAverageSpeedOfAll())
                 .averageSpeedOfSuccess(req.getAverageSpeedOfSuccess())
-                .meanSpeedOfSuccess(req.getMeanSpeedOfSuccess())
-//                .urlSuccessCount(req.getSucceedUrls().size())
-//                .urlFailedCount(req.getFailedUrls().size())
-//                .urlBadCount(req.getBadUrls().size())
-//                .urlNewCount(req.getNewUrls().size())
+                .medianSpeedOfSuccess(req.getMedianSpeedOfSuccess())
+                .urlSuccessCount(success)
+                .urlFailedCount(fail)
+                .urlBadCount(bad)
+                .urlNewCount(_new)
                 .urlTotalCount(req.getUrlTotal())
                 .build();
         crawlTaskMapper.finishTask(crawlTaskToUpdate);

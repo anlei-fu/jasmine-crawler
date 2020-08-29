@@ -14,7 +14,7 @@ public interface UrlService {
      * @return
      * @throws Exception
      */
-    List<Url> getUrlForTask(Integer downSystemSiteId) throws Exception;
+    List<Url> getUrlForSite(Integer downSystemSiteId) throws Exception;
 
     /**
      * Save task url result

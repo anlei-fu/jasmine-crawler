@@ -1,5 +1,6 @@
 package com.jasmine.crawler.cron.pojo.req;
 
+import com.jasmine.crawler.common.pojo.entity.BlockRule;
 import com.jasmine.crawler.common.pojo.entity.Proxy;
 import com.jasmine.crawler.common.pojo.entity.Url;
 import lombok.Data;
@@ -23,6 +24,11 @@ public class CrawlTaskConfig {
      */
     private List<Url> urls;
 
+    /**
+     * Block rules
+     */
+    private List<BlockRule> blockRules;
+
     // crawler config
     /**
      * Crawler to run the task
@@ -33,6 +39,8 @@ public class CrawlTaskConfig {
      * The crawl task type see {@enum CrawlType}
      */
     private Integer crawlType;
+
+    private Integer userAgentType;
 
     /**
      * Determine if auto download page and check page result
@@ -89,11 +97,6 @@ public class CrawlTaskConfig {
     private String cookie;
 
     /**
-     *
-     */
-    private String blockRules;
-
-    /**
      * Task max concurrency
      */
     private Integer ipMinuteSpeedLimit;
@@ -101,22 +104,17 @@ public class CrawlTaskConfig {
     /**
      *
      */
-    private Integer taskUrlMaxFail;
+    private Integer urlMaxFailCount;
 
     /**
      *
      */
-    private Integer taskUrlMaxContinuouslyFail;
+    private Integer urlMaxContinuouslyFailCount;
 
     /**
      *
      */
-    private Integer taskUrlMaxConcurrency;
-
-    /**
-     *
-     */
-    private Integer userAgentType;
+    private Integer urlMaxConcurrency;
 
     /**
      *

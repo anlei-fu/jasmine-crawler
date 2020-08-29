@@ -3,6 +3,7 @@ package com.jasmine.crawler.cron.service.impl;
 import com.jasmine.crawler.common.constant.BindResult;
 import com.jasmine.crawler.common.constant.DispatchResult;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
+import com.jasmine.crawler.common.util.TestUtils;
 import com.jasmine.crawler.cron.Application;
 import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
 import org.junit.After;
@@ -42,7 +43,8 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTasksToBind() throws Exception {
-        service.getTasksToBind(1);
+        List<CrawlTask> tasks = service.getTasksToBind(1);
+        TestUtils.print(tasks, "tasks to bind");
     }
 
     /**
@@ -79,6 +81,7 @@ public class CrawlTaskServiceImplTest {
     @Test
     public void testGetTasksConfigsToDispatch() throws Exception {
         List<CrawlTaskConfig> configs = service.getTasksConfigsToDispatch();
+        TestUtils.print(configs, "task configs");
     }
 
     /**
@@ -86,7 +89,8 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTimeoutTasksToTerminate() throws Exception {
-        service.getTimeoutTasksToTerminate();
+        List<CrawlTask> tasks = service.getTimeoutTasksToTerminate();
+        TestUtils.print(tasks, "executing timeout task");
     }
 
     /**

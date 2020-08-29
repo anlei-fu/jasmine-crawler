@@ -3,11 +3,17 @@ package com.jasmine.crawler.cron.config;
 import lombok.Data;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
 @Configuration
 public class SystemConfig {
+
+    public SystemConfig() {
+        this.masters = new LinkedList<>();
+        this.masters.add("http://192.168.5.32:10032");
+    }
 
     /**
      *

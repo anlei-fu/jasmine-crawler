@@ -34,7 +34,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     private ConcurrentLinkedQueue<SaveUrlResultReq> queue;
 
     @Override
-    public List<Url> getUrlForTask(Integer downSystemSiteId) throws Exception {
+    public List<Url> getUrlForSite(Integer downSystemSiteId) throws Exception {
         DownSystemSite downSystemSite = downSystemSiteService.get(downSystemSiteId);
         if (Objects.isNull(downSystemSite)) {
             throw new Exception(String.format("down system site (%d) not exists", downSystemSiteId));
