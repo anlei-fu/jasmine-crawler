@@ -3,12 +3,6 @@ package jasmine.crawl.common.component.impl;
 import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
 import org.junit.Test;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 public class JasmineBloomImlTester {
 
     @Test

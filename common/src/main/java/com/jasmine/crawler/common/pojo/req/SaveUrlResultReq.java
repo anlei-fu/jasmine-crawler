@@ -8,20 +8,24 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class SaveUrlResultReq {
+
+    /**
+     * Page results
+     */
     private List<PageResult> pageResults;
 
+    /**
+     * Task id
+     */
     private Integer taskId;
 
+    /**
+     * Down system site id
+     */
     private Integer downSystemSiteId;
 }

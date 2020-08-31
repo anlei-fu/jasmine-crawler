@@ -68,7 +68,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
         if (Objects.isNull(crawlTask) || crawlTask.getTaskStatus() != TaskStatus.EXECUTING)
             return;
 
-        crawlTaskTerminator.terminate(task);
+        crawlTaskTerminator.terminate(task,true,true);
         crawlTaskService.terminateExecuteTimeoutTask(task.getId());
     }
 

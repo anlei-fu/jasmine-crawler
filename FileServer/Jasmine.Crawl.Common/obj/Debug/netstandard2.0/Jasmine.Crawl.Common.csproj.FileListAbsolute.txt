@@ -1,0 +1,8 @@
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\bin\Debug\netstandard2.0\Jasmine.Crawler.Common.deps.json
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\bin\Debug\netstandard2.0\Jasmine.Crawler.Common.dll
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\bin\Debug\netstandard2.0\Jasmine.Crawler.Common.pdb
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawl.Common.csprojAssemblyReference.cache
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawl.Common.AssemblyInfoInputs.cache
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawl.Common.AssemblyInfo.cs
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawler.Common.dll
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawler.Common.pdb

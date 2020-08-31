@@ -77,9 +77,9 @@ public class UrlServiceTest {
     @Test
     public void testDeleteByUrl() {
 
-        R result = controller.deleteById("http://www.qq.com");
+//        R result = controller.deleteById("http://www.qq.com");
 
-        TestUtils.print(result);
+//        TestUtils.print(result);
     }
 
     /**
@@ -89,15 +89,15 @@ public class UrlServiceTest {
     public void testUpdateByUrl() {
 
         UpdateUrlReq req = new UpdateUrlReq();
-
-        req.setDepth(20);
-        req.setDownSystemSiteId(1);
-        req.setUrlType(0);
-        req.setReferUrl("http://www.msdn.com");
-        req.setCrawlCount(899);
-        req.setUrlStatus(90);
-        req.setLastCrawlTime("2008-12-06");
-        req.setQueryString("mock string");
+//
+//        req.setDepth(20);
+//        req.setDownSystemSiteId(1);
+//        req.setUrlType(0);
+//        req.setReferUrl("http://www.msdn.com");
+//        req.setCrawlCount(899);
+//        req.setUrlStatus(90);
+//        req.setLastCrawlTime("2008-12-06");
+//        req.setQueryString("mock string");
 
         R result = controller.updateByUrl("http://www.qq.com", req);
 
@@ -123,14 +123,14 @@ public class UrlServiceTest {
 
         GetUrlPageReq req = new GetUrlPageReq();
 
-        req.setDownSystemSiteId(8);
-        req.setUrlType(20);
-        req.setUrlStatus(20);
-        req.setCreateTimeStart(new Date());
-        req.setCreateTimeEnd(new Date());
-
-        R result = controller.getPage(req);
-
-        TestUtils.printQuery(req, result);
+//        req.setDownSystemSiteId(8);
+//        req.setUrlType(20);
+//        req.setUrlStatus(20);
+//        req.setCreateTimeStart(new Date());
+//        req.setCreateTimeEnd(new Date());
+//
+//        R result = controller.getPage(req);
+//
+//        TestUtils.printQuery(req, result);
     }
 }

@@ -218,7 +218,7 @@ public class DispatchTaskJob extends LoggerSupport {
 
         // fetch task urls
         List<Url> urls = urlService.getUrlToExecuteForSite(
-                crawlTaskConfig.getSiteId(),
+                crawlTaskConfig.getDownSystemSiteId(),
                 downSystemSite.getTaskUrlBatchCount()
         );
 
@@ -303,7 +303,7 @@ public class DispatchTaskJob extends LoggerSupport {
     public void dispatchFailed(CrawlTaskConfig crawlTaskConfig, Integer dispatchResult, String dispatchMsg) {
 
         CrawlTask task = crawlTaskService.get(crawlTaskConfig.getTaskId());
-        crawlTaskTerminator.terminate(task, false);
+        crawlTaskTerminator.terminate(task, false,true);
 
         // add dispatch record
         DispatchRecord dispatchRecord = DispatchRecord.builder()

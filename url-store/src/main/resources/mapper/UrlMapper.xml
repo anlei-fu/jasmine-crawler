@@ -24,7 +24,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         insert into url
         (url,down_system_site_id,refer_url,depth,url_type,query_string)
         values
-        <foreach collection="ls" item="item" separator=",">
+        <foreach collection="list" item="item" separator=",">
             (#{item.url},#{downSystemId},#{referUrl},#{depth}, #{urlType},#{queryString})
         </foreach>
     </insert>
@@ -78,7 +78,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             update url
             set
-            total_crawl_count = crawl_count + 1,
+            total_crawl_count = total_crawl_count + 1,
             last_crawl_time = current_timestamp,
             last_crawl_task_id = #{item.taskId}
             url_status = 3,
@@ -88,7 +88,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="item.httpStatus!=null">
                 last_crawl_http_status = #{item.httpStatus},
             </if>
-            url_type = 2,
+            url_type = 5,
             last_page_result = #{item.pageResult}
             where id = #{item.id}
         </foreach>
@@ -104,21 +104,21 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="successUrls">
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
+        <foreach collection="list" item="item"  separator=",">
             update url
             set
             url_status = 3,
             last_page_result = 1,
-            total_crawl_count = crawl_count + 1,
-            last_succss_time = current_timestamp,
+            total_crawl_count = total_crawl_count + 1,
+            last_success_time = current_timestamp,
             last_crawl_time = current_timestamp,
             <if test="item.msg!=null and item.msg !=''">
                 last_crawl_msg =#{item.msg},
             </if>
             <if test="item.httpStatus!=null">
-                last_crawl_http_status = #{item.last_crawl_http_status},
+                last_crawl_http_status = #{item.httpStatus},
             </if>
-            last_crawl_task_id =#{item.taskId}
+            last_crawl_task_id =#{item.taskId},
             total_success_count = total_success_count + 1
             where id = #{item.id}
         </foreach>
@@ -133,13 +133,13 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         u.down_system_site_id = #{downSystemSiteId}
         and u.enable_status = 1
         and u.url_status = 1
-        and u.url_type &lt;&gt; 2
+        and u.url_type &lt;&gt; 5
         and u.total_crawl_count &lt; dss.url_max_crawl_count
         order by
-            u.priority,
-            u.depth,
-            u.total_crawl_count ,
-            u.last_crawl_time
+            u.priority desc,
+            u.depth asc,
+            u.total_crawl_count asc ,
+            u.last_crawl_time asc
         limit 0, #{maxCount}
     </select>
 </mapper>

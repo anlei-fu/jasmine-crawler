@@ -11,12 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @RestController
 public class BindRecordController extends ControllerBase {
 

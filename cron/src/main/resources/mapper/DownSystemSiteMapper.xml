@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jasmine.crawler.cron.mapper.DownSystemSiteMapper">
-<select id="getNeedCreateNewTaskSite" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+    <select id="getNeedCreateNewTaskSite" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
 SELECT
 dss.id,
 dss.site_id,
 dss.down_system_id
-FROM new_system.down_system_site dss
+FROM down_system_site dss
 left join site s on dss.site_id =s.id
 left join down_system ds on dss.down_system_id =ds.id
 where
@@ -16,28 +16,28 @@ and s.enable_status = 1
 and dss.task_current_count &lt; dss.task_max_count
 
 </select>
-<select id ="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
 select
 *
 from down_system_site
 where id = #{id}
 </select>
-<update id="increaseCurrentRunningTaskCount">
+    <update id="increaseCurrentRunningTaskCount">
 update down_system_site
 set task_current_running_count = task_current_running_count + 1
 where id = #{id}
 </update>
-<update id="decreaseCurrentRunningTaskCount">
+    <update id="decreaseCurrentRunningTaskCount">
 update down_system_site
 set task_current_running_count = task_current_running_count - 1
 where id = #{id}
 </update>
-<update id="increaseCurrentTaskCount">
+    <update id="increaseCurrentTaskCount">
 update down_system_site
 set task_current_count = task_current_count + 1
 where id = #{id}
 </update>
-<update id="decreaseCurrentTaskCount">
+    <update id="decreaseCurrentTaskCount">
 update down_system_site
 set task_current_count = task_current_count - 1
 where id = #{id}

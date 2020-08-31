@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @RestController
 public class BlockRuleController extends ControllerBase {
 

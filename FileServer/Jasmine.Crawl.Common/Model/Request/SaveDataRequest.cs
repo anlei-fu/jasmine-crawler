@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Jasmine.Crawler.Common.Model.Request
+{
+  public  class SaveDataRequest
+    {
+        public int DownSystemSiteId { get; set; }
+        public List<string> Data { get; set; }
+    }
+}

@@ -62,7 +62,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
             finishCrawTask(req);
             Integer downSystemId = crawlTaskMapper.getDownSystemIdById(req.getTaskId());
             saveData(req, downSystemId);
-            saveUrls(req);
+            saveUrls(req,downSystemId);
         } catch (Exception ex) {
             error(String.format("terminate task(%d) failed", req.getTaskId()), ex);
         }
@@ -90,7 +90,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         }
     }
 
-    private void saveUrls(SaveTaskResultReq req) {
+    private void saveUrls(SaveTaskResultReq req,Integer downSystemSiteId) {
         try {
             req.getPageResults().stream().forEach(r -> {
                 r.setData(null);
@@ -99,6 +99,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
             SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
                     .pageResults(req.getPageResults())
                     .taskId(req.getTaskId())
+                    .downSystemSiteId(downSystemSiteId)
                     .build();
             urlService.saveUrlResult(saveUrlResultReq);
         } catch (Exception ex) {

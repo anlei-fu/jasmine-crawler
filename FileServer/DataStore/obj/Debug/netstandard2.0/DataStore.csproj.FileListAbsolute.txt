@@ -1,0 +1,5 @@
+D:\project\jasmine-crawler\FileServer\DataStore\bin\Debug\netstandard2.0\Jasmine.DataStore.deps.json
+D:\project\jasmine-crawler\FileServer\DataStore\bin\Debug\netstandard2.0\Jasmine.DataStore.dll
+D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.csprojAssemblyReference.cache
+D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.AssemblyInfoInputs.cache
+D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.AssemblyInfo.cs

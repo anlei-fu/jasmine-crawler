@@ -11,12 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class CrawlTaskTerminator {
 
@@ -38,16 +32,15 @@ public class CrawlTaskTerminator {
     @Autowired
     private SiteAccountService siteAccountService;
 
-    public void terminate(CrawlTask task) {
-        terminate(task, true);
-    }
-
-    public void terminate(CrawlTask task, boolean decreaseTaskCount) {
+    public void terminate(CrawlTask task, boolean decreaseTaskCount,boolean decreaseRunningCount) {
 
         DownSystemSite downSystemSite = downSystemSiteService.get(task.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
-            downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
-            downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
+
+            if(decreaseRunningCount) {
+                downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
+                downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
+            }
 
             if (decreaseTaskCount)
                 downSystemSiteService.decreaseCurrentTaskCount(downSystemSite.getId());

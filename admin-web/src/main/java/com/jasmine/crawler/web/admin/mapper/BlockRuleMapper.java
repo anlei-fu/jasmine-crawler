@@ -5,12 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Mapper
 public interface BlockRuleMapper {
     int add(BlockRule blockRule);

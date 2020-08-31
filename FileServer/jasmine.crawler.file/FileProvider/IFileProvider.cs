@@ -6,5 +6,7 @@ namespace Jasmine.Crawler.File.FileProvider
     public interface IFileProvider
     {
         Task<string> Save(Stream stream, string extension);
+
+        FileStream GetFileStream(string fileName);
     }
 }

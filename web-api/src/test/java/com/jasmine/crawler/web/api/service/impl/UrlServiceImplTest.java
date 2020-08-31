@@ -1,5 +1,7 @@
 package com.jasmine.crawler.web.api.service.impl;
 
+import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
+import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.web.api.Application;
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +38,8 @@ public class UrlServiceImplTest {
      */
     @Test
     public void testSaveUrlResult() throws Exception {
-
+        SaveUrlResultReq req =new SaveUrlResultReq();
+              service.saveUrlResult(req);
     }
 
 } 

@@ -6,12 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * @Copyright (C) 四川千行你我科技有限公司
- * @Author: fuanlei
- * @Date:
- * @Description:
- */
 @Component
 public class UrlResultQueue {
 

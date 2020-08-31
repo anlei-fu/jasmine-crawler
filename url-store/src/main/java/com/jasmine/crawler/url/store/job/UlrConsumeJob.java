@@ -187,4 +187,3 @@ public class UlrConsumeJob extends LoggerSupport {
     }
 
 }
-104

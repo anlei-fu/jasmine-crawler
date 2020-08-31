@@ -7,11 +7,13 @@ import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
 import com.jasmine.crawler.cron.service.CrawlTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class TerminateBindTimeoutTaskJob extends LoggerSupport {
 
     @Autowired
@@ -59,7 +61,7 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
         if (Objects.isNull(crawlTask) || crawlTask.getTaskStatus() != TaskStatus.WAIT_TO_BIND)
             return;
 
-        crawlTaskTerminator.terminate(crawlTask);
+        crawlTaskTerminator.terminate(crawlTask,true,false);
         crawlTaskService.bindTimeout(task.getId());
     }
 }

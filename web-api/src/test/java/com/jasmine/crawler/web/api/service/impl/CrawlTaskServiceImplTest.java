@@ -1,6 +1,6 @@
 package com.jasmine.crawler.web.api.service.impl;
 
-import com.jasmine.crawler.common.pojo.dto.PageResult;
+import com.google.common.collect.Lists;
 import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
 import com.jasmine.crawler.web.api.Application;
 import org.junit.After;
@@ -10,10 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * CrawlTaskServiceImpl Tester.
@@ -42,33 +38,23 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testSaveTaskResult() throws Exception {
-
-        List<PageResult> prs = new LinkedList<>();
-        PageResult pr = PageResult.builder()
-                .taskId(6987)
-                .id(1)
-                .pageResult(1)
-                .data("")
-                .httpStatus(200)
-                .crawlTime(new Date())
-                .newUrls(new LinkedList<>())
-                .msg("ok")
-                .build();
-        prs.add(pr);
-
-        SaveTaskResultReq taskResultReq = SaveTaskResultReq
-                .builder()
-                .taskId(6987)
-                .msg("ok")
-                .taskResult(1)
-                .averageSpeedOfAll(1)
-                .medianSpeedOfSuccess(1)
-                .averageSpeedOfAll(1)
-                .maxSpeedOfSuccess(1)
-                .pageResults(prs)
-                .build();
-
-        service.saveTaskResult(taskResultReq);
+//        SaveTaskResultReq taskResultReq = SaveTaskResultReq
+//                .builder()
+//                .taskId(1)
+//                .taskResult(1)
+//                .averageSpeedOfAll(1)
+//
+//                .succeedUrls(Lists.newArrayList())
+//                .failedUrls(Lists.newArrayList())
+//                .newUrls(Lists.newArrayList())
+//                .data(Lists.newArrayList())
+//                .maxSpeedOfSuccess(1)
+//                .averageSpeedOfSuccess(1)
+//                .meanSpeedOfSuccess(1)
+//                .unCrawledUrls(Lists.newArrayList())
+//                .build();
+//
+//        service.saveTaskResult(taskResultReq);
     }
 
     /**

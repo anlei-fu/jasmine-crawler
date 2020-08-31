@@ -12,7 +12,7 @@ public class SystemConfig {
 
     public SystemConfig() {
         this.masters = new LinkedList<>();
-        this.masters.add("http://192.168.5.32:10032");
+        this.masters.add("http://127.0.0.1:10032");
     }
 
     /**
@@ -33,5 +33,5 @@ public class SystemConfig {
     /**
      *
      */
-    private String fileHost = "http://localhost:80";
+    private String fileHost = "http://192.168.29.136:80";
 }
