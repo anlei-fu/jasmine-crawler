@@ -112,7 +112,6 @@ public class UlrConsumeJob extends LoggerSupport {
 
         List<Url> filteredUrls = new LinkedList<>();
         for (final Url url : newUrls) {
-
             if (StrUtil.isEmpty(url.getUrl()))
                 continue;
 

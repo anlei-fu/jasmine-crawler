@@ -22,30 +22,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 
     <insert id="addBatch">
         insert into url
-        (url,down_system_site_id,refer_url,depth,url_type,query_string)
+        (url,down_system_site_id,refer_url,depth,url_type,query_string,params)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.url},#{downSystemId},#{referUrl},#{depth}, #{urlType},#{queryString})
+            (#{item.url},#{downSystemId},#{referUrl},#{depth}, #{urlType},#{queryString},#{params})
         </foreach>
     </insert>
-    <update id="updateStatus">
-        update url u
-        set
-        u.url_status = #{urlStatus},
-        u.crawl_count = u.crawl_count + 1,
-        u.last_crawl_time = current_timestamp
-        where id = #{id}
-    </update>
-    <update id="failed">
-        update url
-        set
-        url_status = 3,
-        last_page_result = 2
-        where id in
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
-    </update>
     <update id="updateUrlStatusToCached">
         update url
         set
@@ -53,7 +35,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         last_cache_time = current_timestamp
         where id in
         <foreach collection="list" item="item" open="(" close=")" separator=",">
-            #{item}
+            #{item.id}
         </foreach>
     </update>
     <update id="failedUrls">
@@ -100,7 +82,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             url_status = 1,
             last_crawl_time = current_timestamp,
             last_crawl_task_id = #{item.taskId}
-            where id = {item.id}
+            where id = #{item.id}
         </foreach>
     </update>
     <update id="successUrls">
@@ -118,7 +100,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="item.httpStatus!=null">
                 last_crawl_http_status = #{item.httpStatus},
             </if>
-            last_crawl_task_id =#{item.taskId},
+            last_crawl_task_id = #{item.taskId},
             total_success_count = total_success_count + 1
             where id = #{item.id}
         </foreach>

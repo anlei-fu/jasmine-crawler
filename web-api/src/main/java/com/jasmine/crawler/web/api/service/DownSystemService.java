@@ -7,4 +7,6 @@ public interface DownSystemService {
      * @param downSystemId
      */
     void decreaseCurrentRunningTaskCount(Integer downSystemId);
+
+    void decreaseCurrentTaskCount();
 }

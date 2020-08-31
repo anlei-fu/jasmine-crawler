@@ -42,7 +42,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 average_speed_of_all = #{averageSpeedOfAll},
             </if>
         </set>
-
         where id = #{id}
     </update>
     <select id="getCrawlTaskForUpdate" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">

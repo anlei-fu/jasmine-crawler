@@ -79,3 +79,84 @@ namespace Jasmine.Crawl.Common
         }
     }
 }
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace MatchingRecharge.Utility
+{
+    public class NamingUtils
+    {
+        /// <summary>
+        ///upper_first_letter -> UpperFirstLetter
+        /// </summary>
+        /// <param name="hungary"></param>
+        /// <returns></returns>
+        public static string HunaryToPascal(string hungary)
+        {
+            hungary = hungary.ToLower();
+            var pascal = "";
+            hungary.Split(',').ToList().ForEach(w =>
+            {
+                if (w == "_")
+                    return;
+                pascal += UpperFirstLetter(w);
+            });
+
+            return pascal;
+        }
+
+        /// <summary>
+        /// UpperFirstLetter -> upper_first_letter
+        /// </summary>
+        /// <param name="pascal"></param>
+        /// <returns></returns>
+        public static string PascalToHungary(string pascal)
+        {
+
+            var output = "";
+            bool isFirstLetter = true;
+            var word = "";
+            foreach (var c in pascal)
+            {
+                if (c >= 'A' && c <= 'Z')
+                {
+                    if (!isFirstLetter)
+                    {
+                        output += "_" + word.ToUpper();
+                        word = "" + c;
+                    }
+                    else
+                    {
+                        word += c;
+                        isFirstLetter = false;
+                    }
+                }
+                else
+                {
+                    word += c;
+                }
+            }
+
+            if (word.Length > 0)
+                output += "_" + word.ToUpper();
+
+            if (output.StartsWith("_"))
+                output = output.Substring(1, word.Length - 1);
+
+            return output;
+        }
+
+        public static string UpperFirstLetter(string source)
+        {
+            if (source.Length == 1)
+                return source.ToUpper();
+
+            return source.Substring(0, 1).ToUpper() + source.Substring(1, source.Length - 1);
+
+        }
+    }
+}

@@ -13,10 +13,6 @@ public interface UrlMapper {
 
     void addBatch(@Param("list") List<Url> newUrls);
 
-    void updateStatus(@Param("list") Url urlToUpdate);
-
-    void failed(@Param("list") Url urlToUpdate);
-
     void updateUrlStatusToCached(@Param("list") List<Url> urls);
 
     void failedUrls(@Param("list") List<PageResult> list);

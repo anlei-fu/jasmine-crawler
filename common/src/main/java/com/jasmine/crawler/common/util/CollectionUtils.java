@@ -10,11 +10,11 @@ public class CollectionUtils {
         int k = 0;
         List<E> ls = new LinkedList<>();
         for (final E e : collection) {
+            ls.add(e);
             if (k % count == 0) {
                 result.add(ls);
                 ls = new LinkedList<>();
             }
-            ls.add(e);
         }
 
         result.add(ls);
