@@ -21,4 +21,5 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     public void decreaseCurrentRunningTaskCount(Integer id) {
         downSystemSiteMapper.decreaseCurrentRunningTaskCount(id);
     }
+
 }

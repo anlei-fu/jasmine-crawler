@@ -18,6 +18,4 @@ public interface DownSystemSiteService {
      * @param downSystemSiteId
      */
     void decreaseCurrentRunningTaskCount(Integer downSystemSiteId);
-
-    void decreaseCurrentTaskCount();
 }

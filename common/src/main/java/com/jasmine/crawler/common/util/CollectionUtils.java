@@ -17,7 +17,9 @@ public class CollectionUtils {
             }
         }
 
+        if(ls.size()!=0)
         result.add(ls);
+
         return result;
     }
 }

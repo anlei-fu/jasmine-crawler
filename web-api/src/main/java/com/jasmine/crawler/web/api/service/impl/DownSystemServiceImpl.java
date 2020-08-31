@@ -15,4 +15,5 @@ public class DownSystemServiceImpl implements DownSystemService {
     public void decreaseCurrentRunningTaskCount(Integer id) {
         downSystemMapper.decreaseCurrentRunningTaskCount(id);
     }
+
 }

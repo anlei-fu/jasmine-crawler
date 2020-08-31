@@ -106,6 +106,9 @@ public class UlrConsumeJob extends LoggerSupport {
         List<Url> newUrls = new LinkedList<>();
         saveUrlResultReq.getPageResults().stream().forEach(result -> {
             if (result.getPageResult() == 1) {
+                result.getNewUrls().stream().forEach(url->{
+                    url.setDownSystemSiteId(downSystemSite.getId());
+                });
                 newUrls.addAll(result.getNewUrls());
             }
         });

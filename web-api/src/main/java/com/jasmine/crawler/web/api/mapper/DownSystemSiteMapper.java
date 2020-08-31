@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface DownSystemSiteMapper {
     void decreaseCurrentRunningTaskCount(@Param("id") Integer id);
 
-    DownSystemSite get(Integer downSystemSiteId);
+    DownSystemSite get( @Param("id") Integer downSystemSiteId);
+
 }
 

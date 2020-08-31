@@ -127,9 +127,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         // decrease down system and down system site concurrency
         DownSystemSite downSystemSite = downSystemSiteService.get(task.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
-            downSystemSiteService.decreaseCurrentTaskCount();
             downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
-            downSystemService.decreaseCurrentTaskCount();
             downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
         }
 

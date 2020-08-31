@@ -8,5 +8,4 @@ public interface DownSystemService {
      */
     void decreaseCurrentRunningTaskCount(Integer downSystemId);
 
-    void decreaseCurrentTaskCount();
 }
