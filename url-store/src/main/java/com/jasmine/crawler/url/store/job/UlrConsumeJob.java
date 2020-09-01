@@ -10,6 +10,7 @@ import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.common.util.CollectionUtils;
 import com.jasmine.crawler.url.store.mapper.UrlMapper;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;
+import com.jasmine.crawler.url.store.service.CrawlTaskService;
 import com.jasmine.crawler.url.store.service.DownSystemService;
 import com.jasmine.crawler.url.store.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,9 @@ public class UlrConsumeJob extends LoggerSupport {
 
     @Autowired
     private DownSystemService downSystemService;
+
+    @Autowired
+    private CrawlTaskService crawlTaskService;
 
     /**
      * Save url result job
@@ -94,6 +98,7 @@ public class UlrConsumeJob extends LoggerSupport {
         badUrls(badUrls, downSystemSite);
         failedUrls(failedUrls);
         succeedUrls(succeedUrls, downSystemSite);
+        crawlTaskService.syncUrl(saveUrlResultReq.getTaskId());
     }
 
     private void saveNewUrl(SaveUrlResultReq saveUrlResultReq, DownSystemSite downSystemSite) throws Exception {
@@ -107,6 +112,9 @@ public class UlrConsumeJob extends LoggerSupport {
         saveUrlResultReq.getPageResults().stream().forEach(result -> {
             if (result.getPageResult() == 1) {
                 result.getNewUrls().stream().forEach(url->{
+                    if(url.getUrlType()==null)
+                        url.setUrlType(1);
+
                     url.setDownSystemSiteId(downSystemSite.getId());
                 });
                 newUrls.addAll(result.getNewUrls());

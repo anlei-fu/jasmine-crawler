@@ -63,7 +63,8 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
 
         // poll url from redis
         int t = 0;
-        while (t++ < queue.size()) {
+        size =queue.size();
+        while (t++ < size) {
             Url url = queue.poll();
             if (Objects.isNull(url))
                 break;
@@ -87,7 +88,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
             try {
                 urlMapper.updateUrlStatusToCached(urlGroup);
             } catch (Exception ex) {
-                throw  ex;
+                error("update url status to be cached failed",ex);
             }
         }
     }

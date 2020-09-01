@@ -21,11 +21,19 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     -->
 
     <insert id="addBatch">
+<<<<<<< HEAD
         <foreach collection="list" item="item" separator=";">
             insert into url
             (url,down_system_site_id,refer_url,depth,query,params)
             values
             (#{item.url},#{item.downSystemSiteId},#{item.referUrl},#{item.depth},#{item.query},#{item.params})
+=======
+        insert into url
+        (url,down_system_site_id,refer_url,depth,url_type,query,params)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.url},#{item.downSystemSiteId},#{item.referUrl},#{item.depth}, #{item.urlType},#{item.query},#{item.params})
+>>>>>>> 1af329b1fea3d401138a3fd8ff8e2115301fc435
         </foreach>
     </insert>
     <update id="updateUrlStatusToCached">
