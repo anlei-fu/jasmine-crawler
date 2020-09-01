@@ -19,7 +19,7 @@ public class RedisClient {
         config.setTransportMode(TransportMode.NIO);
         config.setCodec(JsonJacksonCodec.INSTANCE);
         config.useSingleServer()
-                .setAddress("redis://192.168.117.152:6379")
+                .setAddress("redis://192.168.29.136:6379")
                 .setPassword(null)
                 .setDatabase(0);
         return Redisson.create(config);

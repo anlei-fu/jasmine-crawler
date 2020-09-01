@@ -53,7 +53,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
             );
 
             queue.addAll(urlsToCache);
-//            updateUrlStatusToCached(urlsToCache);
+            updateUrlStatusToCached(urlsToCache);
             info(String.format(
                     "load %d url tp cache,current cache size %d",
                     urlsToCache.size(),

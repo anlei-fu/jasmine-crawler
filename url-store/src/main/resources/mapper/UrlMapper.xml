@@ -21,19 +21,11 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     -->
 
     <insert id="addBatch">
-<<<<<<< HEAD
-        <foreach collection="list" item="item" separator=";">
-            insert into url
-            (url,down_system_site_id,refer_url,depth,query,params)
-            values
-            (#{item.url},#{item.downSystemSiteId},#{item.referUrl},#{item.depth},#{item.query},#{item.params})
-=======
         insert into url
         (url,down_system_site_id,refer_url,depth,url_type,query,params)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.url},#{item.downSystemSiteId},#{item.referUrl},#{item.depth}, #{item.urlType},#{item.query},#{item.params})
->>>>>>> 1af329b1fea3d401138a3fd8ff8e2115301fc435
         </foreach>
     </insert>
     <update id="updateUrlStatusToCached">
@@ -47,10 +39,10 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="failedUrls">
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
+        <foreach collection="list" item="item"  separator=";">
             update url
             set
-            total_crawl_count = crawl_count + 1,
+            total_crawl_count = total_crawl_count + 1,
             last_crawl_time = current_timestamp,
             url_status = 3,
             last_crawl_task_id = #{item.taskId},
@@ -65,7 +57,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="badUrls">
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
+        <foreach collection="list" item="item"  separator=";">
             update url
             set
             total_crawl_count = total_crawl_count + 1,
@@ -84,7 +76,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="failToRunUrls">
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
+        <foreach collection="list" item="item"  separator=";">
             update url
             set
             url_status = 1,
@@ -94,7 +86,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="successUrls">
-        <foreach collection="list" item="item"  separator=",">
+        <foreach collection="list" item="item"  separator=";">
             update url
             set
             url_status = 3,

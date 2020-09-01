@@ -157,7 +157,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         // decrease crawler concurrency
         Site site = siteService.get(task.getSiteId());
         Crawler crawler = crawlerService.get(task.getCrawlerId());
-        if (!Objects.isNull(crawler) && !Objects.isNull(site))
+        if (!Objects.isNull(crawler) )
             crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), downSystemSite.getTaskUrlMaxConcurrency());
 
         // handle block result
