@@ -11,7 +11,7 @@ public class CollectionUtils {
         List<E> ls = new LinkedList<>();
         for (final E e : collection) {
             ls.add(e);
-            if (k % count == 0) {
+            if (++k % count == 0) {
                 result.add(ls);
                 ls = new LinkedList<>();
             }

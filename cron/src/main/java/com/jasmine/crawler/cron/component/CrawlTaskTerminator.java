@@ -32,12 +32,12 @@ public class CrawlTaskTerminator {
     @Autowired
     private SiteAccountService siteAccountService;
 
-    public void terminate(CrawlTask task, boolean decreaseTaskCount,boolean decreaseRunningCount) {
+    public void terminate(CrawlTask task, boolean decreaseTaskCount, boolean decreaseRunningCount) {
 
         DownSystemSite downSystemSite = downSystemSiteService.get(task.getDownSystemSiteId());
         if (!Objects.isNull(downSystemSite)) {
 
-            if(decreaseRunningCount) {
+            if (decreaseRunningCount) {
                 downSystemSiteService.decreaseCurrentRunningTaskCount(downSystemSite.getId());
                 downSystemService.decreaseCurrentRunningTaskCount(downSystemSite.getDownSystemId());
             }
