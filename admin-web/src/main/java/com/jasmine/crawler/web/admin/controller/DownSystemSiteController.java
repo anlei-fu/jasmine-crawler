@@ -79,6 +79,15 @@ public class DownSystemSiteController extends ControllerBase {
         );
     }
 
+    @PostMapping(path = "/downSystemSite/{id}")
+    public  R dumpBloom(@PathVariable Integer id){
+        return  success();
+    }
+
+    public  R resetSeedUrl(){
+        return  null;
+    }
+
     @GetMapping(path = "/downSystemSite/{id}")
     public R<DownSystemSite> getById(@PathVariable Integer id) {
         DownSystemSite result = downSystemSiteService.getById(id);

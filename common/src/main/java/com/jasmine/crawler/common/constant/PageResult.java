@@ -7,33 +7,32 @@ public final class PageResult {
      */
     public static final Integer SUCCESS = 1;
 
+    public static final Integer UNSET = 2;
     /**
-     * Means page is bad (404 or else)
+     * Means failed cause unable to download page
      */
-    public static final Integer BAD = 2;
+    public static final Integer DOWNLOAD_FAILED = 3;
 
+    public static final Integer PAGE_NOT_EXIST = 4;
+
+    public static final Integer PAGE_INCORRECT = 5;
     /**
-     * Means page is not crawled
+     * Means script exception
      */
-    public static final Integer FAILED_TO_RUN = 3;
+    public static final Integer SCRIPT_INCORRECT = 6;
 
     /**
      * Means script exception
      */
-    public static final Integer SCRIPT_EXCEPTION = 4;
+    public static final Integer BLOCKED = 7;
+    /**
+     * Means page is not crawled
+     */
+    public static final Integer FAILED_TO_RUN = 8;
 
     /**
-     * Means failed cause unable to download page
+     * Means script exception
      */
-    public static final Integer DOWNLOAD_FAILED = 5;
+    public static final Integer BAD = 9;
 
-    /**
-     * Means page result is not set by 'main' script
-     */
-    public static final Integer UNSET = 6;
-
-    /**
-     * Means page is not correct
-     */
-    public static final Integer PAGE_INCORRECT = 7;
 }

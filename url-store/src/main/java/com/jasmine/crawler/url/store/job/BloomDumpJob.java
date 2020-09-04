@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public class BloomDumpJob extends LoggerSupport {
-    private final int DUMP_INTERVAL = 60 * 60 * 1000;
+    private final int DUMP_INTERVAL = 60 * 1000 * 10;
 
     private final int BLOOM_INACTIVE_TIMEOUT = 60 * 30 * 1000;
 
@@ -27,7 +27,7 @@ public class BloomDumpJob extends LoggerSupport {
      * 1. dump bloom and update bloom total
      * 2. unload inactive bloom
      */
-    @Scheduled(cron = "* /10 * * * ?")
+    @Scheduled(cron = "* */5 * * * ?")
     public void run() throws IOException {
         info("------------------------begin dump and unload url bloom-------------------------");
         for (final JasmineBloomWrapper wrapper : bloomFilterManager.getAll()) {

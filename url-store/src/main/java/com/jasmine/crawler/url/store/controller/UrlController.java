@@ -21,11 +21,4 @@ public class UrlController extends ControllerBase {
         List<Url> result = urlService.getUrlForSite(downSystemSiteId);
         return responseData(result);
     }
-
-    @PostMapping(path = "/url/save")
-    public R saveUrlResult(@RequestBody SaveUrlResultReq req) {
-        boolean result = urlService.saveTaskUrlResult(req);
-        return responseBoolean(result);
-    }
-
 }

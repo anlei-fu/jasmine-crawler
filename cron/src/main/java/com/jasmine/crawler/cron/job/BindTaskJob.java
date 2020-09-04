@@ -47,9 +47,24 @@ public class BindTaskJob extends LoggerSupport {
     @Autowired
     private SiteIpDelayService siteIpDelayService;
 
-    @Scheduled(cron = "30/30 * * * * ?")
-    public void run() {
+    @Scheduled(cron = "* */1 * * * ?")
+    public void bindLevel1() {
         bindTask(1);
+    }
+
+    @Scheduled(cron = "* */3 * * * ?")
+    public void bindLevel2() {
+        bindTask(2);
+    }
+
+    @Scheduled(cron = "* */5 * * * ?")
+    public void bindLevel3() {
+        bindTask(3);
+    }
+
+    @Scheduled(cron = "* */10 * * * ?")
+    public void bindLevel4() {
+        bindTask(4);
     }
 
     private void bindTask(Integer level) {
@@ -315,7 +330,7 @@ public class BindTaskJob extends LoggerSupport {
         if (site.getIpDelayTimeout() != BooleanFlag.NO_NEED) {
             SiteIpDelayMap siteIpDelayMap = SiteIpDelayMap.builder()
                     .ip(!Objects.isNull(proxy) ? proxy.getIp() : crawler.getIp())
-                    .delayTimeoutTime(new Date(System.currentTimeMillis() + site.getIpDelayTimeout()))
+                    .delayTimeoutTime(new Date(System.currentTimeMillis() + site.getIpDelayTimeout()*1000*60))
                     .siteId(site.getId())
                     .build();
             siteIpDelayService.add(siteIpDelayMap);

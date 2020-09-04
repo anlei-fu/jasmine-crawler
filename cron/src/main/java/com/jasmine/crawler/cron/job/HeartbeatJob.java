@@ -31,7 +31,7 @@ public class HeartbeatJob extends LoggerSupport {
      * 2. update crawler heartbeat status
      * 3. the 'heartbeat-lost-count' smaller, the heartbeat rate more often
      */
-    @Scheduled(cron = "40 * * * * ?")
+    @Scheduled(cron = "* */1 * * * ?")
     public void run() {
         info("-------------begin sending heartbeat---------------");
         List<Crawler> crawlers = null;

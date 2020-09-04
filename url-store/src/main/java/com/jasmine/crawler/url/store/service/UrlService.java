@@ -22,5 +22,5 @@ public interface UrlService {
      * @param req
      * @return
      */
-    boolean saveTaskUrlResult(SaveUrlResultReq req);
+    void saveTaskUrlResult(SaveUrlResultReq req) throws Exception;
 }
