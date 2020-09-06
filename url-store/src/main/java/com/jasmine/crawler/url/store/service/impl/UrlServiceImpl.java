@@ -77,7 +77,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         size = queue.size();
         while (t++ < size) {
             Url url = queue.poll();
-            if (Objects.isNull(url))
+            if (Objects.isNull(url)||t>downSystemSite.getTaskUrlBatchCount())
                 break;
 
             urls.add(url);
@@ -159,9 +159,11 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
             try {
                 if (filter.add(url.getUrl())) {
                     filteredUrls.add(url);
+                }else{
+                    Integer t=0;
                 }
             } catch (Exception ex) {
-
+                  error("filter url failed", ex);
             }
         }
 

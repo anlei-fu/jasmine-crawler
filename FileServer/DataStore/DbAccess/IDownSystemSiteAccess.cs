@@ -5,8 +5,11 @@ using System.Text;
 
 namespace Jasmine.DataStore.DbAccess
 {
-    interface IDataAccess
+  public  interface IDownSystemSiteAccess
     {
-        bool Add(Data data );
+        List<DownSystemSite> GetAll();
+
+        void IncreseDataSyncCount(int id);
+
     }
 }

@@ -16,6 +16,12 @@ namespace Jasmine.Crawler.File.FileProvider
         {
             this._targetFolder = targetFolder ?? throw new ArgumentNullException(nameof(targetFolder));
         }
+
+        public FileStream GetFileStream(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string> Save(Stream stream, string extension)
         {
             var key = RandomKey();

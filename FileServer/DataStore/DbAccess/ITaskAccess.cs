@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Jasmine.DataStore.DbAccess
 {
-    interface IDataAccess
+    interface ITaskAccess
     {
-        bool Add(Data data );
+        void SyncData(int id, string file);
     }
 }

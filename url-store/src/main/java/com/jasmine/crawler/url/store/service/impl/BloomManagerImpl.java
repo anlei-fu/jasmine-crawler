@@ -35,6 +35,7 @@ public class BloomManagerImpl implements BloomFilterManager {
         } else {
             JasmineBloomWrapper wrapper = new JasmineBloomWrapper();
             wrapper.load(siteUrlBloom.getBloom());
+            wrapper.setId(downSystemSiteId);
             cache.putIfAbsent(downSystemSiteId, wrapper);
             return cache.get(downSystemSiteId);
         }

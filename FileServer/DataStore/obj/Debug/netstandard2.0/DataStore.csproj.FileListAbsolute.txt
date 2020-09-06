@@ -3,3 +3,6 @@ D:\project\jasmine-crawler\FileServer\DataStore\bin\Debug\netstandard2.0\Jasmine
 D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.csprojAssemblyReference.cache
 D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.AssemblyInfoInputs.cache
 D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.AssemblyInfo.cs
+D:\project\jasmine-crawler\FileServer\DataStore\bin\Debug\netstandard2.0\Jasmine.Crawler.File.dll
+D:\project\jasmine-crawler\FileServer\DataStore\bin\Debug\netstandard2.0\Jasmine.Crawler.File.pdb
+D:\project\jasmine-crawler\FileServer\DataStore\obj\Debug\netstandard2.0\DataStore.csproj.CopyComplete

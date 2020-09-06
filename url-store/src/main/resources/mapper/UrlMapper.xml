@@ -108,7 +108,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 
     <select id="getUrlToCacheForSite" resultType="com.jasmine.crawler.common.pojo.entity.Url">
         select
-        *
+        u.url,
+        u.id,
+        u.refer_url,
+        u.query,
+        u.depth,
+        u.params
         from url u
         join down_system_site dss on u.down_system_site_id = dss.id
         where

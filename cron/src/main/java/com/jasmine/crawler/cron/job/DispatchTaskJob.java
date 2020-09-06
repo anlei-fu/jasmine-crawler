@@ -71,7 +71,7 @@ public class DispatchTaskJob extends LoggerSupport {
      * <p>
      * TODO: are these checks required ? binding job has already done check once
      */
-    @Scheduled(cron = "* */2 * * * ?")
+    @Scheduled(cron = "0 0/2 * * * ?")
     public void run() {
         info("--------------begin dispatching crawl task----------------");
 

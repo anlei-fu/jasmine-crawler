@@ -8,6 +8,10 @@ namespace Jasmine.DataStore.Service.Impl
 {
     public class GZipCompressor : ICompressor
     {
+        public byte[] Compress(string data)
+        {
+            return Compress(Encoding.UTF8.GetBytes(data));
+        }
         public byte[] Compress(byte[] source)
         {
             using (var stream = new MemoryStream())

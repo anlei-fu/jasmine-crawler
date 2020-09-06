@@ -7,12 +7,14 @@ import com.jasmine.crawler.url.store.mapper.BloomMapper;
 import com.jasmine.crawler.url.store.service.BloomFilterManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Date;
 
+@Component
 public class BloomDumpJob extends LoggerSupport {
-    private final int DUMP_INTERVAL = 60 * 1000 * 10;
+    private final int DUMP_INTERVAL = 10*1000*60;
 
     private final int BLOOM_INACTIVE_TIMEOUT = 60 * 30 * 1000;
 
@@ -27,7 +29,7 @@ public class BloomDumpJob extends LoggerSupport {
      * 1. dump bloom and update bloom total
      * 2. unload inactive bloom
      */
-    @Scheduled(cron = "* */5 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void run() throws IOException {
         info("------------------------begin dump and unload url bloom-------------------------");
         for (final JasmineBloomWrapper wrapper : bloomFilterManager.getAll()) {

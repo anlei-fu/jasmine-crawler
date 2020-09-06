@@ -25,7 +25,7 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
     /**
      * Terminate the task that over max bind time
      */
-    @Scheduled(cron = "* */5 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void terminateBindTimeoutTask() {
         info("------------------------begin terminate bind timeout task---------------------");
         List<CrawlTask> tasks = null;

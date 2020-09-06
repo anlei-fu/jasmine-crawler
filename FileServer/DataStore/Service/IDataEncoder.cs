@@ -6,6 +6,6 @@ namespace Jasmine.DataStore.Service
 {
    public interface IDataEncoder
     {
-        byte[] Encode(string data);
+        byte[] Encode(byte[] data);
     }
 }

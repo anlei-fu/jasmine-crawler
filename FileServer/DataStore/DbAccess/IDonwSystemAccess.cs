@@ -1,12 +1,11 @@
-﻿using Jasmine.DataStore.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Jasmine.DataStore.DbAccess
 {
-    interface IDataAccess
+    interface IDonwSystemAccess
     {
-        bool Add(Data data );
+        void IncreaseDataSyncCount(int id);
     }
 }

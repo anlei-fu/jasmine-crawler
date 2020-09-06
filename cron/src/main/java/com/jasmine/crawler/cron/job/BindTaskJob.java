@@ -47,22 +47,22 @@ public class BindTaskJob extends LoggerSupport {
     @Autowired
     private SiteIpDelayService siteIpDelayService;
 
-    @Scheduled(cron = "* */1 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * *")
     public void bindLevel1() {
         bindTask(1);
     }
 
-    @Scheduled(cron = "* */3 * * * ?")
+    @Scheduled(cron = "32 0/3 * * * ?")
     public void bindLevel2() {
         bindTask(2);
     }
 
-    @Scheduled(cron = "* */5 * * * ?")
+    @Scheduled(cron = "28 0/5 * * * ?")
     public void bindLevel3() {
         bindTask(3);
     }
 
-    @Scheduled(cron = "* */10 * * * ?")
+    @Scheduled(cron = "45 0/10 * * * ?")
     public void bindLevel4() {
         bindTask(4);
     }

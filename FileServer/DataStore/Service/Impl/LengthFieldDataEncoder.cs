@@ -6,15 +6,12 @@ namespace Jasmine.DataStore.Service.Impl
 {
     public class LengthFieldDataEncoder : IDataEncoder
     {
-        private ICompressor _compressor;
-        public byte[] Encode(string data)
+        public byte[] Encode(byte[] data)
         {
-            var content = Encoding.UTF8.GetBytes(data);
-            var compressed = _compressor.Compress(content);
-            var lengthField = BitConverter.GetBytes(compressed.Length);
-            var output = new byte[compressed.Length + 4];
+            var lengthField = BitConverter.GetBytes(data.Length);
+            var output = new byte[data.Length + 4];
             Buffer.BlockCopy(lengthField, 0, output, 0, 4);
-            Buffer.BlockCopy(compressed, 0, output, 4, compressed.Length);
+            Buffer.BlockCopy(data, 0, output, 4, data.Length);
 
             return output;
         }

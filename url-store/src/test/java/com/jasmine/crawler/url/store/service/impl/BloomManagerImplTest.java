@@ -1,6 +1,11 @@
 package com.jasmine.crawler.url.store.service.impl;
 
+import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
+import com.jasmine.crawler.common.pojo.entity.SiteUrlBloom;
 import com.jasmine.crawler.url.store.Application;
+import com.jasmine.crawler.url.store.component.JasmineBloomWrapper;
+import com.jasmine.crawler.url.store.mapper.BloomMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +28,9 @@ public class BloomManagerImplTest {
     @Autowired
     private BloomManagerImpl service;
 
+    @Autowired
+    private BloomMapper bloomMapper;
+
     @Before
     public void before() throws Exception {
     }
@@ -36,7 +44,22 @@ public class BloomManagerImplTest {
      */
     @Test
     public void testGet() throws Exception {
-        service.get(1);
+        JasmineBloomFilter wrapper= service.get(46);
+
+
+
+       System.out.println(wrapper.add("#1/娘妻"));
+        System.out.println(wrapper.add("#1/巨野/324450"));
+        SiteUrlBloom siteUrlBloom =SiteUrlBloom.builder()
+                .id(46)
+                .bloom(wrapper.dump())
+                .build();
+
+    //    bloomMapper.dump(siteUrlBloom);
+        JasmineBloomFilterImpl filter =new JasmineBloomFilterImpl();
+        filter.load( wrapper.dump());
+
+       System.out.println(filter.add("#1/巨野/324450"));
     }
 
     /**

@@ -22,7 +22,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
     @Autowired
     private CrawlTaskTerminator crawlTaskTerminator;
 
-    @Scheduled(cron = "* */3 * * * ?")
+    @Scheduled(cron = "0 0/3 * * * ?")
     public void run() {
         info("----------------------------begin terminate timeout task-------------------------------");
         List<CrawlTask> tasks = null;

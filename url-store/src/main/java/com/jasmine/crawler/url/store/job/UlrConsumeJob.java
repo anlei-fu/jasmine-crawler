@@ -49,20 +49,23 @@ public class UlrConsumeJob extends LoggerSupport {
         RQueue<SaveUrlResultReq> queue = redissonClient.getQueue("url_queue");
 
         info("------------begin url save job-----------------");
-        SaveUrlResultReq req = queue.poll();
 
-        // no req n to save
-        if (Objects.isNull(req)) {
-            info("no url result poll to save");
-            return;
-        }
+        while (true) {
+            SaveUrlResultReq req = queue.poll();
 
-        info(String.format("begin save task %d url result", req.getTaskId()));
-        try {
-            urlService.saveTaskUrlResult(req);
-            info(String.format("save task %d url result succeed", req.getTaskId()));
-        } catch (Exception ex) {
-            error(String.format("Save task %d url exceptional", req.getTaskId()), ex);
+            // no req n to save
+            if (Objects.isNull(req)) {
+                info("no url result poll to save");
+                return;
+            }
+
+            info(String.format("begin save task %d url result", req.getTaskId()));
+            try {
+                urlService.saveTaskUrlResult(req);
+                info(String.format("save task %d url result succeed", req.getTaskId()));
+            } catch (Exception ex) {
+                error(String.format("Save task %d url exceptional", req.getTaskId()), ex);
+            }
         }
     }
 

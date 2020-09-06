@@ -55,12 +55,14 @@ public class CrawlTaskTerminator {
             siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
         }
 
-        Crawler crawler = crawlerService.get(task.getCrawlerId());
-        if (!Objects.isNull(crawler)) {
-            crawlerService.changeCurrentConcurrency(
-                    crawler.getId(),
-                    -downSystemSite.getTaskUrlMaxConcurrency()
-            );
+        if(decreaseRunningCount) {
+            Crawler crawler = crawlerService.get(task.getCrawlerId());
+            if (!Objects.isNull(crawler)) {
+                crawlerService.changeCurrentConcurrency(
+                        crawler.getId(),
+                        -downSystemSite.getTaskUrlMaxConcurrency()
+                );
+            }
         }
     }
 }

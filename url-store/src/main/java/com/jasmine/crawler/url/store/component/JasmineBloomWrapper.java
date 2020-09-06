@@ -18,11 +18,11 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
 
     @Getter
     @Setter
-    private Date lastDumpTime;
+    private Date lastDumpTime =new Date();
 
     @Getter
     @Setter
-    private Date lastActiveTime;
+    private Date lastActiveTime =new Date();
 
     public JasmineBloomWrapper() {
         innerFilter = new JasmineBloomFilterImpl();
