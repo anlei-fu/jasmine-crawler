@@ -4,7 +4,7 @@ import com.jasmine.crawler.common.pojo.entity.SiteIpDelayMap;
 
 public interface SiteIpDelayService {
     /**
-     * Add site ip delay
+     * Add site ip delay mapping
      *
      * @param siteIpDelayMap
      */

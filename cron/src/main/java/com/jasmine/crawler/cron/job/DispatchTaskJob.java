@@ -76,7 +76,7 @@ public class DispatchTaskJob extends LoggerSupport {
         info("--------------begin dispatching crawl task----------------");
 
         // get task to run
-        List<CrawlTaskConfig> configs = getTaskConfigsToRun();
+        List<CrawlTaskConfig> configs = getTaskConfigsToDispatch();
         if (Objects.isNull(configs))
             return;
 
@@ -109,19 +109,19 @@ public class DispatchTaskJob extends LoggerSupport {
         );
     }
 
-    private List<CrawlTaskConfig> getTaskConfigsToRun() {
+    private List<CrawlTaskConfig> getTaskConfigsToDispatch() {
         List<CrawlTaskConfig> crawlTaskConfigs = null;
         try {
             crawlTaskConfigs = crawlTaskService.getTasksConfigsToDispatch();
         } catch (Exception ex) {
-            error("call getTaskToRun failed", ex);
+            error("call getTaskConfigsToDispatch failed", ex);
             return null;
         }
 
         info(String.format("got %d task to dispatch", crawlTaskConfigs.size()));
 
         if (crawlTaskConfigs.size() == 0) {
-            info("no task need to run");
+            info("no task need to dispatch");
             return null;
         }
 
@@ -303,7 +303,7 @@ public class DispatchTaskJob extends LoggerSupport {
     public void dispatchFailed(CrawlTaskConfig crawlTaskConfig, Integer dispatchResult, String dispatchMsg) {
 
         CrawlTask task = crawlTaskService.get(crawlTaskConfig.getTaskId());
-        crawlTaskTerminator.terminate(task, false,true);
+        crawlTaskTerminator.terminate(task, false, true);
 
         // add dispatch record
         DispatchRecord dispatchRecord = DispatchRecord.builder()

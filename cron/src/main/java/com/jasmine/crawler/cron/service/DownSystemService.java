@@ -1,6 +1,9 @@
 package com.jasmine.crawler.cron.service;
 
 import com.jasmine.crawler.common.pojo.entity.DownSystem;
+import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
+
+import java.util.List;
 
 public interface DownSystemService {
     /**
@@ -24,4 +27,18 @@ public interface DownSystemService {
      * @param downSystemId
      */
     void decreaseCurrentRunningTaskCount(Integer downSystemId);
+
+    /**
+     * Get down system sites which need execute url cache timeout job
+     *
+     * @return
+     */
+    List<DownSystemSite> getUrlCacheTimeoutJobSites();
+
+    /**
+     * Update last executing url cache timeout job time
+     *
+     * @param id
+     */
+    void updateUrlLastCacheTimeoutJobTime(Integer id);
 }

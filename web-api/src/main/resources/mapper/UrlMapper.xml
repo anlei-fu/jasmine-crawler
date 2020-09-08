@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-25 2:58:14 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.web.api.mapper.UrlMapper">
+
+    <update id="resetUrls">
+        update url
+        set
+        url_status = 1,
+        total_crawl_count = 0
+        where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <update id="resetSeedUrl">
+        update url
+        set
+        url_status = 1,
+        total_crawl_count = 0
+        where
+        down_system_site_id = #{downSystemSiteId}
+        and
+        url_type = 2
+    </update>
+</mapper>

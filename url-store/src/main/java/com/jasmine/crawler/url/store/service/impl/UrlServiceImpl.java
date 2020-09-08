@@ -77,7 +77,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         size = queue.size();
         while (t++ < size) {
             Url url = queue.poll();
-            if (Objects.isNull(url)||t>downSystemSite.getTaskUrlBatchCount())
+            if (Objects.isNull(url) || t > downSystemSite.getTaskUrlBatchCount())
                 break;
 
             urls.add(url);
@@ -89,7 +89,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     }
 
     @Override
-    public void saveTaskUrlResult(SaveUrlResultReq req) throws Exception {
+    public void saveUrlResult(SaveUrlResultReq req) throws Exception {
         DownSystemSite downSystemSite = downSystemSiteService.get(req.getDownSystemSiteId());
         if (Objects.isNull(downSystemSite)) {
             info("failed to run, down system site not exists");
@@ -159,11 +159,11 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
             try {
                 if (filter.add(url.getUrl())) {
                     filteredUrls.add(url);
-                }else{
-                    Integer t=0;
+                } else {
+                    Integer t = 0;
                 }
             } catch (Exception ex) {
-                  error("filter url failed", ex);
+                error("filter url failed", ex);
             }
         }
 

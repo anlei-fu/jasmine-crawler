@@ -61,7 +61,7 @@ public class HeartbeatJob extends LoggerSupport {
             } catch (Exception ex) {
                 error(
                         String.format(
-                                "send heartbeat to crawler(%s) failed",
+                                "send heartbeat to crawler(%d) failed",
                                 crawler.getId()
                         )
                         , ex

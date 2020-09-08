@@ -1,39 +1,38 @@
 package com.jasmine.crawler.cron.component;
 
 import com.jasmine.crawler.common.support.Counter;
-import org.redisson.api.RedissonClient;
-
-import java.util.Date;
+import org.redisson.api.RAtomicLong;
 
 public class RedisCounter implements Counter {
 
-    private RedissonClient client;
+    private final RAtomicLong innerCounter;
 
-    private int max;
+    private final int max;
 
-    private int expire;
+    private long lastActive = System.currentTimeMillis();
 
-    private String id;
-
-    private Date lastActive;
-
-    public RedisCounter(RedissonClient client, String id, int max, int expire) {
-        this.client = client;
+    public RedisCounter(RAtomicLong longCounter, int max) {
+        this.innerCounter = longCounter;
         this.max = max;
-        this.expire = expire;
     }
 
     @Override
-    public void increase(int value) {
+    public boolean addAndCheck(int value) {
+        if (!isExists())
+            return true;
 
+        lastActive = System.currentTimeMillis();
+        return innerCounter.addAndGet(value) < max;
     }
 
     @Override
-    public boolean overMax() {
-        return false;
+    public boolean isExists() {
+        return innerCounter.isExists();
     }
 
-    public Date getLastActive() {
-        return this.lastActive;
+    @Override
+    public long getLastActive() {
+        return lastActive;
     }
+
 }

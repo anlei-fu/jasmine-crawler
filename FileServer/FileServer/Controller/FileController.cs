@@ -17,7 +17,7 @@ namespace FileServer.Controller
             this._fileProvider = new FileProviderImpl(config.GetSection("TargetFolder").Value);
         }
 
-        [HttpGet("/say")]
+        [HttpGet("/test")]
         public string Say()
         {
             return "ok";

@@ -8,7 +8,7 @@ package com.jasmine.crawler.tool.service;
  */
 public class DumpTool {
 
-    public  void  RebuildBloom(Integer downSystemSiteId,Integer size,double fpp){
+    public void RebuildBloom(Integer downSystemSiteId, Integer size, double fpp) {
 
     }
 }

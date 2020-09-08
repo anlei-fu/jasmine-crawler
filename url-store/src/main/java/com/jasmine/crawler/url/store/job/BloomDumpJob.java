@@ -14,7 +14,8 @@ import java.util.Date;
 
 @Component
 public class BloomDumpJob extends LoggerSupport {
-    private final int DUMP_INTERVAL = 10*1000*60;
+
+    private final int DUMP_INTERVAL = 10 * 1000 * 60;
 
     private final int BLOOM_INACTIVE_TIMEOUT = 60 * 30 * 1000;
 
@@ -26,18 +27,18 @@ public class BloomDumpJob extends LoggerSupport {
 
     /**
      * Bloom job
-     * 1. dump bloom and update bloom total
+     * 1. dump bloom
      * 2. unload inactive bloom
      */
     @Scheduled(cron = "0 0/5 * * * ?")
     public void run() throws IOException {
-        info("------------------------begin dump and unload url bloom-------------------------");
+        info("------------------------begin dumping and unloading url bloom-------------------------");
         for (final JasmineBloomWrapper wrapper : bloomFilterManager.getAll()) {
-            if ((new Date().getTime() - wrapper.getLastDumpTime().getTime()) > DUMP_INTERVAL) {
+            if ((System.currentTimeMillis() - wrapper.getLastDumpTime()) > DUMP_INTERVAL) {
                 dump(wrapper);
             }
 
-            if ((new Date().getTime() - wrapper.getLastActiveTime().getTime()) > BLOOM_INACTIVE_TIMEOUT) {
+            if ((System.currentTimeMillis() - wrapper.getLastActiveTime()) > BLOOM_INACTIVE_TIMEOUT) {
                 dump(wrapper);
                 bloomFilterManager.remove(wrapper.getId());
                 info(String.format("unloading bloom(%d)", wrapper.getId()));

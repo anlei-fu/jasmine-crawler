@@ -44,22 +44,21 @@ public class BloomManagerImplTest {
      */
     @Test
     public void testGet() throws Exception {
-        JasmineBloomFilter wrapper= service.get(46);
+        JasmineBloomFilter wrapper = service.get(46);
 
 
-
-       System.out.println(wrapper.add("#1/娘妻"));
+        System.out.println(wrapper.add("#1/娘妻"));
         System.out.println(wrapper.add("#1/巨野/324450"));
-        SiteUrlBloom siteUrlBloom =SiteUrlBloom.builder()
+        SiteUrlBloom siteUrlBloom = SiteUrlBloom.builder()
                 .id(46)
                 .bloom(wrapper.dump())
                 .build();
 
-    //    bloomMapper.dump(siteUrlBloom);
-        JasmineBloomFilterImpl filter =new JasmineBloomFilterImpl();
-        filter.load( wrapper.dump());
+        //    bloomMapper.dump(siteUrlBloom);
+        JasmineBloomFilterImpl filter = new JasmineBloomFilterImpl();
+        filter.load(wrapper.dump());
 
-       System.out.println(filter.add("#1/巨野/324450"));
+        System.out.println(filter.add("#1/巨野/324450"));
     }
 
     /**

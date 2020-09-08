@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fCSRqmEVi7+RGuLBw6Kgqw1pPjcn4fynrwS04DcFd8IcuL6BCB8GnbkcV8MLvjjpY/lHNji8f53u8ok/XElFPA==",
+  "dgSpecHash": "NsCfTpv94XAtNaOqJO0js6XvdkSZBltgfHlwnlw0I9x9WsPZmJm1h2T0noXdn7lrcyDPLyt/1ayrphubxFrTNA==",
   "success": true,
   "projectFilePath": "D:\\project\\jasmine-crawler\\FileServer\\Jasmine.Crawl.Common\\Jasmine.Crawl.Common.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.7\\microsoft.extensions.primitives.3.1.7.nupkg.sha512",
     "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\system.collections.immutable\\1.7.1\\system.collections.immutable.1.7.1.nupkg.sha512",
     "C:\\Users\\Administrator.DESKTOP-B8R84PU\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",

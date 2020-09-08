@@ -55,7 +55,7 @@ public class CrawlTaskTerminator {
             siteAccountService.decreaseCurrentUseCount(cookie.getAccountId());
         }
 
-        if(decreaseRunningCount) {
+        if (decreaseRunningCount) {
             Crawler crawler = crawlerService.get(task.getCrawlerId());
             if (!Objects.isNull(crawler)) {
                 crawlerService.changeCurrentConcurrency(

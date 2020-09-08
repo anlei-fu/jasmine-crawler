@@ -69,15 +69,14 @@ public class UrlServiceImplTest {
 
 
     @Test
-    public  void  testSuccess(){
-        List<PageResult> pageResults =new LinkedList<>();
-        PageResult p =new PageResult();
+    public void testSuccess() {
+        List<PageResult> pageResults = new LinkedList<>();
+        PageResult p = new PageResult();
 
         p.setId(1);
         p.setHttpStatus(1);
         p.setPageResult(1);
         p.setTaskId(1);
-
 
 
         pageResults.add(p);

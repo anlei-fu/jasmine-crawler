@@ -18,11 +18,11 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
 
     @Getter
     @Setter
-    private Date lastDumpTime =new Date();
+    private long lastDumpTime = System.currentTimeMillis();
 
     @Getter
     @Setter
-    private Date lastActiveTime =new Date();
+    private long lastActiveTime = System.currentTimeMillis();
 
     public JasmineBloomWrapper() {
         innerFilter = new JasmineBloomFilterImpl();
@@ -30,6 +30,7 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
 
     @Override
     public boolean add(String url) throws Exception {
+        lastActiveTime=System.currentTimeMillis();
         return innerFilter.add(url);
     }
 
@@ -40,6 +41,7 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
 
     @Override
     public String dump() throws IOException {
+        lastDumpTime=System.currentTimeMillis();
         return innerFilter.dump();
     }
 

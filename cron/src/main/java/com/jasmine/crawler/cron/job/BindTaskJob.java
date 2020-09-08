@@ -330,7 +330,7 @@ public class BindTaskJob extends LoggerSupport {
         if (site.getIpDelayTimeout() != BooleanFlag.NO_NEED) {
             SiteIpDelayMap siteIpDelayMap = SiteIpDelayMap.builder()
                     .ip(!Objects.isNull(proxy) ? proxy.getIp() : crawler.getIp())
-                    .delayTimeoutTime(new Date(System.currentTimeMillis() + site.getIpDelayTimeout()*1000*60))
+                    .delayTimeoutTime(new Date(System.currentTimeMillis() + site.getIpDelayTimeout() * 1000 * 60))
                     .siteId(site.getId())
                     .build();
             siteIpDelayService.add(siteIpDelayMap);

@@ -61,7 +61,7 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
         if (Objects.isNull(crawlTask) || crawlTask.getTaskStatus() != TaskStatus.WAIT_TO_BIND)
             return;
 
-        crawlTaskTerminator.terminate(crawlTask,true,false);
+        crawlTaskTerminator.terminate(crawlTask, true, false);
         crawlTaskService.bindTimeout(task.getId());
     }
 }

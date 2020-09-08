@@ -50,7 +50,17 @@ public interface CookieService {
      */
     void disableInvalidCookies();
 
+    /**
+     * Set cookie next available time if site has cookie visit limit
+     *
+     * @param id
+     */
     void updateDelayTimeoutTime(Integer id);
 
+    /**
+     * Get invalid cookie blocked or expired
+     *
+     * @return
+     */
     List<Cookie> getInvalidCookies();
 }

@@ -3,9 +3,9 @@ package com.jasmine.crawler.common.support;
 import java.util.Date;
 
 public interface Counter {
-    void increase(int value);
+    boolean addAndCheck(int value);
 
-    boolean overMax();
+    boolean isExists();
 
-    Date getLastActive();
+    long getLastActive();
 }

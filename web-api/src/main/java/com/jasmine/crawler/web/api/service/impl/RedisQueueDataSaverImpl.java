@@ -1,17 +1,15 @@
 package com.jasmine.crawler.web.api.service.impl;
 
 import com.jasmine.crawler.common.pojo.req.SaveTaskDataReq;
-import com.jasmine.crawler.web.api.service.CrawlTaskService;
-import com.jasmine.crawler.web.api.service.DataService;
+import com.jasmine.crawler.web.api.service.DataSaver;
 import com.jasmine.crawler.web.api.service.DownSystemSiteService;
 import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
-public class DataServiceImpl implements DataService {
+public class RedisQueueDataSaverImpl implements DataSaver {
 
     @Autowired
     private RedissonClient redissonClient;
@@ -26,7 +24,7 @@ public class DataServiceImpl implements DataService {
             Integer downSystemId = downSystemSiteService.get(saveDataResultReq.getDownSystemId()).getDownSystemId();
             RQueue<SaveTaskDataReq> queue = redissonClient.getQueue(String.format("data_queue_%d", downSystemId));
             queue.add(saveDataResultReq);
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
     }

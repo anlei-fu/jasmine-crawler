@@ -5,255 +5,255 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.DownSystemSiteMapper">
-        <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq">
-                insert into down_system_site
-                <trim prefix="(" suffix=")" suffixOverrides=",">
-                                site_id,
-                        <if test="scriptPath!=null and scriptPath!=''">
-                                script_path,
-                        </if>
-                                down_system_id,
-                        <if test="priority!=null">
-                                priority,
-                        </if>
-                        <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
-                                crawler_page_encoding,
-                        </if>
-                        <if test="crawlerPageTimeout != null">
-                                crawler_page_timeout,
-                        </if>
-                        <if test="crawlerCrawlType!=null">
-                                crawler_crawl_type,
-                        </if>
-                        <if test="crawlerAutoDownloadPage!=null">
-                                crawler_auto_download_page,
-                        </if>
-                        <if test="urlMaxCacheCount!=null">
-                                url_max_cache_count,
-                        </if>
-                        <if test="urlEncodes != null and urlEncodes != ''">
-                                url_encodes,
-                        </if>
-                        <if test="urlMaxCrawlCount != null">
-                                url_max_crawl_count,
-                        </if>
-                        <if test="urlMaxDepth != null">
-                                url_max_depth,
-                        </if>
-                        <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
-                        url_match_patterns,
-                        </if>
-                        bloom_expected_url_size,
-                        bloom_fpp,
-                        bloom,
-                        <if test="taskUrlBatchCount != null">
-                                task_url_batch_count,
-                        </if>
-                        <if test="taskMaxCount != null">
-                                task_max_count,
-                        </if>
-                        <if test="taskMaxRunningCount != null">
-                                task_max_running_count,
-                        </if>
-                        <if test="taskBindTimeout != null">
-                                task_bind_timeout,
-                        </if>
-                        <if test="taskTimeout != null">
-                                task_timeout,
-                        </if>
-                        <if test="taskUrlMaxFailCount != null">
-                                task_url_max_fail_count,
-                        </if>
-                        <if test="taskUrlMaxContinuouslyFailCount != null">
-                                #{task_url_max_continuously_fail_count},
-                        </if>
-                        <if test="taskUrlMaxConcurrency != null">
-                                task_url_max_concurrency,
-                        </if>
-                        <if test="enableStatus != null">
-                                 enable_status,
-                        </if>
-                        create_time
-                </trim>
-                values
-                <trim prefix="(" suffix=")" suffixOverrides=",">
-                                #{siteId},
-                        <if test="scriptPath!=null and scriptPath!=''">
-                                #{scriptPath},
-                        </if>
-                                #{downSystemId},
-                        <if test="priority!=null">
-                                #{priority},
-                        </if>
-                        <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
-                                #{crawlerPageEncoding},
-                        </if>
-                        <if test="crawlerPageTimeout != null">
-                                #{crawlerPageTimeout},
-                        </if>
-                        <if test="crawlerCrawlType!=null"> #{crawlerCrawlType},</if>
-                        <if test="crawlerAutoDownloadPage!=null"> #{crawlerAutoDownloadPage},</if>
-                        <if test="urlMaxCacheCount!=null">   #{urlMaxCacheCount},</if>
-                        <if test="urlEncodes != null and urlEncodes != ''">
-                                #{urlEncodes},
-                        </if>
-                        <if test="urlMaxCrawlCount != null">
-                                #{urlMaxCrawlCount},
-                        </if>
-                        <if test="urlMaxDepth != null">
-                                #{urlMaxDepth},
-                        </if>
-                        <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
-                                #{urlMatchPatterns},
-                        </if>
-                        #{bloomExpectedUrlSize},
-                        #{bloomFpp},
-                        #{bloom},
-                        <if test="taskUrlBatchCount != null">
-                                #{taskUrlBatchCount},
-                        </if>
-                        <if test="taskMaxCount != null">
-                                #{taskMaxCount},
-                        </if>
-                        <if test="taskMaxRunningCount != null">
-                                #{taskMaxRunningCount},
-                        </if>
-                        <if test="taskBindTimeout != null">
-                                #{taskBindTimeout},
-                        </if>
-                        <if test="taskTimeout != null">
-                                #{taskTimeout},
-                        </if>
-                        <if test="taskUrlMaxFailCount != null">
-                                #{taskUrlMaxFailCount},
-                        </if>
-                        <if test="taskUrlMaxContinuouslyFailCount != null">
-                                #{taskUrlMaxContinuouslyFailCount},
-                        </if>
-                        <if test="taskUrlMaxConcurrency != null">
-                                #{taskUrlMaxConcurrency},
-                        </if>
-                        <if test="enableStatus != null">
-                                #{enableStatus},
-                        </if>
-                        current_timestamp
-                </trim>
-        </insert>
-        <delete id="deleteById">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq">
+        insert into down_system_site
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            site_id,
+            <if test="scriptPath!=null and scriptPath!=''">
+                script_path,
+            </if>
+            down_system_id,
+            <if test="priority!=null">
+                priority,
+            </if>
+            <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
+                crawler_page_encoding,
+            </if>
+            <if test="crawlerPageTimeout != null">
+                crawler_page_timeout,
+            </if>
+            <if test="crawlerCrawlType!=null">
+                crawler_crawl_type,
+            </if>
+            <if test="crawlerAutoDownloadPage!=null">
+                crawler_auto_download_page,
+            </if>
+            <if test="urlMaxCacheCount!=null">
+                url_max_cache_count,
+            </if>
+            <if test="urlEncodes != null and urlEncodes != ''">
+                url_encodes,
+            </if>
+            <if test="urlMaxCrawlCount != null">
+                url_max_crawl_count,
+            </if>
+            <if test="urlMaxDepth != null">
+                url_max_depth,
+            </if>
+            <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
+                url_match_patterns,
+            </if>
+            bloom_expected_url_size,
+            bloom_fpp,
+            bloom,
+            <if test="taskUrlBatchCount != null">
+                task_url_batch_count,
+            </if>
+            <if test="taskMaxCount != null">
+                task_max_count,
+            </if>
+            <if test="taskMaxRunningCount != null">
+                task_max_running_count,
+            </if>
+            <if test="taskBindTimeout != null">
+                task_bind_timeout,
+            </if>
+            <if test="taskTimeout != null">
+                task_timeout,
+            </if>
+            <if test="taskUrlMaxFailCount != null">
+                task_url_max_fail_count,
+            </if>
+            <if test="taskUrlMaxContinuouslyFailCount != null">
+                #{task_url_max_continuously_fail_count},
+            </if>
+            <if test="taskUrlMaxConcurrency != null">
+                task_url_max_concurrency,
+            </if>
+            <if test="enableStatus != null">
+                enable_status,
+            </if>
+            create_time
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{siteId},
+            <if test="scriptPath!=null and scriptPath!=''">
+                #{scriptPath},
+            </if>
+            #{downSystemId},
+            <if test="priority!=null">
+                #{priority},
+            </if>
+            <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
+                #{crawlerPageEncoding},
+            </if>
+            <if test="crawlerPageTimeout != null">
+                #{crawlerPageTimeout},
+            </if>
+            <if test="crawlerCrawlType!=null">#{crawlerCrawlType},</if>
+            <if test="crawlerAutoDownloadPage!=null">#{crawlerAutoDownloadPage},</if>
+            <if test="urlMaxCacheCount!=null">#{urlMaxCacheCount},</if>
+            <if test="urlEncodes != null and urlEncodes != ''">
+                #{urlEncodes},
+            </if>
+            <if test="urlMaxCrawlCount != null">
+                #{urlMaxCrawlCount},
+            </if>
+            <if test="urlMaxDepth != null">
+                #{urlMaxDepth},
+            </if>
+            <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
+                #{urlMatchPatterns},
+            </if>
+            #{bloomExpectedUrlSize},
+            #{bloomFpp},
+            #{bloom},
+            <if test="taskUrlBatchCount != null">
+                #{taskUrlBatchCount},
+            </if>
+            <if test="taskMaxCount != null">
+                #{taskMaxCount},
+            </if>
+            <if test="taskMaxRunningCount != null">
+                #{taskMaxRunningCount},
+            </if>
+            <if test="taskBindTimeout != null">
+                #{taskBindTimeout},
+            </if>
+            <if test="taskTimeout != null">
+                #{taskTimeout},
+            </if>
+            <if test="taskUrlMaxFailCount != null">
+                #{taskUrlMaxFailCount},
+            </if>
+            <if test="taskUrlMaxContinuouslyFailCount != null">
+                #{taskUrlMaxContinuouslyFailCount},
+            </if>
+            <if test="taskUrlMaxConcurrency != null">
+                #{taskUrlMaxConcurrency},
+            </if>
+            <if test="enableStatus != null">
+                #{enableStatus},
+            </if>
+            current_timestamp
+        </trim>
+    </insert>
+    <delete id="deleteById">
                 delete from down_system_site t  where t.id = #{id}
         </delete>
-        <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams">
-                update down_system_site t
-                <set>
-                        <if test="siteId != null">
-                                t.site_id = #{siteId},
-                        </if>
-                        <if test="scriptPath != null and scriptPath!=''">
-                                t.script_path = #{scriptPath},
-                        </if>
-                        <if test="downSystemId != null">
-                                 t.down_system_id = #{downSystemId},
-                        </if>
-                        <if test="priority != null">
-                                t.priority = #{priority},
-                        </if>
-                        <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
-                                t.crawler_page_encoding = #{crawlerPageEncoding},
-                        </if>
-                        <if test="crawlerPageTimeout != null">
-                                t.crawler_page_timeout = #{crawlerPageTimeout},
-                        </if>
-                        <if test="crawlerCrawlType != null">
-                                t.crawler_crawl_type = #{crawlerCrawlType},
-                        </if>
-                        <if test="crawlerAutoDownloadPage != null">
-                                t.crawler_auto_download_page = #{crawlerAutoDownloadPage},
-                        </if>
-                        <if test="urlMaxCacheCount != null">
-                                t.url_max_cache_count = #{urlMaxCacheCount},
-                        </if>
-                        <if test="urlEncodes != null and urlEncodes != ''">
-                                t.url_encodes = #{urlEncodes},
-                        </if>
-                        <if test="urlMaxCrawlCount != null">
-                                t.url_max_crawl_count = #{urlMaxCrawlCount},
-                        </if>
-                        <if test="urlMaxDepth != null">
-                                t.url_max_depth = #{urlMaxDepth},
-                        </if>
-                        <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
-                                t.url_match_patterns = #{urlMatchPatterns},
-                        </if>
-                        <if test="bloomExpectedUrlSize != null">
-                                t.bloom_expected_url_size = #{bloomExpectedUrlSize},
-                        </if>
-                        <if test="bloomFpp != null">
-                                t.bloom_fpp = #{bloomFpp},
-                        </if>
-                        <if test="taskUrlBatchCount != null">
-                                t.task_url_batch_count = #{taskUrlBatchCount},
-                        </if>
-                        <if test="taskMaxRunningCount != null">
-                                t.task_max_running_count = #{taskMaxRunningCount},
-                        </if>
-                        <if test="taskMaxCount != null">
-                                t.task_max_count = #{taskMaxCount},
-                        </if>
-                        <if test="taskBindTimeout != null">
-                                t.task_bind_timeout = #{taskBindTimeout},
-                        </if>
-                        <if test="taskTimeout != null">
-                                t.task_timeout = #{taskTimeout},
-                        </if>
-                        <if test="taskUrlMaxFailCount != null">
-                                t.task_url_max_fail_count = #{taskUrlMaxFailCount},
-                        </if>
-                        <if test="taskUrlMaxContinuouslyFailCount != null">
-                                t.task_url_max_continuously_fail_count = #{taskUrlMaxContinuouslyFailCount},
-                        </if>
-                        <if test="taskUrlMaxConcurrency != null">
-                                t.task_url_max_concurrency = #{taskUrlMaxConcurrency},
-                        </if>
-                        <if test="enableStatus != null">
-                                 t.enable_status = #{enableStatus},
-                        </if>
+    <update id="updateById" parameterType="com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams">
+        update down_system_site t
+        <set>
+            <if test="siteId != null">
+                t.site_id = #{siteId},
+            </if>
+            <if test="scriptPath != null and scriptPath!=''">
+                t.script_path = #{scriptPath},
+            </if>
+            <if test="downSystemId != null">
+                t.down_system_id = #{downSystemId},
+            </if>
+            <if test="priority != null">
+                t.priority = #{priority},
+            </if>
+            <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
+                t.crawler_page_encoding = #{crawlerPageEncoding},
+            </if>
+            <if test="crawlerPageTimeout != null">
+                t.crawler_page_timeout = #{crawlerPageTimeout},
+            </if>
+            <if test="crawlerCrawlType != null">
+                t.crawler_crawl_type = #{crawlerCrawlType},
+            </if>
+            <if test="crawlerAutoDownloadPage != null">
+                t.crawler_auto_download_page = #{crawlerAutoDownloadPage},
+            </if>
+            <if test="urlMaxCacheCount != null">
+                t.url_max_cache_count = #{urlMaxCacheCount},
+            </if>
+            <if test="urlEncodes != null and urlEncodes != ''">
+                t.url_encodes = #{urlEncodes},
+            </if>
+            <if test="urlMaxCrawlCount != null">
+                t.url_max_crawl_count = #{urlMaxCrawlCount},
+            </if>
+            <if test="urlMaxDepth != null">
+                t.url_max_depth = #{urlMaxDepth},
+            </if>
+            <if test="urlMatchPatterns != null and urlMatchPatterns != ''">
+                t.url_match_patterns = #{urlMatchPatterns},
+            </if>
+            <if test="bloomExpectedUrlSize != null">
+                t.bloom_expected_url_size = #{bloomExpectedUrlSize},
+            </if>
+            <if test="bloomFpp != null">
+                t.bloom_fpp = #{bloomFpp},
+            </if>
+            <if test="taskUrlBatchCount != null">
+                t.task_url_batch_count = #{taskUrlBatchCount},
+            </if>
+            <if test="taskMaxRunningCount != null">
+                t.task_max_running_count = #{taskMaxRunningCount},
+            </if>
+            <if test="taskMaxCount != null">
+                t.task_max_count = #{taskMaxCount},
+            </if>
+            <if test="taskBindTimeout != null">
+                t.task_bind_timeout = #{taskBindTimeout},
+            </if>
+            <if test="taskTimeout != null">
+                t.task_timeout = #{taskTimeout},
+            </if>
+            <if test="taskUrlMaxFailCount != null">
+                t.task_url_max_fail_count = #{taskUrlMaxFailCount},
+            </if>
+            <if test="taskUrlMaxContinuouslyFailCount != null">
+                t.task_url_max_continuously_fail_count = #{taskUrlMaxContinuouslyFailCount},
+            </if>
+            <if test="taskUrlMaxConcurrency != null">
+                t.task_url_max_concurrency = #{taskUrlMaxConcurrency},
+            </if>
+            <if test="enableStatus != null">
+                t.enable_status = #{enableStatus},
+            </if>
 
-                </set>
-                <where>
+        </set>
+        <where>
             t.id = #{id}
-                </where>
-        </update>
-        <update id="updateBatch">
-                update down_system_site
-                <set>
-                        <if test="priority!=null">
-                                priority =#{priority},
-                        </if>
-                        <if test="enableStatus!=null">
-                                enable_status = #{enableStatus},
-                        </if>
-                        <if test="urlMaxCacheCount!=null">
-                                url_max_cache_count = #{urlMaxCacheCount},
-                        </if>
-                        <if test="taskMaxCount!=null">
-                                task_max_count = #{taskMaxCount},
-                        </if>
-                        <if test="taskMaxRunningCount!=null">
-                                task_max_running_count = #{taskMaxRunningCount},
-                        </if>
-                        <if test="taskBindTimeout != null">
-                                task_bind_timeout= #{taskBindTimeout},
-                        </if>
-                        <if test="taskTimeout!=null">
-                                task_timeout = #{taskTimeout},
-                        </if>
-                </set>
-                where id in
-                <foreach collection ="ids" item ="item" open="(" close=")" separator=",">
-                        #{item}
-                </foreach>
-        </update>
-        <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+        </where>
+    </update>
+    <update id="updateBatch">
+        update down_system_site
+        <set>
+            <if test="priority!=null">
+                priority =#{priority},
+            </if>
+            <if test="enableStatus!=null">
+                enable_status = #{enableStatus},
+            </if>
+            <if test="urlMaxCacheCount!=null">
+                url_max_cache_count = #{urlMaxCacheCount},
+            </if>
+            <if test="taskMaxCount!=null">
+                task_max_count = #{taskMaxCount},
+            </if>
+            <if test="taskMaxRunningCount!=null">
+                task_max_running_count = #{taskMaxRunningCount},
+            </if>
+            <if test="taskBindTimeout != null">
+                task_bind_timeout= #{taskBindTimeout},
+            </if>
+            <if test="taskTimeout!=null">
+                task_timeout = #{taskTimeout},
+            </if>
+        </set>
+        where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
           select
              t.id,
              t.site_id,
@@ -289,62 +289,63 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              from down_system_site t
              where  t.id = #{id}
         </select>
-        <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite" parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq">
-          select
-             t.id,
-             t.site_id,
-             t.script_path,
-             t.down_system_id,
-             t.priority,
-             t.crawler_page_encoding,
-             t.crawler_page_timeout,
-             t.crawler_crawl_type,
-             t.crawler_auto_download_page,
-             t.url_max_cache_count,
-             t.url_finished_count,
-             t.url_bad_count,
-             t.url_total_count,
-             t.url_encodes,
-             t.url_max_crawl_count,
-             t.url_max_depth,
-             t.url_match_patterns,
-             t.bloom_expected_url_size,
-             t.bloom_fpp,
-             t.task_url_batch_count,
-             t.task_max_count,
-             t.task_current_count,
-             t.task_max_running_count,
-             t.task_current_running_count,
-             t.task_timeout,
-             t.task_bind_timeout,
-             t.task_url_max_fail_count,
-             t.task_url_max_continuously_fail_count,
-             t.task_url_max_concurrency,
-             t.enable_status,
-             t.create_time
-             from down_system_site t
-                <where>
-                        <if test="siteId != null">
-                                t.site_id = #{siteId}
-                        </if>
-                        <if test="scriptId != null">
-                                and t.script_id = #{scriptId}
-                        </if>
-                        <if test="downSystemId != null">
-                                and t.down_system_id = #{downSystemId}
-                        </if>
-                        <if test="crawlerCrawlType != null">
-                                and t.crawler_crawl_type = #{crawlerCrawlType}
-                        </if>
-                        <if test="enableStatus != null">
-                                and t.enable_status = #{enableStatus}
-                        </if>
-                        <if test="createTimeStart != null and createTimeStart !=''">
-                                and t.create_time >= #{createTimeStart}
-                        </if>
-                        <if test="createTimeEnd != null and createTimeEnd !=''">
-                                and t.create_time &lt; #{createTimeEnd}
-                        </if>
-                </where>
-        </select>
+    <select id="getPage" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite"
+            parameterType="com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq">
+        select
+        t.id,
+        t.site_id,
+        t.script_path,
+        t.down_system_id,
+        t.priority,
+        t.crawler_page_encoding,
+        t.crawler_page_timeout,
+        t.crawler_crawl_type,
+        t.crawler_auto_download_page,
+        t.url_max_cache_count,
+        t.url_finished_count,
+        t.url_bad_count,
+        t.url_total_count,
+        t.url_encodes,
+        t.url_max_crawl_count,
+        t.url_max_depth,
+        t.url_match_patterns,
+        t.bloom_expected_url_size,
+        t.bloom_fpp,
+        t.task_url_batch_count,
+        t.task_max_count,
+        t.task_current_count,
+        t.task_max_running_count,
+        t.task_current_running_count,
+        t.task_timeout,
+        t.task_bind_timeout,
+        t.task_url_max_fail_count,
+        t.task_url_max_continuously_fail_count,
+        t.task_url_max_concurrency,
+        t.enable_status,
+        t.create_time
+        from down_system_site t
+        <where>
+            <if test="siteId != null">
+                t.site_id = #{siteId}
+            </if>
+            <if test="scriptId != null">
+                and t.script_id = #{scriptId}
+            </if>
+            <if test="downSystemId != null">
+                and t.down_system_id = #{downSystemId}
+            </if>
+            <if test="crawlerCrawlType != null">
+                and t.crawler_crawl_type = #{crawlerCrawlType}
+            </if>
+            <if test="enableStatus != null">
+                and t.enable_status = #{enableStatus}
+            </if>
+            <if test="createTimeStart != null and createTimeStart !=''">
+                and t.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd !=''">
+                and t.create_time &lt; #{createTimeEnd}
+            </if>
+        </where>
+    </select>
 </mapper>

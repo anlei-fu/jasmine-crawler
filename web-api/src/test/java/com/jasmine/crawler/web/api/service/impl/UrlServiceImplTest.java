@@ -38,8 +38,8 @@ public class UrlServiceImplTest {
      */
     @Test
     public void testSaveUrlResult() throws Exception {
-        SaveUrlResultReq req =new SaveUrlResultReq();
-              service.saveUrlResult(req);
+        SaveUrlResultReq req = new SaveUrlResultReq();
+        service.saveUrlResult(req);
     }
 
 } 

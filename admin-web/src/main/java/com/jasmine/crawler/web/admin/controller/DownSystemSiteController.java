@@ -80,12 +80,12 @@ public class DownSystemSiteController extends ControllerBase {
     }
 
     @PostMapping(path = "/downSystemSite/{id}")
-    public  R dumpBloom(@PathVariable Integer id){
-        return  success();
+    public R dumpBloom(@PathVariable Integer id) {
+        return success();
     }
 
-    public  R resetSeedUrl(){
-        return  null;
+    public R resetSeedUrl() {
+        return null;
     }
 
     @GetMapping(path = "/downSystemSite/{id}")

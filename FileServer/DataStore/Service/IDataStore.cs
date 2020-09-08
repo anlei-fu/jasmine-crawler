@@ -1,7 +1,4 @@
-﻿using Jasmine.DataStore.Model.Request;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Jasmine.Crawler.Common.Model.Request;
 
 namespace Jasmine.DataStore.Service
 {

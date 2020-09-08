@@ -2,14 +2,14 @@ package com.jasmine.crawler.web.api.service.impl;
 
 import com.jasmine.crawler.common.pojo.req.SaveUrlResultReq;
 import com.jasmine.crawler.common.support.LoggerSupport;
-import com.jasmine.crawler.web.api.service.UrlService;
+import com.jasmine.crawler.web.api.service.UrlResultSaver;
 import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RedisQueueUrlService extends LoggerSupport implements UrlService {
+public class RedisUrlResultSaverImpl extends LoggerSupport implements UrlResultSaver {
 
     @Autowired
     private RedissonClient redissonClient;
@@ -19,8 +19,8 @@ public class RedisQueueUrlService extends LoggerSupport implements UrlService {
         try {
             RQueue<SaveUrlResultReq> queue = redissonClient.getQueue("url_queue");
             queue.add(saveUrlResultReq);
-        }catch (Exception ex){
-            error("Save url failed",ex);
+        } catch (Exception ex) {
+            error("Save url failed", ex);
         }
     }
 }

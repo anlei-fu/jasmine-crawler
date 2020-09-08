@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Jasmine.DataStore.Service.Impl
 {
-  public  interface IDataStreamManager
+  public  interface IDataSaverProvider
     {
-       DataStream GetDataStream(int downSystemId,int downSystemSiteId);
+       DataFileSaver GetDataStream(int downSystemId,int downSystemSiteId);
     }
 }

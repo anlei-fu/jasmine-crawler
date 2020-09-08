@@ -25,7 +25,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         (url,down_system_site_id,refer_url,depth,url_type,query,params)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.url},#{item.downSystemSiteId},#{item.referUrl},#{item.depth}, #{item.urlType},#{item.query},#{item.params})
+            (#{item.url},#{item.downSystemSiteId},#{item.referUrl},#{item.depth},
+            #{item.urlType},#{item.query},#{item.params})
         </foreach>
     </insert>
     <update id="updateUrlStatusToCached">
@@ -39,7 +40,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="failedUrls">
-        <foreach collection="list" item="item"  separator=";">
+        <foreach collection="list" item="item" separator=";">
             update url
             set
             total_crawl_count = total_crawl_count + 1,
@@ -57,7 +58,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="badUrls">
-        <foreach collection="list" item="item"  separator=";">
+        <foreach collection="list" item="item" separator=";">
             update url
             set
             total_crawl_count = total_crawl_count + 1,
@@ -76,7 +77,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="failToRunUrls">
-        <foreach collection="list" item="item"  separator=";">
+        <foreach collection="list" item="item" separator=";">
             update url
             set
             url_status = 1,
@@ -86,7 +87,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         </foreach>
     </update>
     <update id="successUrls">
-        <foreach collection="list" item="item"  separator=";">
+        <foreach collection="list" item="item" separator=";">
             update url
             set
             url_status = 3,

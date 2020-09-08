@@ -21,5 +21,10 @@ public interface SiteAccountService {
      */
     void disableBlockedAccounts();
 
+    /**
+     * Set the next time account available
+     *
+     * @param accountId
+     */
     void updateDelayTimeoutTime(Integer accountId);
 }

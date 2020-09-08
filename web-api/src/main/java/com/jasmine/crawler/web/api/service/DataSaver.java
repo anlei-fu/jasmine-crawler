@@ -2,7 +2,7 @@ package com.jasmine.crawler.web.api.service;
 
 import com.jasmine.crawler.common.pojo.req.SaveTaskDataReq;
 
-public interface DataService {
+public interface DataSaver {
 
     /**
      * Save task data

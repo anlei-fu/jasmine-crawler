@@ -1,9 +1,7 @@
 package com.jasmine.crawler.common.support;
 
-public interface CounterProvider extends Iterable<Counter> {
+public interface CounterProvider {
     Counter getCounter(String id, int max, int expire);
 
-    void remove(String id);
-
-    int size();
+    int clean();
 }

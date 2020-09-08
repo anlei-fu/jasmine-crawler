@@ -1980,6 +1980,21 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Jasmine.Crawler.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Dapper": "2.0.35",
+          "Microsoft.EntityFrameworkCore": "3.1.7",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "bin/placeholder/Jasmine.Crawler.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Jasmine.Crawler.Common.dll": {}
+        }
+      },
       "Jasmine.Crawler.File/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -7065,6 +7080,11 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
+    "Jasmine.Crawler.Common/1.0.0": {
+      "type": "project",
+      "path": "../Jasmine.Crawl.Common/Jasmine.Crawl.Common.csproj",
+      "msbuildProject": "../Jasmine.Crawl.Common/Jasmine.Crawl.Common.csproj"
+    },
     "Jasmine.Crawler.File/1.0.0": {
       "type": "project",
       "path": "../jasmine.crawler.file/jasmine.crawler.file.csproj",
@@ -7074,6 +7094,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "Dapper >= 2.0.35",
+      "Jasmine.Crawler.Common >= 1.0.0",
       "Jasmine.Crawler.File >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 3.1.7",
       "MySql.Data >= 8.0.21",
@@ -7107,6 +7128,9 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
+            "D:\\project\\jasmine-crawler\\FileServer\\Jasmine.Crawl.Common\\Jasmine.Crawl.Common.csproj": {
+              "projectPath": "D:\\project\\jasmine-crawler\\FileServer\\Jasmine.Crawl.Common\\Jasmine.Crawl.Common.csproj"
+            },
             "D:\\project\\jasmine-crawler\\FileServer\\jasmine.crawler.file\\jasmine.crawler.file.csproj": {
               "projectPath": "D:\\project\\jasmine-crawler\\FileServer\\jasmine.crawler.file\\jasmine.crawler.file.csproj"
             }

@@ -2,11 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Jasmine.DataStore.DbAccess
 {
-    interface IDataAccess
+    public interface IDataAccess
     {
-        bool Add(Data data );
+        Task SyncData(int taskId, int downSystemId, int downSystemSiteId, string dataFile);
+        Task<int> GetDownSytemIdByDownSystemSiteId(int downSystemSiteId);
+
+        Task<IEnumerable<DownSystemSite>> GetNeedSaveDataSitesAsync();
     }
 }

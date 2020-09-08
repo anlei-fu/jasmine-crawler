@@ -24,10 +24,10 @@ import java.util.Objects;
 public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskService {
 
     @Autowired
-    private UrlService urlService;
+    private UrlResultSaver urlResultSaver;
 
     @Autowired
-    private DataService dataService;
+    private DataSaver dataSaver;
 
     @Autowired
     private CrawlTaskMapper crawlTaskMapper;
@@ -62,7 +62,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
             finishCrawTask(req);
             Integer downSystemId = crawlTaskMapper.getDownSystemIdById(req.getTaskId());
             saveData(req, downSystemId);
-            saveUrls(req,downSystemId);
+            saveUrls(req, downSystemId);
         } catch (Exception ex) {
             error(String.format("terminate task(%d) failed", req.getTaskId()), ex);
         }
@@ -83,14 +83,14 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                     .taskId(req.getTaskId())
                     .data(data)
                     .build();
-            dataService.saveData(saveDataResultReq);
+            dataSaver.saveData(saveDataResultReq);
         } catch (Exception ex) {
             // ignore data loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
         }
     }
 
-    private void saveUrls(SaveTaskResultReq req,Integer downSystemSiteId) {
+    private void saveUrls(SaveTaskResultReq req, Integer downSystemSiteId) {
         try {
             req.getPageResults().stream().forEach(r -> {
                 r.setData(null);
@@ -101,7 +101,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                     .taskId(req.getTaskId())
                     .downSystemSiteId(downSystemSiteId)
                     .build();
-            urlService.saveUrlResult(saveUrlResultReq);
+            urlResultSaver.saveUrlResult(saveUrlResultReq);
         } catch (Exception ex) {
             // ignore url loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
@@ -157,7 +157,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         // decrease crawler concurrency
         Site site = siteService.get(task.getSiteId());
         Crawler crawler = crawlerService.get(task.getCrawlerId());
-        if (!Objects.isNull(crawler) )
+        if (!Objects.isNull(crawler))
             crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), downSystemSite.getTaskUrlMaxConcurrency());
 
         // handle block result
