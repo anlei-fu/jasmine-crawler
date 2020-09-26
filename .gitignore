@@ -18,3 +18,4 @@ gradle/
 /cron/build
 /admin-web/logs/
 /logs
+/admin-web/logs
