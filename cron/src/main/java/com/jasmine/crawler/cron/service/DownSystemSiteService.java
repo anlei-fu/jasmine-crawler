@@ -47,4 +47,46 @@ public interface DownSystemSiteService {
      * @param downSystemId
      */
     void decreaseCurrentTaskCount(Integer downSystemId);
+
+    /**
+     * Get the sites which need to reset failed urls
+     *
+     * @return
+     */
+    List<DownSystemSite> getNeedExecuteFailedRetryJobSites();
+
+    /**
+     * Update url next failed retry job execute time
+     *
+     * @param id
+     */
+    void updateUrlNextFailedRetryJobExecuteTime(Integer id);
+
+    /**
+     * Get the sites which need to reset succeed urls
+     *
+     * @return
+     */
+    List<DownSystemSite> getNeedExecuteResetJobSites();
+
+    /**
+     * Update url next reset job execute time
+     *
+     * @param id
+     */
+    void updateUrlNextResetJobExecuteTime(Integer id);
+
+    /**
+     * Get the sites which need to reset cached timeout urls
+     *
+     * @return
+     */
+    List<DownSystemSite> getNeedExecuteUrlCacheTimeoutJobSites();
+
+    /**
+     * Reset cache timeout job next excute time
+     *
+     * @param id
+     */
+    void updateUrlNextCacheTimeoutJobExecuteTime(Integer id);
 }

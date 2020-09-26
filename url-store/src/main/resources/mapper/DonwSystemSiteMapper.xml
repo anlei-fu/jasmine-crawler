@@ -5,18 +5,18 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.url.store.mapper.DownSystemSiteMapper">
-    <update id="increaseNewUrlCount">
+    <update id="addNewUrlCount">
         update down_system_site
         set  url_total_count = url_total_count + #{count}
         where id = #{id}
     </update>
-    <update id="increaseBadUrlCount">
+    <update id="addBadUrlCount">
         update down_system_site
         set  url_bad_count = url_bad_count + #{count},
              url_finished_count = url_finished_count + #{count}
         where id = #{id}
     </update>
-    <update id="increaseFinishedUrlCount">
+    <update id="addFinishedUrlCount">
         update down_system_site
         set  url_finished_count = url_finished_count + #{count}
         where id = #{id}

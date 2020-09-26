@@ -133,6 +133,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.9, )"
             }
           },
           "imports": [
@@ -171,7 +175,11 @@
         },
         "frameworks": {
           "netstandard2.0": {
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\project\\jasmine-crawler\\FileServer\\Jasmine.Crawl.Common\\Jasmine.Crawl.Common.csproj": {
+                "projectPath": "D:\\project\\jasmine-crawler\\FileServer\\Jasmine.Crawl.Common\\Jasmine.Crawl.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -196,10 +204,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
-            },
-            "log4net": {
-              "target": "Package",
-              "version": "[2.0.8, )"
             }
           },
           "imports": [

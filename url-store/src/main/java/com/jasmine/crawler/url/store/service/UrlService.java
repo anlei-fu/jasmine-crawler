@@ -24,5 +24,15 @@ public interface UrlService {
      */
     void saveUrlResult(SaveUrlResultReq req) throws Exception;
 
+    /**
+     * Add new url
+     *
+     * @param newUrls
+     * @param downSystemSiteId
+     * @return
+     * @throws Exception
+     */
+    int addNewUrl(List<Url> newUrls, Integer downSystemSiteId) throws Exception;
+
 
 }

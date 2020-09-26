@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TerminateExecutingTimeoutTaskJobTest {
 
     @Autowired
-    private TerminateExecutingTimeoutTaskJob service;
+    private TaskExecuteTimeoutJob service;
 
     @Before
     public void before() throws Exception {

@@ -43,4 +43,36 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     public void decreaseCurrentTaskCount(Integer downSystemId) {
         downSystemSiteMapper.decreaseCurrentTaskCount(downSystemId);
     }
+
+    @Override
+    public List<DownSystemSite> getNeedExecuteFailedRetryJobSites() {
+        return downSystemSiteMapper.getNeedExecuteFailedRetryJobSites();
+    }
+
+    @Override
+    public void updateUrlNextFailedRetryJobExecuteTime(Integer id) {
+        downSystemSiteMapper.updateUrlNextFailedRetryJobTime(id);
+    }
+
+    @Override
+    public List<DownSystemSite> getNeedExecuteResetJobSites() {
+        return downSystemSiteMapper.getNeedExecuteResetJobSites();
+    }
+
+    @Override
+    public void updateUrlNextResetJobExecuteTime(Integer id) {
+        downSystemSiteMapper.updateUrlNextResetJobTime(id);
+    }
+
+    @Override
+    public List<DownSystemSite> getNeedExecuteUrlCacheTimeoutJobSites() {
+        return downSystemSiteMapper.getUrlCacheTimeoutJobSites();
+    }
+
+    @Override
+    public void updateUrlNextCacheTimeoutJobExecuteTime(Integer id) {
+        downSystemSiteMapper.updateUrlNextCacheTimeoutJobTime(id);
+    }
+
+
 }

@@ -6,3 +6,4 @@ D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard
 D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawl.Common.AssemblyInfo.cs
 D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawler.Common.dll
 D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawler.Common.pdb
+D:\project\jasmine-crawler\FileServer\Jasmine.Crawl.Common\obj\Debug\netstandard2.0\Jasmine.Crawl.Common.csproj.CoreCompileInputs.cache

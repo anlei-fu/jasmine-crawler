@@ -60,7 +60,7 @@ public class CrawlTaskTerminator {
             if (!Objects.isNull(crawler)) {
                 crawlerService.changeCurrentConcurrency(
                         crawler.getId(),
-                        -downSystemSite.getTaskUrlMaxConcurrency()
+                        -task.getTaskUrlConcurrency()
                 );
             }
         }

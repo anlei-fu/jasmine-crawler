@@ -60,7 +60,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testGetCrawlersNeedHeartbeat() throws Exception {
-        service.getCrawlersNeedHeartbeat();
+        service.getNeedHeartbeatCrawlers();
     }
 
     /**

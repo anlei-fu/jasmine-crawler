@@ -5,19 +5,35 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class BlockRule {
+public class BlockRule extends  EnableStatusFeature {
 
+    /**
+     * Unique id
+     */
     private Integer id;
 
+    /**
+     * Target down system site
+     */
     private Integer downSystemSiteId;
 
+    /**
+     * The check type of rule see {@enum CheckType}
+     */
     private Integer checkType;
 
+    /**
+     * Expected downloading http status
+     */
     private Integer httpStatus;
 
+    /**
+     * Expected page result
+     */
     private Integer pageResult;
 
+    /**
+     * key words to match, json array in string format
+     */
     private String keywords;
-
-    private Date createTime;
 }

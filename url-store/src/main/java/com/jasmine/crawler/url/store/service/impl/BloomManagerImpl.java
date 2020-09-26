@@ -25,7 +25,7 @@ public class BloomManagerImpl implements BloomFilterManager {
     public JasmineBloomFilter get(Integer downSystemSiteId) throws Exception {
         if (cache.containsKey(downSystemSiteId)) {
             JasmineBloomWrapper wrapper = cache.get(downSystemSiteId);
-            wrapper.setLastActiveTime(new Date());
+            wrapper.setLastActiveTime(System.currentTimeMillis());
             return (JasmineBloomFilter) wrapper;
         }
 

@@ -77,4 +77,34 @@ public class DownSystemSiteServiceImplTest {
     public void testDecreaseCurrentBindCount() {
         service.decreaseCurrentTaskCount(1);
     }
+
+    @Test
+    public void testGetUrlCacheTimeoutJobSites() {
+        service.getNeedExecuteUrlCacheTimeoutJobSites();
+    }
+
+    @Test
+    public void testUpdateUrlNextCacheTimeoutJobTime() {
+        service.updateUrlNextCacheTimeoutJobExecuteTime(41);
+    }
+
+    @Test
+    public void testGetNeedExecuteFailedRetryJobSites() {
+        service.getNeedExecuteFailedRetryJobSites();
+    }
+
+    @Test
+    public void testUpdateUrlNextFailedRetryJobTime() {
+        service.updateUrlNextFailedRetryJobExecuteTime(41);
+    }
+
+    @Test
+    public void testGetNeedExecuteResetJobSites() {
+        service.getNeedExecuteResetJobSites();
+    }
+
+    @Test
+    public void testUpdateUrlNextResetJobTime() {
+        service.updateUrlNextResetJobExecuteTime(41);
+    }
 } 

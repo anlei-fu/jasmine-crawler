@@ -6,15 +6,39 @@ import java.util.Date;
 
 @Data
 public class Dictionary {
+
+    /**
+     * Unique id
+     */
     private Integer id;
 
+    /**
+     * Dictionary type
+     */
     private String type;
 
-    private Integer value;
+    /**
+     * Dictionary value
+     */
+    private String value;
 
+    /**
+     * Label of value
+     */
     private String label;
 
+    /**
+     * Use to sort
+     */
+    private  Integer sortNumber;
+
+    /**
+     * Color of value
+     */
     private String color;
 
+    /**
+     * Create time
+     */
     private Date createTime;
 }

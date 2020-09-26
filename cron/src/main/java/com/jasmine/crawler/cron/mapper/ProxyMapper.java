@@ -10,10 +10,12 @@ import com.jasmine.crawler.common.pojo.entity.Proxy;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ProxyMapper {
 
-    Proxy getProxyForSite(@Param("siteId") Integer siteId);
+    List<Proxy> getProxyForSite(@Param("siteId") Integer siteId);
 
     int increaseCurrentUseCount(@Param("id") Integer id);
 

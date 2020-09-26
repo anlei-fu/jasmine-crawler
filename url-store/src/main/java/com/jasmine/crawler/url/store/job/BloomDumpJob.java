@@ -15,7 +15,7 @@ import java.util.Date;
 @Component
 public class BloomDumpJob extends LoggerSupport {
 
-    private final int DUMP_INTERVAL = 10 * 1000 * 60;
+    private final int DUMP_INTERVAL = 5 * 1000 * 60;
 
     private final int BLOOM_INACTIVE_TIMEOUT = 60 * 30 * 1000;
 
@@ -34,10 +34,13 @@ public class BloomDumpJob extends LoggerSupport {
     public void run() throws IOException {
         info("------------------------begin dumping and unloading url bloom-------------------------");
         for (final JasmineBloomWrapper wrapper : bloomFilterManager.getAll()) {
+
+            // over dump interval
             if ((System.currentTimeMillis() - wrapper.getLastDumpTime()) > DUMP_INTERVAL) {
                 dump(wrapper);
             }
 
+            // bloom inactive
             if ((System.currentTimeMillis() - wrapper.getLastActiveTime()) > BLOOM_INACTIVE_TIMEOUT) {
                 dump(wrapper);
                 bloomFilterManager.remove(wrapper.getId());
@@ -46,6 +49,11 @@ public class BloomDumpJob extends LoggerSupport {
         }
     }
 
+    /**
+     * Update bloom in base64 format to db
+     *
+     * @param wrapper
+     */
     private void dump(JasmineBloomWrapper wrapper) {
         try {
             SiteUrlBloom siteUrlBloom = SiteUrlBloom.builder()

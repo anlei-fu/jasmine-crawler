@@ -29,6 +29,7 @@ public class DownSystemServiceImplTest {
 
     @After
     public void after() throws Exception {
+
     }
 
     /**
@@ -55,4 +56,7 @@ public class DownSystemServiceImplTest {
         service.decreaseCurrentRunningTaskCount(1);
     }
 
+    public void test() {
+
+    }
 } 

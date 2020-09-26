@@ -5,7 +5,7 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.api.mapper.CrawlerMapper">
-    <update id="decreaseCurrentConcurrency">
+    <update id="reduceCurrentConcurrency">
         update crawler
         set current_concurrency = current_concurrency - #{concurrencyToDecrease}
         where id = #{id}

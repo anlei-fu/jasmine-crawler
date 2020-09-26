@@ -8,7 +8,12 @@ namespace Jasmine.DataStore.Service.Impl
 {
     public class LengthFieldDataDecoder : IDataDecoder
     {
-        private ICompressor _compressor;
+        private readonly ICompressor _compressor;
+
+        public LengthFieldDataDecoder(ICompressor compressor)
+        {
+            _compressor = compressor;
+        }
 
         public List<string> Decode(Stream s)
         {
@@ -18,13 +23,13 @@ namespace Jasmine.DataStore.Service.Impl
             while (true)
             {
                 readed = s.Read(bt, 0, 4);
-                if (readed == -1)
+                if (readed <=0)
                     break;
 
                 var length = BitConverter.ToInt32(bt, 0);
                 var content = new byte[length];
                 s.Read(content, 0, length);
-                ls.Add(Encoding.UTF8.GetString(_compressor.DeCompress(content)));
+                ls.Add(Encoding.UTF8.GetString(_compressor.Decompress(content)));
             }
 
             return ls;

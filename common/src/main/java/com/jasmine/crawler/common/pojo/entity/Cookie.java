@@ -21,7 +21,7 @@ public class Cookie extends EnableStatusFeature {
     private Integer id;
 
     /**
-     * The account the cookie belong to
+     * The account, cookie belong to
      */
     private Integer accountId;
 
@@ -34,6 +34,11 @@ public class Cookie extends EnableStatusFeature {
      * The ip got the cookie
      */
     private String loginIp;
+
+    /**
+     * The crawler to get the cookie
+     */
+    private Integer crawlerId;
 
     /**
      * Current block count of cookie, when task failed or blocked increase it or reset to zero

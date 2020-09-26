@@ -22,9 +22,9 @@ import java.util.Objects;
 @Service
 public class UrlServiceImpl extends LoggerSupport implements UrlService {
 
-    private static final int URL_INSERT_BATCH_SIZE = 50;
+    private static final int URL_INSERT_BATCH_SIZE = 200;
 
-    private static final int URL_UPDATE_BATCH_SIZE = 30;
+    private static final int URL_UPDATE_BATCH_SIZE = 200;
 
     @Autowired
     private RedissonClient redissonClient;
@@ -89,14 +89,74 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     }
 
     @Override
+    public int addNewUrl(List<Url> newUrls, Integer downSystemSiteId) throws Exception {
+        JasmineBloomFilter filter = bloomFilterManager.get(downSystemSiteId);
+        if (Objects.isNull(filter)) {
+            warn(String.format("can not get bloom filter for down system site(%d)",downSystemSiteId));
+            return 0;
+        }
+
+        List<Url> filteredUrls = new LinkedList<>();
+        for (final Url url : newUrls) {
+            if (StrUtil.isEmpty(url.getUrl()))
+                continue;
+
+            try {
+                if (filter.add(url.getUrl())) {
+                    filteredUrls.add(url);
+
+                    if (url.getUrlType() == null)
+                        url.setUrlType(1);
+
+                    url.setDownSystemSiteId(downSystemSiteId);
+                }
+
+            } catch (Exception ex) {
+                error("filter url failed", ex);
+            }
+        }
+
+        for (final List<Url> ls : CollectionUtils.split(filteredUrls, URL_INSERT_BATCH_SIZE)) {
+            addNewUrlCore(ls, downSystemSiteId);
+        }
+
+        return  filteredUrls.size();
+    }
+
+    @Override
     public void saveUrlResult(SaveUrlResultReq req) throws Exception {
+
         DownSystemSite downSystemSite = downSystemSiteService.get(req.getDownSystemSiteId());
         if (Objects.isNull(downSystemSite)) {
             info("failed to run, down system site not exists");
             return;
         }
 
-        saveNewUrl(req, downSystemSite);
+        if(!Objects.isNull( req.getTaskId())){
+            saveNormalUrlResult(req, downSystemSite);
+        }else{
+            List<Url> newUrls = new LinkedList<>();
+            req.getPageResults().stream().forEach(result -> {
+                if (result.getPageResult() == 1) {
+                    newUrls.addAll(result.getNewUrls());
+                }
+            });
+            addNewUrl(newUrls, downSystemSite.getId());
+        }
+
+
+    }
+
+    private  void  saveNormalUrlResult(SaveUrlResultReq req , DownSystemSite downSystemSite) throws Exception {
+        List<Url> newUrls = new LinkedList<>();
+        req.getPageResults().stream().forEach(result -> {
+            if (result.getPageResult() == com.jasmine.crawler.common.constant.PageResult.SUCCESS) {
+                newUrls.addAll(result.getNewUrls());
+            }
+        });
+
+        int newUrlCount= addNewUrl(newUrls,downSystemSite.getId());
+
         List<PageResult> failedUrls = new LinkedList<>();
         List<PageResult> badUrls = new LinkedList<>();
         List<PageResult> failedToRunUrls = new LinkedList<>();
@@ -118,7 +178,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         badUrls(badUrls, downSystemSite);
         failedUrls(failedUrls);
         succeedUrls(succeedUrls, downSystemSite);
-        crawlTaskService.syncUrl(req.getTaskId());
+        crawlTaskService.syncUrl(req.getTaskId(),newUrlCount);
     }
 
     private void updateUrlStatusToCached(List<Url> urls) {
@@ -131,52 +191,11 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         }
     }
 
-    private void saveNewUrl(SaveUrlResultReq saveUrlResultReq, DownSystemSite downSystemSite) throws Exception {
-        JasmineBloomFilter filter = bloomFilterManager.get(saveUrlResultReq.getDownSystemSiteId());
-        if (Objects.isNull(filter)) {
-            warn(String.format("can not get bloom filter for down site %d", downSystemSite.getId()));
-            return;
-        }
-
-        List<Url> newUrls = new LinkedList<>();
-        saveUrlResultReq.getPageResults().stream().forEach(result -> {
-            if (result.getPageResult() == 1) {
-                result.getNewUrls().stream().forEach(url -> {
-                    if (url.getUrlType() == null)
-                        url.setUrlType(1);
-
-                    url.setDownSystemSiteId(downSystemSite.getId());
-                });
-                newUrls.addAll(result.getNewUrls());
-            }
-        });
-
-        List<Url> filteredUrls = new LinkedList<>();
-        for (final Url url : newUrls) {
-            if (StrUtil.isEmpty(url.getUrl()))
-                continue;
-
-            try {
-                if (filter.add(url.getUrl())) {
-                    filteredUrls.add(url);
-                } else {
-                    Integer t = 0;
-                }
-            } catch (Exception ex) {
-                error("filter url failed", ex);
-            }
-        }
-
-        for (final List<Url> ls : CollectionUtils.split(filteredUrls, URL_INSERT_BATCH_SIZE)) {
-            saveNewUrlCore(ls, downSystemSite);
-        }
-    }
-
-    private void saveNewUrlCore(List<Url> newUrls, DownSystemSite downSystemSite) {
+    private void addNewUrlCore(List<Url> newUrls, Integer downSystemSiteId) {
         try {
             urlMapper.addBatch(newUrls);
-            downSystemSiteService.increaseNewUrlCount(downSystemSite.getId(), newUrls.size());
-            downSystemService.increaseNewUrlCount(downSystemSite.getDownSystemId(), newUrls.size());
+            downSystemSiteService.addNewUrlCount(downSystemSiteId, newUrls.size());
+            downSystemService.addNewUrlCount(downSystemSiteId, newUrls.size());
             info(String.format("insert %d new url", newUrls.size()));
         } catch (Exception ex) {
             error("add url batch failed", ex);
@@ -198,10 +217,10 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
                 urlMapper.badUrls(list);
-                downSystemSiteService.increaseBadUrlCount(downSystemSite.getId(), list.size());
-                downSystemService.increaseBadUrlCount(downSystemSite.getDownSystemId(), list.size());
-                downSystemSiteService.increaseFinishedUrlCount(downSystemSite.getId(), list.size());
-                downSystemService.increaseFinishedUrlCount(downSystemSite.getDownSystemId(), list.size());
+                downSystemSiteService.addBadUrlCount(downSystemSite.getId(), list.size());
+                downSystemService.addBadUrlCount(downSystemSite.getDownSystemId(), list.size());
+                downSystemSiteService.addFinishedUrlCount(downSystemSite.getId(), list.size());
+                downSystemService.addFinishedUrlCount(downSystemSite.getDownSystemId(), list.size());
                 info(String.format("bad %d url", list.size()));
             } catch (Exception ex) {
                 error("bad url batch failed", ex);
@@ -223,9 +242,9 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     private void succeedUrls(List<PageResult> urls, DownSystemSite downSystemSite) {
         for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
-                urlMapper.successUrls(list);
-                downSystemSiteService.increaseFinishedUrlCount(downSystemSite.getId(), list.size());
-                downSystemService.increaseFinishedUrlCount(downSystemSite.getDownSystemId(), list.size());
+                urlMapper.succeedUrls(list);
+                downSystemSiteService.addFinishedUrlCount(downSystemSite.getId(), list.size());
+                downSystemService.addFinishedUrlCount(downSystemSite.getDownSystemId(), list.size());
                 info(String.format("succeed %d url", list.size()));
             } catch (Exception ex) {
                 error("success url batch failed", ex);

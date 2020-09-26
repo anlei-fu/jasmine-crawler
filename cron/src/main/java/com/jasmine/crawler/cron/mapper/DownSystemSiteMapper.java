@@ -19,4 +19,16 @@ public interface DownSystemSiteMapper {
     void increaseCurrentTaskCount(@Param("id") Integer id);
 
     void decreaseCurrentTaskCount(@Param("id") Integer id);
+
+    List<DownSystemSite> getNeedExecuteFailedRetryJobSites();
+
+    void updateUrlNextFailedRetryJobTime(@Param("id") Integer id);
+
+    List<DownSystemSite> getNeedExecuteResetJobSites();
+
+    void updateUrlNextResetJobTime(@Param("id") Integer id);
+
+    List<DownSystemSite> getUrlCacheTimeoutJobSites();
+
+    void updateUrlNextCacheTimeoutJobTime(@Param("id") Integer id);
 }

@@ -21,28 +21,28 @@ public class CrawlerServiceImpl implements CrawlerService {
     private CrawlerMapper crawlerMapper;
 
     @Override
-    public Crawler getCrawlerForSite(Integer siteId, Integer taskUrlMaxConcurrency, boolean withIp) {
-        return crawlerMapper.getCrawlerForSite(siteId, taskUrlMaxConcurrency, withIp);
+    public List<Crawler> getCrawlerForSite(Integer siteId, Integer taskUrlMaxConcurrency, boolean useCrawlerIp) {
+        return crawlerMapper.getCrawlerForSite(siteId, taskUrlMaxConcurrency, useCrawlerIp);
     }
 
     @Override
-    public void changeCurrentConcurrency(Integer id, Integer concurrencyToIncrease) {
-        crawlerMapper.updateConcurrencyById(id, concurrencyToIncrease);
+    public void changeCurrentConcurrency(Integer id, Integer concurrencyToChange) {
+        crawlerMapper.updateConcurrencyById(id, concurrencyToChange);
     }
 
     @Override
-    public Crawler get(int crawlerId) {
-        return crawlerMapper.getById(crawlerId);
+    public Crawler get(int id) {
+        return crawlerMapper.getById(id);
     }
 
     @Override
-    public List<Crawler> getCrawlersNeedHeartbeat() {
+    public List<Crawler> getNeedHeartbeatCrawlers() {
         return crawlerMapper.getCrawlersNeedHeartbeat();
     }
 
     @Override
-    public void updateHeartbeatStatus(Integer crawlerId, boolean isUp) {
-        if (isUp) {
+    public void updateHeartbeatStatus(Integer crawlerId, boolean up) {
+        if (up) {
             crawlerMapper.heartbeatSuccess(crawlerId);
         } else {
             crawlerMapper.heartbeatFailed(crawlerId);

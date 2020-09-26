@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -21,13 +22,27 @@ public class UrlServiceImpl implements UrlService {
     private UrlMapper urlMapper;
 
     @Override
-    public List<Url> getUrlToExecuteForSite(Integer downSystemSiteId, Integer taskBatchCount) {
-        R<List<Url>> result = restTemplate.getForObject(String.format("http://localhost:10042/url/getByDownSystemSiteId/%d", downSystemSiteId), R.class);
-        return result.getData();
+    public List<Url> getUrlToExecuteForSite(Integer downSystemSiteId, Integer taskUrlBatchCount) {
+        try {
+            R<List<Url>> result = restTemplate.getForObject(String.format("http://localhost:10042/url/getByDownSystemSiteId/%d", downSystemSiteId), R.class);
+            return result.getData();
+        } catch (Exception ex) {
+            return new LinkedList<>();
+        }
     }
 
     @Override
-    public int resetUrlStatusToWaitByDownSystemSite(DownSystemSite downSystemSiteId) {
-        return urlMapper.resetUrlStatusToWaitByDownSystemSite(downSystemSiteId);
+    public int resetCachedUrlToWaitByDownSystemSite(DownSystemSite downSystemSiteId) {
+        return urlMapper.resetCacheUlrToWaitByDownSystemSite(downSystemSiteId);
+    }
+
+    @Override
+    public int resetFailedUrlToWaitByDownSystemSite(DownSystemSite downSystemSite) {
+        return urlMapper.resetFailedUrlToWaitByDownSystemSite(downSystemSite);
+    }
+
+    @Override
+    public int resetSuccessUrlToWaitByDownSystemSite(DownSystemSite downSystemSite) {
+        return urlMapper.resetSucceedUrlToWaitByDownSystemSite(downSystemSite);
     }
 }

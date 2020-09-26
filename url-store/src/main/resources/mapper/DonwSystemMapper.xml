@@ -12,12 +12,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     </update>
     <update id="increaseBadUrlCount">
         update down_system
-        set  url_bad_count = url_total_count + #{count}
+        set  url_bad_count = url_bad_count + #{count}
         where id = #{id}
     </update>
     <update id="increaseFinishedUrlCount">
         update down_system
-        set  url_finished_count = url_total_count + #{count}
+        set  url_finished_count = url_finished_count + #{count}
         where id = #{id}
     </update>
 </mapper>

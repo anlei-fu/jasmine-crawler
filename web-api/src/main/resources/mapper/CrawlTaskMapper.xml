@@ -26,9 +26,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="urlSuccessCount!=null">
                 url_success_count = #{urlSuccessCount},
             </if>
-            <if test="urlNewCount!=null">
-                url_new_count = #{urlNewCount},
-            </if>
             <if test="medianSpeedOfSuccess!=null">
                 median_speed_of_success = #{medianSpeedOfSuccess},
             </if>

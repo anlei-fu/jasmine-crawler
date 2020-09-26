@@ -25,7 +25,7 @@ public class SaveTaskResultReq {
     private Integer taskResult;
 
     /**
-     * Msg of task
+     * The result Msg of task
      */
     private String msg;
 

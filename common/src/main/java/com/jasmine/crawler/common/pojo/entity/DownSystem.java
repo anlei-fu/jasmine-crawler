@@ -48,7 +48,7 @@ public class DownSystem extends EnableStatusFeature {
     private String dataQueue;
 
     /**
-     * Max task running conteneously limitation
+     * Max coccurrent running task count limitation
      */
     private Integer taskMaxRunningCount;
 

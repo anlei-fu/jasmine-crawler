@@ -1,17 +1,18 @@
-﻿using Jasmine.DataStore.Model;
+﻿using Jasmine.Crawl.Common.Logging;
+using Jasmine.DataStore.Model;
 using System;
 
 namespace Jasmine.DataStore.Service
 {
-    public class SaveDataTask
+    public class SaveDataTask : LoggerSurpport
     {
         private readonly int _downSystemId;
 
         private readonly int _downSystemSiteId;
 
-        private DataSaveJob _dataSaveJob;
+        private readonly DataSaveJob _dataSaveJob;
 
-        private DataFileSaver _stream;
+        private DataFileSaver _dataSaver;
 
         public SaveDataTask(int downSystemId, int downSystemSiteId, DataSaveJob dataSaveJob)
         {
@@ -24,10 +25,11 @@ namespace Jasmine.DataStore.Service
         {
             try
             {
-                _stream = _dataSaveJob.DataSaverProvider.GetDataStream(_downSystemId, _downSystemSiteId);
+                _dataSaver = _dataSaveJob.DataSaverProvider.GetDataSaver(_downSystemId, _downSystemSiteId);
             }
             catch (Exception ex)
             {
+                Error($"get data stream for site({_downSystemId}) failed", ex);
                 Finish();
                 return;
             }
@@ -39,15 +41,16 @@ namespace Jasmine.DataStore.Service
                     var req = await _dataSaveJob.DataFetcher.FetchAsync(_downSystemSiteId);
                     if (req == null)
                     {
+                        Info($"no more data to save of site({_downSystemSiteId})");
                         Finish();
                         return;
                     }
 
-                    await _stream.SaveAsync(req);
-                    await _dataSaveJob.DataAccess.SyncData(req.TaskId, _downSystemId, req.DownSystemSiteId, _stream.CurrentFile);
+                    await _dataSaver.SaveAsync(req);
                 }
                 catch (Exception ex)
                 {
+                    Error($"site({_downSystemId}) save data failed", ex);
                     Finish();
                     return;
                 }
@@ -56,9 +59,6 @@ namespace Jasmine.DataStore.Service
 
         private void Finish()
         {
-            if (_stream != null)
-                _stream.Close();
-
             _dataSaveJob.FinishTask(_downSystemSiteId);
         }
     }

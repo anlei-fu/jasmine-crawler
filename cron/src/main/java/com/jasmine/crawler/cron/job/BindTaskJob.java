@@ -3,7 +3,10 @@ package com.jasmine.crawler.cron.job;
 import com.jasmine.crawler.common.constant.BindResult;
 import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.support.Counter;
+import com.jasmine.crawler.common.support.CounterProvider;
 import com.jasmine.crawler.common.support.LoggerSupport;
+import com.jasmine.crawler.common.util.DateUtils;
 import com.jasmine.crawler.cron.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -47,6 +50,9 @@ public class BindTaskJob extends LoggerSupport {
     @Autowired
     private SiteIpDelayService siteIpDelayService;
 
+    @Autowired
+    private CounterProvider counterProvider;
+
     @Scheduled(cron = "0 0/1 * * * *")
     public void bindLevel1() {
         bindTask(1);
@@ -67,6 +73,11 @@ public class BindTaskJob extends LoggerSupport {
         bindTask(4);
     }
 
+    /**
+     * Bind task
+     *
+     * @param level
+     */
     private void bindTask(Integer level) {
         info(String.format("-----------begin binding '%d' level task--------------", level));
         List<CrawlTask> tasks = null;
@@ -111,7 +122,7 @@ public class BindTaskJob extends LoggerSupport {
     }
 
     /**
-     * Bind task, whatever bind result increase bind count
+     * Bind task, whatever bind result is increase bind count
      * 1. check site exist, update site concurrency, task count,
      * 2. check down system exist, update site concurrency, task count,
      * 3. check down system site exist,update site concurrency, task count,
@@ -121,7 +132,7 @@ public class BindTaskJob extends LoggerSupport {
      */
     private boolean bindTaskCore(CrawlTask taskToBind) {
 
-        boolean valid = false;
+        boolean valid;
         CrawlTask crawlTaskToUpdate = new CrawlTask();
         crawlTaskToUpdate.setId(taskToBind.getId());
         crawlTaskToUpdate.setDownSystemSiteId(taskToBind.getDownSystemSiteId());
@@ -227,7 +238,16 @@ public class BindTaskJob extends LoggerSupport {
         // get proxy for site if needed
         Proxy proxy = null;
         if (site.getNeedUseProxy() == BooleanFlag.TRUE) {
-            proxy = proxyService.getProxyForSite(site.getId());
+
+            // get available proxy with site ip check
+            List<Proxy> proxies = proxyService.getProxyForSite(site.getId());
+            for (Proxy p : proxies) {
+                if (checkIp(site, p.getIp(), downSystemSite)) {
+                    proxy = p;
+                    break;
+                }
+            }
+
             valid = validate(
                     proxy,
                     taskToBind.getId(),
@@ -244,7 +264,20 @@ public class BindTaskJob extends LoggerSupport {
 
         // get crawler for site
         boolean withIp = proxy == null;
-        Crawler crawler = crawlerService.getCrawlerForSite(site.getId(), downSystemSite.getTaskUrlMaxConcurrency(), withIp);
+        Crawler crawler = null;
+        List<Crawler> crawlers = crawlerService.getCrawlerForSite(site.getId(), downSystemSite.getTaskUrlMaxConcurrency(), withIp);
+        if (withIp) {
+            for (Crawler c : crawlers) {
+                if (checkIp(site, crawler.getIp(), downSystemSite)) {
+                    crawler = c;
+                    break;
+                }
+            }
+        } else {
+            if (crawlers.size() != 0)
+                crawler = crawlers.get(0);
+        }
+
         valid = validate(
                 crawler,
                 taskToBind.getId(),
@@ -257,12 +290,73 @@ public class BindTaskJob extends LoggerSupport {
             return false;
 
         crawlTaskToUpdate.setCrawlerId(crawler.getId());
-
         bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler, proxy, cookie);
         info(String.format("bind task(%d) succeed", taskToBind.getId()));
         return true;
     }
 
+    /**
+     * To check is the ip available for site
+     *
+     * @param site
+     * @param ip
+     * @param downSystemSite
+     * @return
+     */
+    private boolean checkIp(Site site, String ip, DownSystemSite downSystemSite) {
+
+        // 10 minutes ip limit check
+        if (site.getIp10MinuteSpeedLimit() != BooleanFlag.NO_NEED) {
+            long dateKey = System.currentTimeMillis() % (DateUtils.ONE_DAY_MS * 10);
+            long expire = DateUtils.ONE_MINUTE_MS * 10 - (System.currentTimeMillis() - dateKey);
+            Counter tenMinuteLimitCounter = counterProvider.getCounter(
+                    String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
+                    site.getIp10MinuteSpeedLimit(),
+                    (int) expire);
+
+            if (tenMinuteLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount()))
+                return false;
+        }
+
+        // hour ip limit check
+        if (site.getIpHourSpeedLimit() != BooleanFlag.NO_NEED) {
+            long dateKey = System.currentTimeMillis() % (DateUtils.ONE_HOUR_MS);
+            long expire = DateUtils.ONE_HOUR_MS - (System.currentTimeMillis() - dateKey);
+            Counter hourLimitCounter = counterProvider.getCounter(
+                    String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
+                    site.getIpHourSpeedLimit(),
+                    (int) expire);
+
+            if (hourLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount()))
+                return false;
+        }
+
+        // day ip limit check
+        if (site.getIpDaySpeedLimit() != BooleanFlag.NO_NEED) {
+            long dateKey = System.currentTimeMillis() % DateUtils.ONE_DAY_MS;
+            long expire = DateUtils.ONE_DAY_MS - (System.currentTimeMillis() - dateKey);
+            Counter dayLimitCounter = counterProvider.getCounter(
+                    String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
+                    site.getIpDaySpeedLimit(),
+                    (int) expire);
+
+            if (dayLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount()))
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * To validate is component available for task, if not available , add a failed binding record
+     *
+     * @param target
+     * @param taskToBindId
+     * @param bindResult
+     * @param taskToUpdate
+     * @param bindMsg
+     * @return
+     */
     private boolean validate(
             Object target,
             Integer taskToBindId,
@@ -298,6 +392,17 @@ public class BindTaskJob extends LoggerSupport {
         return true;
     }
 
+    /**
+     * After bind success
+     *
+     * @param taskToBindId
+     * @param crawlTaskToUpdate
+     * @param site
+     * @param downSystemSite
+     * @param crawler
+     * @param proxy
+     * @param cookie
+     */
     @Transactional
     public void bindSuccess(
             Integer taskToBindId,
@@ -352,7 +457,7 @@ public class BindTaskJob extends LoggerSupport {
                 .build();
 
         bindRecordService.add(record);
-
+        crawlTaskToUpdate.setTaskUrlConcurrency(downSystemSite.getTaskUrlMaxConcurrency());
         // update task bind status
         crawlTaskService.bindSuccess(crawlTaskToUpdate);
     }

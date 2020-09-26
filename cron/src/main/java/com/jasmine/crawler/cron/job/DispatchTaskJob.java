@@ -71,7 +71,7 @@ public class DispatchTaskJob extends LoggerSupport {
      * <p>
      * TODO: are these checks required ? binding job has already done check once
      */
-    @Scheduled(cron = "0 0/2 * * * ?")
+    @Scheduled(cron = "0/30 * * * * ?")
     public void run() {
         info("--------------begin dispatching crawl task----------------");
 
@@ -253,7 +253,7 @@ public class DispatchTaskJob extends LoggerSupport {
         } catch (Exception ex) {
             resp.setCode(500);
             resp.setMessage("failed");
-            error(String.format("post crawler(%d) failed", crawler.getId()), ex);
+//            error(String.format("post crawler(%d) failed", crawler.getId()), ex);
         }
 
         if (!resp.isSuccess()) {

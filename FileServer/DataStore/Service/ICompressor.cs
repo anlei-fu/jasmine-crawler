@@ -9,6 +9,6 @@ namespace Jasmine.DataStore.Service
         byte[] Compress(string source);
         byte[] Compress(byte[] source);
 
-        byte[] DeCompress(byte[] source);
+        byte[] Decompress(byte[] source);
     }
 }

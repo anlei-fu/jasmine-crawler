@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisQueueUrlResultFetcher implements UrlResultFetcher {
 
-    @Autowired
     private RQueue<SaveUrlResultReq> queue;
 
     public RedisQueueUrlResultFetcher(RedissonClient client) {

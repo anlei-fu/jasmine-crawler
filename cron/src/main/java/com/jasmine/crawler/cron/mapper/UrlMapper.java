@@ -5,5 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UrlMapper {
-    int resetUrlStatusToWaitByDownSystemSite(DownSystemSite downSystemSiteId);
+    int resetCacheUlrToWaitByDownSystemSite(DownSystemSite downSystemSiteId);
+
+    int resetFailedUrlToWaitByDownSystemSite(DownSystemSite downSystemSite);
+
+    int resetSucceedUrlToWaitByDownSystemSite(DownSystemSite downSystemSite);
 }

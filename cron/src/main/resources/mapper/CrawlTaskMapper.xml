@@ -11,11 +11,13 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
          site_id,
          down_system_site_id,
          down_system_id,
+         task_url_concurrency,
          bind_timeout_time
         )values(
           #{siteId},
           #{downSystemSiteId},
           #{downSystemId},
+          #{taskUrlConcurrency},
           date_add(current_timestamp,interval greatest((select task_bind_timeout from down_system_site dss where dss.id = #{downSystemSiteId}),1) hour)
         )
     </insert>
@@ -36,16 +38,16 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         ct.down_system_id,
         ct.task_status
         from crawl_task ct
-        join down_system_site dss on ct.down_system_site_id = dss.id
-        join down_system ds on dss.down_system_id =ds.id
-        join site s on dss.site_id = s.id
+        join down_system_site dss on ct.down_system_site_id = dss.id and dss.enable_status = 1
+        join down_system ds on dss.down_system_id =ds.id  and ds.enable_status = 1
+        join site s on dss.site_id = s.id and s.enable_status = 1
+        join down_system_site_run_limit lmt
+        on (dss.id = lmt.down_system_site_id
+        and lmt.hour = hour(current_timestamp )
+        and lmt.week_day_type = weekday(current_timestamp))
         where
         -- 0 wait to bind
         ct.task_status = 1
-        -- enable filter
-        and s.enable_status = 1
-        and ds.enable_status = 1
-        and dss.enable_status = 1
         -- bind level filter
         and ct.bind_count >= #{minBindCount}
         and ct.bind_count &lt; #{maxBindCount}
@@ -53,38 +55,29 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         and dss.task_current_running_count &lt; dss.task_max_running_count
         and ds.task_current_running_count &lt; ds.task_max_running_count
         order by
-        0.3 * ds.priority / 10 +
-        0.2 * dss.priority / 10 +
-        0.15 * (ds.task_max_running_count -ds.task_current_running_count)/ds.task_max_running_count+
-        0.1 * (dss.task_max_running_count-dss.task_current_running_count)/dss.task_max_running_count+
-        0.15 * (ds.url_total_count-ds.url_finished_count)/ds.url_total_count+
-        0.1 * (dss.url_total_count- dss.url_finished_count)/dss.url_total_count desc,
-        ct.create_time asc
+        ct.create_time
+        asc
   </select>
     <select id="getTaskToBindLowestLevel" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select
         *
         from crawl_task ct
-        join down_system_site dss on ct.down_system_site_id = dss.id
-        join down_system ds on dss.down_system_id =ds.id
-        join site s on dss.site_id = s.id
+        join down_system_site dss on ct.down_system_site_id = dss.id and dss.enable_status = 1
+        join down_system ds on dss.down_system_id =ds.id  and ds.enable_status = 1
+        join site s on dss.site_id = s.id and s.enable_status = 1
+        join down_system_site_run_limit lmt
+        on (dss.id = lmt.down_system_site_id
+        and lmt.hour = hour(current_timestamp )
+        and lmt.week_day_type = weekday(current_timestamp))
         where
         -- 0 wait to bind
         ct.task_status = 1
-        and s.enable_status = 1
-        and ds.enable_status =
-        and dss.enable_status = 1
         and ct.bind_count >= 30
         and dss.task_current_running_count &lt; dss.task_max_running_count
         and ds.task_current_running_count &lt; ds.task_max_running_count
         order by
-        0.3 * ds.priority / 10 +
-        0.2 * dss.priority / 10 +
-        0.15 * (ds.task_max_running_count -ds.task_current_running_count)/ds.task_max_running_count+
-        0.1 * (dss.task_max_running_count-dss.task_current_running_count)/dss.task_max_running_count+
-        0.15 * (ds.url_total_count-ds.url_finished_count)/ds.url_total_count+
-        0.1 * (dss.url_total_count- dss.url_finished_count)/dss.url_total_count desc,
-        ct.create_time asc
+        ct.create_time
+        asc
     </select>
 
     <update id="bindSuccess">
@@ -103,6 +96,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         bind_last_time = current_timestamp,
         bind_last_msg = 'success',
         bind_count = bind_count + 1,
+        task_url_concurrency = #{taskUrlConcurrency},
         task_status = 2
         where
         id = #{id}
@@ -127,8 +121,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         dss.crawler_page_timeout as download_page_timeout,
         dss.crawler_page_headers as headers,
         dss.crawler_page_user_agent_type as user_agent_type,
-
-        dss.task_url_max_concurrency as url_max_concurrency,
         dss.task_url_max_fail_count as url_max_fail_count,
         dss.task_url_max_continuously_fail_count as url_max_continuously_fail_count,
 
@@ -139,7 +131,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 
         ct.cookie_id,
         ck.cookie,
-
+        ct.task_url_concurrency,
         ct.id as task_id,
         ct.site_id,
         ct.down_system_site_id,

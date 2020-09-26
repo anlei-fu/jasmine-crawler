@@ -18,7 +18,7 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     private CrawlTaskMapper crawlTaskMapper;
 
     @Override
-    public void syncUrl(Integer taskId) {
-        crawlTaskMapper.syncUrl(taskId);
+    public void syncUrl(Integer taskId,Integer urlNewCount) {
+        crawlTaskMapper.syncUrl(taskId, urlNewCount);
     }
 }

@@ -5,7 +5,9 @@
 SELECT
 dss.id,
 dss.site_id,
-dss.down_system_id
+dss.down_system_id,
+dss.task_max_count,
+dss.task_current_count
 FROM down_system_site dss
 left join site s on dss.site_id =s.id
 left join down_system ds on dss.down_system_id =ds.id
@@ -22,24 +24,68 @@ select
 from down_system_site
 where id = #{id}
 </select>
+    <select id="getNeedExecuteFailedRetryJobSites"
+            resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+        select
+          id,
+          url_failed_retry_timeout
+          from  down_system_site t
+          where
+          t.url_next_failed_retry_job_time &lt;current_timestamp
+          and t.url_failed_retry_job_execute_interval != -1
+    </select>
+    <select id="getNeedExecuteResetJobSites"
+            resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+          select
+          id,
+          url_reset_timeout
+          from  down_system_site t
+          where
+          t.url_next_reset_job_time &lt;current_timestamp
+          and t.url_reset_job_execute_interval != -1
+    </select>
+    <select id="getUrlCacheTimeoutJobSites" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+          select
+          id,
+          url_cache_timeout
+          from  down_system_site t
+          where
+          t.url_next_cache_timeout_job_time &lt;current_timestamp
+          and t.url_cache_timeout_job_execute_interval != -1
+    </select>
     <update id="increaseCurrentRunningTaskCount">
-update down_system_site
-set task_current_running_count = task_current_running_count + 1
-where id = #{id}
-</update>
+         update down_system_site
+         set task_current_running_count = task_current_running_count + 1
+         where id = #{id}
+    </update>
     <update id="decreaseCurrentRunningTaskCount">
-update down_system_site
-set task_current_running_count = task_current_running_count - 1
-where id = #{id}
-</update>
+        update down_system_site
+        set task_current_running_count = task_current_running_count - 1
+        where id = #{id}
+    </update>
     <update id="increaseCurrentTaskCount">
-update down_system_site
-set task_current_count = task_current_count + 1
-where id = #{id}
-</update>
+        update down_system_site
+        set task_current_count = task_current_count + 1
+        where id = #{id}
+    </update>
     <update id="decreaseCurrentTaskCount">
-update down_system_site
-set task_current_count = task_current_count - 1
-where id = #{id}
-</update>
+        update down_system_site
+        set task_current_count = task_current_count - 1
+        where id = #{id}
+    </update>
+    <update id="updateUrlNextFailedRetryJobTime">
+        update down_system_site
+        set  url_next_failed_retry_job_execute_time = date_add(current_timestamp,interval url_failed_retry_job_interval minute )
+        where id = #{id}
+    </update>
+    <update id="updateUrlNextResetJobTime">
+        update down_system_site
+        set  url_next_reset_job_execute_time = date_add(current_timestamp,interval url_reset_job_interval minute)
+        where id = #{id}
+    </update>
+    <update id="updateUrlNextCacheTimeoutJobTime">
+        update down_system_site
+        set  url_next_cache_timeout_job_execute_time = date_add(current_timestamp,interval url_cache_timeout_job_interval minute )
+        where id = #{id}
+    </update>
 </mapper>

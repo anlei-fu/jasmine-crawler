@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-25 2:58:14 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.tool.mapper.DownSystemSiteMapper">
+
+    <update id="resetConcurrency">
+        update down_system_site
+        set
+         task_current_count = 0,
+         task_current_running_count =0
+        where id = #{id}
+    </update>
+    <select id="getConcurrency" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+        select
+        down_system_id,
+        task_current_running_count
+        from down_system_site
+        where id = #{id}
+    </select>
+    <select id="get" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+        select * from down_system_site where id = #{id}
+    </select>
+</mapper>

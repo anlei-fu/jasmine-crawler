@@ -8,6 +8,8 @@ package com.jasmine.crawler.cron.service;
 
 import com.jasmine.crawler.common.pojo.entity.Proxy;
 
+import java.util.List;
+
 public interface ProxyService {
 
     /**
@@ -24,7 +26,7 @@ public interface ProxyService {
      * @param siteId
      * @return
      */
-    Proxy getProxyForSite(Integer siteId);
+    List<Proxy> getProxyForSite(Integer siteId);
 
     /**
      * Increase proxy current using count

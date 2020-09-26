@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CrawlerMapper {
-    void decreaseCurrentConcurrency(@Param("id") Integer id, @Param("concurrencyToDecrease") Integer concurrencyToDecrease);
+    void reduceCurrentConcurrency(@Param("id") Integer id, @Param("concurrencyToDecrease") Integer concurrencyToDecrease);
 
     Crawler get(@Param("id") Integer id);
 }

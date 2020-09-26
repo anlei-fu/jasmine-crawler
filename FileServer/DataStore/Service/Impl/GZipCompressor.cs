@@ -14,25 +14,24 @@ namespace Jasmine.DataStore.Service.Impl
         }
         public byte[] Compress(byte[] source)
         {
-            using (var stream = new MemoryStream())
+            using (var outStream = new MemoryStream())
             {
-                using (GZipStream s = new GZipStream(stream, CompressionLevel.Fastest))
-                {
-                    s.Write(source, 0, source.Length);
-                    return stream.ToArray();
-                }
+                using (var tinyStream = new GZipStream(outStream, CompressionMode.Compress))
+                using (var mStream = new MemoryStream(source))
+                    mStream.CopyTo(tinyStream);
+
+                return outStream.ToArray();
             }
         }
 
-        public byte[] DeCompress(byte[] source)
+        public byte[] Decompress(byte[] source)
         {
-            using (var stream = new MemoryStream())
+            using (var inStream = new MemoryStream(source))
+            using (var bigStream = new GZipStream(inStream, CompressionMode.Decompress))
+            using (var bigStreamOut = new MemoryStream())
             {
-                using (GZipStream s = new GZipStream(stream, CompressionMode.Decompress))
-                {
-                    s.Write(source, 0, source.Length);
-                    return stream.ToArray();
-                }
+                bigStream.CopyTo(bigStreamOut);
+               return bigStreamOut.ToArray();
             }
         }
     }

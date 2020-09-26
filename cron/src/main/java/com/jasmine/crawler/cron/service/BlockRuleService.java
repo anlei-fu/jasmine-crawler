@@ -5,5 +5,12 @@ import com.jasmine.crawler.common.pojo.entity.BlockRule;
 import java.util.List;
 
 public interface BlockRuleService {
-    List<BlockRule> getByDownSystemSiteId(Integer id);
+
+    /**
+     * Get block rules of target site
+     *
+     * @param downSystemSiteId
+     * @return
+     */
+    List<BlockRule> getByDownSystemSiteId(Integer downSystemSiteId);
 }

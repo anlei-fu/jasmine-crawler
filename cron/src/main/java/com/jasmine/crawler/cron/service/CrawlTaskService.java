@@ -17,15 +17,23 @@ import java.util.List;
 public interface CrawlTaskService {
 
     /**
-     * Add crawl task
+     * Get task info
      *
-     * @param taskToCreate
+     * @param taskId
      * @return
      */
-    boolean add(CrawlTask taskToCreate);
+    CrawlTask get(Integer taskId);
 
     /**
-     * Delete crawl task by id
+     * Add crawl task
+     *
+     * @param crawlTask
+     * @return
+     */
+    boolean add(CrawlTask crawlTask);
+
+    /**
+     * Delete crawl task
      *
      * @param taskId
      * @return
@@ -34,6 +42,13 @@ public interface CrawlTaskService {
 
     /**
      * Get crawl tasks to bind
+     * <p>
+     * level       bind count  interval
+     * level 1 :   5            1 min
+     * level 2 :   5 - 10       2 min
+     * level 3 :   10 -15       5 min
+     * level 4 :   15 -20       10 min
+     * other   :   *            30 min
      *
      * @param level
      * @return
@@ -41,7 +56,7 @@ public interface CrawlTaskService {
     List<CrawlTask> getTasksToBind(Integer level);
 
     /**
-     * Handle bind failed
+     * Handle bind task failed failed
      *
      * @param taskToUpdate
      */
@@ -56,14 +71,14 @@ public interface CrawlTaskService {
     boolean bindSuccess(CrawlTask taskToUpdate);
 
     /**
-     * Get crawl tasks config to dispatch
+     * Get crawl tasks( bind success) configs to dispatch
      *
      * @return
      */
     List<CrawlTaskConfig> getTasksConfigsToDispatch();
 
     /**
-     * Update crawl task to bind
+     * Handle task bind success
      *
      * @param downSystemSiteId
      * @param downSystemSiteId
@@ -72,21 +87,21 @@ public interface CrawlTaskService {
     boolean dispatchSuccess(Integer taskId, Integer downSystemSiteId);
 
     /**
-     * Update task when dispatch failed
+     * Handle dispatch failed
      *
      * @param dispatchFailedTask
      */
     void dispatchFailed(CrawlTask dispatchFailedTask);
 
     /**
-     * Get timeout crawl tasks to terminate
+     * Get execute timeout crawl tasks to terminate
      *
      * @return
      */
-    List<CrawlTask> getTimeoutTasksToTerminate();
+    List<CrawlTask> getExecuteTimeoutTasks();
 
     /**
-     * Terminate timeout crawl task
+     * Terminate execute timeout crawl task
      *
      * @param taskId
      */
@@ -100,9 +115,17 @@ public interface CrawlTaskService {
      */
     CrawlTask getForUpdate(Integer taskId);
 
-    void bindTimeout(Integer id);
+    /**
+     * Terminate bind timeout crawl task
+     *
+     * @param id
+     */
+    void terminateBindTimeoutTask(Integer id);
 
+    /**
+     * Get the tasks which over max bind time
+     *
+     * @return
+     */
     List<CrawlTask> getBindTimeoutTasks();
-
-    CrawlTask get(Integer taskId);
 }

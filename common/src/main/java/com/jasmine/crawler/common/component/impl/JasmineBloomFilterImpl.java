@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
+/**
+ * Base on google guava bloom filter
+ */
 public class JasmineBloomFilterImpl implements JasmineBloomFilter {
 
     private BloomFilter<CharSequence> innerFilter;
@@ -19,18 +22,18 @@ public class JasmineBloomFilterImpl implements JasmineBloomFilter {
     @Override
     public boolean add(String url) throws Exception {
         if (!initialized())
-            throw new Exception("has not been initialized");
+            throw new Exception("the filter has not been initialized");
 
         return innerFilter.put(url);
     }
 
     @Override
-    public void load(String data) throws IOException {
+    public void load(String base64Str) throws IOException {
         if (this._initialized)
             return;
 
         this.innerFilter = BloomFilter.readFrom(
-                new ByteArrayInputStream(Base64.getDecoder().decode(data)),
+                new ByteArrayInputStream(Base64.getDecoder().decode(base64Str)),
                 Funnels.stringFunnel(Charset.forName("utf8"))
         );
 

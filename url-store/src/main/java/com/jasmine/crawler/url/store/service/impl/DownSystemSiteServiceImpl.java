@@ -18,17 +18,17 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     }
 
     @Override
-    public void increaseNewUrlCount(Integer downSystemSiteId, int size) {
-        downSystemSiteMapper.increaseNewUrlCount(downSystemSiteId, size);
+    public void addNewUrlCount(Integer downSystemSiteId, int size) {
+        downSystemSiteMapper.addNewUrlCount(downSystemSiteId, size);
     }
 
     @Override
-    public void increaseBadUrlCount(Integer id, int size) {
-        downSystemSiteMapper.increaseBadUrlCount(id, size);
+    public void addBadUrlCount(Integer id, int size) {
+        downSystemSiteMapper.addBadUrlCount(id, size);
     }
 
     @Override
-    public void increaseFinishedUrlCount(Integer id, int size) {
-        downSystemSiteMapper.increaseFinishedUrlCount(id, size);
+    public void addFinishedUrlCount(Integer id, int size) {
+        downSystemSiteMapper.addFinishedUrlCount(id, size);
     }
 }

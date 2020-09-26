@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface CrawlTaskMapper {
-    void syncUrl(@Param("id") Integer id);
+    void syncUrl(@Param("id") Integer id, @Param("urlNewCount") Integer urlNewCount);
 }

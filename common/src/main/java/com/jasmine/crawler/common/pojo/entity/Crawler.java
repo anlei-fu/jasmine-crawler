@@ -26,17 +26,22 @@ public class Crawler extends EnableStatusFeature {
     private String name;
 
     /**
-     *
+     * Type of the crawler
      */
-    private String clientVersion;
+    private Integer crawlerType;
 
     /**
-     * Th description of the crawler
+     * The description of crawler
      */
     private String description;
 
     /**
-     * The ip of the crawler
+     * The crawler
+     */
+    private String crawlerVersion;
+
+    /**
+     * The ip of crawler
      */
     private String ip;
 
@@ -44,11 +49,6 @@ public class Crawler extends EnableStatusFeature {
      * The port of crawler to host rest service
      */
     private Integer port;
-
-    /**
-     * Type of the crawler
-     */
-    private Integer crawlerType;
 
     /**
      * Unique key of crawler

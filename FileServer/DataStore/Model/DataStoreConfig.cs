@@ -16,5 +16,9 @@ namespace Jasmine.DataStore.Model
 
         public int DataFileMaxSize { get; set; } = 1024 * 1024 * 20;
 
+        public int DataSaverInactiveTimeout { get; set; } = 10;
+
+        public int DataSaverCleanInterval { get; set; } = 10;
+
     }
 }

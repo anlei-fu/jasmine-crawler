@@ -12,6 +12,8 @@ import com.jasmine.crawler.cron.service.ProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProxyServiceImpl implements ProxyService {
 
@@ -19,7 +21,7 @@ public class ProxyServiceImpl implements ProxyService {
     private ProxyMapper proxyMapper;
 
     @Override
-    public Proxy getProxyForSite(Integer siteId) {
+    public List<Proxy> getProxyForSite(Integer siteId) {
         return proxyMapper.getProxyForSite(siteId);
     }
 

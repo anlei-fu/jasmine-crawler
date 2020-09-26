@@ -44,7 +44,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testIncreaseNewUrlCount() throws Exception {
-        service.increaseNewUrlCount(1, 1);
+        service.addNewUrlCount(1, 1);
     }
 
     /**
@@ -52,7 +52,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testIncreaseBadUrlCount() throws Exception {
-        service.increaseBadUrlCount(1, 1);
+        service.addBadUrlCount(1, 1);
     }
 
     /**
@@ -60,7 +60,7 @@ public class DownSystemSiteServiceImplTest {
      */
     @Test
     public void testIncreaseFinishedUrlCount() throws Exception {
-        service.increaseFinishedUrlCount(1, 1);
+        service.addFinishedUrlCount(1, 1);
     }
 
 } 

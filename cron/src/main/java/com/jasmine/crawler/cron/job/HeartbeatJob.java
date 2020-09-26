@@ -36,7 +36,7 @@ public class HeartbeatJob extends LoggerSupport {
         info("-------------begin sending heartbeat---------------");
         List<Crawler> crawlers = null;
         try {
-            crawlers = crawlerService.getCrawlersNeedHeartbeat();
+            crawlers = crawlerService.getNeedHeartbeatCrawlers();
         } catch (Exception ex) {
             error("call getCrawlerNeedHeartbeat failed", ex);
             return;
@@ -86,7 +86,6 @@ public class HeartbeatJob extends LoggerSupport {
                     R.class
             );
         } catch (Exception ex) {
-            error("post crawler failed", ex);
             resp = R.failed(500);
         }
 

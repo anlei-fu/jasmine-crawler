@@ -61,6 +61,5 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             )
         </if>
         order by c.current_concurrency/c.max_concurrency asc
-        limit 0,1
     </select>
 </mapper>

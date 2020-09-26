@@ -16,30 +16,30 @@ import java.util.List;
 public interface CrawlerService {
 
     /**
-     * Get crawler info by crawlerId
+     * Get crawler info
      *
-     * @param crawlerId
+     * @param id
      * @return
      */
-    Crawler get(int crawlerId);
+    Crawler get(int id);
 
     /**
-     * Get an available crawler for site
+     * Get an available crawlers for site
      *
      * @param siteId
      * @param taskUrlMaxConcurrency
-     * @param withIp
+     * @param useCrawlerIp
      * @return
      */
-    Crawler getCrawlerForSite(Integer siteId, Integer taskUrlMaxConcurrency, boolean withIp);
+    List<Crawler> getCrawlerForSite(Integer siteId, Integer taskUrlMaxConcurrency, boolean useCrawlerIp);
 
     /**
-     * Increase crawler current concurrency
+     * Change crawler current concurrency
      *
      * @param crawlerId
-     * @param concurrencyToIncrease
+     * @param concurrencyToChange
      */
-    void changeCurrentConcurrency(Integer crawlerId, Integer concurrencyToIncrease);
+    void changeCurrentConcurrency(Integer crawlerId, Integer concurrencyToChange);
 
     /**
      * Get crawlers which need to do heartbeat check,the {@Field Crawler.heartbeatLostCount} smaller
@@ -47,14 +47,14 @@ public interface CrawlerService {
      *
      * @return
      */
-    List<Crawler> getCrawlersNeedHeartbeat();
+    List<Crawler> getNeedHeartbeatCrawlers();
 
     /**
      * Update crawler heartbeat status
      *
      * @param crawlerId
-     * @param isUp
+     * @param up
      */
-    void updateHeartbeatStatus(Integer crawlerId, boolean isUp);
+    void updateHeartbeatStatus(Integer crawlerId, boolean up);
 
 }

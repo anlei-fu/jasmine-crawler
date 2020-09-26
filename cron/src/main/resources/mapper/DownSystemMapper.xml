@@ -15,21 +15,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set task_current_running_count = task_current_running_count - 1
         where id = #{id}
     </update>
-    <update id="updateUrlLastCacheTimeoutJobTime">
-        update down_system_site
-        set url_last_cache_timeout_job_time = current_timestamp
-        where id = #{id}
-    </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystem">
         select * from down_system
         where id = #{id}
-    </select>
-    <select id="getUrlCacheTimeoutJobSites" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
-        select
-         id,
-         url_cache_timeout
-         from down_system_site
-         where
-         date_add(url_last_cache_timeout_job_time,interval url_last_cache_timeout_job_interval minute)  &lt; current_timestamp
     </select>
 </mapper>

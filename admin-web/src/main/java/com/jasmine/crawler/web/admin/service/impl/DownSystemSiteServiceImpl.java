@@ -11,15 +11,18 @@ import com.jasmine.crawler.common.component.impl.JasmineBloomFilterImpl;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.DownSystemSiteMapper;
+import com.jasmine.crawler.web.admin.mapper.DownSystemSiteRunLimitMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
+import com.jasmine.crawler.web.admin.service.DownSystemSiteRunLimitService;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,13 +33,21 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     @Autowired
     private DownSystemSiteMapper downSystemSiteMapper;
 
+    @Autowired
+    private DownSystemSiteRunLimitService downSystemSiteRunLimitService;
+
     @Override
+    @Transactional
     public boolean add(AddDownSystemSiteReq req) throws IOException {
         JasmineBloomFilter bloomFilter = new JasmineBloomFilterImpl();
         bloomFilter.init(req.getBloomExpectedUrlSize(), req.getBloomFpp());
         req.setBloom(bloomFilter.dump());
-        return downSystemSiteMapper.add(req) > 0;
+        int id= downSystemSiteMapper.add(req) ;
+        downSystemSiteRunLimitService.createLimit(id);
+        return  id >0;
     }
+
+
 
     @Override
     public boolean deleteById(Integer id) {

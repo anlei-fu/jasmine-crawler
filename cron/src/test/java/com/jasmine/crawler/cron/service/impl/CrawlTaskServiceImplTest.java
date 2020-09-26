@@ -89,7 +89,7 @@ public class CrawlTaskServiceImplTest {
      */
     @Test
     public void testGetTimeoutTasksToTerminate() throws Exception {
-        List<CrawlTask> tasks = service.getTimeoutTasksToTerminate();
+        List<CrawlTask> tasks = service.getExecuteTimeoutTasks();
         TestUtils.print(tasks, "executing timeout task");
     }
 

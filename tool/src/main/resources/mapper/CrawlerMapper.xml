@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Jasmine code generator, a tool to build web crud application,with spring-
+boot, mybatis, mysql,swagger,spring-security.
+Generated at 2020-7-25 2:58:14 PM
+All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
+<mapper namespace="com.jasmine.crawler.tool.mapper.CrawlerMapper">
+    <update id="resetConcurrency">
+        update crawler
+        set current_concurrency = 0
+        where id = #{id}
+    </update>
+    <update id="resetHeartbeatLost">
+        update crawler
+        set heartbeat_lost_count = 0
+        where id = #{id}
+    </update>
+</mapper>

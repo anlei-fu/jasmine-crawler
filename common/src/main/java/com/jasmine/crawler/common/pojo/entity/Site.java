@@ -62,10 +62,13 @@ public class Site extends EnableStatusFeature {
     private Integer proxyRegion;
 
     /**
-     *
+     * Allow account cross ip
      */
     private Integer accountAllowCrossIp;
 
+    /**
+     * Allow account use concurrently
+     */
     private Integer accountAllowMultiple;
 
     /**
@@ -94,7 +97,7 @@ public class Site extends EnableStatusFeature {
     private Integer accountBlockTimeout;
 
     /**
-     *
+     * Allow cookie cross ip
      */
     private Integer cookieAllowCrossIp;
 
@@ -142,6 +145,11 @@ public class Site extends EnableStatusFeature {
      * The max pv per ip within in an hour
      */
     private Integer ipHourSpeedLimit;
+
+    /**
+     * The max pv per ip within in 10 minute
+     */
+    private Integer ip10MinuteSpeedLimit;
 
     /**
      * The max pv per ip within in one minute

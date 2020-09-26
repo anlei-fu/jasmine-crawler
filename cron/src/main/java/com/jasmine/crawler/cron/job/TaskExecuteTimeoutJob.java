@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
+public class TaskExecuteTimeoutJob extends LoggerSupport {
 
     @Autowired
     private CrawlTaskService crawlTaskService;
@@ -27,7 +27,7 @@ public class TerminateExecutingTimeoutTaskJob extends LoggerSupport {
         info("----------------------------begin terminate timeout task-------------------------------");
         List<CrawlTask> tasks = null;
         try {
-            tasks = crawlTaskService.getTimeoutTasksToTerminate();
+            tasks = crawlTaskService.getExecuteTimeoutTasks();
         } catch (Exception ex) {
             error("call terminate task failed", ex);
         }

@@ -33,5 +33,10 @@ public interface SiteAccountService {
      */
     void decreaseCurrentUseCount(Integer id);
 
+    /**
+     * Set status to disabled
+     *
+     * @param id
+     */
     void block(Integer id);
 }

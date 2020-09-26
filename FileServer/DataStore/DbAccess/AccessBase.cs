@@ -23,6 +23,7 @@ namespace Jasmine.DataStore.DbAccess
             {
                 using (var connection = GetConnection())
                 {
+                    connection.Open();
                     return await connection.ExecuteAsync(sql);
                 }
             }
@@ -38,6 +39,7 @@ namespace Jasmine.DataStore.DbAccess
             {
                 using (var connection = GetConnection())
                 {
+                    connection.Open();
                     return await connection.QueryFirstAsync<T>(sql);
                 }
             }
@@ -53,6 +55,7 @@ namespace Jasmine.DataStore.DbAccess
             {
                 using (var connection = GetConnection())
                 {
+                    connection.Open();
                     return await connection.QueryAsync<T>(sql);
                 }
             }
@@ -69,8 +72,9 @@ namespace Jasmine.DataStore.DbAccess
             {
                 using (var connection = GetConnection())
                 {
+                    connection.Open();
                     trans = connection.BeginTransaction();
-                    await connection.ExecuteAsync(sql, transaction: trans);
+                    await connection.ExecuteAsync(sql, null, trans);
                     trans.Commit();
                 }
             }

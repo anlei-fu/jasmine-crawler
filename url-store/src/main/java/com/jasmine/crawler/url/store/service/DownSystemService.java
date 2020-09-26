@@ -3,26 +3,26 @@ package com.jasmine.crawler.url.store.service;
 public interface DownSystemService {
 
     /**
-     * Increase new url count
+     * Add new url count
      *
      * @param downSystemId
-     * @param size
+     * @param count
      */
-    void increaseNewUrlCount(Integer downSystemId, int size);
+    void addNewUrlCount(Integer downSystemId, int count);
 
     /**
-     * Increase bad url count
+     * Add bad url count
      *
      * @param downSystemId
-     * @param size
+     * @param count
      */
-    void increaseBadUrlCount(Integer downSystemId, int size);
+    void addBadUrlCount(Integer downSystemId, int count);
 
     /**
-     * Increase finished url count
+     * Add finished url count
      *
      * @param downSystemId
-     * @param size
+     * @param count
      */
-    void increaseFinishedUrlCount(Integer downSystemId, int size);
+    void addFinishedUrlCount(Integer downSystemId, int count);
 }

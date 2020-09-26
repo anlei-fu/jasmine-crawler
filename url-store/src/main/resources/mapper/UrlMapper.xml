@@ -86,7 +86,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             where id = #{item.id}
         </foreach>
     </update>
-    <update id="successUrls">
+    <update id="succeedUrls">
         <foreach collection="list" item="item" separator=";">
             update url
             set

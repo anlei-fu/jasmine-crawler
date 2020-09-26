@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.util.Date;
 
 public class JasmineBloomWrapper implements JasmineBloomFilter {
 
@@ -30,18 +29,18 @@ public class JasmineBloomWrapper implements JasmineBloomFilter {
 
     @Override
     public boolean add(String url) throws Exception {
-        lastActiveTime=System.currentTimeMillis();
+        lastActiveTime = System.currentTimeMillis();
         return innerFilter.add(url);
     }
 
     @Override
-    public void load(String data) throws IOException {
-        innerFilter.load(data);
+    public void load(String base64Str) throws IOException {
+        innerFilter.load(base64Str);
     }
 
     @Override
     public String dump() throws IOException {
-        lastDumpTime=System.currentTimeMillis();
+        lastDumpTime = System.currentTimeMillis();
         return innerFilter.dump();
     }
 

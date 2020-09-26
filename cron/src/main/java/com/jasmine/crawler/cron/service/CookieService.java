@@ -18,10 +18,10 @@ public interface CookieService {
     /**
      * Get cookie info
      *
-     * @param cookieId
+     * @param id
      * @return
      */
-    Cookie get(Integer cookieId);
+    Cookie get(Integer id);
 
     /**
      * Get an available cookie for site

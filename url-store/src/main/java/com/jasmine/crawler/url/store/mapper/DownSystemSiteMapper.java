@@ -8,9 +8,9 @@ import org.apache.ibatis.annotations.Param;
 public interface DownSystemSiteMapper {
     DownSystemSite get(@Param("id") Integer id);
 
-    void increaseNewUrlCount(@Param("id") Integer id, @Param("count") int count);
+    void addNewUrlCount(@Param("id") Integer id, @Param("count") int count);
 
-    void increaseBadUrlCount(@Param("id") Integer id, @Param("count") int count);
+    void addBadUrlCount(@Param("id") Integer id, @Param("count") int count);
 
-    void increaseFinishedUrlCount(@Param("id") Integer id, @Param("count") int count);
+    void addFinishedUrlCount(@Param("id") Integer id, @Param("count") int count);
 }

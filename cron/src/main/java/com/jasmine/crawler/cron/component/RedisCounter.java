@@ -9,30 +9,18 @@ public class RedisCounter implements Counter {
 
     private final int max;
 
-    private long lastActive = System.currentTimeMillis();
-
     public RedisCounter(RAtomicLong longCounter, int max) {
         this.innerCounter = longCounter;
         this.max = max;
     }
 
     @Override
-    public boolean addAndCheck(int value) {
-        if (!isExists())
-            return true;
-
-        lastActive = System.currentTimeMillis();
-        return innerCounter.addAndGet(value) < max;
+    public boolean overMaxLimit(int value) {
+        return !expired() || innerCounter.addAndGet(value) < max;
     }
 
     @Override
-    public boolean isExists() {
+    public boolean expired() {
         return innerCounter.isExists();
     }
-
-    @Override
-    public long getLastActive() {
-        return lastActive;
-    }
-
 }

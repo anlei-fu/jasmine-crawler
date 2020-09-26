@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface CrawlerMapper {
 
-    Crawler getCrawlerForSite(
+    List<Crawler> getCrawlerForSite(
             @Param("siteId") Integer siteId,
             @Param("taskUrlMaxConcurrency") Integer taskUrlMaxConcurrency,
             @Param("withIp") boolean withIp);

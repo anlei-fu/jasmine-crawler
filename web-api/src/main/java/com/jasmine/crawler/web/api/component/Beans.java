@@ -3,6 +3,7 @@ package com.jasmine.crawler.web.api.component;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
+import org.redisson.codec.SmileJacksonCodec;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class Beans {
         config.setTransportMode(TransportMode.NIO);
         config.setCodec(JsonJacksonCodec.INSTANCE);
         config.useSingleServer()
-                .setAddress("redis://192.168.29.136:6379")
+                .setAddress("redis://192.168.29.138:6379")
                 .setPassword(null)
                 .setDatabase(0);
         return Redisson.create(config);

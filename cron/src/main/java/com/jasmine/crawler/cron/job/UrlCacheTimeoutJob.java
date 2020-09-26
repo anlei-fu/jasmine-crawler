@@ -2,7 +2,7 @@ package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.support.LoggerSupport;
-import com.jasmine.crawler.cron.service.DownSystemService;
+import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import com.jasmine.crawler.cron.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,14 +21,14 @@ public class UrlCacheTimeoutJob extends LoggerSupport {
     private UrlService urlService;
 
     @Autowired
-    private DownSystemService downSystemService;
+    private DownSystemSiteService downSystemSiteService;
 
     @Scheduled(cron = "32 */10 * * * *")
     public void run() {
 
         List<DownSystemSite> downSystemSites = null;
         try {
-            downSystemSites = downSystemService.getUrlCacheTimeoutJobSites();
+            downSystemSites = downSystemSiteService.getNeedExecuteUrlCacheTimeoutJobSites();
         } catch (Exception ex) {
 
         }
@@ -43,10 +43,10 @@ public class UrlCacheTimeoutJob extends LoggerSupport {
         int exception = 0;
         for (final DownSystemSite downSystemSite : downSystemSites) {
             try {
-                int t = urlService.resetUrlStatusToWaitByDownSystemSite(downSystemSite);
+                int t = urlService.resetCachedUrlToWaitByDownSystemSite(downSystemSite);
                 info(String.format("downSystemSite(%d) reset %d url state to wait ", downSystemSite.getId(), t));
                 succeed++;
-                downSystemService.updateUrlLastCacheTimeoutJobTime(downSystemSite.getId());
+                downSystemSiteService.updateUrlNextCacheTimeoutJobExecuteTime(downSystemSite.getId());
             } catch (Exception ex) {
                 error(String.format("downSystemSite(%d) reset url state to wait failed", downSystemSite.getId()), ex);
                 exception++;

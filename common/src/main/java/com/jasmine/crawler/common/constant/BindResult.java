@@ -5,7 +5,7 @@ package com.jasmine.crawler.common.constant;
  */
 public final class BindResult {
     /**
-     * Means bind success
+     * Means task bind success
      */
     public static final Integer SUCCESS = 1;
 
@@ -25,22 +25,22 @@ public final class BindResult {
     public static final Integer DOWN_SYSTEM_SITE_NOT_AVAILABLE = 4;
 
     /**
-     * Means task bind failed cause no cookie available
+     * Means task bind failed cause no cookie available fro task
      */
     public static final Integer NO_COOKIE_AVAILABLE = 5;
 
     /**
-     * Means task bind failed cause no proxy available
+     * Means task bind failed cause no proxy available for task
      */
     public static final Integer NO_PROXY_AVAILABLE = 6;
 
     /**
-     * Means task bind failed cause no proxy available
+     * Means task bind failed cause no crawler available for task
      */
     public static final Integer NO_CRAWLER_AVAILABLE = 7;
 
     /**
-     * Means bind failed cause over down system site max  concurrent running task count
+     * Means bind failed cause over down system site max concurrent running task count
      */
     public static final Integer OVER_DOWN_SYSTEM_SITE_MAX_CONCURRENCY = 8;
 

@@ -8,19 +8,36 @@ import java.util.List;
 public interface UrlService {
 
     /**
-     * Get url for down system site
+     * Get url for down system site task
      *
      * @param downSystemSiteId
-     * @param taskBatchCount  count of url to crawl
+     * @param taskUrlBatchCount   count of url to crawl
      * @return
      */
-    List<Url> getUrlToExecuteForSite(Integer downSystemSiteId, Integer taskBatchCount);
+    List<Url> getUrlToExecuteForSite(Integer downSystemSiteId, Integer taskUrlBatchCount);
 
     /**
-     * Reset url status to wait which cached and has not been execute over max cache time
+     * Reset url status to wait which cached and has not been execute over max cache time,
+     * it may have been lost
      *
      * @param downSystemSite
      * @return
      */
-    int resetUrlStatusToWaitByDownSystemSite(DownSystemSite downSystemSite);
+    int resetCachedUrlToWaitByDownSystemSite(DownSystemSite downSystemSite);
+
+    /**
+     * Reset failed to wait status and execute again if has not over url nax fail count
+     *
+     * @param downSystemSite
+     * @return
+     */
+    int resetFailedUrlToWaitByDownSystemSite(DownSystemSite downSystemSite);
+
+    /**
+     * Reset succeed url to wait and execute again
+     *
+     * @param downSystemSite
+     * @return
+     */
+    int resetSuccessUrlToWaitByDownSystemSite(DownSystemSite downSystemSite);
 }

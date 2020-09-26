@@ -12,17 +12,17 @@ public class DownSystemServiceImpl implements DownSystemService {
     private DownSystemMapper downSystemMapper;
 
     @Override
-    public void increaseNewUrlCount(Integer downSystemId, int size) {
+    public void addNewUrlCount(Integer downSystemId, int size) {
         downSystemMapper.increaseNewUrlCount(downSystemId, size);
     }
 
     @Override
-    public void increaseBadUrlCount(Integer downSystemId, int size) {
+    public void addBadUrlCount(Integer downSystemId, int size) {
         downSystemMapper.increaseBadUrlCount(downSystemId, size);
     }
 
     @Override
-    public void increaseFinishedUrlCount(Integer downSystemId, int size) {
+    public void addFinishedUrlCount(Integer downSystemId, int size) {
         downSystemMapper.increaseFinishedUrlCount(downSystemId, size);
     }
 }

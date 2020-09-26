@@ -7,5 +7,5 @@ package com.jasmine.crawler.url.store.service;
  * @Description:
  */
 public interface CrawlTaskService {
-    void syncUrl(Integer taskId);
+    void syncUrl(Integer taskId,Integer urlNewCount);
 }

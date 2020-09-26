@@ -16,3 +16,6 @@ D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\obj\Debug\netstandard
 D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.csproj.CoreCompileInputs.cache
 D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\Jasmine.Crawler.File.dll
 D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\Jasmine.Crawler.File.pdb
+D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\bin\Debug\netstandard2.0\Jasmine.Crawler.Common.dll
+D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\bin\Debug\netstandard2.0\Jasmine.Crawler.Common.pdb
+D:\project\jasmine-crawler\FileServer\jasmine.crawler.file\obj\Debug\netstandard2.0\jasmine.crawler.file.csproj.CopyComplete

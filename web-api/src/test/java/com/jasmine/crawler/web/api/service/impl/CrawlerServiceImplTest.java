@@ -36,7 +36,7 @@ public class CrawlerServiceImplTest {
      */
     @Test
     public void testDecreaseCurrentConcurrency() throws Exception {
-        service.decreaseCurrentConcurrency(1, 100);
+        service.reduceCurrentConcurrency(1, 100);
     }
 
     /**

@@ -1,9 +1,7 @@
 package com.jasmine.crawler.web.api.service.impl;
 
-import com.jasmine.crawler.common.constant.BooleanFlag;
-import com.jasmine.crawler.common.constant.PageResult;
-import com.jasmine.crawler.common.constant.TaskResult;
-import com.jasmine.crawler.common.constant.TaskStatus;
+import cn.hutool.core.util.StrUtil;
+import com.jasmine.crawler.common.constant.*;
 import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.pojo.req.SaveTaskDataReq;
 import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
@@ -15,19 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskService {
 
     @Autowired
-    private UrlResultSaver urlResultSaver;
+    private UrlResultSaveService urlResultSaveService;
 
     @Autowired
-    private DataSaver dataSaver;
+    private DataSaveService dataSaveService;
 
     @Autowired
     private CrawlTaskMapper crawlTaskMapper;
@@ -56,6 +51,9 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
     @Autowired
     private SiteIpBlockMapServiceImpl siteIpBlockMapService;
 
+    @Autowired
+    private DownSystemSiteDispatchService downSystemSiteDispatchService;
+
     @Override
     public boolean saveTaskResult(SaveTaskResultReq req) {
         try {
@@ -66,6 +64,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         } catch (Exception ex) {
             error(String.format("terminate task(%d) failed", req.getTaskId()), ex);
         }
+
         return true;
     }
 
@@ -74,7 +73,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
             List<String> data = new LinkedList<>();
             req.getPageResults().stream().forEach(result -> {
-                if (result.getPageResult() == PageResult.SUCCESS)
+                if (result.getPageResult() == PageResult.SUCCESS && !StrUtil.isEmpty(result.getData()))
                     data.add(result.getData());
             });
 
@@ -83,7 +82,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                     .taskId(req.getTaskId())
                     .data(data)
                     .build();
-            dataSaver.saveData(saveDataResultReq);
+            dataSaveService.saveData(saveDataResultReq);
         } catch (Exception ex) {
             // ignore data loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
@@ -92,16 +91,46 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
     private void saveUrls(SaveTaskResultReq req, Integer downSystemSiteId) {
         try {
+
+            // set data field to null
             req.getPageResults().stream().forEach(r -> {
                 r.setData(null);
             });
 
-            SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
-                    .pageResults(req.getPageResults())
-                    .taskId(req.getTaskId())
-                    .downSystemSiteId(downSystemSiteId)
-                    .build();
-            urlResultSaver.saveUrlResult(saveUrlResultReq);
+            DownSystemSite downSystemSite = downSystemSiteService.get(downSystemSiteId);
+            if (Objects.isNull(downSystemSite))
+                return;
+
+            // save normal url result
+            if (downSystemSite.getDownSystemSiteType() == DownSystemSiteType.NORMAL) {
+                SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
+                        .pageResults(req.getPageResults())
+                        .taskId(req.getTaskId())
+                        .downSystemSiteId(downSystemSiteId)
+                        .build();
+                urlResultSaveService.saveUrlResult(saveUrlResultReq);
+                return;
+            }
+
+            // save dispatch url result
+            Map<Integer, List<Url>> urls = downSystemSiteDispatchService.dispatch(req, downSystemSiteId);
+            for (Map.Entry<Integer, List<Url>> pair : urls.entrySet()) {
+                List<com.jasmine.crawler.common.pojo.dto.PageResult> results = new LinkedList<>();
+                com.jasmine.crawler.common.pojo.dto.PageResult result = com.jasmine.crawler.common.pojo.dto.PageResult.builder()
+                        .newUrls(pair.getValue())
+                        .downSystemSiteId(pair.getKey())
+                        .build();
+
+                results.add(result);
+
+                SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
+                        .pageResults(results)
+                        .downSystemSiteId(downSystemSiteId)
+                        .build();
+                urlResultSaveService.saveUrlResult(saveUrlResultReq);
+            }
+
+
         } catch (Exception ex) {
             // ignore url loss
             error(String.format("save url failed ,task id is %d", req.getTaskId()), ex);
@@ -158,7 +187,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         Site site = siteService.get(task.getSiteId());
         Crawler crawler = crawlerService.get(task.getCrawlerId());
         if (!Objects.isNull(crawler))
-            crawlerService.decreaseCurrentConcurrency(task.getCrawlerId(), downSystemSite.getTaskUrlMaxConcurrency());
+            crawlerService.reduceCurrentConcurrency(task.getCrawlerId(), task.getTaskUrlConcurrency());
 
         // handle block result
         if (req.getTaskResult() == TaskResult.SUCCESS) {
@@ -169,6 +198,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
             if (!Objects.isNull(cookie)) {
                 cookieService.resetBlockCount(cookie.getId());
+
                 if (!Objects.isNull(siteAccount))
                     siteAccountService.resetBlockCount(siteAccount.getId());
             }
@@ -184,6 +214,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         } else if (req.getTaskResult() == TaskResult.ACCOUNT_BLOCKED) {
             if (!Objects.isNull(cookie)) {
                 cookieService.disable(cookie.getId());
+
                 if (!Objects.isNull(siteAccount))
                     siteAccountService.block(siteAccount.getId());
             }
@@ -193,6 +224,7 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
 
             if (!Objects.isNull(cookie)) {
                 cookieService.increaseBlockCount(cookie.getId());
+
                 if (!Objects.isNull(siteAccount))
                     siteAccountService.increaseBlockCount(siteAccount.getId());
             }
@@ -207,11 +239,9 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
         int success = 0;
         int fail = 0;
         int bad = 0;
-        int _new = 0;
         for (final com.jasmine.crawler.common.pojo.dto.PageResult pr : req.getPageResults()) {
             if (pr.getPageResult() == PageResult.SUCCESS) {
                 success++;
-                _new += pr.getNewUrls().size();
             } else if (pr.getPageResult() == PageResult.BAD) {
                 bad++;
             } else {
@@ -229,7 +259,6 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
                 .urlSuccessCount(success)
                 .urlFailedCount(fail)
                 .urlBadCount(bad)
-                .urlNewCount(_new)
                 .urlTotalCount(req.getUrlTotal())
                 .build();
         crawlTaskMapper.finishTask(crawlTaskToUpdate);

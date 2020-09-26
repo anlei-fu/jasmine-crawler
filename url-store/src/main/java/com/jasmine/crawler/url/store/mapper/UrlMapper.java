@@ -21,5 +21,5 @@ public interface UrlMapper {
 
     void failToRunUrls(@Param("list") List<PageResult> list);
 
-    void successUrls(@Param("list") List<PageResult> list);
+    void succeedUrls(@Param("list") List<PageResult> list);
 }

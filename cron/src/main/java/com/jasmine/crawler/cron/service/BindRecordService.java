@@ -14,7 +14,7 @@ import com.jasmine.crawler.common.pojo.entity.BindRecord;
 public interface BindRecordService {
 
     /**
-     * Add bind record happen after bind
+     * Add bind record after bind
      *
      * @param record
      */

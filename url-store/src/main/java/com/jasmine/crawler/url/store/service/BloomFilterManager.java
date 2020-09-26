@@ -8,7 +8,7 @@ import java.io.IOException;
 public interface BloomFilterManager {
 
     /**
-     * Get bloom filter for down system site
+     * Get bloom filter for target down system site
      *
      * @param downSystemSiteId
      * @return
@@ -24,7 +24,7 @@ public interface BloomFilterManager {
     Iterable<JasmineBloomWrapper> getAll();
 
     /**
-     * Unload  bloom filter by down system site id
+     * Unload bloom filter by down system site id
      *
      * @param downSystemSiteId
      */

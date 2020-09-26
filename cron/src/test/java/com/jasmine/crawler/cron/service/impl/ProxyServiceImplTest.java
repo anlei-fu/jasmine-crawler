@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 /**
  * ProxyServiceImpl Tester.
  *
@@ -38,8 +40,8 @@ public class ProxyServiceImplTest {
      */
     @Test
     public void testGetProxyForSite() throws Exception {
-        Proxy p = service.getProxyForSite(1);
-        TestUtils.print(p, "proxy");
+        List<Proxy> proxies = service.getProxyForSite(1);
+        TestUtils.print(proxies, "proxy");
     }
 
     /**

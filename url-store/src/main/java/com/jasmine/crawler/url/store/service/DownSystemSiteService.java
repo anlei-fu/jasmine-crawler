@@ -16,17 +16,23 @@ public interface DownSystemSiteService {
      * Increase new url count
      *
      * @param downSystemSiteId
-     * @param size
+     * @param count
      */
-    void increaseNewUrlCount(Integer downSystemSiteId, int size);
+    void addNewUrlCount(Integer downSystemSiteId, int count);
 
     /**
      * Increase bad url count
      *
      * @param id
-     * @param size
+     * @param count
      */
-    void increaseBadUrlCount(Integer id, int size);
+    void addBadUrlCount(Integer id, int count);
 
-    void increaseFinishedUrlCount(Integer id, int size);
+    /***
+     * Increase finished url count
+     *
+     * @param id
+     * @param count
+     */
+    void addFinishedUrlCount(Integer id, int count);
 }

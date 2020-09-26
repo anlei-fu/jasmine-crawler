@@ -44,7 +44,7 @@ public class CrawlTask {
     /**
      * Task execute timeout (minute)
      */
-    private Date taskTimeoutTime;
+    private Date taskExecuteTimeoutTime;
 
     /**
      * Task bind timeout (minute)
@@ -114,6 +114,11 @@ public class CrawlTask {
     private Date taskStartTime;
 
     /**
+     * The concurrency of task
+     */
+    private Integer taskUrlConcurrency;
+
+    /**
      * The task finish time
      */
     private Date taskFinishTime;
@@ -126,7 +131,7 @@ public class CrawlTask {
     /**
      * The msg of the task
      */
-    private String taskMsg;
+    private String taskResultMsg;
 
     /**
      * Use for statistics

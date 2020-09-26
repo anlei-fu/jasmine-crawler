@@ -22,21 +22,32 @@ public class UlrConsumeJob extends LoggerSupport {
 
     /**
      * Save url result job
-     * 1. update url status
+     *
+     * 1. update url status by page result code
      * 2. save new url
-     * 3. increase down system site url total and finished
-     * 4. increase down system site url total and finished
-     * 5. increase site url total and finished
+     * 3. add down system site url total and finished
+     * 4. add down system site url total and finished
+     * 5. add site url total and finished
      *
      * @throws IOException
      */
-    @Scheduled(cron = "*/30 * * * * ?")
+    @Scheduled(cron = "22/30 * * * * ?")
     public void thread1() throws Exception {
         run();
     }
 
     @Scheduled(cron = "2/25 * * * * ?")
     public void thread2() throws Exception {
+        run();
+    }
+
+    @Scheduled(cron = "12/25 * * * * ?")
+    public void thread3() throws Exception {
+        run();
+    }
+
+    @Scheduled(cron = "42/25 * * * * ?")
+    public void thread4() throws Exception {
         run();
     }
 

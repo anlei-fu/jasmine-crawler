@@ -7,6 +7,6 @@ namespace Jasmine.DataStore.Service.Impl
 {
   public  interface IDataSaverProvider
     {
-       DataFileSaver GetDataStream(int downSystemId,int downSystemSiteId);
+       DataFileSaver GetDataSaver(int downSystemId,int downSystemSiteId);
     }
 }

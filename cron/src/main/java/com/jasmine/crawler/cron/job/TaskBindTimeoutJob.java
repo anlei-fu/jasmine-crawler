@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class TerminateBindTimeoutTaskJob extends LoggerSupport {
+public class TaskBindTimeoutJob extends LoggerSupport {
 
     @Autowired
     private CrawlTaskService crawlTaskService;
@@ -62,6 +62,6 @@ public class TerminateBindTimeoutTaskJob extends LoggerSupport {
             return;
 
         crawlTaskTerminator.terminate(crawlTask, true, false);
-        crawlTaskService.bindTimeout(task.getId());
+        crawlTaskService.terminateBindTimeoutTask(task.getId());
     }
 }

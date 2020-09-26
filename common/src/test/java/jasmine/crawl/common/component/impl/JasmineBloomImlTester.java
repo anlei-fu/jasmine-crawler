@@ -19,7 +19,7 @@ public class JasmineBloomImlTester {
             System.out.println(bloomFilter.add("123"));
             System.out.println(bloomFilter.add("123"));
         } catch (Exception ex) {
-
+            throw ex;
         }
     }
 }

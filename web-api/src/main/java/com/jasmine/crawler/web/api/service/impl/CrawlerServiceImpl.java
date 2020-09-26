@@ -13,8 +13,8 @@ public class CrawlerServiceImpl implements CrawlerService {
     private CrawlerMapper crawlerMapper;
 
     @Override
-    public void decreaseCurrentConcurrency(Integer crawlerId, Integer concurrencyToDecrease) {
-        crawlerMapper.decreaseCurrentConcurrency(crawlerId, concurrencyToDecrease);
+    public void reduceCurrentConcurrency(Integer crawlerId, Integer concurrencyToDecrease) {
+        crawlerMapper.reduceCurrentConcurrency(crawlerId, concurrencyToDecrease);
     }
 
     @Override

@@ -12,5 +12,9 @@ namespace Jasmine.DataStore.DbAccess
         Task<int> GetDownSytemIdByDownSystemSiteId(int downSystemSiteId);
 
         Task<IEnumerable<DownSystemSite>> GetNeedSaveDataSitesAsync();
+
+        Task CreateData(int downSystemSiteId, string file);
+
+        Task UpdateDataAsync(int downSystemSiteId, string file, int length, int total);
     }
 }
