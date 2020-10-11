@@ -47,6 +47,8 @@ public class UpdateSiteReq {
 
     private Integer ipMinuteSpeedLimit;
 
+    private Integer ip10MinuteSpeedLimit;
+
     private Integer ipDaySpeedLimit;
 
     private Integer accountAllowCrossIp;

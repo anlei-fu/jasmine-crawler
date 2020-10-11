@@ -13,10 +13,10 @@ public class TaskSnapShotJob {
     @Autowired
     private TaskSnapShot10MinuteService taskSnapShot10MinuteService;
 
-
-    @Scheduled(cron = "0 */10 * * * *")
+    @Scheduled(cron = "0 */9 * * * ?")
     public void snapShot10Minute() {
-        Date date = new Date(System.currentTimeMillis() % (1000 * 60 * 10));
+        long tenMin = 1000 * 60 * 10;
+        Date date = new Date(System.currentTimeMillis() / tenMin * tenMin);
         taskSnapShot10MinuteService.delete(date);
         taskSnapShot10MinuteService.snapShot10Minute(date);
     }

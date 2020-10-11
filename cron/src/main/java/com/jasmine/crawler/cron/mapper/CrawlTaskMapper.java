@@ -36,7 +36,7 @@ public interface CrawlTaskMapper {
 
     void dispatchFailed(CrawlTask dispatchFailedTask);
 
-    List<CrawlTask> getTimeoutTasksToTerminate();
+    List<CrawlTask> getExecuteTimeoutTasks();
 
     void terminateExecuteTimeoutTask(@Param("id") Integer id);
 

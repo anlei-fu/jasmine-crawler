@@ -11,7 +11,7 @@ public interface UrlService {
      * Get url for down system site task
      *
      * @param downSystemSiteId
-     * @param taskUrlBatchCount   count of url to crawl
+     * @param taskUrlBatchCount count of url to crawl
      * @return
      */
     List<Url> getUrlToExecuteForSite(Integer downSystemSiteId, Integer taskUrlBatchCount);

@@ -38,7 +38,7 @@ public class Crawler extends EnableStatusFeature {
     /**
      * The crawler
      */
-    private String crawlerVersion;
+    private String clientVersion;
 
     /**
      * The ip of crawler

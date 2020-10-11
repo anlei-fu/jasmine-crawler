@@ -13,6 +13,14 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
          task_current_running_count =0
         where id = #{id}
     </update>
+    <update id="updateLimit">
+        update down_system_site
+        set
+          run_limit_allow_auto_balance = 1,
+          run_limit_max_days = #{maxDays},
+          run_limit_max_hours = #{maxHours}
+        where id = #{id}
+    </update>
     <select id="getConcurrency" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
         select
         down_system_id,

@@ -89,4 +89,6 @@ public interface DownSystemSiteService {
      * @param id
      */
     void updateUrlNextCacheTimeoutJobExecuteTime(Integer id);
+
+    void disable(Integer downSystemSiteId);
 }

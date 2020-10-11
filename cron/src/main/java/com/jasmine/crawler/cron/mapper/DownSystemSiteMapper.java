@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface DownSystemSiteMapper {
-    List<DownSystemSite> getNeedCreateNewTaskSite();
+    List<DownSystemSite> getNeedCreateNewTaskSites();
 
     DownSystemSite getById(@Param("id") Integer id);
 

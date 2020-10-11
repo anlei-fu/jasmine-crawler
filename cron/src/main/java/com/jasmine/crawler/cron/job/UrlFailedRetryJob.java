@@ -5,6 +5,7 @@ import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.service.DownSystemSiteService;
 import com.jasmine.crawler.cron.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,12 +19,13 @@ public class UrlFailedRetryJob extends LoggerSupport {
     @Autowired
     private UrlService urlService;
 
+    @Scheduled(cron = "0 0/13 * * * ?")
     public void run() {
         List<DownSystemSite> downSystemSites = null;
         try {
             downSystemSites = downSystemSiteService.getNeedExecuteFailedRetryJobSites();
         } catch (Exception ex) {
-
+            this.error("call getNeedExecuteFailedRetryJobSites failed", ex);
         }
 
         info(String.format("got %d site to execute url failed retry job", downSystemSites.size()));
@@ -37,14 +39,14 @@ public class UrlFailedRetryJob extends LoggerSupport {
         for (final DownSystemSite downSystemSite : downSystemSites) {
             try {
                 int t = urlService.resetFailedUrlToWaitByDownSystemSite(downSystemSite);
-                info(String.format("downSystemSite(%d) reset %d url state to wait ", downSystemSite.getId(), t));
+                info(String.format("downSystemSite(%d) reset %d urls status to wait ", downSystemSite.getId(), t));
                 succeed++;
                 downSystemSiteService.updateUrlNextFailedRetryJobExecuteTime(downSystemSite.getId());
             } catch (Exception ex) {
-                error(String.format("downSystemSite(%d) reset url state to wait failed", downSystemSite.getId()), ex);
+                error(String.format("downSystemSite(%d) reset urls status to wait failed", downSystemSite.getId()), ex);
                 exception++;
             }
         }
-        info(String.format("finish url cache timeout job [succeed:%d] [exception:%d]", succeed, exception));
+        info(String.format("finish url failed retry job [succeed:%d] [exception:%d]", succeed, exception));
     }
 }

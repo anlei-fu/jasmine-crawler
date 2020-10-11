@@ -7,11 +7,12 @@ import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
 @Component
-public class RedisClient {
+public class Beans {
 
     @Bean
     public RedissonClient configConnection() throws IOException {
@@ -23,5 +24,10 @@ public class RedisClient {
                 .setPassword(null)
                 .setDatabase(0);
         return Redisson.create(config);
+    }
+
+    @Bean
+    public RestTemplate create() {
+        return new RestTemplate();
     }
 }

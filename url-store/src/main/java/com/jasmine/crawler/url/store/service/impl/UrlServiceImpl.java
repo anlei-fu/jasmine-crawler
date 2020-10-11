@@ -2,6 +2,7 @@ package com.jasmine.crawler.url.store.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.jasmine.crawler.common.component.JasmineBloomFilter;
+import com.jasmine.crawler.common.constant.UrlType;
 import com.jasmine.crawler.common.pojo.dto.PageResult;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.Url;
@@ -44,6 +45,14 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
     @Autowired
     private BloomFilterManager bloomFilterManager;
 
+    /**
+     * Get url for downSystemSite
+     * fetch urls from redis if cache satisfied or load urls from db to redis and fetch
+     *
+     * @param downSystemSiteId
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Url> getUrlForSite(Integer downSystemSiteId) throws Exception {
         DownSystemSite downSystemSite = downSystemSiteService.get(downSystemSiteId);
@@ -66,7 +75,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
             queue.addAll(urlsToCache);
             updateUrlStatusToCached(urlsToCache);
             info(String.format(
-                    "load %d url tp cache,current cache size %d",
+                    "load %d url to cache,current cache size %d",
                     urlsToCache.size(),
                     queue.size())
             );
@@ -88,11 +97,20 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         return urls;
     }
 
+    /**
+     * Add new urls
+     * filter with bloom filter
+     *
+     * @param newUrls
+     * @param downSystemSiteId
+     * @return
+     * @throws Exception
+     */
     @Override
     public int addNewUrl(List<Url> newUrls, Integer downSystemSiteId) throws Exception {
         JasmineBloomFilter filter = bloomFilterManager.get(downSystemSiteId);
         if (Objects.isNull(filter)) {
-            warn(String.format("can not get bloom filter for down system site(%d)",downSystemSiteId));
+            warn(String.format("can not get bloom filter for down system site(%d)", downSystemSiteId));
             return 0;
         }
 
@@ -106,48 +124,64 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
                     filteredUrls.add(url);
 
                     if (url.getUrlType() == null)
-                        url.setUrlType(1);
+                        url.setUrlType(UrlType.ONCE);
 
                     url.setDownSystemSiteId(downSystemSiteId);
                 }
 
             } catch (Exception ex) {
-                error("filter url failed", ex);
+                error(String.format("filter url(%s) failed", url.getUrl()), ex);
             }
         }
 
         for (final List<Url> ls : CollectionUtils.split(filteredUrls, URL_INSERT_BATCH_SIZE)) {
             addNewUrlCore(ls, downSystemSiteId);
         }
-
-        return  filteredUrls.size();
+        return filteredUrls.size();
     }
 
+    /**
+     * Save url result
+     * 1. normal url result
+     *    task id is not null and downSystemSiteId is null,
+     * 2.dispatch url result
+     *    task id is null and downSystemSiteId is not null
+     *
+     * @param req
+     * @throws Exception
+     */
     @Override
     public void saveUrlResult(SaveUrlResultReq req) throws Exception {
-
         DownSystemSite downSystemSite = downSystemSiteService.get(req.getDownSystemSiteId());
         if (Objects.isNull(downSystemSite)) {
             info("failed to run, down system site not exists");
             return;
         }
 
-        if(!Objects.isNull( req.getTaskId())){
+        if (!Objects.isNull(req.getTaskId())) {
             saveNormalUrlResult(req, downSystemSite);
-        }else{
-            List<Url> newUrls = new LinkedList<>();
+        } else {
             req.getPageResults().stream().forEach(result -> {
-                if (result.getPageResult() == 1) {
-                    newUrls.addAll(result.getNewUrls());
+                List<Url> newUrls = new LinkedList<>();
+                newUrls.addAll(result.getNewUrls());
+                try {
+                    addNewUrl(newUrls, result.getDownSystemSiteId());
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             });
-            addNewUrl(newUrls, downSystemSite.getId());
+
         }
-
-
     }
 
-    private  void  saveNormalUrlResult(SaveUrlResultReq req , DownSystemSite downSystemSite) throws Exception {
+    /**
+     * Save normal task url result
+     *
+     * @param req
+     * @param downSystemSite
+     * @throws Exception
+     */
+    private void saveNormalUrlResult(SaveUrlResultReq req, DownSystemSite downSystemSite) throws Exception {
         List<Url> newUrls = new LinkedList<>();
         req.getPageResults().stream().forEach(result -> {
             if (result.getPageResult() == com.jasmine.crawler.common.constant.PageResult.SUCCESS) {
@@ -155,7 +189,7 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
             }
         });
 
-        int newUrlCount= addNewUrl(newUrls,downSystemSite.getId());
+        int newUrlCount = addNewUrl(newUrls, downSystemSite.getId());
 
         List<PageResult> failedUrls = new LinkedList<>();
         List<PageResult> badUrls = new LinkedList<>();
@@ -178,9 +212,14 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         badUrls(badUrls, downSystemSite);
         failedUrls(failedUrls);
         succeedUrls(succeedUrls, downSystemSite);
-        crawlTaskService.syncUrl(req.getTaskId(),newUrlCount);
+        crawlTaskService.syncUrl(req.getTaskId(), newUrlCount);
     }
 
+    /**
+     * Update url status to cached
+     *
+     * @param urls
+     */
     private void updateUrlStatusToCached(List<Url> urls) {
         for (final List<Url> urlGroup : CollectionUtils.split(urls, 100)) {
             try {
@@ -191,6 +230,12 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         }
     }
 
+    /**
+     * Insert new urls and add new url count of both downSystemSite and downSystem
+     *
+     * @param newUrls
+     * @param downSystemSiteId
+     */
     private void addNewUrlCore(List<Url> newUrls, Integer downSystemSiteId) {
         try {
             urlMapper.addBatch(newUrls);
@@ -202,6 +247,11 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         }
     }
 
+    /**
+     * Update url status to finished and result is failed
+     *
+     * @param urls
+     */
     private void failedUrls(List<PageResult> urls) {
         for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
@@ -213,6 +263,12 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         }
     }
 
+    /**
+     * Update url status to bad and add bad url count of both downSystemSite and downSystem
+     *
+     * @param urls
+     * @param downSystemSite
+     */
     private void badUrls(List<PageResult> urls, DownSystemSite downSystemSite) {
         for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
@@ -228,6 +284,11 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         }
     }
 
+    /**
+     * Update urls status to wait
+     *
+     * @param urls
+     */
     private void failToRunUrls(List<PageResult> urls) {
         for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {
@@ -239,6 +300,12 @@ public class UrlServiceImpl extends LoggerSupport implements UrlService {
         }
     }
 
+    /**
+     * update url status to finished and add finished url count of both downSystemSite and downSystem
+     *
+     * @param urls
+     * @param downSystemSite
+     */
     private void succeedUrls(List<PageResult> urls, DownSystemSite downSystemSite) {
         for (List<PageResult> list : CollectionUtils.split(urls, URL_UPDATE_BATCH_SIZE)) {
             try {

@@ -27,7 +27,7 @@ public class UpdateDictionaryParams {
         return req.getType();
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return req.getValue();
     }
 
@@ -37,5 +37,9 @@ public class UpdateDictionaryParams {
 
     public String getColor() {
         return req.getColor();
+    }
+
+    public Integer getSortNumber() {
+        return req.getSortNumber();
     }
 }

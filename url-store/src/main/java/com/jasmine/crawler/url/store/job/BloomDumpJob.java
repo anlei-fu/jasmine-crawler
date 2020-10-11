@@ -27,7 +27,7 @@ public class BloomDumpJob extends LoggerSupport {
 
     /**
      * Bloom job
-     * 1. dump bloom
+     * 1. dump bloom period
      * 2. unload inactive bloom
      */
     @Scheduled(cron = "0 0/5 * * * ?")

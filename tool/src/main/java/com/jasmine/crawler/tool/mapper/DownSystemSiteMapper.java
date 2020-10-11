@@ -11,4 +11,6 @@ public interface DownSystemSiteMapper {
     DownSystemSite getConcurrency(@Param("id") Integer id);
 
     DownSystemSite get(@Param("id") Integer id);
+
+    void updateLimit(@Param("id") Integer id, @Param("maxDays") Integer maxDays, @Param("maxHours") Integer maxHours);
 }

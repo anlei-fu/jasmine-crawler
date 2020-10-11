@@ -2,10 +2,8 @@ package com.jasmine.crawler.common.pojo.entity;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class BlockRule extends  EnableStatusFeature {
+public class BlockRule extends EnableStatusFeature {
 
     /**
      * Unique id

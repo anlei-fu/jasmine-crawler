@@ -2,6 +2,7 @@ package com.jasmine.crawler.cron.job;
 
 import com.jasmine.crawler.common.constant.BindResult;
 import com.jasmine.crawler.common.constant.BooleanFlag;
+import com.jasmine.crawler.common.constant.EnableTaskTimeout;
 import com.jasmine.crawler.common.pojo.entity.*;
 import com.jasmine.crawler.common.support.Counter;
 import com.jasmine.crawler.common.support.CounterProvider;
@@ -52,6 +53,9 @@ public class BindTaskJob extends LoggerSupport {
 
     @Autowired
     private CounterProvider counterProvider;
+
+    @Autowired
+    private  EnableTaskService enableTaskService;
 
     @Scheduled(cron = "0 0/1 * * * *")
     public void bindLevel1() {
@@ -182,6 +186,7 @@ public class BindTaskJob extends LoggerSupport {
                     "over down system site max concurrency"
             );
 
+            enableTaskService.scheduleNextEnable(downSystemSite.getId(), EnableTaskTimeout.OVER_DOWN_SYSTEM_SITE_MAX_CONCURRENCY);
             return false;
         }
 
@@ -229,8 +234,10 @@ public class BindTaskJob extends LoggerSupport {
                     "no cookie available"
             );
 
-            if (!valid)
+            if (!valid) {
+                enableTaskService.scheduleNextEnable(downSystemSite.getId(),EnableTaskTimeout.NO_COOKIE_AVAILABLE);
                 return false;
+            }
 
             taskToBind.setCookieId(cookie.getId());
         }
@@ -268,7 +275,7 @@ public class BindTaskJob extends LoggerSupport {
         List<Crawler> crawlers = crawlerService.getCrawlerForSite(site.getId(), downSystemSite.getTaskUrlMaxConcurrency(), withIp);
         if (withIp) {
             for (Crawler c : crawlers) {
-                if (checkIp(site, crawler.getIp(), downSystemSite)) {
+                if (checkIp(site, c.getIp(), downSystemSite)) {
                     crawler = c;
                     break;
                 }
@@ -290,13 +297,16 @@ public class BindTaskJob extends LoggerSupport {
             return false;
 
         crawlTaskToUpdate.setCrawlerId(crawler.getId());
-        bindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler, proxy, cookie);
+        afterBindSuccess(taskToBind.getId(), crawlTaskToUpdate, site, downSystemSite, crawler, proxy, cookie);
         info(String.format("bind task(%d) succeed", taskToBind.getId()));
         return true;
     }
 
     /**
      * To check is the ip available for site
+     * a). 10 minute
+     * b). 1 hour
+     * c). 1 day
      *
      * @param site
      * @param ip
@@ -307,48 +317,63 @@ public class BindTaskJob extends LoggerSupport {
 
         // 10 minutes ip limit check
         if (site.getIp10MinuteSpeedLimit() != BooleanFlag.NO_NEED) {
-            long dateKey = System.currentTimeMillis() % (DateUtils.ONE_DAY_MS * 10);
-            long expire = DateUtils.ONE_MINUTE_MS * 10 - (System.currentTimeMillis() - dateKey);
+            long dateKey = System.currentTimeMillis() / (DateUtils.ONE_DAY_MS);
+            long mod = System.currentTimeMillis() % (DateUtils.ONE_DAY_MS);
+            long expire = DateUtils.ONE_DAY_MS - mod;
             Counter tenMinuteLimitCounter = counterProvider.getCounter(
                     String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
                     site.getIp10MinuteSpeedLimit(),
-                    (int) expire);
+                    (int) expire
+            );
 
-            if (tenMinuteLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount()))
+            if (tenMinuteLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount())) {
+                this.info(String.format("ip(%s) over site(%d) 10 minutes speed limit", ip, site.getId()));
+                enableTaskService.scheduleNextEnable(downSystemSite.getId(), (int)mod/DateUtils.ONE_MINUTE_MS);
                 return false;
+            }
         }
 
         // hour ip limit check
         if (site.getIpHourSpeedLimit() != BooleanFlag.NO_NEED) {
-            long dateKey = System.currentTimeMillis() % (DateUtils.ONE_HOUR_MS);
-            long expire = DateUtils.ONE_HOUR_MS - (System.currentTimeMillis() - dateKey);
+            long dateKey = System.currentTimeMillis() / (DateUtils.ONE_HOUR_MS);
+            long mod = System.currentTimeMillis() % (DateUtils.ONE_HOUR_MS);
+            long expire = DateUtils.ONE_HOUR_MS - mod;
             Counter hourLimitCounter = counterProvider.getCounter(
                     String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
                     site.getIpHourSpeedLimit(),
-                    (int) expire);
+                    (int) expire
+            );
 
-            if (hourLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount()))
+            if (hourLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount())) {
+                this.info(String.format("ip(%s) over site(%d) hour speed limit", ip, site.getId()));
+                enableTaskService.scheduleNextEnable(downSystemSite.getId(), (int)mod/DateUtils.ONE_MINUTE_MS);
                 return false;
+            }
         }
 
         // day ip limit check
         if (site.getIpDaySpeedLimit() != BooleanFlag.NO_NEED) {
-            long dateKey = System.currentTimeMillis() % DateUtils.ONE_DAY_MS;
-            long expire = DateUtils.ONE_DAY_MS - (System.currentTimeMillis() - dateKey);
+            long dateKey = System.currentTimeMillis() / (DateUtils.ONE_MINUTE_MS * 10);
+            long mod = System.currentTimeMillis() % (DateUtils.ONE_MINUTE_MS * 10);
+            long expire = DateUtils.ONE_MINUTE_MS * 10 - mod;
             Counter dayLimitCounter = counterProvider.getCounter(
                     String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
                     site.getIpDaySpeedLimit(),
-                    (int) expire);
+                    (int) expire
+            );
 
-            if (dayLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount()))
+            if (dayLimitCounter.overMaxLimit(downSystemSite.getTaskUrlBatchCount())) {
+                this.info(String.format("ip(%s) over site(%d) day speed limit", ip, site.getId()));
+                enableTaskService.scheduleNextEnable(downSystemSite.getId(), (int) mod/DateUtils.ONE_MINUTE_MS);
                 return false;
+            }
         }
 
         return true;
     }
 
     /**
-     * To validate is component available for task, if not available , add a failed binding record
+     * To validate if component available for task, if not available , add a binding failed record
      *
      * @param target
      * @param taskToBindId
@@ -404,7 +429,7 @@ public class BindTaskJob extends LoggerSupport {
      * @param cookie
      */
     @Transactional
-    public void bindSuccess(
+    public void afterBindSuccess(
             Integer taskToBindId,
             CrawlTask crawlTaskToUpdate,
             Site site,

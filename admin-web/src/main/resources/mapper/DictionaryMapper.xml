@@ -14,6 +14,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="color!=null and color!=''">
                 color,
             </if>
+            <if test="sortNumber != null ">
+                t.sort_number
+            </if>
             create_time
         </trim>
         values
@@ -23,6 +26,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             #{label},
             <if test="color!=null and color!=''">
                 #{color},
+            </if>
+            <if test="sortNumber != null ">
+                #{sortNumber},
             </if>
             current_timestamp
         </trim>
@@ -51,6 +57,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             </if>
             <if test="label != null and label != ''">
                 t.label = #{label},
+            </if>
+            <if test="sortNumber != null ">
+                t.sort_number = #{sortNumber},
             </if>
             <if test="color!=null and color!=''">
                 t.color = #{color},
@@ -112,7 +121,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 and t.create_time &lt; #{createTimeEnd}
             </if>
         </where>
-        order by t.type ,t.value
+        order by t.type ,t.sort_number,t.value
     </select>
     <select id="getAll" resultType="com.jasmine.crawler.common.pojo.entity.Dictionary">
         select

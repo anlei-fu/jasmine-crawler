@@ -13,10 +13,7 @@ import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.DownSystemSiteMapper;
 import com.jasmine.crawler.web.admin.mapper.DownSystemSiteRunLimitMapper;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams;
-import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
+import com.jasmine.crawler.web.admin.pojo.req.*;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteRunLimitService;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
@@ -43,7 +40,7 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
         bloomFilter.init(req.getBloomExpectedUrlSize(), req.getBloomFpp());
         req.setBloom(bloomFilter.dump());
         int id= downSystemSiteMapper.add(req) ;
-        downSystemSiteRunLimitService.createLimit(id);
+        downSystemSiteRunLimitService.createLimit(req.getId());
         return  id >0;
     }
 
@@ -84,4 +81,15 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
     public int updateBatch(UpdateDownSystemSiteBatchReq req) {
         return downSystemSiteMapper.updateBatch(req);
     }
+
+    @Override
+    public List<DownSystemSite> getBySiteId(Integer siteId) {
+        return downSystemSiteMapper.getBySiteId(siteId);
+    }
+
+    @Override
+    public boolean resetJob(ResetJobReq req) {
+        return  downSystemSiteMapper.resetJob(req)>0;
+    }
+
 }

@@ -22,8 +22,8 @@ public class CreateNewTaskJob extends LoggerSupport {
     private CrawlTaskService crawlTaskService;
 
     /**
-     * Create new crawl task , iterate the down site pick the site which current task bind count
-     * less than task max bind count
+     * To create new crawl task , iterate the down system site and pick the site which current task-bind count
+     * less than task-max-wait-to-bind count
      */
     @Scheduled(cron = "*/20 * * * * *")
     public void run() {
@@ -76,6 +76,7 @@ public class CreateNewTaskJob extends LoggerSupport {
                 .taskUrlConcurrency(downSystemSite.getTaskUrlMaxConcurrency())
                 .build();
 
+        downSystemSiteService.increaseCurrentTaskCount(downSystemSite.getId());
         boolean result = crawlTaskService.add(taskToCreate);
         info(String.format(
                 "create task result:%s,down system site id(%d)",

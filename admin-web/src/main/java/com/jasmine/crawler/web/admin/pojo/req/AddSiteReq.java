@@ -49,6 +49,8 @@ public class AddSiteReq {
 
     private Integer ipMinuteSpeedLimit;
 
+    private Integer ip10MinuteSpeedLimit;
+
     private Integer ipDaySpeedLimit;
 
     @Enum("YesNo")

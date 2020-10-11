@@ -131,7 +131,7 @@ public class CrawlTask {
     /**
      * The msg of the task
      */
-    private String taskResultMsg;
+    private String taskMsg;
 
     /**
      * Use for statistics
@@ -182,4 +182,19 @@ public class CrawlTask {
      * The time task created
      */
     private Date createTime;
+
+    /**
+     * Data sync status
+     */
+    private Integer dataSyncStatus;
+
+    /**
+     * The data file
+     */
+    private String dataFile;
+
+    /**
+     * Url sync status
+     */
+    private Integer urlSyncStatus;
 }

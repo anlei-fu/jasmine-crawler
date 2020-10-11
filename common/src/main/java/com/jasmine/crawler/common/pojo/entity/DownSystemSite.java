@@ -29,19 +29,20 @@ public class DownSystemSite extends EnableStatusFeature {
     private Integer downSystemId;
 
     /**
-     * The type of down system sitews
-     */
-    private Integer downSystemSiteType;
-
-    /**
-     * Name identifier
+     * The name of down system site
      */
     private String name;
 
     /**
-     * Description of site
+     * The descript of downSystemSite
      */
     private String description;
+
+    /**
+     * The type of down system sitews
+     */
+    private Integer downSystemSiteType;
+
 
     /**
      * The script to run crawl task
@@ -128,7 +129,7 @@ public class DownSystemSite extends EnableStatusFeature {
     /**
      * Url cache timeout job execute interval,"-1" no need, minute
      */
-    private Integer urlCacheTimeoutJobExecuteInterval;
+    private Integer urlCacheTimeoutJobInterval;
 
     /**
      * The timeout url since last cache,  minute
@@ -138,12 +139,12 @@ public class DownSystemSite extends EnableStatusFeature {
     /**
      * The time that url cache timeout job fire
      */
-    private Date urlNextCacheTimeoutJobTime;
+    private Date urlNextCacheTimeoutJobExecuteTime;
 
     /**
      * Url faield retry job execute interval,"-1" no need , minute
      */
-    private Integer urlFailedRetryJobExecuteInterval;
+    private Integer urlFailedRetryJobInterval;
 
     /**
      * The timout since last url failed ,minute
@@ -158,7 +159,7 @@ public class DownSystemSite extends EnableStatusFeature {
     /**
      * The interval for url reset job , "-1" no need to execute, minute
      */
-    private Integer urlResetJobExecuteInterval;
+    private Integer urlResetJobInterval;
 
     /**
      * The time url reset job fire

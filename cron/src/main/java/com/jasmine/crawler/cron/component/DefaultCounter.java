@@ -31,6 +31,13 @@ public class DefaultCounter implements Counter {
     }
 
     @Override
+    public void reduceMax(int value) {
+        synchronized (LOCK) {
+            current -= value;
+        }
+    }
+
+    @Override
     public boolean expired() {
         return expire < System.currentTimeMillis();
     }

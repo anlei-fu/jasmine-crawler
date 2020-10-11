@@ -9,10 +9,11 @@ package com.jasmine.crawler.web.admin.mapper;
 import com.github.pagehelper.Page;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlTaskPageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CrawlTaskDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CrawlTaskMapper {
 
-    Page<CrawlTask> getPage(GetCrawlTaskPageReq req);
+    Page<CrawlTaskDetail> getPage(GetCrawlTaskPageReq req);
 }

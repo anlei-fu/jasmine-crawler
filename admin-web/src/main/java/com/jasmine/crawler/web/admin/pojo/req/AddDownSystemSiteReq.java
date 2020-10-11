@@ -16,11 +16,19 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class AddDownSystemSiteReq {
 
+    private  Integer id;
+
     @NotNull
     private Integer siteId;
 
     @NotNull
     private Integer downSystemId;
+
+    private  String name ;
+
+    private  String description;
+
+    private  Integer downSystemSiteType;
 
     private Integer priority;
 
@@ -81,4 +89,10 @@ public class AddDownSystemSiteReq {
 
     @Enum("EnableStatus")
     private Integer enableStatus;
+
+    private  Integer runLimitAllowAutoBalance;
+
+    private  Integer runLimitMaxDays;
+
+    private  Integer runLimitMaxHours;
 }

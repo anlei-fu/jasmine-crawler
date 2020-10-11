@@ -26,10 +26,10 @@ public class HeartbeatJob extends LoggerSupport {
     private CrawlerService crawlerService;
 
     /**
-     * Send crawler a heartbeat to check is crawler still alive
+     * Send crawler a heartbeat to check if crawler still alive
      * 1. post crawler with masters info and file system host, master(self)
      * 2. update crawler heartbeat status
-     * 3. the 'heartbeat-lost-count' smaller, the heartbeat rate more often
+     * 3. the 'heartbeat-lost-count' smaller, the heartbeat frequency more often max period is 10 minute
      */
     @Scheduled(cron = "0 0/1 * * * ?")
     public void run() {

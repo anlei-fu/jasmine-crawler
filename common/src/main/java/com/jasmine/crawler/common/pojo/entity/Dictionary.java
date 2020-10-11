@@ -30,7 +30,7 @@ public class Dictionary {
     /**
      * Use to sort
      */
-    private  Integer sortNumber;
+    private Integer sortNumber;
 
     /**
      * Color of value

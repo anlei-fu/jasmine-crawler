@@ -10,10 +10,14 @@ public class CounterCleanJob extends LoggerSupport {
     @Autowired
     private CounterProvider counterProvider;
 
+    /**
+     * To clear expired counters period
+     *
+     */
     @Scheduled(cron = "0 0 */2 * * *")
     public void Run() {
         info("execute counter clean job");
         int cleared = counterProvider.clean();
-        info(String.format("clear %d counter", cleared));
+        info(String.format("clear %d counters", cleared));
     }
 }

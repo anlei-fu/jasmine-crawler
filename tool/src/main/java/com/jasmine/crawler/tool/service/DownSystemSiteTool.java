@@ -4,6 +4,7 @@ package com.jasmine.crawler.tool.service;
 import com.jasmine.crawler.common.component.impl.WeightWrapper;
 import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
+import com.jasmine.crawler.common.pojo.entity.DownSystemSiteRunLimit;
 import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.common.util.CollectionUtils;
 import com.jasmine.crawler.tool.mapper.*;
@@ -58,6 +59,22 @@ public class DownSystemSiteTool extends LoggerSupport {
     public void resetCachedUrlStatus(Integer downSystemSiteId) {
         int total = urlMapper.resetCachedUrlStatus(downSystemSiteId);
         info(String.format("reset %d seed url", total));
+    }
+
+    public void createLimit(Integer downSystemSiteId, Integer maxDays, Integer maxHours) {
+        downSystemSiteMapper.updateLimit(downSystemSiteId, maxDays, maxHours);
+        downSystemRunLimitMapper.deleteByDownSystemSiteId(downSystemSiteId);
+
+        for (int t = 0; t < 7; t++) {
+            for (int k = 0; k < 24; k++) {
+                DownSystemSiteRunLimit limit = DownSystemSiteRunLimit.builder()
+                        .downSystemSiteId(downSystemSiteId)
+                        .weekDayType(t)
+                        .hour(k)
+                        .build();
+                downSystemRunLimitMapper.add(limit);
+            }
+        }
     }
 
     public void balanceRunLimit(Integer downSystemId) {

@@ -2,6 +2,7 @@ package com.jasmine.crawler.web.api.job;
 
 
 import com.jasmine.crawler.common.pojo.req.SaveTaskResultReq;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.web.api.service.CrawlTaskService;
 import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
@@ -10,7 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TaskResultConsumeJob {
+public class TaskResultConsumeJob extends LoggerSupport {
 
     @Autowired
     private RedissonClient redissonClient;

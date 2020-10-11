@@ -55,7 +55,7 @@ public class DictionaryServiceTest {
         AddDictionaryReq req = new AddDictionaryReq();
 
         req.setType("mock string");
-        req.setValue(90);
+        req.setValue("90");
         req.setLabel("name");
 
         R result = controller.add(req);
@@ -83,7 +83,7 @@ public class DictionaryServiceTest {
         UpdateDictionaryReq req = new UpdateDictionaryReq();
 
         req.setType("mock string");
-        req.setValue(0);
+        req.setValue("0");
         req.setLabel("title");
 
         R result = controller.updateById(2, req);

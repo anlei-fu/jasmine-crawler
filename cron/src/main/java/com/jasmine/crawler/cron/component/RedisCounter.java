@@ -20,6 +20,11 @@ public class RedisCounter implements Counter {
     }
 
     @Override
+    public void reduceMax(int value) {
+
+    }
+
+    @Override
     public boolean expired() {
         return innerCounter.isExists();
     }

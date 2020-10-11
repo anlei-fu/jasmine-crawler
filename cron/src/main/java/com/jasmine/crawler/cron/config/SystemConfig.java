@@ -33,5 +33,5 @@ public class SystemConfig {
     /**
      *
      */
-    private String fileHost = "http://192.168.29.136:80";
+    private String fileHost = "http://192.168.29.138:80";
 }

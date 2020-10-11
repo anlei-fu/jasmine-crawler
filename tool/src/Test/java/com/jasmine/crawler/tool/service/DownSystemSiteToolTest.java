@@ -16,7 +16,7 @@ public class DownSystemSiteToolTest {
 
     @Test
     public void testResetConcurrency() {
-        downSystemSiteTool.resetConcurrency(49);
+        downSystemSiteTool.resetConcurrency(51);
     }
 
     @Test
@@ -36,6 +36,11 @@ public class DownSystemSiteToolTest {
 
     @Test
     public void testBalanceRunLimit() {
-        downSystemSiteTool.balanceRunLimit(49);
+        downSystemSiteTool.balanceRunLimit(51);
+    }
+
+    @Test
+    public void testCreateLimit() {
+        downSystemSiteTool.createLimit(51, 7, 24);
     }
 }

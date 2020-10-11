@@ -37,7 +37,18 @@ public class GetCrawlTaskPageReq extends PageTimeReq {
 
     private Integer proxyId;
 
+    @Enum("taskResult")
+    private  Integer taskResult;
+
+    @Enum("syncStatus")
+    private Integer dataSyncStatus;
+
+    @Enum("syncStatus")
+    private Integer urlSyncStatus;
+
     @Enum("enableStatus")
     private Integer enableStatus;
+
+    private String downSystemSiteName;
 
 }

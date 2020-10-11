@@ -18,7 +18,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
           #{downSystemSiteId},
           #{downSystemId},
           #{taskUrlConcurrency},
-          date_add(current_timestamp,interval greatest((select task_bind_timeout from down_system_site dss where dss.id = #{downSystemSiteId}),1) hour)
+          date_add(current_timestamp,interval greatest((select task_bind_timeout from down_system_site dss where dss.id = #{downSystemSiteId}),20) minute)
         )
     </insert>
 
@@ -38,8 +38,12 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         ct.down_system_id,
         ct.task_status
         from crawl_task ct
-        join down_system_site dss on ct.down_system_site_id = dss.id and dss.enable_status = 1
-        join down_system ds on dss.down_system_id =ds.id  and ds.enable_status = 1
+        join down_system_site dss on ct.down_system_site_id = dss.id
+        and dss.enable_status = 1
+        and dss.task_current_running_count &lt; dss.task_max_running_count
+        join down_system ds on dss.down_system_id =ds.id
+        and ds.enable_status = 1
+        and ds.task_current_running_count &lt; ds.task_max_running_count
         join site s on dss.site_id = s.id and s.enable_status = 1
         join down_system_site_run_limit lmt
         on (dss.id = lmt.down_system_site_id
@@ -51,19 +55,18 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         -- bind level filter
         and ct.bind_count >= #{minBindCount}
         and ct.bind_count &lt; #{maxBindCount}
-        -- max con filter
-        and dss.task_current_running_count &lt; dss.task_max_running_count
-        and ds.task_current_running_count &lt; ds.task_max_running_count
-        order by
-        ct.create_time
-        asc
+        order by ct.create_time asc
   </select>
     <select id="getTaskToBindLowestLevel" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select
         *
         from crawl_task ct
-        join down_system_site dss on ct.down_system_site_id = dss.id and dss.enable_status = 1
-        join down_system ds on dss.down_system_id =ds.id  and ds.enable_status = 1
+               join down_system_site dss on ct.down_system_site_id = dss.id
+        and dss.enable_status = 1
+        and dss.task_current_running_count &lt; dss.task_max_running_count
+        join down_system ds on dss.down_system_id =ds.id
+        and ds.enable_status = 1
+        and ds.task_current_running_count &lt; ds.task_max_running_count
         join site s on dss.site_id = s.id and s.enable_status = 1
         join down_system_site_run_limit lmt
         on (dss.id = lmt.down_system_site_id
@@ -73,23 +76,19 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         -- 0 wait to bind
         ct.task_status = 1
         and ct.bind_count >= 30
-        and dss.task_current_running_count &lt; dss.task_max_running_count
-        and ds.task_current_running_count &lt; ds.task_max_running_count
-        order by
-        ct.create_time
-        asc
+        order by ct.create_time asc
     </select>
 
     <update id="bindSuccess">
         update crawl_task
         set
-        <if test="crawlerId!=null">
+        <if test="crawlerId != null">
             crawler_id = #{crawlerId},
         </if>
-        <if test="cookieId!=null">
+        <if test="cookieId != null">
             cookie_id = #{cookieId},
         </if>
-        <if test="proxyId!=null">
+        <if test="proxyId != null">
             proxy_id = #{proxyId},
         </if>
         bind_last_result = 1,
@@ -135,7 +134,6 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         ct.id as task_id,
         ct.site_id,
         ct.down_system_site_id,
-
         ct.proxy_id,
         -- site
         s.ip_minute_speed_limit
@@ -155,7 +153,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
       dispatch_last_msg = 'success',
       dispatch_last_time = current_timestamp,
       task_start_time = current_timestamp,
-      task_timeout_time = date_add(
+      task_execute_timeout_time = date_add(
         current_timestamp,
         interval greatest((select task_timeout from down_system_site dss where dss.id =#{downSystemSiteId}),5) minute
       ),
@@ -189,13 +187,13 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where id = #{id}
     </update>
 
-    <select id="getTimeoutTasksToTerminate" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
+    <select id="getExecuteTimeoutTasks" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select
         *
         from crawl_task ct
         where
         ct.task_status = 3
-        and (ct.task_timeout_time is not null and ct.task_timeout_time &lt; current_timestamp)
+        and (ct.task_execute_timeout_time is not null and ct.task_execute_timeout_time &lt; current_timestamp)
     </select>
     <select id="getForUpdate" resultType="com.jasmine.crawler.common.pojo.entity.CrawlTask">
         select * from crawl_task where id = #{id} for update

@@ -1,10 +1,12 @@
 package com.jasmine.crawler.common.pojo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DownSystemSiteDispatch extends EnableStatusFeature {
 
     /**
@@ -25,6 +27,8 @@ public class DownSystemSiteDispatch extends EnableStatusFeature {
     /**
      * Regex pattern to match
      */
-    private String pattern;
+    private String matchPattern;
+
+    private Integer order;
 
 }

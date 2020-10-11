@@ -49,6 +49,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="ipMinuteSpeedLimit != null">
                 ip_minute_speed_limit,
             </if>
+            <if test="ip10MinuteSpeedLimit != null">
+                ip_10_minute_speed_limit,
+            </if>
             <if test="ipDaySpeedLimit != null">
                 ip_day_speed_limit,
             </if>
@@ -136,6 +139,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             </if>
             <if test="ipMinuteSpeedLimit != null">
                 #{ipMinuteSpeedLimit},
+            </if>
+            <if test="ip10MinuteSpeedLimit != null">
+                #{ip10MinuteSpeedLimit},
             </if>
             <if test="ipDaySpeedLimit != null">
                 #{ipDaySpeedLimit},
@@ -234,6 +240,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="ipMinuteSpeedLimit != null">
                 t.ip_minute_speed_limit = #{ipMinuteSpeedLimit},
             </if>
+            <if test="ip10MinuteSpeedLimit != null">
+                t.ip_10_minute_speed_limit = #{ip10MinuteSpeedLimit},
+            </if>
             <if test="ipDaySpeedLimit != null">
                 t.ip_day_speed_limit = #{ipDaySpeedLimit},
             </if>
@@ -296,6 +305,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="ipMinuteSpeedLimit!=null ">
                 ip_minute_speed_limit = #{ipMinuteSpeedLimit},
             </if>
+            <if test="ip10MinuteSpeedLimit!=null ">
+                ip_10_minute_speed_limit = #{ip10MinuteSpeedLimit},
+            </if>
             <if test="ipDaySpeedLimit!=null ">
                 ip_day_speed_limit = #{ipDaySpeedLimit}
             </if>
@@ -322,6 +334,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.ip_block_timeout,
         t.ip_hour_speed_limit,
         t.ip_minute_speed_limit,
+        t.ip_10_minute_speed_limit,
         t.ip_day_speed_limit,
         t.account_allow_cross_ip,
         t.account_allow_multiple,
@@ -360,6 +373,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.ip_block_timeout,
         t.ip_hour_speed_limit,
         t.ip_minute_speed_limit,
+        t.ip_10_minute_speed_limit,
         t.ip_day_speed_limit,
         t.account_allow_cross_ip,
         t.account_allow_multiple,

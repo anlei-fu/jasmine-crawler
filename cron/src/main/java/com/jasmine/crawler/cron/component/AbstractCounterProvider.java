@@ -18,7 +18,7 @@ public abstract class AbstractCounterProvider extends LoggerSupport implements C
             return counter;
 
         Counter c = createNewCounter(id, max, expire);
-        cache.computeIfPresent(id, (x, y) -> c);
+        cache.putIfAbsent(id, c);
         return c;
     }
 

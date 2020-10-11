@@ -147,4 +147,9 @@ public class DownSystemSiteServiceTest {
 
         TestUtils.printQuery(req, result);
     }
+
+    @Test
+    public void testGetBySiteId() {
+        controller.getBySiteId(1);
+    }
 }

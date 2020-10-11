@@ -21,6 +21,9 @@ public class GetDownSystemSitePageReq extends PageTimeReq {
 
     private Integer downSystemId;
 
+    @Enum("downSystemSiteType")
+    private  Integer downSystemSiteType;
+
     @Enum("crawlerCrawlType")
     private Integer crawlerCrawlType;
 

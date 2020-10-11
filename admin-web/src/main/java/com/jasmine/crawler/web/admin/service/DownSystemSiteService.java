@@ -8,10 +8,7 @@ package com.jasmine.crawler.web.admin.service;
 
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
-import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
+import com.jasmine.crawler.web.admin.pojo.req.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,4 +30,8 @@ public interface DownSystemSiteService {
     int disableBatch(List<Integer> ids);
 
     int updateBatch(UpdateDownSystemSiteBatchReq req);
+
+    List<DownSystemSite> getBySiteId(Integer siteId);
+
+    boolean resetJob(ResetJobReq req);
 }

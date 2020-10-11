@@ -11,6 +11,7 @@ import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.web.admin.pojo.param.UpdateDownSystemSiteParams;
 import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
 import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
+import com.jasmine.crawler.web.admin.pojo.req.ResetJobReq;
 import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,4 +36,8 @@ public interface DownSystemSiteMapper {
     int disableBatch(@Param("list") List<Integer> ids);
 
     int updateBatch(UpdateDownSystemSiteBatchReq req);
+
+    List<DownSystemSite> getBySiteId(@Param("siteId") Integer siteId);
+
+    int resetJob(ResetJobReq req);
 }

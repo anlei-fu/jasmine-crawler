@@ -23,11 +23,11 @@ public class TaskBindTimeoutJob extends LoggerSupport {
     private CrawlTaskTerminator crawlTaskTerminator;
 
     /**
-     * Terminate the task that over max bind time
+     * Terminate the tasks which over max-bind-timeout
      */
     @Scheduled(cron = "0 0/5 * * * ?")
     public void terminateBindTimeoutTask() {
-        info("------------------------begin terminate bind timeout task---------------------");
+        info("------------------------begin terminate binding timeout tasks---------------------");
         List<CrawlTask> tasks = null;
         try {
             tasks = crawlTaskService.getBindTimeoutTasks();
@@ -35,9 +35,9 @@ public class TaskBindTimeoutJob extends LoggerSupport {
             error("call getBindTimeoutTasks failed", ex);
         }
 
-        info(String.format("got %d task to terminate", tasks.size()));
+        info(String.format("got %d tasks to terminate", tasks.size()));
         if (tasks.size() == 0) {
-            info("no task to terminate");
+            info("no tasks to terminate");
         }
 
         int success = 0;
@@ -52,7 +52,7 @@ public class TaskBindTimeoutJob extends LoggerSupport {
             }
         }
 
-        info(String.format("terminate bind timeout finished, [success:%d][exception:%d]", success, exception));
+        info(String.format("terminate binding timeout tasks finished, [success:%d][exception:%d]", success, exception));
     }
 
     @Transactional

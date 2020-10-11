@@ -5,7 +5,7 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-25 2:58:14 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.cron.mapper.UrlMapper">
-    <update id="resetCacheUlrToWaitByDownSystemSite">
+    <update id="resetCachedUlrToWaitByDownSystemSite">
         update url
         set url_status = 1
         where
@@ -19,9 +19,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         where
         down_system_site_id = #{id}
         and url_status = 3
-        and last_page_Result != 1
+        and last_page_result != 1
         and last_success_time is null
-        and totoal_crawl_count &lt; {urlMaxCrawlCount}
+        and total_crawl_count &lt; #{urlMaxCrawlCount}
         and date_add(last_crawl_time,interval #{urlFailedRetryTimeout} minute) &lt; current_timestamp
     </update>
     <update id="resetSucceedUrlToWaitByDownSystemSite">

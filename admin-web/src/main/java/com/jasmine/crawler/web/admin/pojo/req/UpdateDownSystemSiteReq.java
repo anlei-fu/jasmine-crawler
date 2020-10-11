@@ -20,6 +20,12 @@ public class UpdateDownSystemSiteReq {
 
     private Integer downSystemId;
 
+    private  String name;
+
+    private  String description;
+
+    private  Integer downSystemSiteType;
+
     private Integer priority;
 
     private String crawlerPageEncoding;
@@ -72,4 +78,10 @@ public class UpdateDownSystemSiteReq {
 
     @Enum("EnableStatus")
     private Integer enableStatus;
+
+    private Integer runLimitMaxDays;
+
+    private  Integer runLimitMaxHours;
+
+    private  Integer runLimitAllowAutoBalance;
 }

@@ -16,7 +16,7 @@ public class DownSystemSiteServiceImpl implements DownSystemSiteService {
 
     @Override
     public List<DownSystemSite> getNeedCreateNewTaskSites() {
-        return downSystemSiteMapper.getNeedCreateNewTaskSite();
+        return downSystemSiteMapper.getNeedCreateNewTaskSites();
     }
 
     @Override

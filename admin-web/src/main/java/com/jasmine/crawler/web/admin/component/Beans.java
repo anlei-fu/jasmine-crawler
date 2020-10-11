@@ -1,13 +1,14 @@
-package com.jasmine.crawler.cron.component;
+package com.jasmine.crawler.web.admin.component;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class RestClient {
+public class Beans {
+
     @Bean
-    public RestTemplate create() {
-        return new RestTemplate();
+    public RestTemplate newResetTemplate(){
+        return  new RestTemplate();
     }
 }

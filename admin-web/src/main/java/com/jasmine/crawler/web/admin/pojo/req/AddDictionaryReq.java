@@ -19,7 +19,7 @@ public class AddDictionaryReq {
     private String type;
 
     @NotNull
-    private Integer value;
+    private String value;
 
     @NotNull
     private String label;

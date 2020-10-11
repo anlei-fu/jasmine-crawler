@@ -119,4 +119,27 @@ public class UpdateDownSystemSiteParams {
         return req.getTaskUrlMaxConcurrency();
     }
 
+    public String getName() {
+        return req.getName();
+    }
+
+    public String getDescription() {
+        return req.getDescription();
+    }
+
+    public Integer getDownSystemSiteType() {
+        return req.getDownSystemSiteType();
+    }
+
+    public  Integer getRunLimitMaxDays(){
+        return  req.getRunLimitMaxDays();
+    }
+
+    public  Integer getRunLimitMaxHours(){
+        return  req.getRunLimitMaxHours();
+    }
+
+    public  Integer getRunLimitAllowAutoBalance(){
+        return  req.getRunLimitAllowAutoBalance();
+    }
 }

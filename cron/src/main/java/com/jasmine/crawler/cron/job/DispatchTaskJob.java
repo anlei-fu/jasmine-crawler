@@ -3,8 +3,12 @@ package com.jasmine.crawler.cron.job;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.constant.BooleanFlag;
 import com.jasmine.crawler.common.constant.DispatchResult;
+import com.jasmine.crawler.common.constant.EnableTaskTimeout;
 import com.jasmine.crawler.common.pojo.entity.*;
+import com.jasmine.crawler.common.support.Counter;
+import com.jasmine.crawler.common.support.CounterProvider;
 import com.jasmine.crawler.common.support.LoggerSupport;
+import com.jasmine.crawler.common.util.DateUtils;
 import com.jasmine.crawler.cron.component.CrawlTaskTerminator;
 import com.jasmine.crawler.cron.config.SystemConfig;
 import com.jasmine.crawler.cron.pojo.req.CrawlTaskConfig;
@@ -60,14 +64,21 @@ public class DispatchTaskJob extends LoggerSupport {
     @Autowired
     private BlockRuleService blockRuleService;
 
+    @Autowired
+    private CounterProvider counterProvider;
+
+    @Autowired
+    private EnableTaskService enableTaskService;
+
     /**
      * Dispatch crawl task to crawler to run
      * 1. check site available
      * 2. check down site available
      * 3. check down system available
-     * 4. check crawler available
-     * 5. check proxy available
-     * 6. check cookie available
+     * 4. check proxy available
+     * 5. check cookie available
+     * 6. fetch url from url store
+     * 7. check crawler available
      * <p>
      * TODO: are these checks required ? binding job has already done check once
      */
@@ -229,6 +240,9 @@ public class DispatchTaskJob extends LoggerSupport {
                     DispatchResult.GET_URL_TO_RUN_FAILED,
                     "no url to run task"
             );
+            String ip =Objects.isNull(proxy)?crawler.getIp():proxy.getIp();
+            reduceIpLimit(site, ip,downSystemSite);
+            enableTaskService.scheduleNextEnable(downSystemSite.getId(), EnableTaskTimeout.NO_URL_TO_RUN);
             return false;
         }
 
@@ -290,6 +304,51 @@ public class DispatchTaskJob extends LoggerSupport {
         }
 
         return true;
+    }
+
+    private void reduceIpLimit(Site site, String ip, DownSystemSite downSystemSite) {
+
+        // 10 minutes ip limit check
+        if (site.getIp10MinuteSpeedLimit() != BooleanFlag.NO_NEED) {
+            long dateKey = System.currentTimeMillis() / (DateUtils.ONE_DAY_MS);
+            long mod = System.currentTimeMillis() % (DateUtils.ONE_DAY_MS);
+            long expire = DateUtils.ONE_DAY_MS - mod;
+            Counter tenMinuteLimitCounter = counterProvider.getCounter(
+                    String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
+                    site.getIp10MinuteSpeedLimit(),
+                    (int) expire
+            );
+
+           tenMinuteLimitCounter.reduceMax(site.getIp10MinuteSpeedLimit());
+        }
+
+        // hour ip limit check
+        if (site.getIpHourSpeedLimit() != BooleanFlag.NO_NEED) {
+            long dateKey = System.currentTimeMillis() / (DateUtils.ONE_HOUR_MS);
+            long mod = System.currentTimeMillis() % (DateUtils.ONE_HOUR_MS);
+            long expire = DateUtils.ONE_HOUR_MS - mod;
+            Counter hourLimitCounter = counterProvider.getCounter(
+                    String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
+                    site.getIpHourSpeedLimit(),
+                    (int) expire
+            );
+
+           hourLimitCounter.reduceMax(site.getIpHourSpeedLimit());
+        }
+
+        // day ip limit check
+        if (site.getIpDaySpeedLimit() != BooleanFlag.NO_NEED) {
+            long dateKey = System.currentTimeMillis() / (DateUtils.ONE_MINUTE_MS * 10);
+            long mod = System.currentTimeMillis() % (DateUtils.ONE_MINUTE_MS * 10);
+            long expire = DateUtils.ONE_MINUTE_MS * 10 - mod;
+            Counter dayLimitCounter = counterProvider.getCounter(
+                    String.format("counter_%d_%s_%d", site.getId(), ip, dateKey),
+                    site.getIpDaySpeedLimit(),
+                    (int) expire
+            );
+
+           dayLimitCounter.reduceMax(site.getIpDaySpeedLimit());
+        }
     }
 
     /**

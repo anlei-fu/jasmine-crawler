@@ -85,7 +85,7 @@ public class DownSystemSiteServiceImplTest {
 
     @Test
     public void testUpdateUrlNextCacheTimeoutJobTime() {
-        service.updateUrlNextCacheTimeoutJobExecuteTime(41);
+        service.updateUrlNextCacheTimeoutJobExecuteTime(54);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class DownSystemSiteServiceImplTest {
 
     @Test
     public void testUpdateUrlNextFailedRetryJobTime() {
-        service.updateUrlNextFailedRetryJobExecuteTime(41);
+        service.updateUrlNextFailedRetryJobExecuteTime(54);
     }
 
     @Test
@@ -105,6 +105,6 @@ public class DownSystemSiteServiceImplTest {
 
     @Test
     public void testUpdateUrlNextResetJobTime() {
-        service.updateUrlNextResetJobExecuteTime(41);
+        service.updateUrlNextResetJobExecuteTime(54);
     }
 } 

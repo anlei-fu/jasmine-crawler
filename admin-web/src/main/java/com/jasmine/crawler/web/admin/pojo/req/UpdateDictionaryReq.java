@@ -15,7 +15,9 @@ public class UpdateDictionaryReq {
 
     private String type;
 
-    private Integer value;
+    private String value;
+
+    private  Integer sortNumber;
 
     private String label;
 

@@ -11,6 +11,7 @@ import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlTaskPageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CrawlTaskDetail;
 import com.jasmine.crawler.web.admin.service.CrawlTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -24,8 +25,8 @@ public class CrawlTaskController extends ControllerBase {
     private CrawlTaskService crawlTaskService;
 
     @GetMapping(path = "/crawlTask/page")
-    public R<PageResult<CrawlTask>> getPage(@Validated GetCrawlTaskPageReq req) {
-        PageResult<CrawlTask> result = crawlTaskService.getPage(req);
+    public R<PageResult<CrawlTaskDetail>> getPage(@Validated GetCrawlTaskPageReq req) {
+        PageResult<CrawlTaskDetail> result = crawlTaskService.getPage(req);
         return responseData(result);
     }
 }

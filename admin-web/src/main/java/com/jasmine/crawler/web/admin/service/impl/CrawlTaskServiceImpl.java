@@ -10,6 +10,7 @@ import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.mapper.CrawlTaskMapper;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlTaskPageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CrawlTaskDetail;
 import com.jasmine.crawler.web.admin.service.CrawlTaskService;
 import com.jasmine.crawler.web.admin.utils.PageHelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
     private CrawlTaskMapper crawlTaskMapper;
 
     @Override
-    public PageResult<CrawlTask> getPage(GetCrawlTaskPageReq req) {
+    public PageResult<CrawlTaskDetail> getPage(GetCrawlTaskPageReq req) {
         return PageHelperUtils.paging(req, () -> crawlTaskMapper.getPage(req));
     }
 }

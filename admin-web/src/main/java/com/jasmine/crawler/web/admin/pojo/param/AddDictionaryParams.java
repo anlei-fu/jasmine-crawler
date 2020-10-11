@@ -27,7 +27,7 @@ public class AddDictionaryParams {
         return req.getType();
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return req.getValue();
     }
 

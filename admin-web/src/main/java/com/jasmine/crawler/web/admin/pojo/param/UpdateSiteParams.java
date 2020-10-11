@@ -79,6 +79,9 @@ public class UpdateSiteParams {
         return req.getIpMinuteSpeedLimit();
     }
 
+    public Integer getIp10MinuteSpeedLimit() {
+        return req.getIp10MinuteSpeedLimit();
+    }
     public Integer getIpDaySpeedLimit() {
         return req.getIpDaySpeedLimit();
     }

@@ -10,6 +10,8 @@ public class UpdateSiteBatchReq extends IdsFeature {
 
     private Integer ipMinuteSpeedLimit;
 
+    private Integer ip10MinuteSpeedLimit;
+
     private Integer ipHourSpeedLimit;
 
     private Integer ipDaySpeedLimit;

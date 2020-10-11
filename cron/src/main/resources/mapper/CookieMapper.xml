@@ -20,7 +20,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         set
         c.delay_timeout_time = date_add(
         current_timestamp,
-        interval (select cookie_delay_timeout from site where id= (select site_id from site_account where id=c.id) ) minute
+        interval (select cookie_delay_timeout from site where id = (select site_id from site_account where id = c.id) ) minute
         )
         where c.id = #{id}
     </update>
@@ -34,19 +34,17 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         select
         *
         from cookie c
-        join site_account sa on c.site_account_id = sa.id
-        join site s on sa.site_id = s.id
+        join site_account sa on c.site_account_id = sa.id and sa.enable_status = 1
+        join site s on sa.site_id = s.id and s.enable_status = 1
         where
         s.id = #{siteId}
         -- enabled
         and c.enable_status = 1
-        and s.enable_status = 1
-        and sa.enable_status = 1
         -- max concurrency
         and sa.current_use_count &lt; s.account_max_use_count
         -- delay
         and (s.account_delay_timeout = -1 or sa.delay_timeout_time &lt; current_timestamp)
-        -- if blocked
+        -- if site account blocked
         and sa.block_current_count &lt; s.account_max_block_count
         and sa.block_timeout_time &lt; current_timestamp
         --  max concurrency
@@ -58,7 +56,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         -- expired check
         and c.expire_time > current_timestamp
         order by sa.current_use_count , c.current_use_count
-        limit 1,1
+        limit 0,1
     </select>
     <select id="disableInvalidCookies">
         update cookie c

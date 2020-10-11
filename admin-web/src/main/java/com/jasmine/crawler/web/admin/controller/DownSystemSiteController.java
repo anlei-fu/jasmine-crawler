@@ -10,14 +10,12 @@ import com.jasmine.crawler.common.api.ControllerBase;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
-import com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq;
-import com.jasmine.crawler.web.admin.pojo.req.GetDownSystemSitePageReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteBatchReq;
-import com.jasmine.crawler.web.admin.pojo.req.UpdateDownSystemSiteReq;
+import com.jasmine.crawler.web.admin.pojo.req.*;
 import com.jasmine.crawler.web.admin.service.DownSystemSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +26,9 @@ public class DownSystemSiteController extends ControllerBase {
 
     @Autowired
     private DownSystemSiteService downSystemSiteService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @PostMapping(path = "/downSystemSite")
     public R add(@RequestBody @Validated AddDownSystemSiteReq req) throws IOException {
@@ -99,5 +100,37 @@ public class DownSystemSiteController extends ControllerBase {
             @Validated GetDownSystemSitePageReq req) {
         PageResult<DownSystemSite> result = downSystemSiteService.getPage(req);
         return responseData(result);
+    }
+
+    @GetMapping(path = "/downSystemSite/getBySiteId/{siteId}")
+    public  R<List<DownSystemSite>> getBySiteId(@PathVariable Integer siteId){
+        List<DownSystemSite> result =downSystemSiteService.getBySiteId(siteId);
+        return  responseData(result);
+    }
+
+    @PostMapping(path = "/downSystemSite/balance")
+    public  R balance(@RequestBody BalanceDownSystemSiteReq req){
+        String url =String.format(
+                "http://localhost:10040/downSystemSiteTool/balance?downSystemSiteId=%d&maxDays=%d&maxHours=%d",
+                req.getDownSystemSiteId(),
+                req.getRunLimitMaxDays(),
+                req.getRunLimitMaxHours()
+        );
+       return  restTemplate.getForObject(url, R.class);
+    }
+
+    @PostMapping(path = "/downSystemSite/resetConcurrency/{downSystemSiteId}")
+    public  R resetConcurrency(@PathVariable Integer downSystemSiteId){
+        String url =String.format(
+                "http://localhost:10040/downSystemSiteTool/resetConcurrency/%d",
+                downSystemSiteId
+        );
+        return  restTemplate.getForObject(url, R.class);
+    }
+
+    @PostMapping(path = "/downSystemSite/resetJob")
+    public  R resetJob(@RequestBody ResetJobReq req){
+        boolean result =downSystemSiteService.resetJob(req);
+        return success();
     }
 }

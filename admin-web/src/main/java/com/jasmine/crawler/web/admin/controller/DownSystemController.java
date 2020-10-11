@@ -51,11 +51,11 @@ public class DownSystemController extends ControllerBase {
         if (Objects.isNull(req.getIds()) || req.getIds().size() == 0)
             return failed("no data to update");
 
-        int success = downSystemService.updateBatch(req);
+        int succeed = downSystemService.updateBatch(req);
         return success(String.format(
                 "excepted to update %d data,actual succeed %d ",
                 req.getIds().size(),
-                success)
+                succeed)
         );
     }
 
@@ -69,5 +69,9 @@ public class DownSystemController extends ControllerBase {
     public R<PageResult<DownSystem>> getPage(@Validated GetDownSystemPageReq req) {
         PageResult<DownSystem> result = downSystemService.getPage(req);
         return responseData(result);
+    }
+
+    public  R resetConcurrency(){
+        return  responseBoolean(true);
     }
 }

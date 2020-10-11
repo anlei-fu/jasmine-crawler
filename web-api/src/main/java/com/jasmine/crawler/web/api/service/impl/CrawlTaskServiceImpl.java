@@ -115,16 +115,16 @@ public class CrawlTaskServiceImpl extends LoggerSupport implements CrawlTaskServ
             // save dispatch url result
             Map<Integer, List<Url>> urls = downSystemSiteDispatchService.dispatch(req, downSystemSiteId);
             for (Map.Entry<Integer, List<Url>> pair : urls.entrySet()) {
-                List<com.jasmine.crawler.common.pojo.dto.PageResult> results = new LinkedList<>();
+                List<com.jasmine.crawler.common.pojo.dto.PageResult> pageResults = new LinkedList<>();
                 com.jasmine.crawler.common.pojo.dto.PageResult result = com.jasmine.crawler.common.pojo.dto.PageResult.builder()
                         .newUrls(pair.getValue())
                         .downSystemSiteId(pair.getKey())
                         .build();
 
-                results.add(result);
+                pageResults.add(result);
 
                 SaveUrlResultReq saveUrlResultReq = SaveUrlResultReq.builder()
-                        .pageResults(results)
+                        .pageResults(pageResults)
                         .downSystemSiteId(downSystemSiteId)
                         .build();
                 urlResultSaveService.saveUrlResult(saveUrlResultReq);

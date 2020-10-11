@@ -21,6 +21,13 @@ public class BloomManagerImpl implements BloomFilterManager {
     @Autowired
     private BloomMapper bloomMapper;
 
+    /**
+     * Get filter from cache or create filter and store in cache
+     *
+     * @param downSystemSiteId
+     * @return
+     * @throws Exception
+     */
     @Override
     public JasmineBloomFilter get(Integer downSystemSiteId) throws Exception {
         if (cache.containsKey(downSystemSiteId)) {

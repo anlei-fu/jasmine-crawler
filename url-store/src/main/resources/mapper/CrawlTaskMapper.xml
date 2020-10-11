@@ -9,8 +9,8 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
     <update id="syncUrl">
         update crawl_task
         set url_sync_status = 1,
-        url_new_count = #{urlNewCount}
-        url_sync_time =CURRENT_TIMESTAMP
+        url_new_count = #{urlNewCount},
+        url_sync_time = CURRENT_TIMESTAMP
         where id = #{id}
     </update>
 </mapper>

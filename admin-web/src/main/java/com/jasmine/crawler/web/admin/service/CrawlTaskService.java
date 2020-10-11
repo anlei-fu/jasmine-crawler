@@ -9,8 +9,9 @@ package com.jasmine.crawler.web.admin.service;
 import com.jasmine.crawler.common.pojo.entity.CrawlTask;
 import com.jasmine.crawler.common.pojo.resp.PageResult;
 import com.jasmine.crawler.web.admin.pojo.req.GetCrawlTaskPageReq;
+import com.jasmine.crawler.web.admin.pojo.vo.CrawlTaskDetail;
 
 public interface CrawlTaskService {
 
-    PageResult<CrawlTask> getPage(GetCrawlTaskPageReq req);
+    PageResult<CrawlTaskDetail> getPage(GetCrawlTaskPageReq req);
 }

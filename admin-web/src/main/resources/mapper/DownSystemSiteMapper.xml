@@ -5,7 +5,7 @@ boot, mybatis, mysql,swagger,spring-security.
 Generated at 2020-7-31 9:09:23 PM
 All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
 <mapper namespace="com.jasmine.crawler.web.admin.mapper.DownSystemSiteMapper">
-    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq">
+    <insert id="add" parameterType="com.jasmine.crawler.web.admin.pojo.req.AddDownSystemSiteReq" useGeneratedKeys="true" keyProperty="id">
         insert into down_system_site
         <trim prefix="(" suffix=")" suffixOverrides=",">
             site_id,
@@ -16,6 +16,13 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="priority!=null">
                 priority,
             </if>
+            <if test="name!=null and name != ''">
+                name,
+            </if>
+            <if test="description!=null and description !=''">
+                description,
+            </if>
+            down_system_site_type,
             <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
                 crawler_page_encoding,
             </if>
@@ -65,7 +72,7 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 task_url_max_fail_count,
             </if>
             <if test="taskUrlMaxContinuouslyFailCount != null">
-                #{task_url_max_continuously_fail_count},
+                task_url_max_continuously_fail_count,
             </if>
             <if test="taskUrlMaxConcurrency != null">
                 task_url_max_concurrency,
@@ -73,6 +80,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="enableStatus != null">
                 enable_status,
             </if>
+            run_limit_max_days,
+            run_limit_max_hours,
+            run_limit_allow_auto_balance,
             create_time
         </trim>
         values
@@ -85,6 +95,13 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="priority!=null">
                 #{priority},
             </if>
+            <if test="name!=null and name != ''">
+                #{name},
+            </if>
+            <if test="description!=null and description !=''">
+                #{description},
+            </if>
+            #{downSystemSiteType},
             <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
                 #{crawlerPageEncoding},
             </if>
@@ -136,6 +153,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             <if test="enableStatus != null">
                 #{enableStatus},
             </if>
+            #{runLimitMaxDays},
+            #{runLimitMaxHours},
+            #{runLimitAllowAutoBalance},
             current_timestamp
         </trim>
     </insert>
@@ -156,6 +176,15 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             </if>
             <if test="priority != null">
                 t.priority = #{priority},
+            </if>
+            <if test="name!= null and name != ''">
+                t.name= #{name},
+            </if>
+            <if test="description!=null and description !=''">
+                t.description = #{description},
+            </if>
+            <if test="downSystemSiteType!=null">
+                t.down_system_site_type =#{downSystemSiteType},
             </if>
             <if test="crawlerPageEncoding != null and crawlerPageEncoding != ''">
                 t.crawler_page_encoding = #{crawlerPageEncoding},
@@ -218,6 +247,16 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 t.enable_status = #{enableStatus},
             </if>
 
+            <if test="runLimitMaxDays != null">
+                t.run_limit_max_days = #{runLimitMaxDays},
+            </if>
+            <if test="runLimitMaxHours != null">
+                t.run_limit_max_hours = #{runLimitMaxHours},
+            </if>
+            <if test="runLimitAllowAutoBalance != null">
+                t.run_limit_allow_auto_balance = #{runLimitAllowAutoBalance},
+            </if>
+
         </set>
         <where>
             t.id = #{id}
@@ -253,6 +292,17 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             #{item}
         </foreach>
     </update>
+    <update id="resetJob">
+        update down_system_site
+        set
+        url_failed_retry_timeout = #{urlFailedRetryTimeout},
+        url_failed_retry_job_interval = #{urlFailedRetryJobInterval},
+        url_reset_timeout = #{urlResetTimeout},
+        url_reset_job_interval = #{urlResetJobInterval},
+        url_cache_timeout= #{urlCacheTimeout},
+        url_cache_timeout_job_interval = #{urlCacheTimeoutJobInterval}
+        where id = #{downSystemSiteId}
+    </update>
     <select id="getById" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
           select
              t.id,
@@ -260,6 +310,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.script_path,
              t.down_system_id,
              t.priority,
+             t.name,
+             t.description,
+             t.down_system_site_type,
              t.crawler_page_encoding,
              t.crawler_page_timeout,
              t.crawler_crawl_type,
@@ -284,6 +337,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
              t.task_url_max_fail_count,
              t.task_url_max_continuously_fail_count,
              t.task_url_max_concurrency,
+             t.run_limit_allow_auto_balance,
+             t.run_limit_max_days,
+             t.run_limit_max_hours,
              t.enable_status,
              t.create_time
              from down_system_site t
@@ -297,6 +353,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.script_path,
         t.down_system_id,
         t.priority,
+        t.name,
+        t.description,
+        t.down_system_site_type,
         t.crawler_page_encoding,
         t.crawler_page_timeout,
         t.crawler_crawl_type,
@@ -309,6 +368,15 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.url_max_crawl_count,
         t.url_max_depth,
         t.url_match_patterns,
+        t.url_failed_retry_timeout,
+        t.url_failed_retry_job_interval,
+        t.url_next_failed_retry_job_execute_time,
+        t.url_reset_timeout,
+        t.url_reset_job_interval,
+        t.url_next_reset_job_execute_time,
+        t.url_cache_timeout,
+        t.url_cache_timeout_job_interval,
+        t.url_next_cache_timeout_job_execute_time,
         t.bloom_expected_url_size,
         t.bloom_fpp,
         t.task_url_batch_count,
@@ -321,6 +389,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
         t.task_url_max_fail_count,
         t.task_url_max_continuously_fail_count,
         t.task_url_max_concurrency,
+        t.run_limit_allow_auto_balance,
+        t.run_limit_max_days,
+        t.run_limit_max_hours,
         t.enable_status,
         t.create_time
         from down_system_site t
@@ -330,6 +401,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
             </if>
             <if test="scriptId != null">
                 and t.script_id = #{scriptId}
+            </if>
+            <if test="downSystemSiteType != null">
+                and t.down_system_site_type = #{downSystemSiteType}
             </if>
             <if test="downSystemId != null">
                 and t.down_system_id = #{downSystemId}
@@ -347,5 +421,9 @@ All rights reserved by fuanlei(email:767550758@qq.com) since 2019 -->
                 and t.create_time &lt; #{createTimeEnd}
             </if>
         </where>
+        order by t.down_system_id, t.site_id,t.down_system_site_type desc
+    </select>
+    <select id="getBySiteId" resultType="com.jasmine.crawler.common.pojo.entity.DownSystemSite">
+        select * from down_system_site where site_id = #{siteId}
     </select>
 </mapper>

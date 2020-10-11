@@ -54,7 +54,7 @@ public class CrawlTaskServiceImpl implements CrawlTaskService {
 
     @Override
     public List<CrawlTask> getExecuteTimeoutTasks() {
-        return crawlTaskMapper.getTimeoutTasksToTerminate();
+        return crawlTaskMapper.getExecuteTimeoutTasks();
     }
 
     @Override

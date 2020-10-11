@@ -3,6 +3,7 @@ package com.jasmine.crawler.cron.service.impl;
 import com.jasmine.crawler.common.api.resp.R;
 import com.jasmine.crawler.common.pojo.entity.DownSystemSite;
 import com.jasmine.crawler.common.pojo.entity.Url;
+import com.jasmine.crawler.common.support.LoggerSupport;
 import com.jasmine.crawler.cron.mapper.UrlMapper;
 import com.jasmine.crawler.cron.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class UrlServiceImpl implements UrlService {
+public class UrlServiceImpl extends LoggerSupport implements UrlService {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -27,13 +28,14 @@ public class UrlServiceImpl implements UrlService {
             R<List<Url>> result = restTemplate.getForObject(String.format("http://localhost:10042/url/getByDownSystemSiteId/%d", downSystemSiteId), R.class);
             return result.getData();
         } catch (Exception ex) {
+            this.error("fetch url failed", ex);
             return new LinkedList<>();
         }
     }
 
     @Override
     public int resetCachedUrlToWaitByDownSystemSite(DownSystemSite downSystemSiteId) {
-        return urlMapper.resetCacheUlrToWaitByDownSystemSite(downSystemSiteId);
+        return urlMapper.resetCachedUlrToWaitByDownSystemSite(downSystemSiteId);
     }
 
     @Override

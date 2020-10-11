@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description:
  */
 @SpringBootApplication
-
 @MapperScan("com.jasmine.crawler.tool.mapper")
 public class Application {
     public static void main(String[] args) {
